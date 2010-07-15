@@ -1,9 +1,12 @@
 #+TITLE: Data Acquisiton Project for CJPL
 #+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
+#+OPTIONS: toc:nil
 
-URL: http://github.com/exaos/daq4cjpl/
+锦屏山极深地下实验室的数据获取项目。详细内容有待完善。项目资料请参见：
+http://github.com/exaos/daq4cjpl/
 
 * Git repository
   + read-only URL: git://github.com/exaos/daq4cjpl.git
+  + git page: http://github.com/exaos/daq4cjpl/
   + Please see the README.txt in the repo.
     http://github.com/exaos/daq4cjpl/blob/master/README.txt
