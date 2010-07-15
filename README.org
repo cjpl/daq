@@ -1,0 +1,18 @@
+#+ -*- mode: org; coding: utf-8;
+#+TITLE: Data Acquisiton Project for CJPL
+#+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
+
+#+FILETAGS: :4job:CJPL:DAQ:
+#+TAGS: NTOF THU NKU TEXONO
+#+TAGS: code c cpp python shell gui
+#+TAGS: root vme camac hv det
+
+#+SEQ_TODO: TODO | DONE
+#+SEQ_TODO: REPORT BUG NOTE KNOWNCAUSE | FIXED
+#+SEQ_TODO: | CANCELED FAILED TIMEOUT
+#+SEQ_TODO: ASAP MAYBE WAIT | DONE
+
+#+OPTIONS: toc:2
+#+OPTIONS: skip:t
+#+TEXT: This project handles codes and utilites for data acquistion in CJPL.
+#+TEXT: 该项目包含用于 CJPL 中数据获取相关的程序与资料。
