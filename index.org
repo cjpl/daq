@@ -1,0 +1,9 @@
+#+TITLE: Data Acquisiton Project for CJPL
+#+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
+
+URL: http://github.com/exaos/daq4cjpl/
+
+* Git repository
+  + read-only URL: git://github.com/exaos/daq4cjpl.git
+  + Please see the README.txt in the repo.
+    http://github.com/exaos/daq4cjpl/blob/master/README.txt
