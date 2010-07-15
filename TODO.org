@@ -17,3 +17,6 @@
 * INBOX
 
 * Journal
+** <2010-07-15 四 16:05> Git pages created
+   + Official URL http://exaos.github.com/daq4cjpl/
+   + Official repo http://github.com/exaos/daq4cjpl/
