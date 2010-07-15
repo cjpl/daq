@@ -2,11 +2,46 @@
                         ================================
 
 Author: Exaos Lee <Exaos.Lee(at)gmail.com>
-Date: 2010-07-15 11:10:54 CST
+Date: 2010-07-15 15:07:14 CST
 
 
 This project handles codes and utilites for data acquistion in CJPL.
-该项目包含用于 CJPL 中数据获取相关的程序与资料。
+该项目包含用于景屏山极深地下实验室中数据获取相关的程序与资料。中文资料请参考 README_zh.txt
+
+Table of Contents
+=================
+1 About the project 
+2 References and footnotes 
 
 
+1 About the project 
+~~~~~~~~~~~~~~~~~~~~
+
+  The first report[1] about CJPL was published on Science at June
+  5 2009. After that, the lab's construction is steadily in progress. This
+  project contains codes and utilites to meet data acquisition tasks in
+  CJPL. The latest progress about CJPL can be found in article[2] or
+  report[3], and[4].
+
+2 References and footnotes 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  + CJPL position in Google Maps -- [http://goo.gl/xwcA] (You may use the
+    coordination directly in google maps: 28.153227,101.711369)
+  + Bookmarks about underground laboratories -- [http://goo.gl/9sGQ]
+
+
+[1] Science, Vol.324 no.5932 pp.1246-1247, [doi:10.1126/science.324\_1246]
+
+[2] K. J. Kang et al 2010 J. Phys.: Conf. Ser. 203 012028;
+[doi:10.1088/1742-6596/203/1/012028]
+
+[3] [http://goo.gl/MiTI] or [http://bit.ly/bdrEl7]
+
+[4] [doi:10.1016/j.nima.2010.05.017]
+
+
+[doi:10.1126/science.324\_1246]: http://dx.doi.org/10.1126/science.324_1246
+[doi:10.1088/1742-6596/203/1/012028]: http://dx.doi.org/10.1088/1742-6596/203/1/012028
+[doi:10.1016/j.nima.2010.05.017]: http://dx.doi.org/10.1016/j.nima.2010.05.017
 

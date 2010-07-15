@@ -1,0 +1,19 @@
+#+ -*- mode: org; coding: utf-8;
+#+TITLE: TODO list of DAQ4CJPL
+#+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
+
+#+FILETAGS: :4job:CJPL:DAQ:
+#+TAGS: NTOF THU NKU TEXONO
+#+TAGS: code c cpp python shell gui
+#+TAGS: root vme camac hv det
+
+#+SEQ_TODO: TODO | DONE
+#+SEQ_TODO: REPORT BUG NOTE KNOWNCAUSE | FIXED
+#+SEQ_TODO: | CANCELED FAILED TIMEOUT
+#+SEQ_TODO: ASAP MAYBE WAIT | DONE
+
+#+OPTIONS: toc:nil
+
+* INBOX
+
+* Journal
