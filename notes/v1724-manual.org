@@ -1,0 +1,66 @@
+#+TITLE: V1724 手册笔记
+
+* General Description
+** Overview
+
+   AMC: ADC eMemory controller FPGA.
+
+   + 输入: 默认 2.25 Vpp (50 Ohm)
+   + Circular memory buffer
+   + 面板参考时钟 I/O
+   + 数据传输: D32, BLT, MBLT, 2eVME, 2eSST, D23/64 CBLT
+   + 控制: VME bus, 或光纤 + A2818
+   + V1724LC 不支持光纤
+   + V430 背板 (backplanes)
+   + 光纤控制： 3.13 节
+   + 供电: 2.2 节
+   + 面板: 
+     - Analog inputs: 2.25 Vpp (Zin=100Ω) 或 10 Vpp (Zin=1kΩ)
+     - External Clock In
+     - Internal Clock Out
+     - Local Trigger Out (TRG OUT)
+     - External Trigger In (TRG IN)
+     - Sync/Sample Start (S IN)
+     - Analog/Monitor Output
+     - Digital I/O's
+     - LEDs
+   + 技术参数: p17, sec 2.7
+
+* 功能详述
+** 模拟信号输入
+   + Single ended input[fn:1]
+   + Differential input[fn:2]
+
+[fn:1] 信号直接从源连接到采集接口。此连接方式要求单一的源接地完好，信号地与插件的
+地相同。如果接地电平不同或有噪声信号，则误差严重。
+
+[fn:2] 微分输入要求输入两路信号，分别接到 + 和 - 端。这种连接不要求地的电位相同，
+只考虑 +/- 极之间的电位差。
+
+** 时钟分布
+   + OSC-CLK
+   + REF-CLK
+
+*** 直接驱动模式 (Direct Drive Mode)
+
+*** PLL Mode
+
+*** Trigger Clock
+
+*** AD9510 编程
+
+*** PLL 编程
+
+*** 直接驱动编程
+
+*** 配置文件
+
+*** 多板同步
+
+** 采集模式
+
+* 其它
+** 采用 V1724 的实验
+   + XENON100 Dark Matter Experiment:
+     - arXiv:0902.4253v1 [astro-ph.IM]
+     - doi:10.1088/1742-6596/203/1/012005

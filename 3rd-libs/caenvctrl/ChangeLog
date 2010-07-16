@@ -1,0 +1,11 @@
+2010-07-13 Exaos Lee <Exaos.Lee(at)gmail.com>
+
+	* Makefile: Add LIBS
+	* inst-dynlib.sh: Works
+
+2010-07-12 Exaos Lee <Exaos.Lee(at)gmail.com>
+
+	* Initialize the caenvctrl directory.
+	* inst-dynlib.sh: First added.
+	* ChangeLog: First added.
+

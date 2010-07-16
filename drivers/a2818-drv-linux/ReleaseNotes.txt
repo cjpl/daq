@@ -1,0 +1,166 @@
+  -----------------------------------------------------------------------------
+
+                   --- CAEN SpA - Computing Systems Division --- 
+
+  -----------------------------------------------------------------------------
+
+  A2818 Driver Release Notes
+
+  -----------------------------------------------------------------------------
+
+  Rel. 1.13 - June      2009
+  Rel. 1.12 - April     2009
+  Rel. 1.11 - September 2009
+  Rel. 1.10 - June      2008
+  Rel. 1.9  - February  2008
+  Rel. 1.8  - March     2007
+  Rel. 1.7  - February  2007
+  Rel. 1.6  - August    2006
+  Rel. 1.5  - January   2006
+  Rel. 1.4  - December  2005
+  Rel. 1.3  - August    2005
+  Rel. 1.2  - May       2005
+  Rel. 1.0  - June      2004
+
+  -----------------------------------------------------------------------------
+
+
+  Description
+  -----------
+
+  This document is updated for every official release of the CAEN A2818 Driver
+  and it contains various information specific to this software which can not be
+  found in the User's Manual, available together with the software or on the CAEN
+  web site: http://www.caen.it.
+
+
+ System Requirements
+ -------------------
+
+  - CAEN A2818 PCI Board
+  - Linux kernel 2.4 or 2.6 and GNU C/C++ compiler
+
+  What's New in Rel. 1.13
+  --------------------------
+   - BUGFIX on proc entry registration
+   - BUGFIX on a2818_init_board: memory was not well dealocated in case of errors
+   - BUGFIX on cleanup_module: Bad deallocation of kernel memory
+
+  What's New in Rel. 1.12
+  --------------------------
+   - added usage count management to avoid system hang unloading a busy module
+
+  What's New in Rel. 1.11
+  --------------------------
+   - Added SAFE_MODE to avoid system hang with concurrent processes accessing 
+	   more than one A2818 in the same PC.
+
+  What's New in Rel. 1.10
+  --------------------------
+
+    - Added conditional compiler directive to comply with kernel versions >= 2.6.23
+
+  What's New in Rel. 1.9
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+   
+    - a2818_link_reset: modified udelay value to 10 msec to comply with CAENLink devices
+    - BUGFIX on a2818_init_board: s->timeout was setted to a fixed jiffes number: 
+      now the timeout value is setted in msecs and converted to jiffes
+    - Substitution of milliseconds udelay's calls with mdelay once
+
+  
+  What's New in Rel. 1.8
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+
+    - Register device only if HW is present otherwise the kernel
+      crashes with a cat /proc/devices
+    - ioctl:A2818_IOCTL_IRQ_WAIT now returns ETIMEDOUT instead of -ETIMEDOUT, in order to give
+      to CAENVMElib a chance to detect IRQ timeout errors
+
+  What's New in Rel. 1.7
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+
+    - Better error handling in the link fail: it did not reset correctly
+      when disconnected during a communication.
+
+
+  What's New in Rel. 1.6
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+
+    - Bug fix on a2818_ioctl, case A2818_IOCTL_SEND: added packet's
+        header build step
+    Contributions from Brent Casavant at Silicon Graphics, Inc. (bcasavan@sgi.com)
+    - Port to 64-bit architectures
+    - Ensure writes are flushed to I/O domain where necessary ( Linux Version>= 2.6.10)
+    - Allocate DMA memory correctly for architectures with IOMMUs (Linux Version >= 2.6.9)
+    - Unlocked ioctl() method alleviates system performacne problems ( Linux Version>= 2.6.11)
+
+  What's New in Rel. 1.5
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+
+    - Kernel 2.6.9 porting
+    - A2818_IOCTL_REV added: get driver revision
+
+  What's New in Rel. 1.4
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+   
+    - SMP compliance bug fixing.
+
+  What's New in Rel. 1.3
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+   
+    - SMP compliance.
+    - Fixed the automatic link reset handling.
+
+
+  What's New in Rel. 1.2
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+   
+    - Fixed a bug on minor number handling.
+    - Fixed the reading of status word at the and of the last packet.
+    - Now we use kmap_atomic instead of page_address to solve problems
+      with some installations.
+    - Introduced the test on link fail condition and the link reset
+      in order to avoid the need of driver reloading.
+           
+ 
+  What's New in Rel. 1.0
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+
+   - First release.
+
+
+  How to get support
+  ------------------
+
+  Our Software Support Group is available for questions, support and any other 
+  software related issue concerning CAEN Power Supplies; for software support
+  visit the page www.caen.it/computing/support.php.
+

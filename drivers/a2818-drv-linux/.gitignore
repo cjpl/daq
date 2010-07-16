@@ -1,0 +1,9 @@
+tmp
+tmp/**/*
+.*~
+*~
+.DS_Store
+._.*
+modules.order
+Module.symvers
+*.ko
