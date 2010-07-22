@@ -29,7 +29,13 @@
 * 功能详述
 ** 模拟信号输入
    + Single ended input[fn:1]
+     - 动态范围 2.25 Vpp, Zin = 50 Ω, DAC 偏移 ±1.125 V
+     - 动态范围 10.0 Vpp, Zin = 1 kΩ, DAC 偏移 ±5.0 V
+     - DAC偏移为 16-bit，用于保证动态范围匹配单极性的正／负输入信号
    + Differential input[fn:2]
+     - 输入动态范围为 ±1.125 V, Zin = 50 Ω
+     - 输入带宽从 DC 到 40 MHz (带有二阶线性相位反走样低通滤波器, 2nd order
+       linear phase anti-aliasing low pass filter)
 
 [fn:1] 信号直接从源连接到采集接口。此连接方式要求单一的源接地完好，信号地与插件的
 地相同。如果接地电平不同或有噪声信号，则误差严重。
@@ -38,24 +44,90 @@
 只考虑 +/- 极之间的电位差。
 
 ** 时钟分布
-   + OSC-CLK
-   + REF-CLK
-
+   原理参见 Fig 3.3. 分为两部分：
+   + OSC-CLK: 由板载振荡器 (oscillator) 提供的固定 50 MHz 的时钟
+   + REF-CLK: ADC 取样时钟
+     - 通过一个时钟链控制 ADC 取样、触发逻辑、采集逻辑 (波形存储在 RAM, 根据触发
+       缓冲区锁定).
+     - 可使用前置面板输入的外部时钟或内部振荡器提供的内部时钟 (通过 SW1 跳线, 参
+       见 2.6 节). 使用内部时钟， OSC-CLK 与 REF-CLK 将会同步。
+     - 由 AD9510 设备处理，它提供六路时钟输出；4 路送往 ADC, 一路给触发，另一路给
+       CLK-OUT 输出。
+     - AD9510: http://www.analog.com/UploadedFiles/Data_Sheets/AD9510.pdf
+       * Direct Drive Mode
+       * PLL Mode
 *** 直接驱动模式 (Direct Drive Mode)
+    此模式来驱动外部 ADC 采样时钟；通常在取样频率不是 VCXO 频率的约数倍频时采用。
+    对 SAMP-CLK 的唯一要求是保持在 ADC 范围之内。
 
 *** PLL Mode
+    AD9510 事宜内部相位探测，它允许 REF-CLK 与 VCXO (1 GHz 频率) 同步；此时需要
+    REF-CLK 是 1 GHz 的约数倍频。
+
+    AD9510 默认设置板载内部时钟 (50 MHz) 作为 REF-CLK 的时钟源。该设置使得
+    Ndiv=100, Rdiv=5, 在相位探测器上的输入为 10 MHz, CLK-INT = 1 GHz.
+
+    当使用外部时钟源时，若它的频率为 50 MHz, 则 AD9510 编程不再需要，否则必须修改
+    Ndiv 和 Rdiv 以实现 PLL 锁定。
+
+    REF-CLK 频率的稳定性依据设计要求要好于 100ppm.
 
 *** Trigger Clock
+    TRG-CLK 信号的频率等于 SAMP-CLK 的一半； therefore a 2 samples "uncertainty"
+    occurs over the acquisition window.
+
+*** 输出时钟
+    前置面板时钟是用户可编程的。参数 Odiv 和 Odel 
 
 *** AD9510 编程
+    软件： CAENPLLConfig
+    1. 通过 CAEN VEM Controller 控制
+    2. 使用 wxWidgets 2.6.3 开发
+    3. 需要 CAENVMETool API 安装
+    4. http://www.caen.it/nuclear/lista-sw.php?mod=V1724
 
 *** PLL 编程
+    PLL 模式下，用户需要对输入时钟频率进行分频。VCXO 为 1GHz, 如果使用 50 MHz 外
+    部时钟，则需要 20 分频。
 
 *** 直接驱动编程
+    Direct Drive/BYPASS 模式，直接设置输入频率。
 
 *** 配置文件
+    配合 CAENPLLConfig 使用，所有的 AD9510 设置可存盘。
 
 *** 多板同步
+    多块 V1724 同步工作 (所有通道采样时钟都一致), 就必须使用外部时钟。此时有两种
+    方法：
+    1. 菊花链，时钟从一块板传递到另一块，第一块为“时钟主板” ("clock master", 该
+       源既可以是内部时钟，也可以是外部参考，由用户设定)
+    2. 树状结构，使用相同时钟配发器 (fan-out 单元, 带有 "low skew" 输出，线缆长度固定)
+
+    两种情形，目的是使得所有 REF-CLK 信号具有相同的相位。由于 PLL 将 VCXO 输出信
+    号相位赋给 REF-CLK, 同步的结果是所有 V1724 的 1GHz VCXO 输出信号在相位上完美
+    匹配。但是，尽管 V1724 有同样的 1GHz 参考时钟，并不能保证取样时钟是对齐的。实
+    际上，通过时钟分频产生的取样时钟可能导致这样的信号处于不同的相位，如
+    Fig. 3.5 所示，此处两个 250 MHz (分频=4) 都来自 1GHz VCXO 的输出。
+
+    为保证所有的分频输出对齐, AD9510 提供了一个 SYNCB 输入；所有的分频器的相位都
+    在 SYNCB 边缘上。当电路板复位时自动完成此举，从而保证同一块板所有通道的取样时
+    钟相同。但同步多块 V1724 的取样频率是必须的，故 SYNCB 信号需要同样地依次同步。
+
+    对于印刷电路板版本号 2 (或以上) 的插件，通过接收 EXT-CLK 时钟输入通过一个 D-
+    边缘触发器 (D-Edge Triggered Flip Flop) 对齐 SYNCB 从而实现同步。这样就保证了
+    所有插件的 SYNCB 处于相同相位。对于版本号为 1 的印刷电路板, SYNCB 的同步可通
+    过 S-IN 信号获得。实际上在 S-IN 前沿，当电路板编程恰当后, ROC FPGA 发送一个脉
+    冲到 SYNCB. 为避免“不确定性”，必须要求 S-IN 发送到所有插件与 EXT-CLK 同相
+    位；这将使用 V1724 以相同的时钟周期来接收。 (???, man.p22.)
+
+    采样时钟信号同步后，插件相互之间的相位相同，所有的信号会同时被写入存储器。
+
+    然而，为保证外部触发信号相关的采集窗也对齐，必须要求 TRG-IN 信号送往所有的插
+    件与 EXT-CLK 同步，并与它们的前沿设置时间一致。 (???)
+
+    实际上，如果 EXT-TRG 与 EXT-CLK 不关联，一块板可能在一定时钟周期内响应，而另
+    一块则会在后续时钟周期内响应。这样，根据触发到达时间，在采集存储缓冲区的位置
+    上会导致一个 EXT-CLK 周期的不确定度 (接着是一个 SAMP-CLK 差异)。
 
 ** 采集模式
 
@@ -64,3 +136,35 @@
    + XENON100 Dark Matter Experiment:
      - arXiv:0902.4253v1 [astro-ph.IM]
      - doi:10.1088/1742-6596/203/1/012005
+
+** 实用数字信号处理
+   + URL http://wgmconsulting.com/Diginst.pdf
+   + Practical Digital Signal Processing, by W.G. Marshall
+   + 推荐图书 -- http://goo.gl/WLG2
+
+*** Signal Conditioning
+    + Signal too small (or too large!)
+    + Interference (High-Frequency noise) present
+    + Signal Non-Linear
+    + AC signal has a DC Offset
+    + Source/Load impedance matching needed
+      - Max voltage transfer: Z_L >> Z_S often required for low-output sensors.
+      - Max power transfer: Z_L = Z_S More common in communications circuits.
+*** Conditioning Processes
+    + Change Format
+      - Light -> Frequency
+    + Change Levels
+    + Reduce noise interference
+      - Band-pass filter, e.g. Notch Filter at 50 Hz
+    + Linearize, perhaps digitally
+    + Band-limit (Anti-aliasing) Low-pass filter
+    + Protection: Over-voltage, Reverse polarity
+*** ADC type selection
+    + Dual-ramp: slow, noise-insensitive. Conv time in msescs.
+    + Successive approximation: general purpose, conv. time 30~100 µs
+    + Flash: very fast, expensive, conv time < 20 ns
+    + Data Acquisition Chips
+      - Usually include analogue multiplexers, dual-port RAM, DAC. Easy
+        interface to DSPs.
+*** Digital to Analogue hardware
+

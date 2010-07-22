@@ -20,3 +20,10 @@
 ** <2010-07-15 四 16:05> Git pages created
    + Official URL http://exaos.github.com/daq4cjpl/
    + Official repo http://github.com/exaos/daq4cjpl/
+
+** <2010-07-16 五 14:56> Import stuff from other repos
+   + 3rd-libs/caenvctrl      -- CAENVMElib with MIDAS mvmestd support
+   + drivers/a2818-drv-linux -- A2818 PCI-VME interface card driver for Linux
+   + misc/pyutil             -- Python utilites to handle libmvme_*.so libs
+   + midas/cmake             -- CMake support for MIDAS
+
