@@ -1,28 +1,27 @@
 #+ -*- mode: org; coding: utf-8;
 #+TITLE: Data Acquisiton Project for CJPL
 #+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
-
 #+FILETAGS: :4job:CJPL:DAQ:
 #+TAGS: NTOF THU NKU TEXONO
 #+TAGS: code c cpp python shell gui
 #+TAGS: root vme camac hv det
-
 #+SEQ_TODO: TODO | DONE
 #+SEQ_TODO: REPORT BUG NOTE KNOWNCAUSE | FIXED
 #+SEQ_TODO: | CANCELED FAILED TIMEOUT
 #+SEQ_TODO: ASAP MAYBE WAIT | DONE
-
 #+OPTIONS: toc:2
-#+OPTIONS: skip:t
-#+TEXT: This project contains codes and utilites for data acquistion in CJPL.
-#+TEXT: 该项目包含用于景屏山极深地下实验室中数据获取相关的程序与资料。中文资料请参考 README_zh.txt
+This project contains codes and utilites for data acquistion in CJPL. This file
+is in UTF-8 encoding.
+
+该项目包含用于景屏山极深地下实验室中数据获取相关的程序与资料。中文资料请参考
+README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用户阅读时注意编码。
 
 * About the project
 
-  The first report[fn:1] about CJPL was published on Science at June
+  The first report[fn:1] about CJPL was published on *Science* on June
   5 2009. After that, the lab's construction is steadily in progress. This
   project contains codes and utilites to meet data acquisition tasks in
-  CJPL. The latest progress about CJPL can be found in article[fn:4] or
+  CJPL. The latest progress of CJPL can be found in article[fn:4] or
   report[fn:2], and[fn:3].
 
   The official page: http://exaos.github.com/daq4cjpl
@@ -37,7 +36,12 @@
   + drivers/   -- hardware drivers
   + 3rd-libs/  -- third-party libraries used
   + notes/     -- project related notes
-  + misc/      -- others.
+  + misc/      -- others
+
+* Misc
+
+  + Exaos public TODOs on RememberTheMilk -- http://goo.gl/KkZA
+  + Local TODOs -- file:TODO.org
 
 * References and footnotes
 

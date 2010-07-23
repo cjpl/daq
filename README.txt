@@ -2,26 +2,30 @@
                         ================================
 
 Author: Exaos Lee <Exaos.Lee(at)gmail.com>
-Date: 2010-07-15 16:04:30 CST
+Date: 2010-07-23 16:47:41 CST
 
 
-This project contains codes and utilites for data acquistion in CJPL.
-该项目包含用于景屏山极深地下实验室中数据获取相关的程序与资料。中文资料请参考 README_zh.txt
+This project contains codes and utilites for data acquistion in CJPL. This file
+is in UTF-8 encoding.
+
+该项目包含用于景屏山极深地下实验室中数据获取相关的程序与资料。中文资料请参考
+README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用户阅读时注意编码。
 
 Table of Contents
 =================
 1 About the project 
 2 Files and Directories 
-3 References and footnotes 
+3 Misc 
+4 References and footnotes 
 
 
 1 About the project 
 ~~~~~~~~~~~~~~~~~~~~
 
-  The first report[1] about CJPL was published on Science at June
+  The first report[1] about CJPL was published on *Science* on June
   5 2009. After that, the lab's construction is steadily in progress. This
   project contains codes and utilites to meet data acquisition tasks in
-  CJPL. The latest progress about CJPL can be found in article[2] or
+  CJPL. The latest progress of CJPL can be found in article[2] or
   report[3], and[4].
 
   The official page: [http://exaos.github.com/daq4cjpl]
@@ -37,9 +41,15 @@ Table of Contents
   + drivers/   -- hardware drivers
   + 3rd-libs/  -- third-party libraries used
   + notes/     -- project related notes
-  + misc/      -- others.
+  + misc/      -- others
 
-3 References and footnotes 
+3 Misc 
+~~~~~~~
+
+  + Exaos public TODOs on RememberTheMilk -- [http://goo.gl/KkZA]
+  + Local TODOs -- [file:TODO.org]
+
+4 References and footnotes 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   + CJPL position in Google Maps -- [http://goo.gl/xwcA] (You may use the
