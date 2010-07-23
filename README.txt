@@ -2,13 +2,13 @@
                         ================================
 
 Author: Exaos Lee <Exaos.Lee(at)gmail.com>
-Date: 2010-07-23 16:47:41 CST
+Date: 2010-07-23 16:49:05 CST
 
 
 This project contains codes and utilites for data acquistion in CJPL. This file
 is in UTF-8 encoding.
 
-该项目包含用于景屏山极深地下实验室中数据获取相关的程序与资料。中文资料请参考
+该项目包含用于锦屏山极深地下实验室中数据获取相关的程序与资料。中文资料请参考
 README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用户阅读时注意编码。
 
 Table of Contents
