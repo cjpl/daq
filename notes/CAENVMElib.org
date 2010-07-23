@@ -1,0 +1,168 @@
+#+ -*- mode: org; coding: utf-8;
+#+TITLE: CAENVMElib 的使用笔记
+#+AUTHOR: Exaos Lee
+#+FILETAGS: :4job:CJPL:DAQ:
+#+TAGS: c cpp python
+#+TAGS: midas root fe ana
+
+* 咨询
+** CAEN A2818
+   + URL -- http://www.caen.it/nuclear/product.php?mod=A2818
+   + 光纤控制器， 32-位 PCI 卡
+   + 最多以菊花链式控制 8 块设备，包括：
+     - V2718/VX2718 VME-PCI 桥
+     - V1720/1721/1724/1731/1740 & VX1720/1721/1724/1731/1740 Digitizers
+   + CAEN 提供资源：
+     - Windows 32/64 位的驱动
+     - Linux 下驱动的源码
+     - 产品手册
+
+** CAEN V2718/VX2718
+   + URL -- http://www.caen.it/nuclear/product.php?mod=V2718
+   + URL -- http://www.caen.it/nuclear/product.php?mod=VX2718
+   + VME-PCI 光纤连接的桥
+   + 特性
+     - No boot required, ready at power ON
+     - Daisy chain capability
+     - PCI 32bit / 33MHz
+     - Up to 70 MByte/s sustained data transfer rate
+     - VME Master (arbiter or requester)
+     - VME Slave (register and test RAM access)
+     - Cycles: RW, RMW, BLT, MBLT, IACK, ADO, ADOH
+     - Addressing: A16, A24, A32, CR/CSR, LCK
+     - Data width: D8, D16, D32, D64
+     - System Controller capabilities
+     - Interrupt handler
+     - Front panel Dataway Display (available also from PC and VME)
+     - 5 outputs and 2 inputs, NIM or TTL, fully programmable
+     - VME64X Backplane required
+   + CAEN 资源
+     - CAENVMElib Windows 32/64 位库、示例程序及 LabVIEW 接口
+     - CAENVMElib Linux 32/64 位的库、示例程序及 LabVIEW 接口
+     - CAENBridgeUpgrade Firmware Upgrade Tool, Windows/Linux 下的可执行程序
+     - V1718 V2718 firmware
+
+* PCI 卡 A2818 的驱动
+  + 版本: CAEN A2818 Linux Driver 1.13
+  + 参考： file:../drivers/a2818-drv-linux/README_zh.org
+
+* V2718/VX2718 的使用接口库
+** 系统需求
+   - CAEN V1718 USB-VME 桥及／或 CAEN V2718 PCI-VME 桥
+   - Linux Kernel 2.4 或 2.6, GNU C/C++ 编译器
+** 安装
+   + 拷贝 ~include~ 目录为 ~/opt/DAQ/include/CAENVMElib/~
+   + 拷贝 ~lib~ 目录下相应版本的 ~libCAENVME.so.2.11~ 到 ~/opt/DAQ/lib/ 目录下
+   + 修改 ~sample~ 下的 ~Makefile~, 尝试进行编译运行，检查是否正常
+** CAENVMEDemo
+   参考 ~sample~ 目录中的内容。
+*** 参数
+    #+BEGIN_EXAMPLE
+    CAENVMEDemo V1718 <VMEDevice>
+    CAENVMEDemo V2718 <VMEDevice> <VMELink>
+    #+END_EXAMPLE
+    + <VMEDevice> -- 设备号，整数值
+    + <VMELink>   -- 链接号，整数值
+*** 程序设计
+    + 分析命令行参数
+    + 使用 ~CAENVME_Init(..)~ 初始化设备
+    + 使用 ~CaenVmeManual(..)~ 交互式操作
+    + 使用 ~console.h/c~ 提供屏幕交互式动作
+*** 使用
+    + 启动： ~./CAENVMElib V2718 0 0~, 针对一块 A2818 加上一块 V2718 的情形。如果
+      正常，会启动操作界面；否则，则提示如下：
+      #+BEGIN_EXAMPLE
+ Error opening the device
+      #+END_EXAMPLE
+    + 操作界面
+#+BEGIN_EXAMPLE
+
+     CAEN VME Manual Controller
+
+ R - READ
+ W - WRITE
+ B - BLOCK TRANSFER READ
+ T - BLOCK TRANSFER WRITE
+ I - CHECK INTERRUPT
+ 1 - ADDRESS                  [EE000000]
+ 2 - BASE ADDRESS             [EE000000]
+ 3 - DATA FORMAT              [D16]
+ 4 - ADDRESSING MODE          [A32]
+ 5 - BLOCK TRANSFER SIZE      [256]
+ 6 - AUTO INCREMENT ADDRESS   [OFF]
+ 7 - NUMBER OF CYCLES         [1]
+ 8 - VIEW BLT DATA
+ F - FRONT PANEL I/O
+ Q - QUIT MANUAL CONTROLLER
+
+#+END_EXAMPLE
+    + 按照界面中左侧提示的键操作即可
+      - 地址设定：比如先按 2 ，按照提示输入 0x560E0000
+      - 执行单地址读／写，块地址读／写，循环读／写
+      - 操作过程中，V2718 面板的 LED 灯会依照相应的操作与参数进行指示
+
+** 库的使用
+   参考 ~sample~ 目录中的内容： ~CAENVMEDemoVme.c~
+*** 设备初始化
+    + ~CAENVME_Init(...)~
+      #+BEGIN_SRC c
+/*
+        CAENVME_Init
+        -----------------------------------------------------------------------------
+        Parameters:
+                [in]  BdType    : The model of the bridge (V1718/V2718).
+                [in]  Link      : The link number (don't care for V1718).
+                [in]  BdNum     : The board number in the link.
+                [out] Handle    : The handle that identifies the device.
+        -----------------------------------------------------------------------------
+        Returns:
+                An error code about the execution of the function.
+        -----------------------------------------------------------------------------
+        Description:
+                The function generates an opaque handle to identify a module
+                attached to the PC. In the case of V1718 bridge it must be
+                specified only the module index (BdNum) because the link is USB.
+                In the case of V2718 it must be specified also the link because
+                you can have some A2818 optical link inside the PC.
+*/
+CAENVME_API
+CAENVME_Init(CVBoardTypes BdType, short Link, short BdNum, int32_t *Handle);
+/*
+       示例：
+       CVBoardTypes VMEBoard = cvV2718;
+       short    Link=0, Device=0;
+       int32_t  BHandle;
+       if( CAENVME_Init(VMEBoard, Link, Device, &BHandle) != cvSuccess ) {
+           printf("\nError opening the device\n");
+	   exit(1);
+       }
+*/
+      #+END_SRC c
+*** VME I/O
+    + ~CAENVME_WriteCycle(..)~
+    + ~CAENVME_ReadCycle (..)~
+
+*** VME IRQ
+    + ~CAENVME_IRQCheck(..)~
+*** 其它更详细的函数，参照 ~CAENVMElib.h~ 文件中的声明。
+
+* MVMESTD V2718 (libmvme\_v2718)
+** init/close/reset
+   + init
+     - am    -- default: A32
+     - dmode -- D32
+     - BLT   -- none
+   + close
+   + reset
+** set
+   + am
+   + dmode
+   + blt
+** write
+   + single
+   + multi
+   + block
+** read
+   + single
+   + multi
+   + block
