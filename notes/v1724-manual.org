@@ -327,10 +327,67 @@
    参见 file:CAENVMElib.org
 
 * VME 接口
+** 寄存器地址表
+   *Tab. 4.1*, V1724 寄存地址一览表！
+** 配置 ROM (0xF000-0xF084; r)
+   D32, read-only, *Tab. 4.2*
+** Channel n ZS-THRES (0x1n24; r/w)
+** Channel n ZS-NSAMP (0x1n28; r/w)
+** Channel n Threshold (0x1n80; r/w)
+** Channel n Over/Under Threshold (0x1n84; r/w)
+** Channel n Status (0x1n88; r)
+** Channel n AMS FPGA Firmware (0x1n8C; r)
+** Channel n Buffer Occupancy (0x1n94; r)
+** Channel n DAC (0x1n98; r/w)
+** Channel n ADC Configuration (0x1n9C; r/w)
+** Channel Configuration (0x8000; r/w)
+** Channel Configuration Bit Set (0x8004; w)
+** Channel Configuration Bit Clear (0x8008; w)
+** Buffer Organization (0x800C; r/w)
+** Buffer Free (0x8010; r/w)
+** Custom Size (0x8020; r/w)
+** Analog Monitor Polarity and Shift (0x802A; r/w)
+** Acquisition Control (0x8100; r/w)
+** Acquisition Status (0x8104; r)
+** Software Trigger (0x8108; w)
+** Trigger Source Enable Mask (0x810C; r/w)
+** Front Panel Trigger Out Enable Mask (0x8110; r/w)
+** Post Trigger Setting (0x8114; r/w)
+** Front Panel I/O Data (0x8118; r/w)
+** Front Panel I/O Control (0x811C; r/w)
+** Channel Enable Mask (0x8120; r/w)
+** ROC FPGA Firmware Revision (0x8124; r)
+** Downsample Factor (0x8128; r/w)
+** Event Stored (0x812C; r)
+** Set Monitor DAC (0x8138; r/w)
+** Board Info (0x8140; r)
+** Monitor Mode (0x8144; r/w)
+** Event Size (0x814C; r)
+** Analog Monitor (0x8150; r/w)
+** VME Control (0xEF00; r/w)
+** VME Status (0xEF04; r)
+** Board ID (0xEF08; r/w)
+** MCST Base Address and Control (0xEF0C; r/w)
+** Relocation Address (0xEF10; r/w)
+** Interrupt Status ID (0xEF14; r/w)
+** Interrupt Event Number (0xEF18; r/w)
+** BLT Event Number (0xEF1C; r/w)
+** Scratch (0xEF20; r/w)
+** Software Reset (0xEF24; w)
+** Software Clear (0xEF28; w)
+** Flash Enable (0xEF2C; r/w)
+** Flash Data (0xEF30; r/w)
+** Configuration Relaod (0xEF34; w)
+* 编程笔记
 * 安装
+  6U VME 机箱
 ** 加电顺序
+   先关电源，安装插件；再加电！
 ** 加电状态
 ** 硬件升级
+   Firmware versions: STD, BKP.
+   + ROC FPGA: 主板 FPGA, 读取控制 + VME 接口
+   + AMC FPGA: 通道 FPGA, ADC 读取/存储控制; EP1C4, EP1C20
 * 其它
 ** 采用 V1724 的实验
    + XENON100 Dark Matter Experiment:
