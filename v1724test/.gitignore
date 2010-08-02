@@ -1,0 +1,9 @@
+bin
+tmp
+tmp/**/*
+.*~
+*~
+.DS_Store
+._.*
+*.pyc
+**/*.pyc
