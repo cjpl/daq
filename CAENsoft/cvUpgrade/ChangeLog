@@ -1,0 +1,89 @@
+
+  -----------------------------------------------------------------------------
+
+                   --- CAEN SpA - Front End R&D Division --- 
+
+  -----------------------------------------------------------------------------
+
+  cvUpgrade VME firmware Upgrade Tool Utility Release Notes
+
+  -----------------------------------------------------------------------------
+  Rel. 2.1 - February 2010
+  Rel. 2.0 - October  2009
+  Rel. 1.3 - February 2009  
+  Rel. 1.2 - June     2008  
+  Rel. 1.1 - May      2008  
+  Rel. 1.0 - January  2008
+
+  -----------------------------------------------------------------------------
+ 
+
+  Description
+  -----------
+
+  This file describes the revision history of CAEN CVupgrade firmware upgrade utility.
+
+ System Requirements
+ -------------------
+ 
+  - CAEN board with USB connection /or CAEN A2818 PCI-CONET Board
+  - Linux kernel 2.4 or 2.6
+  - CAENComm rel 1.0 or superior installed
+
+  What's New in Rel. 2.0
+  --------------------------
+   New Features and Important Notes
+   --------------------------------
+   - Added -Keyinfo and -key options to license specific firmware versions on Digitizers and V1495 boards.
+
+  What's New in Rel. 2.0
+  --------------------------
+   New Features and Important Notes
+   --------------------------------
+   - Starting from this version the cvUpgrade is based on new CAENComm library so it can be use to upgrade all the CAEN Boards.
+
+  
+  What's New in Rel. 1.3
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+   
+   - Extended compatibility to 16, 32 and 64 Mbit flash size;
+   - Replaced fixed wait time (page erasing) with busy polling;
+   - Add -link and -bdnum command line options
+
+  What's New in Rel. 1.2
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+   
+   - Support for flash enable polarity parameter in configuration file added.
+  
+  What's New in Rel. 1.1
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+   
+   - Erase and Programming wait updated in WriteFlashPage().
+   - CVDataWidth casting added.
+   - Dev-C++ project/Makefile file added in build/win32 directory.
+
+
+  What's New in Rel. 1.0
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+
+   - First release              
+                        
+
+  How to get support
+  ------------------
+
+  Our Software Support Group is available for questions, support and any other 
+  software related issue concerning CAEN products; for software support
+  visit the page www.caen.it/computing/support.php.

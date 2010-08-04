@@ -1,0 +1,167 @@
+# ****************************************************************
+# WaveDump Configuration File
+# ****************************************************************
+
+# LINK (VME Master)
+LINK V2718 0 0 # V2718 CONET-VME BRIDGE
+#LINK V1718 0 0 # V1718 USB-VME BRIDGE
+
+# Data Check Mode
+# Bit 0 = Calculate and Print Throughput Rate
+# Bit 1 = Check Header Consistency
+# Bit 2 = Check Size
+# Bit 3 = Consecutive Event Counters
+DATA_CHECK 1
+
+# Base Address of the board (Hex)
+BASE_ADDRESS  32100000
+
+# Output File (0=don't write, 1=on command, 2=continuous)
+WRITE_TO_FILE 1
+
+# 0 = Overwrite file; 1 = append the waveform to the previous on
+APPEND_MODE 0
+
+# Output File Format (0=Data only, 1=Data+size, 2=Data+size+header)
+OUTPUT_FORMAT 0
+
+# Blt Size (expressed in Bytes)
+BLT_SIZE 65536
+
+# Readout Mode (0=Single D32, 1=BLT, 2=MBLT)
+READOUT_MODE 2
+
+# GNUPlot path
+#GNUPLOT_PATH "./"
+
+# ****************************************************************
+# Generic VME Write to a register of the board
+# Syntax: WRITE_REGISTER  REG_ADDR  REG_DATA
+# where REG_ADDR is the 16 bit address offset (Hex) and
+# REG_DATA is the 32 bit register value to set (Hex).
+# ****************************************************************
+
+# ----------------------------------------------------------------
+# Reset the board
+# ----------------------------------------------------------------
+WRITE_REGISTER EF24 0
+
+# ----------------------------------------------------------------
+# BLT Event Number
+# ----------------------------------------------------------------
+WRITE_REGISTER EF1C 1
+
+# ----------------------------------------------------------------
+# VME Control Register
+WRITE_REGISTER EF00 10  # Enable BERR 
+#WRITE_REGISTER EF00 0  # Berr disabled
+#WRITE_REGISTER EF00 18  # Enable BERR + OLIRQ 
+#WRITE_REGISTER EF00 11  # Enable BERR + VME IRQ1 
+#WRITE_REGISTER EF00 19  # Enable BERR + OLIRQ + VME IRQ1 
+
+# ----------------------------------------------------------------
+# Channel Enable Mask
+# ----------------------------------------------------------------
+WRITE_REGISTER 8120 01
+
+# ----------------------------------------------------------------
+# Post Trigger
+# ----------------------------------------------------------------
+WRITE_REGISTER 8114 5
+
+# ----------------------------------------------------------------
+# Trigger Source Enable Mask
+# ----------------------------------------------------------------
+WRITE_REGISTER 810C C0000000  # Software + External 
+#WRITE_REGISTER 810C C0000001  # Software + External + CH0 auto trigger
+#WRITE_REGISTER 810C C0000003  # Software + External + CH0/1 auto trigger
+#WRITE_REGISTER 810C 80000003  # Software            + CH0/1 auto trigger
+#WRITE_REGISTER 810C 40000001  #          External   + CH0 auto trigger
+#WRITE_REGISTER 810C C0000004  # Software + External + CH2 auto trigger
+#WRITE_REGISTER 810C C0000008  # Software + External + CH3 auto trigger
+#WRITE_REGISTER 810C C1000001  # Software + External + CH0 auto trigger + COINC_LEV = 1 
+#WRITE_REGISTER 810C C1000003  # Software + External + CH0/1 auto trigger + COINC_LEV = 1 
+#WRITE_REGISTER 810C C40000FF  # Software + External + CH0/7 auto trigger + COINC_LEV = 3 
+
+# ----------------------------------------------------------------
+# Front Panel Trigger Out Enable Mask
+# ----------------------------------------------------------------
+WRITE_REGISTER 8110 C0000000  # Software + External 
+#WRITE_REGISTER 8110 C0000001  # Software + External + CH0 auto trigger
+#WRITE_REGISTER 8110 C0000003  # Software + External + CH0/1 auto trigger
+#WRITE_REGISTER 8110 80000003  # Software           + CH0/1 auto trigger
+#WRITE_REGISTER 8110 40000001  #           External  + CH0 auto trigger
+
+# ----------------------------------------------------------------
+# Buffer Organization (Num Buffers = 2^N)
+# ----------------------------------------------------------------
+WRITE_REGISTER 800C A
+
+# ----------------------------------------------------------------
+# Threshold set 
+# ----------------------------------------------------------------
+#WRITE_REGISTER 1080 2000 # CH0
+#WRITE_REGISTER 1180 2000 # CH1
+WRITE_REGISTER 8080 150 # BROADCAST
+
+# ----------------------------------------------------------------
+# Over/Under threshold 
+# ----------------------------------------------------------------
+#WRITE_REGISTER 1084 10 #CH0
+#WRITE_REGISTER 1184 2 #CH1
+WRITE_REGISTER 8084 2 #BROADCAST
+
+
+# ----------------------------------------------------------------
+# Custom Size (Number of memory locations)
+# 0 = No Custom Size
+# ----------------------------------------------------------------
+WRITE_REGISTER 8020 0
+
+# ----------------------------------------------------------------
+# Zero Suppression Threshold
+# ----------------------------------------------------------------
+#WRITE_REGISTER 8024 1FA4
+WRITE_REGISTER 8024 00000064
+
+# ----------------------------------------------------------------
+# Zero Suppression Over Threshold (Number of memory locations)
+# ----------------------------------------------------------------
+WRITE_REGISTER 8028 00000000 #Nlbck and Nlfrw  # 
+
+# ----------------------------------------------------------------
+# Interrupt Status ID
+# ----------------------------------------------------------------
+WRITE_REGISTER EF14 55aa55aa # Interrupt 
+
+# ----------------------------------------------------------------
+# Interrupt Event Number
+# ----------------------------------------------------------------
+WRITE_REGISTER EF18 0 # Interrupt when 1 event stored 
+
+# ----------------------------------------------------------------
+# Channel Configuration Register
+# Bit 1  = Trigger Overlapped
+# Bit 3  = Test Waveform
+# Bit 4  = Sequential Readout (Must be 1)
+# Bit 6  = Local Trigger Polarity (0=Rising, 1=Falling)
+# Bit 11 = Sample Packing 2.5 (0=Disabled; 1=Enabled) (V1720 Only)
+# Bit 12 = DES Mode Enable (V1731 only)
+# Bit [19:16] = Zero Suppression Mode (0=No ZS, 1=ZS Integrale, 2=ZS zip, ZS threshold)
+# ----------------------------------------------------------------
+WRITE_REGISTER 8000  10   # NO ZS + Rising  + Sequential + External signal + Non Overlap Triggers
+#WRITE_REGISTER 8000 18     # NO ZS + Rising  + Sequential + Test Waveform   + Non Overlap Triggers
+#WRITE_REGISTER 8000 1A    # NO ZS + Rising  + Sequential + Test Waveform   + Overlapped Triggers
+#WRITE_REGISTER 8000 50    # NO ZS + Falling + Sequential + External signal + Non Overlap Triggers
+#WRITE_REGISTER 8000 10050 # ZS INT+ Falling + Sequential + External signal + Non Overlap Triggers
+#WRITE_REGISTER 8000 20050 # ZS ZIP+ Falling + Sequential + External signal + Non Overlap Triggers
+#WRITE_REGISTER 8000 20010 # ZS ZIP+ Rising + Sequential + External signal + Non Overlap Triggers
+#WRITE_REGISTER 8000 20018 # ZS_ZIP+ Rising  + Sequential + Test Waveform   + Non Overlap Triggers
+#WRITE_REGISTER 8000 30050 # ZS THR+ Falling + Sequential + External signal + Non Overlap Triggers
+#WRITE_REGISTER 8000 30010 # ZS THR+ Rising + Sequential + External signal + Non Overlap Triggers
+
+# ----------------------------------------------------------------
+# Acquisition Control
+# ----------------------------------------------------------------
+WRITE_REGISTER 8100 0  # SW-CONTROLLED RUN MODE
+

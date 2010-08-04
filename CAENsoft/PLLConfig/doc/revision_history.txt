@@ -1,0 +1,49 @@
+--------------------------------------------------------------------------------
+- REVISION HISTORY
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+- Rev.   : 2.0.0
+- Date   : 02/02/09
+- Author : NDA
+- Notes  : 
+	.) Added direct choose of the VCXO's frequency (in previous version you have to manually edit the
+		settings' file) 
+	.) BUG-FIXED: Not all the allowed input frequency could be obtained.
+	.) Deep modifications on user input interface; the old version divider settings are now replaced
+		with list controls to allow the user to directly select the available values.
+--------------------------------------------------------------------------------
+- Rev.   : 1.3.0
+- Date   : 21/05/08
+- Author : NDA
+- Notes  : 
+	.) Replaced dependencies to CAENVMEToolLib with CAENdigitizerSDK 
+	.) Added support for V1740
+--------------------------------------------------------------------------------
+- Rev.   : 1.2.0
+- Date   : 03/12/07
+- Author : NDA
+- Notes  : 
+	.) Some modification to the template files
+--------------------------------------------------------------------------------
+- Rev.   : 1.1.0
+- Date   : 02/10/07
+- Author : NDA
+- Notes  : 
+	.) Removed dependencies from CAENVMETool.lib: now you can overwrite the
+		VMEWrapper class methods implementation to comply with your specific 
+		VME Library
+	.) Some bug-fixes
+--------------------------------------------------------------------------------
+- Rev.   : 1.0.0
+- Date   : 03/09/07
+- Author : NDA
+- Notes  : First emission
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+- Rev.   : 
+- Date   : 
+- Author : 
+- Notes  : 
+--------------------------------------------------------------------------------

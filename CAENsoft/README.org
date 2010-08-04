@@ -1,0 +1,32 @@
+#-*- mode: org; coding: utf-8;
+#+TITLE: Codes from CAEN
+
+  All codes are from CAEN[fn:1]. If the sub-dir doesn't contain CopyRight info,
+  please refer to file:CAEN_License_Agreement.txt.
+
+[fn:1] http://www.caen.it/
+
+* Software Info
+
+* Installation
+  1. Install CAENVMElib
+  2. Install DigitizerSDK
+  3. Install PLLConfig
+  4. Optional install
+     1) cvUpgrade
+     2) Scope
+     3) WaveDump
+
+* ChangeLog
+** [2010-08-04 三 15:14]
+   |--------------+---------+-----------------------------|
+   | Name         | Version | Origin File                 |
+   |--------------+---------+-----------------------------|
+   | CAENVMElib   |    2.11 | CAEN_VME_SW_Lib.zip         |
+   | cvUpgrade    |     2.2 | cvUpgrade_2_2_linux.zip     |
+   | DigitizerSDK |     1.3 | CAENDigitizerSDK-1.3.tar.gz |
+   | PLLConfig    |     2.0 | CAENPLLConfig-2.0.tgz       |
+   | Scope        |   1.5.1 | CAENScope_1_5_1_linux.zip   |
+   | WaveDu       |     1.9 | CAENWaveDump-1.9.tgz        |
+   |--------------+---------+-----------------------------|
+

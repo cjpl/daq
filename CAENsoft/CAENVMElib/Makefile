@@ -1,3 +1,6 @@
+# Created by: Exaos Lee <Exaos.Lee(at)gmail.com>, 2010-07
+# Bridge libCAENVME.so and MIDAS/PSI mvme
+
 ## Targets:
 # 1. default: libmvme_v2718.a, libmvme_v1718.a
 # 2. shared: libmvme_v2718.so, libmvme_v1718.so

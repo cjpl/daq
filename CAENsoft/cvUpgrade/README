@@ -1,0 +1,256 @@
+------------------------------------------------------------------------------
+
+                   --- CAEN SpA - Front End R&D Division --- 
+
+ ------------------------------------------------------------------------------
+ ------------------------------------------------------------------------------
+
+    CVUPGRADE UTILITY TOOL Version 2.1 README 
+    
+    February 2010
+
+ ------------------------------------------------------------------------------
+
+CONTENTS
+
+A.  DESCRIPTION
+B.  SYNTAX
+C.  USAGE EXAMPLES
+D.  SUPPORTED BOARDS  
+E.  PORTING CVUPGRADE TO DIFFERENT VME CPU/BRIDGE
+F.  SYSTEM REQUIREMENTS
+G.  SUPPORT
+
+A. DESCRIPTION
+----------------
+
+cvUpgrade is a software tool for firmware upgrade of supported CAEN  boards.
+New firmware releases can be uploaded to the board non-volatile (flash) memory.
+
+cvUpgrade basically reads firmware image from a binary input file (Altera Raw
+Binary File format) and writes it to proper locations in the target board flash
+device, by relying on functions provided by the CAENComm API library.
+A parameter file (ascii) is used to set board specific parameters (register
+address, flash informations etc).
+
+cvUpgrade  also allows to read the CAEN board IDcode (each boards has a unique 
+IDcode). The license of some special firmware (i.e. DPP firmware) is tied to 
+this IDcode.
+
+cvUpgrade  also allows to read the license data stored into the board and optionally
+delete it.
+
+     -----------------------------     ____________    ____________
+     - Altera Raw Binary File    -    |            |  |            |
+     -    (xxxxxx.rbf)           ---->|            |  |            |
+     -----------------------------    |            |  |            |
+                                      | CVUPGRADE  |  | CAENComm   |
+     ------------------------------   |            |->|    API     |
+     -      Paramenter File       -   |            |  |            |
+     - (CVupgrade_params_XXXX.txt)--->|            |  |            |
+     ------------------------------   |____________|  |____________|
+                                                     
+
+CAENComm allows cvupgrade to access target board via USB 
+ or via CAEN proprietary CONET optical link. 
+Following CAEN boards can be used to upgrade target board firmware:
+
+  - A2818 PCI CONET Controller + V2718 VME-PCI Optical Link Bridge
+  - A2818 PCI CONET Controller only, if target board has a direct CONET slave 
+    optical link interface.   
+	
+CAENComm supports the following channels of communication:
+
+1) PC => USB => CAEN Front-end Modules with USB 2.0 interface:
+                - CAEN Waveform digitizers with USB interface (NIM/Desktop form factors)
+                - N957 8k Multi-Channel Analyzer
+2) PC => USB => V1718 => VME => all CAEN VME Modules
+3) PC => PCI (A2818) => Optical Link => CAEN Modules with Opt. link:
+                - Waveform digitizers (VME, NIM/Desktop form factors)
+                - SY2791 TPC Readout System
+4) PC => PCI (A2818) => Optical Link => V2718 => VME => all CAEN VME Modules
+
+Please ensure that latest CAEN provided drivers are properly installed prior
+to use of the cvupgrade application.
+  
+IMPORTANT NOTE: 
+
+Both firmware images on flash (standard/backup) can be written by cvupgrade,
+regardless of the image selction jumper on board.
+  
+B. SYNTAX
+----------------
+
+cvUpgrade command line arguments :
+
+Syntax: cvUpgrade ConfFile ConnType[USB|PCI_OPTLINK|PCIE_OPTLINK] [ConfigOptions][DeviceOptions]
+Syntax: cvUpgrade -KeyInfo ConnType[USB|PCI_OPTLINK|PCIE_OPTLINK] [DeviceOptions]
+Syntax: cvUpgrade -License ConnType[USB|PCI_OPTLINK|PCIE_OPTLINK] [LicenseOptions]
+
+Description: write the file 'ConfFile' (Altera Raw Binary Format) into
+the flash memory of board connected by the specified connection type OR
+retrieve the IDcode data from the board and store it on BoardInfo-MN-SN.dat file 
+(MN is the board model name, if provided from command line, and SN is the board serial number) OR
+retrieve or delete the license data from the board: to delete the license file you must specify the -delete option
+
+
+where:
+
+ConfFile:	Altera Raw Binary Format (RBF) filename (for example v1724_Rev_2.0_128.6.rbf)
+
+ConnType: 
+USB 		for the following communication channels:
+                - PC => USB => CAEN Front-end Modules with USB 2.0 interface: 
+                        CAEN Waveform digitizers with USB interface (NIM/Desktop form factors)
+                - PC => USB => V1718 => VME => CAEN VME Modules (the command must contain 
+                        the base address of the VME board (VMEbaseaddress [DeviceOptions])		
+PCI_OPTLINK	for the following communication channels:
+                - PC => PCI (A2818) => Optical Link => CAEN Modules with Opt. link: 
+                        Waveform digitizers (VME, NIM/Desktop form factors)
+                - PC => PCI (A2818) => Optical Link => V2718 => VME => CAEN VME Modules 
+                        (the command must contain the base address of the VME board (VMEbaseaddress [DeviceOptions])		
+PCIE_OPTLINK For a new PCIe communication card (A3818) currently under development.
+ 
+[ConfigOptions]:
+
+-backup:           write backup image
+
+-key N:            the key value to enable the DPP firmware
+
+-no_verify:        disable verify (don't read and compare the flash content)
+
+-verify_only:      read the flash content and compare with the ConfFile file
+
+[DeviceOptions]:
+
+-param filename:   allow to specify the file that contain the parameters for the board 
+                   that is being upgraded (default is cvUpgrade_params.txt)
+
+-link N:           when using Optical Link, it is the optical link number to be used 
+                   when using USB, it is the USB device number to be used (default is 0)
+
+-bdnum N: 	   select board number in a chainable Optical Link network (V2718 only)
+
+-VMEbaseaddress N: the base address of the VME slave board to be upgraded 
+                   8 digit hexadecimal value ( 32100000 for example ). 
+                   Should be used for the following communication channels:
+	           - PC => USB => V1718 => VME => CAEN VME Modules	
+                   - PC => PCI (A2818) => CONET => V2718 => VME => CAEN VME Modules
+				   
+-modelname ModelName: specify the model name
+
+[LicenseOptions]:
+
+-delete : deletes the license data
+
+    
+If no options are specified, cvupgrade default behaviour is to update firmware
+standard image and verify it. Upgrade parameters are read from a default file 
+named cvupgrade_params.txt file.
+
+
+D. USAGE EXAMPLES
+----------------
+
+1. Firmware upgrade by using a CAEN VME bridge board 
+   
+   Upgrade standard image of a V1724 board with base address 0x32100000 
+   by using a V1718 CAEN VME Bridge:
+   cvUpgrade v1724_rev1.6_0.6.rbf USB -link 0 -VMEbaseaddress 32100000 -param CVupgrade_params_Digitizers.txt
+
+   Upgrade standard image of a V1724 board with base address 0x32100000 
+   by using a V2718 CAEN VME Bridge:
+   cvUpgrade v1724_rev1.6_0.6.rbf PCI_OPTLINK -link 0 -bdnum 0 -VMEbaseaddress 32100000 -param CVupgrade_params_Digitizers.txt
+
+2. Firmware upgrade of a board directly connected the PC:
+
+   Upgrade standard image of a board connected with USB:
+   cvUpgrade DT5724_rev1.6_0.6.rbf USB -link 0 -param CVupgrade_params_Digitizers.txt
+
+   Upgrade standard image of a board connected with optical link:
+   cvUpgrade V1724_rev1.6_0.6.rbf PCI_OPTLINK -link 0 -bdnum 0 -param CVupgrade_params_Digitizers.txt
+
+
+3. Digitizers IDcode retrieve (using a CAEN V1718 VME Bridge):
+
+   cvUpgrade -KeyInfo USB -link 0 -VMEbaseaddress 32100000 -param CVupgrade_params_Digitizers.txt
+
+
+4. V1495 IDcode retrieve (using a CAEN V1718 VME Bridge):
+
+   cvUpgrade -KeyInfo USB -link 0 -VMEbaseaddress 33220000 -param CVupgrade_params_V1495_VME.txt
+
+
+5. Digitizers firmware licensing:
+
+   In order to license a firmware a Key value is required (Please contact CAEN marketing division for more info).
+   Store firmware (standard image) of a DT5724 board connected by USB to the PC and storage of firmware license key:
+
+   cvUpgrade dt5724_rev1.0_1.0.rbf USB -link 0 –key ABCDEFGH12345678 -param CVupgrade_params_Digitizers.txt
+   (It is not possible to store key value without storing also firmware image)
+
+
+6. V1495 firmware licensing:
+
+   Store VME firmware (standard image) of a V1495 board with base address 0x33220000 
+   by using a V1718 CAEN VME Bridge and storage of firmware license key.
+   cvUpgrade v1495vme_rev1.0.rbf USB -link 0 –key ABCDEFGH12345678 -VMEbaseaddress 33220000 -param  CVupgrade_params_V1495_VME.txt
+
+   The Key value (ABCDEFGH12345678) is provided directly by CAEN.
+
+
+7. Digitizers license data retrive (using a CAEN V1718 VME Bridge):
+
+   cvUpgrade -License USB -link 0 -VMEbaseaddress 32100000 -param CVupgrade_params_Digitizers.txt
+
+
+8. V1495 license data retrieve (using a CAEN V1718 VME Bridge):
+
+   cvUpgrade -License USB -link 0 -VMEbaseaddress 33220000 -param CVupgrade_params_V1495_VME.txt
+   
+
+9. Digitizers license data delete (using a CAEN V1718 VME Bridge):
+
+   cvUpgrade -License USB -link 0 -VMEbaseaddress 32100000 -param CVupgrade_params_Digitizers.txt -delete
+
+
+10. V1495 license data delete (using a CAEN V1718 VME Bridge):
+
+   cvUpgrade -License USB -link 0 -VMEbaseaddress 33220000 -param CVupgrade_params_V1495_VME.txt -delete
+
+E. SUPPORTED BOARDS
+--------------------
+
+CAEN VME Digitizers family : all CAEN digitizers.
+CAEN VME TDC family        : V1190, V1290.
+CAEN VME I/O board         : V1495. 
+
+Board parameters files location:
+
+- WINDOWS 
+  The parameter files are contained in the bin directory of the cvUpgrade runtime folder
+  the default location usually is
+  c:\Program Files\CAEN\cvUpgrade\bin
+
+- LINUX
+  The parameter files are contained in the tar file (config directory)
+
+  
+F. PORTING CVUPGRADE TO DIFFERENT CPU/BRIDGE
+-------------------------------------------------
+
+The cvupgrade utility use the CAENComm library that provide the API to communicate
+to the CAEN board. See CAENComm documentation to use the cvupgrade in different CPU/BRIDGE            
+  
+G. SYSTEM REQUIREMENTS
+-----------------------
+   
+  - CAEN board with USB connection or CAEN A2818 PCI-CONET Board
+  - Linux O.S.
+  - CAENComm rel 1.0 or superior installed
+   
+H. SUPPORT   
+-----------
+        
+For additional support, please contact CAEN (e-mail support.computing@caen.it). 
+        
