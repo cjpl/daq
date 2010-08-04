@@ -394,6 +394,40 @@
      - arXiv:0902.4253v1 [astro-ph.IM]
      - doi:10.1088/1742-6596/203/1/012005
 
+** 相关软件
+*** CAENScope
+    + CAENVME Library
+    + CAENVMEDigitizerSDK
+    + For compiling graphical demos and tools only: 
+      - wxWidgets 2.8.10 Library (www.wxWidgets.org) 
+    + Support
+      - Desktop: DT5724, DT5720, DT5721, DT5731, DT5740
+      - NIM digitizers: N6724, N6720, N6721, N6731, N6740
+      - V1751, VX1751, DT5751, N6751 digitizers
+
+*** CAENPLLConfig
+    1. 通过 CAEN VEM Controller 控制
+    2. 使用 wxWidgets 2.6.3 开发
+    3. 需要 CAENVMETool API 安装
+    4. http://www.caen.it/nuclear/lista-sw.php?mod=V1724
+
+*** cvUpgrade Utility Tool
+    + A software tool for firmware upgrade of supported CAEN  boards
+    + Support
+      1) 1) PC => USB => CAEN Front-end Modules with USB 2.0 interface:
+	 - CAEN Waveform digitizers with USB interface (NIM/Desktop form factors)
+	 - N957 8k Multi-Channel Analyzer
+      2) PC => USB => V1718 => VME => all CAEN VME Modules
+      3) PC => PCI (A2818) => Optical Link => CAEN Modules with Opt. link:
+	 - Waveform digitizers (VME, NIM/Desktop form factors)
+	 - SY2791 TPC Readout System
+      4) PC => PCI (A2818) => Optical Link => V2718 => VME => all CAEN VME Modules
+
+*** CAENDigitizerSDK: API for digitizers
+
+*** MIDAS/uk
+    + http://npg.dl.ac.uk/MIDAS/
+
 ** 实用数字信号处理
    + URL http://wgmconsulting.com/Diginst.pdf
    + Practical Digital Signal Processing, by W.G. Marshall

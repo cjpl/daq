@@ -1,8 +1,8 @@
 /**********************************************************************
  * Name:       cv1724.h
  * Created by: Exaos Lee, 2010-08-02
- *
- * Contents:   V1724 8-channels sampling ADC
+ * 
+ * Contents: CAEN V1724, 8 Channel 14 bit 100 MS/s Digitizer
  **********************************************************************/
 
 #ifndef __CV1724_H__
@@ -73,20 +73,38 @@
 #define CV1724_CHN0_ADC_CONFIG_RW     0x109C  /* ADC configuration of channel 0 */
 
 /**********************************************************************
+ * Information
+ **********************************************************************/
+/* Verbose output baord information */
+void cv1724_PrintBoardInfo(MVME_INTERFACE *mvme, DWORD base);
+
+/**********************************************************************
  * Configurations
  **********************************************************************/
 
+/* Trigger */
+
+/* Interrupt */
+
+/* Thresholds */
+
+/* Channel i configuration */
+void cv1724_PrintChnConfig(MVME_INTERFACE *mvme, DWORD base, int chn);
+
 /**********************************************************************
- * Start/Stop/Reset/Status
+ * Start/Stop/Reset/Status/Interrupt
  **********************************************************************/
 int cv1724_Start (MVME_INTERFACE *mvme, DWORD base);
 int cv1724_Stop  (MVME_INTERFACE *mvme, DWORD base);
 int cv1724_Reset (MVME_INTERFACE *mvme, DWORD base);
 int cv1724_Status(MVME_INTERFACE *mvme, DWORD base);
 int cv1724_ChnStatus(MVME_INTERFACE *mvme, DWORD base, int chn);
+int cv1724_IsDataReady(MVME_INTERFACE *mvme, DWORD base);
+void cv1724_GetInterrupt(MVME_INTERFACE *mvme, DWORD base, u_int32_t *interrupt);
 
 /**********************************************************************
  * Data Handling
  **********************************************************************/
+void cv1724_GetRawData(MVME_INTERFACE *mvme, DWORD base, u_int32_t *data);
 
 #endif /* __CV1724_H__ */
