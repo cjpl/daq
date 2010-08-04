@@ -27,3 +27,8 @@
    + misc/pyutil             -- Python utilites to handle libmvme_*.so libs
    + midas/cmake             -- CMake support for MIDAS
 
+** <2010-08-03 二 10:40> Import system configurations
+   + sys-configs/    -- configurations for DAQ PCs
+
+** <2010-08-04 三 14:42> Import CAEN codes
+
