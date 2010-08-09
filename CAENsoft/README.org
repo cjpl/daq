@@ -57,6 +57,11 @@
                LDFLAGS="-L/opt/DAQ/lib"
       #+END_EXAMPLE
    3. Make and install
+   4. After installation, the ~src/images~ dir should be copied to
+      ~/etc/CAENPLLConfig/~:
+      #+BEGIN_EXAMPLE
+      cp -rvp src/images /etc/CAENPLLConfig/
+      #+END_EXAMPLE
 
 ** CAENCOMMLIBRARY
    + http://www.caen.it/nuclear/swproduct.php?mod=CAENCOMMLIBRARY
