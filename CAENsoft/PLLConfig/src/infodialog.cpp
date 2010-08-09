@@ -28,6 +28,8 @@
 ////@begin includes
 ////@end includes
 
+#include "appsettings.h"
+
 #include "infodialog.h"
 #include "hyperlinkctrl.h"
 extern "C" 
@@ -87,7 +89,7 @@ bool InfoDialog::Create( wxWindow* parent, wxWindowID id, const wxString& captio
     wxDialog::Create( parent, id, caption, pos, size, style );
 
     CreateControls();
-    SetIcon(GetIconResource(wxT("app_icon.ico")));
+    SetIcon(GetIconResource(AppSettings::get_default_img_path()+wxT("app_icon.ico")));
     if (GetSizer())
     {
         GetSizer()->SetSizeHints(this);
@@ -120,7 +122,7 @@ void InfoDialog::CreateControls()
     m_left_sizer = new wxBoxSizer(wxVERTICAL);
     itemBoxSizer4->Add(m_left_sizer, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBitmap itemStaticBitmap6Bitmap(itemDialog1->GetBitmapResource(wxT("caen.png")));
+    wxBitmap itemStaticBitmap6Bitmap(itemDialog1->GetBitmapResource(AppSettings::get_default_img_path()+wxT("caen.png")));
     wxStaticBitmap* itemStaticBitmap6 = new wxStaticBitmap( m_left_panel, wxID_STATIC, itemStaticBitmap6Bitmap, wxDefaultPosition, wxSize(195, 62), 0 );
     m_left_sizer->Add(itemStaticBitmap6, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
 
@@ -187,7 +189,7 @@ wxBitmap InfoDialog::GetBitmapResource( const wxString& name )
     wxUnusedVar(name);
     if (name == _T("caen.png"))
     {
-        wxBitmap bitmap(_T("caen.png"), wxBITMAP_TYPE_PNG);
+      wxBitmap bitmap(AppSettings::get_default_img_path()+_T("caen.png"), wxBITMAP_TYPE_PNG);
         return bitmap;
     }
     return wxNullBitmap;
@@ -205,7 +207,7 @@ wxIcon InfoDialog::GetIconResource( const wxString& name )
     wxUnusedVar(name);
     if (name == _T("app_icon.ico"))
     {
-        wxIcon icon(_T("app_icon.ico"), wxBITMAP_TYPE_ICO);
+      wxIcon icon(AppSettings::get_default_img_path()+_T("app_icon.ico"), wxBITMAP_TYPE_ICO);
         return icon;
     }
     return wxNullIcon;

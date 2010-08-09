@@ -56,6 +56,8 @@ public:
     double GetVMEClkinFreq( ) const { return this->m_vme_clkin_freq;}
     void SetVMEClkinFreq(double val) {this->m_vme_clkin_freq = val;} 
 
+    static const wxString get_default_img_path();
+
 protected:
 	wxString m_vme_board_type_string;
 

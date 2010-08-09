@@ -348,3 +348,14 @@ bool AppSettings::Save( void)
 
 	return true;
 }
+
+const wxString AppSettings::get_default_img_path() {
+#ifdef WIN32
+        return GetExecutablePath()+ wxFileName::GetPathSeparator();
+#else
+        return _("/etc/CAENPLLConfig/images/");
+        //wxStandardPaths std_path;
+        //              return std_path.GetLocalDataDir()+ wxFileName::GetPathSeparator();
+#endif
+}
+

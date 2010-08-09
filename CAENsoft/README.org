@@ -44,6 +44,7 @@
    #+END_EXAMPLE
 
 ** PLLConfig
+
    1. Package needed in Debian lenny: *libwxgtk2.8-dev*
       #+BEGIN_EXAMPLE
       sudo aptitude install libwxgtk2.8-dev

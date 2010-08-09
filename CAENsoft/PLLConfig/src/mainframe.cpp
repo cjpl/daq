@@ -194,7 +194,7 @@ bool MainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& caption
 
     this->SetFont(wxFont(9, wxSWISS, wxNORMAL, wxNORMAL, false, _T("Verdana")));
     CreateControls();
-    SetIcon(GetIconResource(wxT("app_icon.ico")));
+    SetIcon(GetIconResource(AppSettings::get_default_img_path()+wxT("app_icon.ico")));
     Centre();
 	////@end MainFrame creation
 	
@@ -495,7 +495,7 @@ void MainFrame::CreateControls()
 	//   m_pllset_clkin_sizer->Add(m_pllset_clkin_dblcontrol, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
 	// Show Toolbar logo
- 	m_main_toolbar->PushEventHandler( new wxBackgroundBitmap( wxBitmap(_("caen.png"), wxBITMAP_TYPE_PNG), this));
+ 	m_main_toolbar->PushEventHandler( new wxBackgroundBitmap( wxBitmap(AppSettings::get_default_img_path()+_("caen.png"), wxBITMAP_TYPE_PNG), this));
 
 	MainFrame::g_main_statusbar= this->m_main_statusbar;
 }
@@ -520,32 +520,32 @@ wxBitmap MainFrame::GetBitmapResource( const wxString& name )
     wxUnusedVar(name);
     if (name == _T("exit_34.png"))
     {
-        wxBitmap bitmap(_T("exit_34.png"), wxBITMAP_TYPE_PNG);
+        wxBitmap bitmap(AppSettings::get_default_img_path()+ _T("exit_34.png"), wxBITMAP_TYPE_PNG);
         return bitmap;
     }
     else if (name == _T("open.png"))
     {
-        wxBitmap bitmap(_T("open.png"), wxBITMAP_TYPE_PNG);
+        wxBitmap bitmap(AppSettings::get_default_img_path()+ _T("open.png"), wxBITMAP_TYPE_PNG);
         return bitmap;
     }
     else if (name == _T("save.png"))
     {
-        wxBitmap bitmap(_T("save.png"), wxBITMAP_TYPE_PNG);
+        wxBitmap bitmap(AppSettings::get_default_img_path()+ _T("save.png"), wxBITMAP_TYPE_PNG);
         return bitmap;
     }
     else if (name == _T("Magic-32x32.png"))
     {
-        wxBitmap bitmap(_T("Magic-32x32.png"), wxBITMAP_TYPE_PNG);
+        wxBitmap bitmap(AppSettings::get_default_img_path()+ _T("Magic-32x32.png"), wxBITMAP_TYPE_PNG);
         return bitmap;
     }
     else if (name == _T("download.png"))
     {
-        wxBitmap bitmap(_T("download.png"), wxBITMAP_TYPE_PNG);
+        wxBitmap bitmap(AppSettings::get_default_img_path()+ _T("download.png"), wxBITMAP_TYPE_PNG);
         return bitmap;
     }
     else if (name == _T("about_34.png"))
     {
-        wxBitmap bitmap(_T("about_34.png"), wxBITMAP_TYPE_PNG);
+        wxBitmap bitmap(AppSettings::get_default_img_path()+ _T("about_34.png"), wxBITMAP_TYPE_PNG);
         return bitmap;
     }
     return wxNullBitmap;
@@ -562,7 +562,7 @@ wxIcon MainFrame::GetIconResource( const wxString& name )
     wxUnusedVar(name);
     if (name == _T("app_icon.ico"))
     {
-        wxIcon icon(_T("app_icon.ico"), wxBITMAP_TYPE_ICO);
+        wxIcon icon(AppSettings::get_default_img_path()+ _T("app_icon.ico"), wxBITMAP_TYPE_ICO);
         return icon;
     }
     return wxNullIcon;
