@@ -13,7 +13,8 @@
   1. Install CAENVMElib
   2. Install DigitizerSDK
   3. Install PLLConfig
-  4. Optional install
+  4. Install CAENComm
+  5. Optional install
      1) cvUpgrade
      2) Scope
      3) WaveDump
@@ -58,6 +59,13 @@
       #+END_EXAMPLE
    3. Make and install
 
+** CAENCOMMLIBRARY
+   + http://www.caen.it/nuclear/swproduct.php?mod=CAENCOMMLIBRARY
+   + Use the ~inst-dynlib.sh~ script to install:
+     #+BEGIN_EXAMPLE
+     ./inst-dynlib.sh /opt/DAQ
+     #+END_EXAMPLE
+
 ** Optional packages
 
 *** Scope
@@ -65,8 +73,22 @@
     *PLLConfig* as above.
 
 *** WaveDump
+    This packages need *gnuplot*. In debian, you may install it with the following
+    command ~sudo aptitude install gnuplot~.
+
+    1. Configure it
+       #+BEGIN_EXAMPLE
+       ./configure --prefix=/opt/DAQ CFLAGS="-I/opt/DAQ/include"
+                  CPPFLAGS="-I/opt/DAQ/include" LDFLAGS="-L/opt/DAQ/lib"
+       #+END_EXAMPLE
+    2. Make and make install
+       #+BEGIN_EXAMPLE
+       make && make install
+       #+END_EXAMPLE
 
 *** cvUpgrade
+    It needs *CAENComm* installed.
+
 * ChangeLog
 ** [2010-08-04 三 15:14] Import packages from CAEN
    |--------------+---------+-----------------------------|
@@ -85,4 +107,7 @@
 
 ** <2010-08-09 一 13:26> Fix compile bugs in *Scope*
    Most of bugs are the same as in *PLLConfig*.
+
+** <2010-08-09 一 13:58> CAENComm package imported
+   CAENComm, version 1.01, March 2010.
 
