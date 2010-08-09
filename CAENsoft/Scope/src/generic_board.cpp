@@ -114,7 +114,7 @@ bool GenericBoard::LoadConfig( wxConfigBase* p_config, const wxString& base_sect
 	{
 		//
 		// Get Channel specific parameters
-		wxString channel_string= wxString::Format( "%s%i/", base_section.c_str(), i);
+	  wxString channel_string= wxString::Format(_("%s%i/"), base_section.c_str(), i);
 		this->m_channel_array.Add( this->CreateChannel( i, this->ScopeRefresh, this->m_p_data_mutex));
 		//
 		// Load channel section
@@ -129,7 +129,7 @@ bool GenericBoard::LoadConfig( wxConfigBase* p_config, const wxString& base_sect
 	{
 		//
 		// Get Virtual Channel specific parameters
-		wxString channel_string= wxString::Format( "%sVIRT_%i/", base_section.c_str(), i);
+	  wxString channel_string= wxString::Format(_("%sVIRT_%i/"), base_section.c_str(), i);
 		this->m_virtual_channel_array.Add( this->CreateVirtualChannel( i, this->ScopeRefresh, this->m_p_data_mutex));
 		//
 		// Load Virtual channel section
@@ -147,7 +147,7 @@ bool GenericBoard::SaveConfig( wxConfigBase* p_config, const wxString& base_sect
 		return false;
 	//
 	// Set the board address
-	wxString board_add_string= wxString::Format( "0x%04x", this->m_p_data->m_base_address);
+	wxString board_add_string= wxString::Format(_("0x%04x"), this->m_p_data->m_base_address);
 	if( !p_config->Write( base_section+ _("ADDRESS"), board_add_string))
 		return false;
 
@@ -159,7 +159,7 @@ bool GenericBoard::SaveConfig( wxConfigBase* p_config, const wxString& base_sect
 	{
 		//
 		// Set Channel specific parameters
-		wxString channel_string= wxString::Format( "%s%i/", base_section.c_str(), i);
+	  wxString channel_string= wxString::Format(_("%s%i/"), base_section.c_str(), i);
 		//
 		// Save channel section
 		if( !((GenericBoardChannel*)this->m_channel_array[i])->SaveConfig( p_config, channel_string))
@@ -174,7 +174,7 @@ bool GenericBoard::SaveConfig( wxConfigBase* p_config, const wxString& base_sect
 	{
 		//
 		// Set Virtual Channel specific parameters
-		wxString channel_string= wxString::Format( "%sVIRT_%i/", base_section.c_str(), i);
+	  wxString channel_string= wxString::Format(_("%sVIRT_%i/"), base_section.c_str(), i);
 		//
 		// Save Virtual channel section
 		if( !((GenericBoardChannel*)this->m_virtual_channel_array[i])->SaveConfig( p_config, channel_string))
@@ -394,7 +394,7 @@ bool GenericBoard::ToggleRecordStatus( const wxString &path, const wxString &fil
 	bool ret= true;
 	//
 	// Append board id
-	wxString new_file_name= wxString::Format( "%sB%02d", file_name.c_str(), this->m_board_index);
+	wxString new_file_name= wxString::Format(_("%sB%02d"), file_name.c_str(), this->m_board_index);
 	// 
 	// Loop channels
 	for( size_t j= 0; j< this->m_channel_array.GetCount(); j++)

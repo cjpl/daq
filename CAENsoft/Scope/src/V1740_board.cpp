@@ -110,7 +110,7 @@ bool V1740Board::LoadConfig( wxConfigBase* p_config, const wxString& base_sectio
 	{
 		//
 		// Get Channel specific parameters
-		wxString channel_string= wxString::Format( "%s%i/", base_section.c_str(), i);
+	  wxString channel_string= wxString::Format(_("%s%i/"), base_section.c_str(), i);
 		this->m_channel_array.Add( this->CreateChannel( i+ ( this->m_channel_group* CVT_V1724_MAX_CHANNEL) , this->ScopeRefresh, this->m_p_data_mutex));
 		//
 		// Load channel section
@@ -125,7 +125,7 @@ bool V1740Board::LoadConfig( wxConfigBase* p_config, const wxString& base_sectio
 	{
 		//
 		// Get Virtual Channel specific parameters
-		wxString channel_string= wxString::Format( "%sVIRT_%i/", base_section.c_str(), i);
+	  wxString channel_string= wxString::Format(_("%sVIRT_%i/"), base_section.c_str(), i);
 		this->m_virtual_channel_array.Add( this->CreateVirtualChannel( i, this->ScopeRefresh, this->m_p_data_mutex));
 		//
 		// Load Virtual channel section
@@ -143,7 +143,7 @@ bool V1740Board::SaveConfig( wxConfigBase* p_config, const wxString& base_sectio
 		return false;
 	//
 	// Set the board address
-	wxString board_add_string= wxString::Format( "0x%04x", this->m_p_data->m_base_address);
+	wxString board_add_string= wxString::Format(_("0x%04x"), this->m_p_data->m_base_address);
 	if( !p_config->Write( base_section+ _("ADDRESS"), board_add_string))
 		return false;
 
@@ -159,7 +159,7 @@ bool V1740Board::SaveConfig( wxConfigBase* p_config, const wxString& base_sectio
 	{
 		//
 		// Set Channel specific parameters
-		wxString channel_string= wxString::Format( "%s%i/", base_section.c_str(), i);
+	  wxString channel_string= wxString::Format(_("%s%i/"), base_section.c_str(), i);
 		//
 		// Save channel section
 		if( !((GenericBoardChannel*)this->m_channel_array[i])->SaveConfig( p_config, channel_string))
@@ -174,7 +174,7 @@ bool V1740Board::SaveConfig( wxConfigBase* p_config, const wxString& base_sectio
 	{
 		//
 		// Set Virtual Channel specific parameters
-		wxString channel_string= wxString::Format( "%sVIRT_%i/", base_section.c_str(), i);
+	  wxString channel_string= wxString::Format(_("%sVIRT_%i/"), base_section.c_str(), i);
 		//
 		// Save Virtual channel section
 		if( !((GenericBoardChannel*)this->m_virtual_channel_array[i])->SaveConfig( p_config, channel_string))

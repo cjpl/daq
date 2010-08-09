@@ -626,7 +626,7 @@ bool MainFrame::CreateDynControls()
 		this->m_DAC_offset_label->Show( show_dac);
 		this->m_DAC_sizer->Show( !show_dac);
 		if( !show_dac) {
-			this->m_trigger_channel_sizer->GetStaticBox()->SetLabel("");
+		  this->m_trigger_channel_sizer->GetStaticBox()->SetLabel(_(""));
 		}
 	}
 	return true;
@@ -1351,7 +1351,7 @@ void MainFrame::CreateControls()
 	{
 		if( !((GenericBoard*) this->m_app_settings->m_board_array[0])->GetBoardMemory( num_ksamples_per_channel))
 		{
-			wxLogError( wxString::Format( "Cannot read BOARD MEMORY capabilities: defaulting to %d K samples per channel\n", num_ksamples_per_channel));
+		  wxLogError( wxString::Format(_("Cannot read BOARD MEMORY capabilities: defaulting to %d K samples per channel\n"), num_ksamples_per_channel));
 		}
 	}
 
@@ -1369,7 +1369,7 @@ void MainFrame::CreateControls()
 		}
 		int *data= new int();
 		*data= n_samples;
-		this->m_size_X_control->Append( tmp, data);
+		this->m_size_X_control->Append( wxString::FromAscii(tmp), data);
 	}
 
 /*
@@ -1527,7 +1527,7 @@ wxBitmap MainFrame::GetBitmapResource( const wxString& name )
 wxIcon MainFrame::GetIconResource( const wxString& /*name*/ )
 {
 	// Icon retrieval
-	#include "../img/scope2.xpm"
+#include "../img/scope2.xpm"
     wxIcon icon( scope2_xpm);
     return icon;
 
@@ -2170,7 +2170,7 @@ void MainFrame::OnSizeXChoiceSelected( wxCommandEvent& /* event*/ )
 
 void MainFrame::OnGridLineWidth1SpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-    int value= atoi( this->m_grid_line_width_1_control->GetLabel());
+  int value= atoi( this->m_grid_line_width_1_control->GetLabel().ToAscii());
 	this->UpdateGridLineWidth( 0, value);
 }
 
@@ -2188,7 +2188,7 @@ void MainFrame::UpdateGridLineWidth( int scope_index, int value)
 
 void MainFrame::OnTriggerPostSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-    int value= atoi( this->m_trigger_post_control->GetLabel());
+  int value= atoi( this->m_trigger_post_control->GetLabel().ToAscii());
 	this->UpdateTriggerPost( value);
 }
 
@@ -2252,7 +2252,7 @@ void MainFrame::OnOffsetSec1SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnOffsetSec1SpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-    int value= atoi( this->m_offset_sec_1_control->GetLabel());
+  int value= atoi( this->m_offset_sec_1_control->GetLabel().ToAscii());
 	this->UpdateOffsetSec( 0, value);
 }
 
@@ -2284,10 +2284,10 @@ void MainFrame::OnRecordtogglebuttonClick( wxCommandEvent& /*event */)
 	wxString path= this->m_record_dir_control->GetValue();
 	wxString file_name= _("caen_scope_");
 	wxString date= wxDateTime::Now().FormatISODate();
-	date.Replace( "-", "_");
+	date.Replace( _("-"), _("_"));
 	wxString time= wxDateTime::Now().FormatISOTime();
-	time.Replace( ":", "_");
-	wxString timestamp( wxString::Format( "%s_%s", date.c_str(), time.c_str()));
+	time.Replace(_(":"), _("_"));
+	wxString timestamp( wxString::Format(_("%s_%s"), date.c_str(), time.c_str()));
 	bool start= this->m_record_start_stop_control->GetValue();
 	bool use_max_buffer= this->m_record_max_buffers_check_box->GetValue();
 	int max_buffers= this->m_record_max_buffers_control->GetValue();
@@ -2317,7 +2317,7 @@ void MainFrame::OnRecorddirbuttonClick( wxCommandEvent& /*event*/ )
 	// Show directory browse folder
 	wxFileName org_dir( this->m_record_dir_control->GetValue());
 	org_dir.Normalize();
-	wxDirDialog dlg( this, "Choose a directory for recording", org_dir.GetFullPath());
+	wxDirDialog dlg( this, _("Choose a directory for recording"), org_dir.GetFullPath());
 	if( dlg.ShowModal()!= wxID_OK )
 		return;
 	this->m_record_dir_control->SetValue( dlg.GetPath());
@@ -2764,7 +2764,7 @@ void MainFrame::OnOffsetSec2SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnOffsetSec2SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-    int value= atoi( this->m_offset_sec_2_control->GetLabel());
+  int value= atoi( this->m_offset_sec_2_control->GetLabel().ToAscii());
 	this->UpdateOffsetSec( 1, value);
 }
 
@@ -2792,7 +2792,7 @@ void MainFrame::OnGridLineWidth2SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnGridLineWidth2SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-    int value= atoi( this->m_grid_line_width_2_control->GetLabel());
+  int value= atoi( this->m_grid_line_width_2_control->GetLabel().ToAscii());
 	this->UpdateGridLineWidth( 1, value);
 }
 
@@ -2841,7 +2841,7 @@ void MainFrame::OnOffsetSec3SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnOffsetSec3SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-    int value= atoi( this->m_offset_sec_3_control->GetLabel());
+  int value= atoi( this->m_offset_sec_3_control->GetLabel().ToAscii());
 	this->UpdateOffsetSec( 2, value);
 }
 
@@ -2869,7 +2869,7 @@ void MainFrame::OnGridLineWidth3SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnGridLineWidth3SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-    int value= atoi( this->m_grid_line_width_3_control->GetLabel());
+  int value= atoi( this->m_grid_line_width_3_control->GetLabel().ToAscii());
 	this->UpdateGridLineWidth( 2, value);
 }
 
@@ -2918,7 +2918,7 @@ void MainFrame::OnOffsetSec4SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnOffsetSec4SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-    int value= atoi( this->m_offset_sec_4_control->GetLabel());
+  int value= atoi( this->m_offset_sec_4_control->GetLabel().ToAscii());
 	this->UpdateOffsetSec( 3, value);
 }
 
@@ -2946,7 +2946,7 @@ void MainFrame::OnGridLineWidth4SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnGridLineWidth4SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-    int value= atoi( this->m_grid_line_width_4_control->GetLabel());
+  int value= atoi( this->m_grid_line_width_4_control->GetLabel().ToAscii());
 	this->UpdateGridLineWidth( 3, value);
 }
 

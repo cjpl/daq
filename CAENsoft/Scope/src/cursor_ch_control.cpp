@@ -305,11 +305,11 @@ bool CursorChControl::UpdateControls( )
 {
 	if( this->m_is_virtual)
 	{
-		this->m_main_sizer_text->SetLabel( wxString::Format( "VIRT %d", this->m_ch_count));
+	  this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
 	}
 	else
 	{
-		this->m_main_sizer_text->SetLabel( wxString::Format( "%d", this->m_ch_count));
+	  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
 	}
 	this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_cursor_enabled[ this->m_scope_index]);
 	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
@@ -338,7 +338,7 @@ bool CursorChControl::UpdateCursorPosition( int cursor_position)
 	(this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
 
 	double position_usec= this->m_p_board_channel->Sample2Sec( this->m_p_board_channel->m_cursor_position[ this->m_scope_index])* 1000000.0;
-	this->m_cursor_position_control->SetLabel( wxString::Format( "%.3f", position_usec));
+	this->m_cursor_position_control->SetLabel( wxString::Format(_("%.3f"), position_usec));
 	return true;
 }
 

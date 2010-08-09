@@ -65,7 +65,7 @@ int VirtualBoardChannel::GetSample( int i)
 }
 wxString VirtualBoardChannel::GetRecordChannelNumber( void)
 {
-	return wxString::Format( "V%02d", this->m_ch_index);
+  return wxString::Format(_("V%02d"), this->m_ch_index);
 }
 UINT32 VirtualBoardChannel::GetBufferCount( void)
 {
@@ -91,7 +91,7 @@ bool VirtualBoardChannel::LoadConfig( wxConfigBase* p_config, const wxString& ba
 	// Get RPN definition
 	wxString tmp_string= _("");
 	p_config->Read( base_section+ _("VIRTUAL_CHANNEL_DEF"), &tmp_string, _(""));
-	this->m_p_rpn_handler= new RpnHandler( this, tmp_string);
+	this->m_p_rpn_handler= new RpnHandler( this, tmp_string.ToAscii());
 
 	return true;
 
@@ -105,7 +105,7 @@ bool VirtualBoardChannel::SaveConfig( wxConfigBase* p_config, const wxString& ba
 	// Set RPN definition
 	if( this->m_p_rpn_handler)
 	{
-		wxString tmp_string( this->m_p_rpn_handler->Format());
+	  wxString tmp_string=wxString::FromAscii( this->m_p_rpn_handler->Format() );
 		if( !p_config->Write( base_section+ _("VIRTUAL_CHANNEL_DEF"), tmp_string))
 			return false;
 	}

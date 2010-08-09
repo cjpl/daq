@@ -31,7 +31,7 @@ fi
 
 # check for xwWidgets
 AM_OPTIONS_WXCONFIG
-reqwx=2.8.8
+reqwx=2.8.7
 AM_PATH_WXCONFIG($reqwx, wxWin=1)
 if test "$wxWin" != 1; then
         AC_MSG_ERROR([

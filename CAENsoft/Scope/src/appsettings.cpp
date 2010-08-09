@@ -187,12 +187,12 @@ bool AppSettings::Load( void)
 	
 	//
 	// Get Record Folder
-	config->Read(  _("/RECORD/RECORD_FOLDER"), &this->m_record_folder, "./");
+	config->Read(  _("/RECORD/RECORD_FOLDER"), &this->m_record_folder, _("./"));
 	// Sanity checks
 	if( !wxDir::Exists( this->m_record_folder))
 	{
 		// Set to current directory
-		this->m_record_folder= "./";
+	  this->m_record_folder= _("./");
 	}
 
 	//
@@ -271,7 +271,7 @@ bool AppSettings::Load( void)
 
 	for( int scope_index= 0; scope_index< SCOPE_NUM_PANELS; scope_index++)
 	{
-		wxString scope_index_string= wxString::Format( "_%d", scope_index);
+	  wxString scope_index_string= wxString::Format(_("_%d"), scope_index);
 		//
 		// Get grid line color
 		wxString grid_line_color_rgb_string= _("");
@@ -369,7 +369,7 @@ bool AppSettings::Load( void)
 	for( i= 0; i< (unsigned int)acq_board_num; i++)
 	{
 		GenericBoard *board= ( GenericBoard *)0;
-		wxString board_string= wxString::Format( "%s%i/", board_base_string.c_str(), i);
+		wxString board_string= wxString::Format(_("%s%i/"), board_base_string.c_str(), i);
 
 		//
 		// Get the board type
@@ -415,7 +415,7 @@ bool AppSettings::Load( void)
 			// read the board id
 			if( !V17XXBoard::GetBoardId( tmp_data, board_id))
 			{
-				wxLogError( wxString::Format( "Cannot read BOARD INFO : defaulting to '%s'\n", def_board_string));
+			  wxLogError( wxString::Format(_("Cannot read BOARD INFO : defaulting to '%s'\n"), def_board_string));
 				board_id= CVT_V17XX_RCFG_BOARD_ID_V1724;
 			}
 
@@ -495,7 +495,7 @@ bool AppSettings::Load( void)
 
 				default:
 					// Unknown board type
-					wxLogError( wxString::Format( "Unknown board id '0x%08X'\n", board_id));
+				  wxLogError( wxString::Format(_("Unknown board id '0x%08X'\n"), board_id));
 					break;
 			}
 		}
@@ -631,7 +631,7 @@ bool AppSettings::Load( void)
 			else
 			{
 				// Unknown board type
-				wxLogError( wxString::Format( "Unknown board type '%s'\n", board_type.c_str()));
+			  wxLogError( wxString::Format(_("Unknown board type '%s'\n"), board_type.c_str()));
 				// return false;
 			}
 		}
@@ -757,11 +757,11 @@ bool AppSettings::Save( void)
 
 	for( int scope_index= 0; scope_index< SCOPE_NUM_PANELS; scope_index++)
 	{
-		wxString scope_index_string= wxString::Format( "_%d", scope_index);
+	  wxString scope_index_string= wxString::Format(_("_%d"), scope_index);
 
 		//
 		// Set grid line color
-		wxString grid_line_color_rgb_string= wxString::Format( "0x%02x%02x%02x", this->m_grid_line_color[ scope_index].Red(), this->m_grid_line_color[ scope_index].Green(), this->m_grid_line_color[ scope_index].Blue());
+	  wxString grid_line_color_rgb_string= wxString::Format(_("0x%02x%02x%02x"), this->m_grid_line_color[ scope_index].Red(), this->m_grid_line_color[ scope_index].Green(), this->m_grid_line_color[ scope_index].Blue());
 		if( !config->Write( _("/MISC/GRID_LINE_COLOR")+ scope_index_string, grid_line_color_rgb_string))
 			return false;
 
@@ -787,7 +787,7 @@ bool AppSettings::Save( void)
 
 		//
 		// Set grid line color
-		wxString back_color_rgb_string= wxString::Format( "0x%02x%02x%02x", this->m_background_color[ scope_index].Red(), this->m_background_color[ scope_index].Green(), this->m_background_color[ scope_index].Blue());
+		wxString back_color_rgb_string= wxString::Format(_("0x%02x%02x%02x"), this->m_background_color[ scope_index].Red(), this->m_background_color[ scope_index].Green(), this->m_background_color[ scope_index].Blue());
 		if( !config->Write( _("/MISC/BACKGROUND_COLOR")+ scope_index_string, back_color_rgb_string))
 			return false;
 	}
@@ -821,7 +821,7 @@ bool AppSettings::Save( void)
 	// Boards loop
 	for( size_t i= 0; i< this->m_board_array.GetCount(); i++)
 	{
-		wxString board_string= wxString::Format( "%s%i/", board_base_string.c_str(), i);
+	  wxString board_string= wxString::Format(_("%s%i/"), board_base_string.c_str(), i);
 		//
 		// Set the board type
 		//if( !config->Write( board_string+ _("BOARD_TYPE"), ((GenericBoard*)this->m_board_array[i])->GetTypeString()))
@@ -846,7 +846,7 @@ bool AppSettings::InitVME( void)
 		CVErrorCodes cv_error_code;
 		if( ( cv_error_code= CAENVME_Init( cvV1718, this->m_vme_link, this->m_vme_board_num, &this->m_vme_handle))!= cvSuccess)
 		{
-			wxLogError( wxString::Format( _("VME Init failure board type= %s link= %i board num= %i error= %s"), this->m_vme_board_type_string.c_str(), this->m_vme_link, this->m_vme_board_num, CAENVME_DecodeError( cv_error_code) ));
+		  wxLogError( wxString::Format( _("VME Init failure board type= %s link= %i board num= %i error= %s"), this->m_vme_board_type_string, this->m_vme_link, this->m_vme_board_num, CAENVME_DecodeError( cv_error_code) ));
 			return false;
 		}
 	}
@@ -855,7 +855,7 @@ bool AppSettings::InitVME( void)
 		CVErrorCodes cv_error_code;
 		if( ( cv_error_code= CAENVME_Init( cvV2718, this->m_vme_link, this->m_vme_board_num, &this->m_vme_handle))!= cvSuccess)
 		{
-			wxLogError( wxString::Format( _("VME Init failure board type= %s link= %i board num= %i error= %s"), this->m_vme_board_type_string.c_str(), this->m_vme_link, this->m_vme_board_num, CAENVME_DecodeError( cv_error_code) ));
+		  wxLogError( wxString::Format( _("VME Init failure board type= %s link= %i board num= %i error= %s"), this->m_vme_board_type_string, this->m_vme_link, this->m_vme_board_num, CAENVME_DecodeError( cv_error_code) ));
 			return false;
 		}
 	}
@@ -883,7 +883,7 @@ bool AppSettings::EndVME( void)
 	CVErrorCodes cv_error_code;
 	if( ( cv_error_code= CAENVME_End( this->m_vme_handle))!= cvSuccess)
 	{
-		wxLogError( wxString::Format( _("VME End failure board type= %s link= %i board num= %i error= %s\n"), this->m_vme_board_type_string.c_str(), this->m_vme_link, this->m_vme_board_num, CAENVME_DecodeError( cv_error_code)));
+		wxLogError( wxString::Format( _("VME End failure board type= %s link= %i board num= %i error= %s\n"), this->m_vme_board_type_string, this->m_vme_link, this->m_vme_board_num, CAENVME_DecodeError( cv_error_code)));
 		return false;
 	}		
 	this->m_vme_handle= CAEN_VME_INVALID_HANDLE;

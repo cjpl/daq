@@ -4518,7 +4518,7 @@ else
   wx_config_exec_prefix=""
 fi;
 
-reqwx=2.8.8
+reqwx=2.8.7
 
     if test x${WX_CONFIG_NAME+set} != xset ; then
      WX_CONFIG_NAME=wx-config

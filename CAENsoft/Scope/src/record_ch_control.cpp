@@ -168,7 +168,7 @@ void RecordChControl::OnRateDividerSpinctrlUpdated( wxSpinEvent& event)
 
 void RecordChControl::OnRateDividerSpinctrlTextUpdated( wxCommandEvent& /*event*/)
 {
-    int value= atoi( this->m_ch_rate_divider_control->GetLabel( ));
+  int value= atoi( this->m_ch_rate_divider_control->GetLabel().ToAscii());
 	this->UpdateRateDivider( value);
 }
 
@@ -235,11 +235,11 @@ bool RecordChControl::UpdateControls( void)
 {
 	if( this->m_is_virtual)
 	{
-		this->m_main_sizer_text->SetLabel( wxString::Format( "VIRT %d", this->m_ch_count));
+	  this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
 	}
 	else
 	{
-		this->m_main_sizer_text->SetLabel( wxString::Format( "%d", this->m_ch_count));
+	  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
 	}
 	this->m_ch_rate_divider_control->SetValue( this->m_p_board_channel->m_record_rate_divider);
 	this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_record_enabled);

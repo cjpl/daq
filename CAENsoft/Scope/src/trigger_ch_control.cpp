@@ -196,7 +196,7 @@ bool TriggerChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_c
 }
 bool TriggerChControl::UpdateControls( )
 {
-	this->m_main_sizer_text->SetLabel( wxString::Format( "%d", this->m_ch_count));
+  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
 	this->m_ch_threshold_control->SetValue( (int)(double)(this->m_p_board_channel->m_trigger_threshold_volt* 1000.0));
 	this->m_thr_sample_control->SetValue( this->m_p_board_channel->m_trigger_thr_sample);
 
@@ -211,7 +211,7 @@ bool TriggerChControl::UpdateControls( )
 
 void TriggerChControl::OnThresholdSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-    int value= atoi( this->m_ch_threshold_control->GetLabel( ));
+  int value= atoi( this->m_ch_threshold_control->GetLabel().ToAscii());
 	this->UpdateThreshold( value);
 }
 
@@ -221,7 +221,7 @@ void TriggerChControl::OnThresholdSpinctrlTextUpdated( wxCommandEvent& /* event*
 
 void TriggerChControl::OnThrSamplesSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-    int value= atoi( this->m_thr_sample_control->GetLabel( ));
+  int value= atoi( this->m_thr_sample_control->GetLabel().ToAscii());
 	this->UpdateThrSamples( value);
 }
 

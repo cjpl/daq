@@ -61,6 +61,8 @@
 ** Optional packages
 
 *** Scope
+    Compiling of this package needs *libwxgtk-dev*. Follow the same procedure of
+    *PLLConfig* as above.
 
 *** WaveDump
 
@@ -80,4 +82,7 @@
 
 ** <2010-08-09 一 11:24> Fix compile bugs in *PLLConfig*
    Most of bugs are about ~wxString~ and ~const char*~.
+
+** <2010-08-09 一 13:26> Fix compile bugs in *Scope*
+   Most of bugs are the same as in *PLLConfig*.
 

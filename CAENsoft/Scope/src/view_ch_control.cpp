@@ -238,9 +238,9 @@ bool ViewChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_coun
 bool ViewChControl::UpdateControls( )
 {
 	if( this->m_is_virtual)
-		this->m_main_sizer_text->SetLabel( wxString::Format( "VIRT %d", this->m_ch_count));
+	  this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
 	else
-		this->m_main_sizer_text->SetLabel( wxString::Format( "%d", this->m_ch_count));
+	  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
 	this->m_color_control->SetBackgroundColour( this->m_p_board_channel->m_line_color[ this->m_scope_index]);
 	this->m_line_width_control->SetValue( this->m_p_board_channel->m_line_width[ this->m_scope_index]);
 
@@ -303,7 +303,7 @@ void ViewChControl::UpdateLinePen( )
 
 void ViewChControl::OnLineWidthSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-    int value= atoi( this->m_line_width_control->GetLabel());
+  int value= atoi( this->m_line_width_control->GetLabel().ToAscii());
     this->UpdateLineWidth( value);
 }
 
@@ -341,7 +341,7 @@ void ViewChControl::OnVoltPerDivSpinctrlUpdated( wxSpinEvent& event)
 
 void ViewChControl::OnVoltPerDivSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-    int value= atoi( this->m_ch_volt_per_div_control->GetLabel( ));
+  int value= atoi( this->m_ch_volt_per_div_control->GetLabel().ToAscii());
 	this->UpdateVoltPerDiv( value);
 }
 

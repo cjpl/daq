@@ -212,7 +212,7 @@ bool CommonChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_co
 }
 bool CommonChControl::UpdateControls( )
 {
-	this->m_main_sizer_text->SetLabel( wxString::Format( "%d", this->m_ch_count));
+  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
 	this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_enabled);
 	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
 	this->m_ch_DAC_control->SetValue( (int)(double)( this->m_p_board_channel->m_DAC_offset_bit));
@@ -264,7 +264,7 @@ void CommonChControl::OnSpinbuttonUpdated( wxSpinEvent& /* event*/ )
 
 void CommonChControl::SetMediumLabel( double value)
 {
-	this->m_medium_value_control->SetLabel( wxString::Format( "%.3f", value));
+  this->m_medium_value_control->SetLabel( wxString::Format(_("%.3f"), value));
 }
 void CommonChControl::SetEnable( bool enable, bool disable_all)
 {

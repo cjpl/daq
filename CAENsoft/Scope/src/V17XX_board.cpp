@@ -81,9 +81,9 @@ bool V17XXBoard::Init( long vme_handle)
 		return false;
 	}
 	if( !is_board_type_correct)
-		wxLogError( wxString::Format( "Settings's board type '%s' doesn't match configuration rom board type\n", this->GetTypeString().c_str()));
+	  wxLogError( wxString::Format(_("Settings's board type '%s' doesn't match configuration rom board type\n"), this->GetTypeString().c_str()));
 	if( !is_firmware_rev_correct)
-		wxLogError( wxString::Format( "The board firmware revision '%04x' is lesser than CAENVMETool's minimum firmware revision '%04x'. Please update the board's firmware.\n", firmware_rev, CVT_V1724_MIN_FIRMARE_REV));
+	  wxLogError( wxString::Format(_("The board firmware revision '%04x' is lesser than CAENVMETool's minimum firmware revision '%04x'. Please update the board's firmware.\n"), firmware_rev, CVT_V1724_MIN_FIRMARE_REV));
 	return true;
 }
 

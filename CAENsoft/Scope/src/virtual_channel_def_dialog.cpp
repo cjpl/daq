@@ -88,7 +88,7 @@ VirtualChannelDefDialog::VirtualChannelDefDialog( VirtualBoardChannel* board_cha
 
     Create(parent, id, caption, pos, size, style);
 
-	wxStringTokenizer tokenizer( this->m_p_board_channel->GetExpressionDef(), _(","));
+    wxStringTokenizer tokenizer( wxString::FromAscii(this->m_p_board_channel->GetExpressionDef()), _(","));
 	while ( tokenizer.HasMoreTokens() )
 	{
 		wxString token = tokenizer.GetNextToken();
@@ -126,7 +126,7 @@ bool VirtualChannelDefDialog::Create( wxWindow* parent, wxWindowID id, const wxS
 	// Fill channel combo list
 	for( int i= 0; i< ( int)this->m_p_board_channel->GetParent()->m_channel_array.GetCount(); i++)
 	{
-		this->m_channel_ctrl->Append( wxString::Format( "CH%d", i));
+	  this->m_channel_ctrl->Append( wxString::Format(_("CH%d"), i));
 	}
 	if( this->m_channel_ctrl->GetCount())
 		this->m_channel_ctrl->SetSelection( 0);
@@ -297,7 +297,7 @@ void VirtualChannelDefDialog::CreateControls()
 
 void VirtualChannelDefDialog::OnVchDefAddConstantButtonClick( wxCommandEvent& /*event */)
 {
-	wxString value= wxString::Format( "%d", this->m_constant_ctrl->GetValue());
+  wxString value= wxString::Format(_("%d"), this->m_constant_ctrl->GetValue());
 	int target_sel_item= this->m_definition_ctrl->GetSelection();
 	if( target_sel_item== wxNOT_FOUND )
 	{
@@ -355,7 +355,7 @@ void VirtualChannelDefDialog::OnVchDefRemoveButtonClick( wxCommandEvent& /*event
 
 void VirtualChannelDefDialog::OnVchDefOkButtonClick( wxCommandEvent& /*event */)
 {
-	RpnHandler* rpn_handler= new RpnHandler( NULL, this->MakeExpressionDef().c_str());
+  RpnHandler* rpn_handler= new RpnHandler( NULL, this->MakeExpressionDef().ToAscii());
 	if( !rpn_handler->Test())
 	{
 		// Prompt User
@@ -390,7 +390,7 @@ void VirtualChannelDefDialog::OnVchDefCancelButtonClick( wxCommandEvent& /*event
 void VirtualChannelDefDialog::OnVchDefTestButtonClick( wxCommandEvent& /*event*/ )
 {
 	// TODO : do test configuration here
-	RpnHandler* rpn_handler= new RpnHandler( NULL, this->MakeExpressionDef().c_str());
+  RpnHandler* rpn_handler= new RpnHandler( NULL, this->MakeExpressionDef().ToAscii());
 	if( !rpn_handler->Test())
 	{
 		wxMessageBox( wxT("RPN syntax has some errors!"), wxT("Expression test"), wxOK | wxCENTRE | wxICON_ERROR  );
@@ -500,7 +500,7 @@ wxString VirtualChannelDefDialog::MakeExpressionDef( void)
 	{
 		expression_def.Append( this->m_definition_ctrl->GetString( i).c_str());
 		if( i!= this->m_definition_ctrl->GetCount()- 1)
-			expression_def.Append( ",");
+		  expression_def.Append(_(","));
 	}
 	return expression_def;
 }

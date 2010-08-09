@@ -173,7 +173,7 @@ void InfoDialog::CreateControls()
 	this->m_left_sizer->Add( hyper_link, 1, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
 
 	// CAENVMETool revision
-	this->m_caenvmetool_rev->SetLabel( cvt_V1724_SW_rev());
+	this->m_caenvmetool_rev->SetLabel( wxString::FromAscii(cvt_V1724_SW_rev()) );
 
 }
 
@@ -210,7 +210,7 @@ wxBitmap InfoDialog::GetBitmapResource( const wxString& name )
 
 wxIcon InfoDialog::GetIconResource( const wxString& name )
 {
-	#include "../img/scope2.xpm"
+#include "../img/scope2.xpm"
     if (name == _T("scope2.png"))
 		return wxIcon( scope2_xpm);
     return wxNullIcon;

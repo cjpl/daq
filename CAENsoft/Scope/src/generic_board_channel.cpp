@@ -147,7 +147,7 @@ bool GenericBoardChannel::LoadConfig( wxConfigBase* p_config, const wxString& ba
 	// Get Enable channel view in scope #
 	for( int scope_index= 0; scope_index< SCOPE_NUM_PANELS; scope_index++)
 	{
-		wxString scope_index_string= wxString::Format( "_%d", scope_index);
+	  wxString scope_index_string= wxString::Format(_("_%d"), scope_index);
 
 		this->m_scope_view_enabled[ scope_index]= FALSE;
 		p_config->Read( base_section+ _("SCOPE_VIEW_ENABLED")+ scope_index_string, &this->m_scope_view_enabled[ scope_index], 0);
@@ -155,7 +155,7 @@ bool GenericBoardChannel::LoadConfig( wxConfigBase* p_config, const wxString& ba
 
 	for( int scope_index= 0; scope_index< SCOPE_NUM_PANELS; scope_index++)
 	{
-		wxString scope_index_string= wxString::Format( "_%d", scope_index);
+	  wxString scope_index_string= wxString::Format(_("_%d"), scope_index);
 		//
 		// Get line color
 		wxString line_color_rgb_string= _("");
@@ -227,7 +227,7 @@ bool GenericBoardChannel::SaveConfig( wxConfigBase* p_config, const wxString& ba
 	// Set Enable channel view in scope #
 	for( int scope_index= 0; scope_index< SCOPE_NUM_PANELS; scope_index++)
 	{
-		wxString scope_index_string= wxString::Format( "_%d", scope_index);
+	  wxString scope_index_string= wxString::Format(_("_%d"), scope_index);
 
 		if( !p_config->Write( base_section+ _("SCOPE_VIEW_ENABLED")+ scope_index_string, this->m_scope_view_enabled[ scope_index]? 1: 0))
 			return false;
@@ -235,10 +235,10 @@ bool GenericBoardChannel::SaveConfig( wxConfigBase* p_config, const wxString& ba
 
 	for( int scope_index= 0; scope_index< SCOPE_NUM_PANELS; scope_index++)
 	{
-		wxString scope_index_string= wxString::Format( "_%d", scope_index);
+	  wxString scope_index_string= wxString::Format(_("_%d"), scope_index);
 		//
 		// Set line color
-		wxString line_color_rgb_string= wxString::Format( "0x%02x%02x%02x", this->m_line_color[ scope_index].Red(), this->m_line_color[ scope_index].Green(), this->m_line_color[ scope_index].Blue());
+	  wxString line_color_rgb_string= wxString::Format(_("0x%02x%02x%02x"), this->m_line_color[ scope_index].Red(), this->m_line_color[ scope_index].Green(), this->m_line_color[ scope_index].Blue());
 		if( !p_config->Write( base_section+ _("LINE_COLOR")+ scope_index_string, line_color_rgb_string))
 			return false;
 		//
@@ -460,7 +460,7 @@ void GenericBoardChannel::DrawSamples( int scope_index, wxDC &dc)
 	}
 	if( this->m_cursor_enabled[ scope_index])
 	{
-		this->m_p_cursor_ch_control[ scope_index]->m_cursor_value_control->SetLabel( wxString::Format( "%.3f", cursor_value));
+	  this->m_p_cursor_ch_control[ scope_index]->m_cursor_value_control->SetLabel( wxString::Format(_("%.3f"), cursor_value));
 	}
 }
 void GenericBoardChannel::SetVolt2Div( int scope_index, double volt_2_div)
@@ -504,7 +504,7 @@ void GenericBoardChannel::SetLeftDiv2Pix( int scope_index, double div_2_pix_Y)
 }
 wxString GenericBoardChannel::GetRecordChannelNumber( void)
 {
-	return wxString::Format( "C%02d", this->m_ch_index);
+  return wxString::Format(_("C%02d"), this->m_ch_index);
 }
 bool GenericBoardChannel::ToggleRecordStatus( const wxString &path, const wxString &file_name, const wxString &timestamp, bool start)
 {
@@ -589,7 +589,7 @@ bool GenericBoardChannel::RecordSamples( void)
 				if( !this->m_record_sample_counter)
 				{
 					// record converted data
-					line= wxString::Format( "%u\r\n", ( (unsigned)this->GetSample( i))>> this->m_sample_shift);
+				  line= wxString::Format(_("%u\r\n"), ( (unsigned)this->GetSample( i))>> this->m_sample_shift);
 					this->m_p_record_file->Write( line);
 				}
 				if( ++this->m_record_sample_counter>= (UINT32)this->m_record_rate_divider)
@@ -608,7 +608,7 @@ bool GenericBoardChannel::RecordSamples( void)
 				if( !this->m_record_sample_counter)
 				{
 					// record raw data
-					line= wxString::Format( "%08X\r\n", this->GetSample( i)>> this->m_sample_shift);
+				  line= wxString::Format(_("%08X\r\n"), this->GetSample( i)>> this->m_sample_shift);
 					this->m_p_record_file->Write( line);
 				}
 				if( ++this->m_record_sample_counter>= (UINT32)this->m_record_rate_divider)
