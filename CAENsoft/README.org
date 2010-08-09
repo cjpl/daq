@@ -9,15 +9,13 @@
 * Software Info
 
 * Installation
-
-  1. Install CAENVMElib
-  2. Install DigitizerSDK
-  3. Install PLLConfig
-  4. Install CAENComm
-  5. Optional install
-     1) cvUpgrade
-     2) Scope
-     3) WaveDump
+  + *Notes*: You may encounter "Permission error" while executing ~make
+    install~. This can be fixed by creating directory manually. You can first
+    create dirs needed manually.
+    #+BEGIN_EXAMPLE
+    sudo mkdir -p /etc/CAENPLLConfig /etc/CAENScope /etc/wavedump /etc/cvUpgrade
+    sudo chown das  /etc/CAENPLLConfig /etc/CAENScope /etc/wavedump /etc/cvUpgrade
+    #+END_EXAMPLE
 
 ** CAENVMElib
    1. Install libCAENVME.so.* to your desired directory, (e.g. /opt/DAQ/lib)
