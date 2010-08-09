@@ -67,7 +67,7 @@ bool ConfigDoc::Load( const wxString& filename)
 
 	if( !::wxFileExists( filename))
 	{
-		wxString msg= wxString::Format( "Cannot find configuration file '%s'\n", filename.c_str());
+	  wxString msg= wxString::Format(_("Cannot find configuration file '%s'\n"), filename.c_str());
 		wxLogError( msg);
 		return false;
 	}
@@ -75,7 +75,7 @@ bool ConfigDoc::Load( const wxString& filename)
 	wxFileInputStream in_stream( filename);
 	if( !in_stream.Ok())
 	{
-		wxString msg= wxString::Format( "Errors opening configuration file '%s'\n", filename.c_str());
+	  wxString msg= wxString::Format(_("Errors opening configuration file '%s'\n"), filename.c_str());
 		wxLogError( msg);
 		return false;
 	}
@@ -117,7 +117,7 @@ bool ConfigDoc::Load( const wxString& filename)
 	else
 	{
 		// Unknown board type
-		wxLogError( wxString::Format( "Unknown board type '%s'\n", board_type_string.c_str()));
+	  wxLogError( wxString::Format(_("Unknown board type '%s'\n"), board_type_string.c_str()));
 		// return false;
 	}
 
@@ -191,14 +191,14 @@ bool ConfigDoc::Save( const wxString& filename)
 	wxFileOutputStream out_stream( filename);
 	if( !out_stream.Ok())
 	{
-		wxString msg= wxString::Format( "Errors creating configuration file '%s'\n", filename.c_str());
+	  wxString msg= wxString::Format(_("Errors creating configuration file '%s'\n"), filename.c_str());
 		wxLogError( msg);
 		return false;
 	}
 	wxFileInputStream in_stream( filename);
 	if( !in_stream.Ok())
 	{
-		wxString msg= wxString::Format( "Errors creating configuration file '%s'\n", filename.c_str());
+	  wxString msg= wxString::Format(_("Errors creating configuration file '%s'\n"), filename.c_str());
 		wxLogError( msg);
 		return false;
 	}
@@ -238,12 +238,12 @@ bool ConfigDoc::Save( const wxString& filename)
 			return false;
 		break;
 	default:
-		wxLogError( wxString::Format( "Unknown board type '%d'\n", this->m_board_type));
+	  wxLogError( wxString::Format(_("Unknown board type '%d'\n"), this->m_board_type));
 		break;
 	}
 	//
 	// Set the board address
-	wxString board_add_string= wxString::Format( "0x%08x", this->m_board_base_address);
+	wxString board_add_string= wxString::Format(_("0x%08x"), this->m_board_base_address);
 	if( !config.Write( _("/MISC/ADDRESS"), board_add_string))
 		return false;
 	if( !config.Write( _("/MISC/INPUT_CLOCK_MHZ"), this->m_input_clock))
@@ -265,7 +265,7 @@ bool ConfigDoc::Save( const wxString& filename)
 	
 	if( !config.Save( out_stream))
 	{
-		wxString msg= wxString::Format( "Errors saving configuration file '%s'\n", filename.c_str());
+	  wxString msg= wxString::Format(_("Errors saving configuration file '%s'\n"), filename.c_str());
 		wxLogError( msg);
 		return false;
 	}

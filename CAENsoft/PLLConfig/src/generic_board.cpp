@@ -138,7 +138,7 @@ bool GenericBoard::LoadConfig( wxConfigBase* p_config, const wxString& base_sect
 	// Vcxo Types loop
 	for( int i= 0; i< this->m_VCXO_types_num; i++)
 	{
-		wxString vcxo_string= wxString::Format( "%s%i/", vcxo_types_base_string.c_str(), i);
+	  wxString vcxo_string= wxString::Format(_("%s%i/"), vcxo_types_base_string.c_str(), i);
 		p_config->Read( vcxo_string+ _("FREQ_MHZ"), &this->m_VCXO_types[ i], 0);
 	}
 
@@ -234,7 +234,7 @@ bool GenericBoard::SaveConfig( wxConfigBase* p_config, const wxString& base_sect
 	// Boards loop
 	for( int i= 0; i< this->m_VCXO_types_num; i++)
 	{
-		wxString vcxo_string= wxString::Format( "%s%i/", vcxo_types_base_string.c_str(), i);
+	  wxString vcxo_string= wxString::Format(_("%s%i/"), vcxo_types_base_string.c_str(), i);
 		if( !p_config->Write( vcxo_string+ _("FREQ_MHZ"), this->m_VCXO_types[ i]))
 			return false;
 	}
@@ -253,7 +253,7 @@ bool GenericBoard::GetVCXOFreq( int type, int &freq_mhz) const
 
 bool GenericBoard::DownLoadFile( const wxString &filename, UINT32 board_add)
 {
-	return this->PLLUpgrade( filename.c_str(), board_add);
+  return this->PLLUpgrade( filename.ToAscii(), board_add);
 }
 
 bool GenericBoard::UpdateParamFromTemplate()
@@ -265,7 +265,7 @@ bool GenericBoard::UpdateParamFromTemplate()
 	{
 		if( !template_file_name.MakeAbsolute( this->m_p_app_settings->m_root_dir))
 		{
-			wxString msg= wxString::Format( "%s: Cannot find template file '%s'.", template_file_name.GetFullPath().c_str());
+		  wxString msg= wxString::Format(_("%s: Cannot find template file '%s'."), template_file_name.GetFullPath().c_str());
 			wxMessageBox( msg, wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 			return false;
 		}
@@ -273,14 +273,14 @@ bool GenericBoard::UpdateParamFromTemplate()
 
 	if( !template_file_name.FileExists())
 	{
-		wxString msg= wxString::Format( "Cannot find template file '%s'.", template_file_name.GetFullPath().c_str());
+	  wxString msg= wxString::Format(_("Cannot find template file '%s'."), template_file_name.GetFullPath().c_str());
 		wxMessageBox( msg, wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 		return false;
 	}
 	wxFileInputStream in_stream( template_file_name.GetFullPath());
 	if( !in_stream.Ok())
 	{
-		wxString msg= wxString::Format( "Cannot open template file '%s' for reading.", template_file_name.GetFullPath().c_str());
+	  wxString msg= wxString::Format(_("Cannot open template file '%s' for reading."), template_file_name.GetFullPath().c_str());
 		wxMessageBox( msg, wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 		return false;
 	}
@@ -291,7 +291,7 @@ bool GenericBoard::UpdateParamFromTemplate()
 	while( in_stream.CanRead())
 	{
 		line= text_in_stream.ReadLine( );
-		if( !line.Trim().Cmp( "\"\""))
+		if( !line.Trim().Cmp(_("\"\"")))
 		{
 			// found
 			break;
@@ -303,12 +303,12 @@ bool GenericBoard::UpdateParamFromTemplate()
 	{
 		line= text_in_stream.ReadLine( ).Trim();
 
-		if( !line.Cmp( "\"\""))
+		if( !line.Cmp(_("\"\"")))
 		{
 			// end of register found
 			break;
 		}
-		wxStringTokenizer tkz( line, ",");
+		wxStringTokenizer tkz( line, _(","));
 		if( tkz.CountTokens()!= 3)
 		{
 			// spurious lines ?
@@ -385,7 +385,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 	{
 		if( !template_file_name.MakeAbsolute( this->m_p_app_settings->m_root_dir))
 		{
-			wxString msg= wxString::Format( "Cannot find template file '%s'.", template_file_name.GetFullPath().c_str());
+		  wxString msg= wxString::Format(_("Cannot find template file '%s'."), template_file_name.GetFullPath().c_str());
 			wxMessageBox( msg, wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 			return false;
 		}
@@ -393,14 +393,14 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 
 	if( !template_file_name.FileExists())
 	{
-		wxString msg= wxString::Format( "Cannot find template file '%s'.", template_file_name.GetFullPath().c_str());
+	  wxString msg= wxString::Format(_("Cannot find template file '%s'."), template_file_name.GetFullPath().c_str());
 		wxMessageBox( msg, wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 		return false;
 	}
 	wxFileInputStream in_stream( template_file_name.GetFullPath());
 	if( !in_stream.Ok())
 	{
-		wxString msg= wxString::Format( "Cannot open template file '%s' for reading.", template_file_name.GetFullPath().c_str());
+	  wxString msg= wxString::Format(_("Cannot open template file '%s' for reading."), template_file_name.GetFullPath().c_str());
 		wxMessageBox( msg, wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 		return false;
 	}
@@ -410,7 +410,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 
 	if( !out_stream.Ok())
 	{
-		wxString msg= wxString::Format( "Cannot open download file '%s' for writing.", filename.c_str());
+	  wxString msg= wxString::Format(_("Cannot open download file '%s' for writing."), filename.c_str());
 		wxMessageBox( msg, wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 		return false;
 	}
@@ -424,7 +424,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 		line= text_in_stream.ReadLine( );
 		text_out_stream<< line<< '\n';
 
-		if( !line.Trim().Cmp( "\"\""))
+		if( !line.Trim().Cmp(_("\"\"")))
 		{
 			// found
 			break;
@@ -489,13 +489,13 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 	{
 		line= text_in_stream.ReadLine( ).Trim();
 
-		if( !line.Cmp( "\"\""))
+		if( !line.Cmp(_("\"\"")))
 		{
 			// end of register found
 			text_out_stream<< line<< '\n';
 			break;
 		}
-		wxStringTokenizer tkz( line, ",");
+		wxStringTokenizer tkz( line,_(","));
 		if( tkz.CountTokens()!= 3)
 		{
 			// spurious lines ?
@@ -562,7 +562,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x3f;
 			value&= ~value_msk;
 			value|= (unsigned char)(counter_A& value_msk);
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x05:
 			//  Reg: 0x05  N divider Counter B MSB  ( 5 LSb )
@@ -571,7 +571,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x1f;
 			value&= ~value_msk;
 			value|= (unsigned char)((int)( counter_B>> 8)& value_msk);
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x06:
 			//  Reg: 0x05  N divider Counter B LSB
@@ -580,7 +580,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0xff;
 			value&= ~value_msk;
 			value|= (unsigned char)( counter_B& value_msk);
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x0b:
 			//  Reg: 0x0b  R divider MSB  ( 6 LSb )
@@ -589,7 +589,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x3f;
 			value&= ~value_msk;
 			value|= (unsigned char)((int)( R>> 8)& value_msk);
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 
 		case 0x0c:
@@ -599,7 +599,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0xff;
 			value&= ~value_msk;
 			value|= (unsigned char)( R& value_msk);
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x38:
 			// Reg: 0x38 Output clock Delay [6] bypass
@@ -607,7 +607,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x01;
 			value&= ~value_msk;
 			value|= !config.GetClockOutDelayEnable()? value_msk: 0x00;
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x3A:
 			// Reg: 0x3A Output clock Delay [1..5] fine adjust
@@ -615,7 +615,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x3e;
 			value&= ~value_msk;
 			value|= (unsigned char)( config.GetClockOutDelay()<< 1)& value_msk;
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x42:
 			// Reg: 0x42 CLOCK_OUT enable
@@ -623,7 +623,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x01;
 			value&= ~value_msk;
 			value|= !config.GetClockOutEnable()? 0x01: 0x00;
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x45:
 			// Reg: 0x45 Pll mode= 0x02 Bypass mode: 0x1d 
@@ -631,7 +631,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x1f;
 			value&= ~value_msk;
 			value|= config.GetPLLMode()? 0x02: 0x1d;
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x48:
 		case 0x4a:
@@ -649,7 +649,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 				int high_cycles= divider- low_cycles;
 				value|= (unsigned char)( ( (high_cycles- 1)<< 4)| ( low_cycles-1));
 			}
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x49:
 		case 0x4b:
@@ -660,7 +660,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x80;
 			value&= ~value_msk;
 			value|= ( config.GetADCDivider()== 1)? value_msk: 0x00;
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x52:
 			// Reg: 0x52 FPGA Divider [5]: Low cycle [7..4] High cycle [3..0]
@@ -675,7 +675,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 				int high_cycles= divider- low_cycles;
 				value|= (unsigned char)( ( (high_cycles- 1)<< 4)| ( low_cycles-1));
 			}
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x53:
 			// Reg: 0x53 FPGA Divider [5] bypass
@@ -683,7 +683,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x80;
 			value&= ~value_msk;
 			value|= ( ( (int)((double)config.GetADCDivider()* this->GetFPGADivider())) == 1)? value_msk: 0x00;
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x54:
 			// Reg: 0x54 Output clock Divider [6]: Low cycle [7..4] High cycle [3..0]
@@ -698,7 +698,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 				int high_cycles= divider- low_cycles;
 				value|= (unsigned char)( ( (high_cycles- 1)<< 4)| ( low_cycles-1));
 			}
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		case 0x55:
 			// Reg: 0x55 Output clock Divider [6] bypass
@@ -706,7 +706,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			value_msk= 0x80;
 			value&= ~value_msk;
 			value|= !config.GetClockOutEnable()? value_msk: 0x00;
-			text_out_stream<< wxString::Format( "\"%02X\",\"%s\",\"%02X\"", address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
+			text_out_stream<< wxString::Format(_("\"%02X\",\"%s\",\"%02X\""), address, BinFormat( (unsigned char)value, bin_buff), value)<< '\n';
 			break;
 		default:
 			text_out_stream<< line<< '\n';
@@ -719,13 +719,13 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 	{
 		line= text_in_stream.ReadLine( ).Trim();
 
-		if( !line.Cmp( "\"\""))
+		if( !line.Cmp(_("\"\"")))
 		{
 			// end of register found
 			text_out_stream<< line<< '\n';
 			break;
 		}
-		wxStringTokenizer tkz( line, ",");
+		wxStringTokenizer tkz( line, _(","));
 		if( tkz.CountTokens()!= 2)
 		{
 			// spurious lines ?
@@ -733,8 +733,8 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
 			continue;
 		}
 		wxString token= tkz.NextToken().Trim();
-		if( !token.Upper().Cmp("\"REFIN:\"")||
-			!token.Upper().Cmp("\"CLKINP1:\""))
+		if( !token.Upper().Cmp(_("\"REFIN:\"")) ||
+		    !token.Upper().Cmp(_("\"CLKINP1:\"")))
 		{
 			float freq;
 			if( config.GetPLLMode())
@@ -749,7 +749,7 @@ bool GenericBoard::MakeDownloadFile( const wxString &filename, const ConfigDoc &
             // HACK: se ci forssero problemi con la stampa dei float con separatore virgola.  
             //text_out_stream<< token<< ','<< wxString::Format("%f",freq) << '\n';
 		}
-		else if( !token.Upper().Cmp("\"CLKINP2:\""))
+		else if( !token.Upper().Cmp(_("\"CLKINP2:\"")))
 		{
             float f_vcxo= config.GetVCXOFreq();
 			text_out_stream<< token<< ','<< (int)f_vcxo << '\n';
@@ -765,7 +765,7 @@ bool GenericBoard::ReadVCXOType( int &type, UINT32 board_add) const {
 
 	VMEWrapper vme_wrapper;
 	InputData in_data;
-	strncpy( in_data.m_board_type, this->m_p_app_settings->GetVMEBoardTypeString().c_str(), sizeof( in_data.m_board_type));
+	strncpy( in_data.m_board_type, this->m_p_app_settings->GetVMEBoardTypeString().ToAscii(), sizeof( in_data.m_board_type));
 	in_data.m_vme_board_num= this->m_p_app_settings->GetVMEBoardNum();
 	in_data.m_vme_link= this->m_p_app_settings->GetVMELink();
 	in_data.m_board_base_add= board_add;
@@ -796,7 +796,7 @@ bool GenericBoard::PLLUpgrade( const char* filename, UINT32 board_add)
 	VMEWrapper vme_wrapper;
 
 	InputData in_data;
-	strncpy( in_data.m_board_type, this->m_p_app_settings->GetVMEBoardTypeString().c_str(), sizeof( in_data.m_board_type));
+	strncpy( in_data.m_board_type, this->m_p_app_settings->GetVMEBoardTypeString().ToAscii(), sizeof( in_data.m_board_type));
 	in_data.m_vme_board_num= this->m_p_app_settings->GetVMEBoardNum();
 	in_data.m_vme_link= this->m_p_app_settings->GetVMELink();
 	in_data.m_board_base_add= board_add;

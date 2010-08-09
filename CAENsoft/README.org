@@ -9,6 +9,7 @@
 * Software Info
 
 * Installation
+
   1. Install CAENVMElib
   2. Install DigitizerSDK
   3. Install PLLConfig
@@ -17,6 +18,53 @@
      2) Scope
      3) WaveDump
 
+** CAENVMElib
+   1. Install libCAENVME.so.* to your desired directory, (e.g. /opt/DAQ/lib)
+      #+BEGIN_EXAMPLE
+      ./inst-dynlib.sh /opt/DAQ/lib
+      #+END_EXAMPLE
+   2. Copy headers to your DAQ directory (e.g. /opt/DAQ/include)
+      #+BEGIN_EXAMPLE
+      cp -vp CAEN*.h /opt/DAQ/include/
+      #+END_EXAMPLE
+   3. (Optional) Use libCAENVME.so with MIDAS/PSI *mvmestd.h*,
+      1) Build and install *inbmvme\_v2718/1718.{a,so}*. Default install dir is
+         */opt/DAQ/*.
+	 #+BEGIN_EXAMPLE
+	 make
+	 make install
+	 #+END_EXAMPLE
+      2) When you link your MIDAS FE codes with *libmvme\_a2818*, you should add
+         extra link option *-lmvme\_a2818* to your makefile.
+
+** DigitizerSDK
+   In order to install the SDK to our default DAQ dir (*/opt/DAQ*), the
+   *Makefile* in ~DigitizerSDK/src~ has been modified. Installation is simple as
+   #+BEGIN_EXAMPLE
+   make && make install
+   #+END_EXAMPLE
+
+** PLLConfig
+   1. Package needed in Debian lenny: *libwxgtk2.8-dev*
+      #+BEGIN_EXAMPLE
+      sudo aptitude install libwxgtk2.8-dev
+      #+END_EXAMPLE
+   2. Configuration
+      #+BEGIN_EXAMPLE
+      ./configure --prefix=/opt/DAQ  \
+               CFLAGS="-I/opt/DAQ/include" \
+               CXXFLAGS="-I/opt/DAQ/include" \
+               LDFLAGS="-L/opt/DAQ/lib"
+      #+END_EXAMPLE
+   3. Make and install
+
+** Optional packages
+
+*** Scope
+
+*** WaveDump
+
+*** cvUpgrade
 * ChangeLog
 ** [2010-08-04 三 15:14]
    |--------------+---------+-----------------------------|

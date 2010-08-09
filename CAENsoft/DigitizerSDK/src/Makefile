@@ -31,7 +31,7 @@ install	:	$(LIB)
 		/bin/rm -f $(INSTALLDIR)/libCAENdigitizerSDK.so
 		install $(LIB) $(INSTALLDIR)
 		ln -sf $(INSTALLDIR)/$(LIB) $(INSTALLDIR)/libCAENdigitizerSDK.so
-		#ldconfig
+#		#ldconfig
 
 $(LIB)	:	$(OBJS)
 		/bin/rm -f $(BINLIB)

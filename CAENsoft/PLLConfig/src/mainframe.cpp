@@ -653,7 +653,7 @@ bool MainFrame::UpdateControls( void)
 	//this->m_pllset_clkin_dblcontrol->Enable( this->m_pllset_clkmod_control->GetSelection()!= 0);
 
 	this->UpdateVCXOTypes();
-    this->m_pllset_board_base_addr_control->SetValue(wxString::Format("%08x", (this->m_app_settings->GetVMEBaseAddreess())));
+	this->m_pllset_board_base_addr_control->SetValue(wxString::Format(_("%08x"), (this->m_app_settings->GetVMEBaseAddreess())));
     this->m_pllset_clkin_dblcontrol->SetValue(this->m_app_settings->GetVMEClkinFreq());
 	this->UpdateOutput();
 	return true;
@@ -783,8 +783,8 @@ bool MainFrame::SetControls()
 			break;
 		}
 	}
-	this->m_pllset_board_base_addr_control->SetValue( wxString::Format( "%04X", this->m_loaded_doc->GetBoardBaseAddress()));
-	this->m_pllset_vcxo_type_control->SetStringSelection( wxString::Format( "%d", this->m_loaded_doc->GetVCXOFreq()));
+	this->m_pllset_board_base_addr_control->SetValue( wxString::Format( _("%04X"), this->m_loaded_doc->GetBoardBaseAddress()));
+	this->m_pllset_vcxo_type_control->SetStringSelection( wxString::Format( _("%d"), this->m_loaded_doc->GetVCXOFreq()));
 	this->m_pllset_clkmod_control->SetSelection( this->m_loaded_doc->GetPLLMode()? 0: 1);
 	this->m_pllset_clkin_dblcontrol->SetValue( this->m_loaded_doc->GetInputClock());
 
@@ -885,13 +885,13 @@ void MainFrame::UpdateVCXOTypes( void)
 	int freq= 0;
 	while( board->GetVCXOFreq( type++, freq))
 	{
-		wxString item= wxString::Format("%d", freq);
+	  wxString item= wxString::Format(_("%d"), freq);
 		if( this->m_pllset_vcxo_type_control->FindString( item)< 0) {
 			this->m_pllset_vcxo_type_control->Append( item);
 		}
 	}
     int index;
-    if(( index= this->m_pllset_vcxo_type_control->FindString( "500"))>= 0)
+    if(( index= this->m_pllset_vcxo_type_control->FindString(_("500")))>= 0)
 	{
 		this->m_pllset_vcxo_type_control->SetSelection( index);
 	}
@@ -1106,7 +1106,7 @@ void MainFrame::UpdateOutput()
 			return;
 		}
 		// Show clock in 
-		this->m_pllset_clkin_label->SetLabel( wxString::Format( "%0.4f MHz", clkin));
+		this->m_pllset_clkin_label->SetLabel( wxString::Format( _("%0.4f MHz"), clkin));
 		if( fabs( clkin- this->m_pllset_clkin_dblcontrol->GetValue())> 0.000001) {
 			this->m_pllset_clkin_label->SetForegroundColour( wxColour( 255, 0, 0));
 		} else {
@@ -1118,7 +1118,7 @@ void MainFrame::UpdateOutput()
 		// Bypass mode: get it from input control
 		input_freq= this->m_pllset_clkin_dblcontrol->GetValue();
 		// Show clock in 
-		this->m_pllset_clkin_label->SetLabel( wxString::Format( "%0.4f MHz", input_freq));
+		this->m_pllset_clkin_label->SetLabel( wxString::Format(_("%0.4f MHz"), input_freq));
 		this->m_pllset_clkin_label->SetForegroundColour( wxColour( 0, 0, 0));
 	}
 
@@ -1135,7 +1135,7 @@ void MainFrame::UpdateOutput()
 			continue;
 		}
 		// Add value to list
-		this->m_pllset_adcfreq_choice->Append( wxString::Format( "%0.4f MHz", freq), new IntClientData( i));
+		this->m_pllset_adcfreq_choice->Append( wxString::Format(_("%0.4f MHz"), freq), new IntClientData( i));
 	}
 	if( !this->m_pllset_adcfreq_choice->SetStringSelection( adc_freq_org_val)) {
 		this->m_pllset_adcfreq_choice->SetSelection( 0);
@@ -1149,7 +1149,7 @@ void MainFrame::UpdateOutput()
 	for( int i= 1; i<= 32; i++) {
 		float freq= input_freq/ i;
 		// Add value to list
-		this->m_pllset_clkoutfreq_choice->Append( wxString::Format( "%0.4f MHz", freq), new IntClientData( i));
+		this->m_pllset_clkoutfreq_choice->Append( wxString::Format(_("%0.4f MHz"), freq), new IntClientData( i));
 	}
 	if( !this->m_pllset_clkoutfreq_choice->SetStringSelection( clkout_freq_org_val)) {
 		this->m_pllset_clkoutfreq_choice->SetSelection( 0);
@@ -1164,10 +1164,10 @@ void MainFrame::UpdateOutput()
 		double calc_delay_ps= (double)i* ( board->GetClockOutDelayStepNS()* 1000.0)+ ( board->GetClockOutDelayBaseNS()* 1000.0);
 		if( calc_delay_ps>= 1000)
 			// Show as nS
-			this->m_pllset_clkoutdelay_choice->Append( wxString::Format( "%0.2f nS", calc_delay_ps* 0.001), new IntClientData( i));
+		  this->m_pllset_clkoutdelay_choice->Append( wxString::Format(_("%0.2f nS"), calc_delay_ps* 0.001), new IntClientData( i));
 		else
 			// Show as pS
-			this->m_pllset_clkoutdelay_choice->Append( wxString::Format( "%0.2f pS", calc_delay_ps), new IntClientData( i));
+		  this->m_pllset_clkoutdelay_choice->Append( wxString::Format(_("%0.2f pS"), calc_delay_ps), new IntClientData( i));
 	}
 	if( !this->m_pllset_clkoutdelay_choice->SetStringSelection( delay_org_val)) {
 		this->m_pllset_clkoutdelay_choice->SetSelection( 0);
@@ -1225,7 +1225,7 @@ void MainFrame::OnPllsetReadVcxoTypeButtonClick( wxCommandEvent& /*event */)
 		wxMessageBox( _("Unknown VCXO type. Please update your settings' file."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 		return;
 	}
-	if( !this->m_pllset_vcxo_type_control->SetStringSelection( wxString::Format("%d", freq))) {
+	if( !this->m_pllset_vcxo_type_control->SetStringSelection( wxString::Format(_("%d"), freq))) {
 		wxMessageBox( _("Unknown VCXO type. Please update your settings' file."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
 		return;
 	}

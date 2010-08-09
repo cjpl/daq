@@ -39,7 +39,7 @@ AppSettings::AppSettings( ): m_vme_link(0), m_vme_board_num(0),	m_vme_base_addre
 		setting_filename= wxGetCwd()+ wxFileName::GetPathSeparator()+ _("settings.txt");
 	
 	#else
-		setting_filename= "/etc/CAENPLLConfig/settings.txt";
+		setting_filename= _("/etc/CAENPLLConfig/settings.txt");
 	#endif
 	if( wxTheApp->argc>= 2)
 		setting_filename= wxTheApp->argv[ 1];
@@ -115,12 +115,12 @@ bool AppSettings::Load( void)
 	
 	//
 	// Get Record Folder
-	config->Read(  _("/MISC/TEMPLATE_CONFIG_FOLDER"), &this->m_template_config_folder, "./templates/");
+	config->Read(  _("/MISC/TEMPLATE_CONFIG_FOLDER"), &this->m_template_config_folder, _("./templates/"));
 	// Sanity checks
 	if( !wxDir::Exists( this->m_template_config_folder))
 	{
 		// Set to current directory
-		this->m_template_config_folder= "./";
+	  this->m_template_config_folder= _("./");
 	}
 
 	//
@@ -175,7 +175,7 @@ bool AppSettings::Load( void)
 	for( i= 0; i< (unsigned int)acq_board_num; i++)
 	{
 		GenericBoard *board= ( GenericBoard *)0;
-		wxString board_string= wxString::Format( "%s%i/", board_base_string.c_str(), i);
+		wxString board_string= wxString::Format(_("%s%i/"), board_base_string.c_str(), i);
 
 		//
 		// Get the board type
@@ -215,7 +215,7 @@ bool AppSettings::Load( void)
 		else
 		{
 			// Unknown board type
-			wxLogError( wxString::Format( "Unknown board type '%s'\n", board_type.c_str()));
+		  wxLogError( wxString::Format(_("Unknown board type '%s'\n"), board_type.c_str()));
 			// return false;
 		}
 		if( !board)
@@ -309,7 +309,7 @@ bool AppSettings::Save( void)
 
     //
 	// Set VME base address
-    wxString board_add_string= wxString::Format( "0x%08x", this->m_vme_base_address);
+	wxString board_add_string= wxString::Format(_("0x%08x"), this->m_vme_base_address);
 	if( !config->Write( _("/MISC/VME_BASE_ADDRESS"), board_add_string))
 		return false;
 
@@ -333,7 +333,7 @@ bool AppSettings::Save( void)
 	// Boards loop
 	for( size_t i= 0; i< this->m_board_array.GetCount(); i++)
 	{
-		wxString board_string= wxString::Format( "%s%i/", board_base_string.c_str(), i);
+	  wxString board_string= wxString::Format(_("%s%i/"), board_base_string.c_str(), i);
 		//
 		// Set the board type
 		if( !config->Write( board_string+ _("BOARD_TYPE"), this->m_board_type_strings[ i]))

@@ -50,7 +50,7 @@ bool VMEWrapper::Init( const InputData& input_data)
 
 	memcpy( &this->m_input_data, &input_data, sizeof( this->m_input_data));
 
-	wxString vme_board_type_string( this->m_input_data.m_board_type);
+	wxString vme_board_type_string=wxString::FromAscii(this->m_input_data.m_board_type);
 
 	// Init CAEN VME handle
 	if( !vme_board_type_string.CmpNoCase(_("V1718")))
