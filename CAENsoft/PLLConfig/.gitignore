@@ -1,0 +1,9 @@
+src/*.o
+config.log
+config.status
+src/.deps/
+src/CAENPLLConfig
+*~
+Makefile
+src/Makefile
+
