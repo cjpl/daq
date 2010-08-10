@@ -16,10 +16,22 @@
 
 * INBOX
 ** BUG <2010-08-10 二 15:10> A2818 硬件故障
-   症状：
-   1. CAENVMEDemo 无响应
-   2. 加电后所有灯亮
+   + 症状：
+      1) CAENVMEDemo 无响应
+	 #+BEGIN_EXAMPLE
+	 Communication Error !!!
+	 #+END_EXAMPLE
+      2) 加电后所有灯亮
+      3) 内核错误信息
+	 #+BEGIN_EXAMPLE
+[2561415.840527] a2818: Timeout on RX
+[2561639.462888] a2818: Timeout on RX
+[2562136.030753] a2818: Timeout on RX
+[2562810.464524] a2818: Timeout on RX
+      #+END_EXAMPLE
 
+** TODO [#A] 基于 WaveDump 编写与 MIDAS 连接的 FE 程序
+   + file:DCCM/
 * Journal
 ** <2010-07-15 四 16:05> Git pages created
    + Official URL http://exaos.github.com/daq4cjpl/
