@@ -15,7 +15,7 @@
 #+OPTIONS: toc:nil
 
 * INBOX
-** BUG A2818 硬件故障
+** BUG <2010-08-10 二 15:10> A2818 硬件故障
    症状：
    1. CAENVMEDemo 无响应
    2. 加电后所有灯亮
