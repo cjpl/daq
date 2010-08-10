@@ -1,0 +1,12 @@
+#+ -*- mode: org; coding: utf-8;
+#+TITLE: DAQ codes with CAEN Modules and Libraries
+
+#+FILETAGS: :4job:CJPL:DAQ:
+#+TAGS: code c cpp python shell
+#+TAGS: root vme hv
+#+SEQ_TODO: TODO | DONE
+#+SEQ_TODO: REPORT BUG NOTE KNOWNCAUSE | FIXED
+#+SEQ_TODO: | CANCELED FAILED TIMEOUT
+#+OPTIONS: toc:2
+
+

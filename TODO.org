@@ -31,7 +31,7 @@
       #+END_EXAMPLE
 
 ** TODO [#A] 基于 WaveDump 编写与 MIDAS 连接的 FE 程序
-   + file:DCCM/
+   + file:DCML/
 * Journal
 ** <2010-07-15 四 16:05> Git pages created
    + Official URL http://exaos.github.com/daq4cjpl/

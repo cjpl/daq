@@ -5,10 +5,6 @@
 #+TAGS: NTOF THU NKU TEXONO
 #+TAGS: code c cpp python shell gui
 #+TAGS: root vme camac hv det
-#+SEQ_TODO: TODO | DONE
-#+SEQ_TODO: REPORT BUG NOTE KNOWNCAUSE | FIXED
-#+SEQ_TODO: | CANCELED FAILED TIMEOUT
-#+SEQ_TODO: ASAP MAYBE WAIT | DONE
 #+OPTIONS: toc:2
 This project contains codes and utilites for data acquistion in CJPL. This file
 is in UTF-8 encoding.
@@ -37,6 +33,7 @@ README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用�
   + CAENSoft/  -- codes and libraries from CAEN
   + notes/     -- project related notes
   + misc/      -- others
+  + DCML/      -- {D}AQ codes with {C}AEN {M}odules and {L}ibraries
 
 * Hardware information
 ** CAEN A2818 + V2718
