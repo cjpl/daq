@@ -2,11 +2,14 @@
 #+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
 #+OPTIONS: toc:nil
 
-锦屏山极深地下实验室的数据获取项目。详细内容有待完善。项目资料请参见：
-http://github.com/exaos/daq4cjpl/
+这是锦屏山极深地下实验室的数据获取项目的信息页面。程序及资料请参见：
+http://github.com/cjpl/daq/
 
-* Git repository
-  + read-only URL: git://github.com/exaos/daq4cjpl.git
-  + git page: http://github.com/exaos/daq4cjpl/
-  + Please see the README.txt in the repo.
-    http://github.com/exaos/daq4cjpl/blob/master/README.txt
+This is the information page of the DAQ project for CJPL
+(http://cjpl.github.com/). For detail codes and stuff, please refer to the
+README file in the repository: http://github.com/cjpl/daq/ .
+
++ Old Git repository from "Exaos Lee"
+  - read-only URL: git://github.com/exaos/daq4cjpl.git
+  - git page: http://github.com/exaos/daq4cjpl/
+
