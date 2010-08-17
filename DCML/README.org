@@ -9,4 +9,11 @@
 #+SEQ_TODO: | CANCELED FAILED TIMEOUT
 #+OPTIONS: toc:2
 
+* Files
+  + includes
+    - "dcml.h"  -- common header for all
+    - "experim.h" -- automatically generated MIDAS header for all
+  + sources
+    - "dcmlfe.c"  -- FE code
+    - "dcmlana.c" -- online analyzer
 
