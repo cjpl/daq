@@ -1,7 +1,7 @@
 /**********************************************************************\
  * $Name$ - $Id$
  * Name:       dcmlfe.c
- * Created by: Exaos Lee
+ * Created by: Exaos Lee, 2010-08-18
  * Contents:   Frontend code for using V1724 with CAENVMElib
  * Hardware:
        1. CAEN V2718 VME Bus controller
