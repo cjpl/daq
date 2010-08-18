@@ -68,3 +68,7 @@
 ** <2010-08-09 一 15:29> Fix icon load error in PLLConfig
 ** <2010-08-10 二 11:16> Bus ERROR detected
    The V2718 board test failed! Checking ....
+** <2010-08-18 三 10:03> Split sys-configs as a seperate repo
+   All things about directory "sys-configs" are deleted. New repo has been
+   created. The original "exaos/daq4cjpl" has been removed.
+
