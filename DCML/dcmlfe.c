@@ -60,7 +60,112 @@ extern "C" {
     {""},
   };
 
+  /*-- Equipment list ------------------------------------------------*/
+
+  /* not use interrupt mode */
+#undef USE_INT
+  EQUIPMENT equipment[] = {
+    { "Trigger",          // Equipment name
+
+      { 1, 0,             // Event ID, Trigger mask
+
+	"SYSTEM",         // Event buffer
+
+#ifdef USE_INT
+	EQ_INTERRUPT,     // Equipment type
+#else
+	EQ_POLLED,
+#endif
+
+	0,                // Event source
+	"MIDAS",          // format
+	TRUE,             // Enabled
+	RO_RUNNING 
+	| RO_ODB,         // Read only when running and update ODB
+	1,                // poll for 1ms
+	0,                // Stop run after this event limit
+	0,                // Number of sub-events
+	0,                // don't log history
+
+	"", "", "", },
+
+      read_trigger_event, // readout routine
+
+      NULL, NULL,
+
+      trigger_bank_list,  // Bank list
+    },
+
+    {""}
+  };
 
 #ifdef __cplusplus
 }
 #endif
+
+
+/*---- sequencer callback info --------------------------*/
+void seq_callback(INT hDB, INT hseq, void *info)
+{
+  printf("odb ... trigger settings touched\n");
+}
+
+/*---- Frontend Initialize ------------------------------*/
+INT frontend_init()
+{
+
+  return SUCCESS;
+}
+
+/*---- Frontend Exit -----------------------------------*/
+INT frontend_exit() { return SUCCESS; }
+
+/*---- Begin of Run ------------------------------------*/
+INT begin_of_run( INT rnum, char *error) 
+{
+
+  return SUCCESS;
+}
+
+/*---- End of Run --------------------------------------*/
+INT end_of_run( INT rnum, char *error)
+{
+
+  return SUCCESS;
+}
+
+/*---- Pause Run --------------------------------------*/
+INT pause_run( INT rnum, char *error) {  return SUCCESS; }
+
+/*---- Resume Run ------------------------------------*/
+INT resume_run( INT rnum, char *error) { return SUCCESS; }
+
+/*---- Frontend Loop ---------------------------------*/
+INT frontend_loop() {  return SUCCESS; }
+
+/*---- Trigger event routines ------------------------*/
+INT poll_event( INT source, INT count, BOOL test)
+{
+
+  return 0;
+}
+
+/*---- Interrupt configuration ----------------------*/
+INT interrupt_configure( INT cmd, INT source, POINTER_T adr)
+{
+  return SUCCESS;
+}
+
+/*---- Event Readout -------------------------------*/
+INT read_trigger_event( char *pevent, INT off)
+{
+
+  return bk_size(pevent); /* return bank size ... */
+}
+
+/*---- Scaler event --------------------------------*/
+INT read_scaler_event( char *pevent, INT off )
+{
+  return bk_size(pevent); /* return bank size ... */
+}
+
