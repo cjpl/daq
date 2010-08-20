@@ -37,16 +37,21 @@
 
 ** TODO [#A] 基于 WaveDump 编写与 MIDAS 连接的 FE 程序
    + file:DCML/
-** TODO 使用 CAENSoft 测试 V1724 系统
+** DONE 使用 CAENSoft 测试 V1724 系统
+   - <2010-08-20 Fri 16:01>
+
    + V1724
      - Base address -- 0x172A0000
      - Barcode --  WV1724XABAPR 09OPR.1422
      - S/N -- 0194
    + V2718
      - S/N -- 0625
-*** CAENPLLConfig
-*** CAENScope
-*** wavedump
+*** DONE CAENPLLConfig
+    - <2010-08-20 Fri 16:00>
+*** DONE CAENScope
+    - <2010-08-20 Fri 15:10>
+*** DONE wavedump
+    - <2010-08-20 Fri 15:37>
 * Journal
 ** <2010-07-15 四 16:05> Git pages created
    + Official URL http://exaos.github.com/daq4cjpl/
@@ -92,4 +97,5 @@
    + CAENScope 编译运行正常
    + cvUpgrade 编译运行正常
    + wavedump 编译运行正常
+
 
