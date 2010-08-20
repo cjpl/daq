@@ -1,0 +1,48 @@
+#+ -*- mode: org; coding: utf-8;
+#+TITLE: DAQ system configurations
+#+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
+#+FILETAGS: :4job:CJPL:DAQ:
+#+OPTIONS: toc:2
+
+* Hardware system
+** VME control
+   + A2818 PCI-VME bridge
+   + V1728 VME bus controller
+** VME modules
+   + V1724 digitizer
+   + V1290N TDC
+   + V259 Hit Pattern
+   + V560 Scaler
+
+* Softwares and documents
+** DAQ softwares
+   1. All running codes should be installed to default directory
+      */opt/DAQ*. Exceptions should be pointed out.
+   2. All codes installed with common user privillege, but kernel module not
+      included.
+
+** Sources, archives and documents
+   1. Directory */opt/DAQ/repos* contains common archives, sources and
+      documents.
+   2. */opt/DAQ/repos/bot* -- MIDAS/PSI related sources
+   3. */opt/DAQ/repos/daq* -- codes developed in CIAE
+   4. */opt/DAQ/repos/doc* -- manuals and etc., *hw-man* contains all related
+      hardware manuals.
+
+** Working directory
+   1. *$HOME/online* is the acquisition workspace. Each experiment has its own
+      directory within it.
+   2. *$HOME/workspace* is the development workspace. It is syncronized online
+      with [[http://github.com/cjpl][GitHub]].
+
+* Collaboration and running
+** Online repositories
+   + http://cjpl.github.com/
+   + Each developer should has his/her own account on GitHub. The accounts are
+     grouped as perticular purpose.
+** Logging
+   + All hardwares should be monitored. The work conditions should be recorded
+     in time, especially when it needs repare.
+   + Taskes should be applied to proper one.
+   + Coding: write, test, fix bug, ...
+

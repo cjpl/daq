@@ -91,6 +91,7 @@
        #+END_EXAMPLE
 
 *** cvUpgrade
-    It needs *CAENComm* installed.
+    It needs *CAENComm* installed. Other steps are similar with *Scope* and
+    *PLLConfig*.
 
 

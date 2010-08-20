@@ -35,19 +35,10 @@ README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用�
   + misc/      -- others
   + DCML/      -- {D}AQ codes with {C}AEN {M}odules and {L}ibraries
 
-* Hardware information
-** CAEN A2818 + V2718
-   + A2818
-     - S/N --
-   + V2718
-     - S/N --
-** CAEN V1724 100 MS/s digitizer
-   + S/N -- WV1724XABAPR 09OPR.1422
-   + Base ADDR -- 0x17240000
-   + AMC FPGA -- ALTERA Cyclone *EP1C4F400C6N*
-   + Clock -- *AD9510*
-* Misc
+* System description
+  Please refer to file:SYSCONFIG.org
 
+* Misc
   + Local TODOs -- file:TODO.org
 
 * References and footnotes

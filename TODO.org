@@ -15,7 +15,7 @@
 #+OPTIONS: toc:nil
 
 * INBOX
-** BUG <2010-08-10 二 15:10> A2818 硬件故障
+** FIXED <2010-08-10 二 15:10> A2818 硬件故障
    + 症状：
       1) CAENVMEDemo 无响应
 	 #+BEGIN_EXAMPLE
@@ -29,9 +29,24 @@
 [2562136.030753] a2818: Timeout on RX
 [2562810.464524] a2818: Timeout on RX
       #+END_EXAMPLE
+   + 同样的配置，另一块 V2718 工作正常，故这块条形码为 *WV2718XAAAAA 10444* 的控
+     制卡是有故障的，需返厂检修。
+     - Barcode -- WV2718XAAAAA 10444
+     - S/N -- 0244
+     - 故障描述：加电自检异常，程序无法正常通讯
 
 ** TODO [#A] 基于 WaveDump 编写与 MIDAS 连接的 FE 程序
    + file:DCML/
+** TODO 使用 CAENSoft 测试 V1724 系统
+   + V1724
+     - Base address -- 0x172A0000
+     - Barcode --  WV1724XABAPR 09OPR.1422
+     - S/N -- 0194
+   + V2718
+     - S/N -- 0625
+*** CAENPLLConfig
+*** CAENScope
+*** wavedump
 * Journal
 ** <2010-07-15 四 16:05> Git pages created
    + Official URL http://exaos.github.com/daq4cjpl/
@@ -71,4 +86,10 @@
 ** <2010-08-18 三 10:03> Split sys-configs as a seperate repo
    All things about directory "sys-configs" are deleted. New repo has been
    created. The original "exaos/daq4cjpl" has been removed.
+** <2010-08-20 Fri 13:57> 在 daq-cjpl-1 上配置 CAENSoft
+   + CAENVMElib -- 示例程序 CAENVMEDemo 运行正常
+   + CAENPLLConfig 运行正常
+   + CAENScope 编译运行正常
+   + cvUpgrade 编译运行正常
+   + wavedump 编译运行正常
 
