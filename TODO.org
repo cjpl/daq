@@ -9,13 +9,13 @@
 
 #+SEQ_TODO: TODO | DONE
 #+SEQ_TODO: REPORT BUG NOTE KNOWNCAUSE | FIXED
-#+SEQ_TODO: | CANCELED FAILED TIMEOUT
+#+SEQ_TODO: | CANCELED FAILED TIMEOUT DELEGATED
 #+SEQ_TODO: ASAP MAYBE WAIT | DONE
 
 #+OPTIONS: toc:nil
 
 * INBOX
-** FIXED <2010-08-10 二 15:10> A2818 硬件故障
+** DELEGATED <2010-08-10 二 15:10> A2818 硬件故障
    + 症状：
       1) CAENVMEDemo 无响应
 	 #+BEGIN_EXAMPLE
@@ -34,24 +34,41 @@
      - Barcode -- WV2718XAAAAA 10444
      - S/N -- 0244
      - 故障描述：加电自检异常，程序无法正常通讯
-
-** TODO [#A] 基于 WaveDump 编写与 MIDAS 连接的 FE 程序
-   + file:DCML/
 ** DONE 使用 CAENSoft 测试 V1724 系统
-   - <2010-08-20 Fri 16:01>
-
+   + <2010-08-20 Fri 16:01>
    + V1724
      - Base address -- 0x172A0000
      - Barcode --  WV1724XABAPR 09OPR.1422
      - S/N -- 0194
    + V2718
      - S/N -- 0625
+   + 结果：可在 Linux 下使用 CAEN 提供的软件 CAENScope 或 WaveDump 进行采集
+   + 感谢吴昱成提供电子学信号等支持
 *** DONE CAENPLLConfig
     - <2010-08-20 Fri 16:00>
 *** DONE CAENScope
     - <2010-08-20 Fri 15:10>
 *** DONE wavedump
     - <2010-08-20 Fri 15:37>
+
+** TODO [#A] 基于 WaveDump 编写与 MIDAS 连接的 FE 程序: dcmlfe
+   + file:DCML/
+*** TODO WaveDump Config 读取
+*** TODO WaveDump 开始采集的命令
+*** TODO DCMLFE 的编写
+** TODO 为硬件建立使用维修档案
+   + 基本信息
+     - 型号
+     - 条形码号
+     - S/N
+     - 购买日期
+     - 其它
+   + 使用维修记录
+   + 委派相关人员管理
+** TODO 收集用户需求，建立任务档案
+   + 用户的不同实验需求不同，任务必须明确
+   + 针对特定任务，提出具体目录
+   + 建立每一个采集任务的档案，确定工作量
 * Journal
 ** <2010-07-15 四 16:05> Git pages created
    + Official URL http://exaos.github.com/daq4cjpl/
@@ -97,5 +114,10 @@
    + CAENScope 编译运行正常
    + cvUpgrade 编译运行正常
    + wavedump 编译运行正常
+   + 注：由于 CAENPLLConfig, CAENScope, wavedump 等程序均需要写入 */etc/* 中相应
+     的目录，故以普通用户安装时存在权限错误。故在安装时先用 root 权限创建好相应的
+     目录，并设置成普通用户所拥有，再执行即可。为进一步方便同步到多台计算机，特将
+     */etc/* 下的这几个目录 *CAENPLLConfig*, *CAENScope*, *cvUpgrade*,
+     *wavedump* 移动到 */opt/DAQ/etc* 目录，然后在 */etc* 中建立软链接。
 
 
