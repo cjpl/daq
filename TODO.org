@@ -15,7 +15,7 @@
 #+OPTIONS: toc:nil
 
 * INBOX
-** DELEGATED <2010-08-10 二 15:10> A2818 硬件故障
+** DELEGATED <2010-08-10 Tue 15:10> A2818 硬件故障
    + 症状：
       1) CAENVMEDemo 无响应
 	 #+BEGIN_EXAMPLE
@@ -87,17 +87,17 @@
    + 针对特定任务，提出具体目录
    + 建立每一个采集任务的档案，确定工作量
 * Journal
-** <2010-07-15 四 16:05> Git pages created
+** <2010-07-15 Thu 16:05> Git pages created
    + Official URL http://exaos.github.com/daq4cjpl/
    + Official repo http://github.com/exaos/daq4cjpl/
 
-** <2010-07-16 五 14:56> Import stuff from other repos
+** <2010-07-16 Fri 14:56> Import stuff from other repos
    + 3rd-libs/caenvctrl      -- CAENVMElib with MIDAS mvmestd support
    + drivers/a2818-drv-linux -- A2818 PCI-VME interface card driver for Linux
    + misc/pyutil             -- Python utilites to handle libmvme_*.so libs
    + midas/cmake             -- CMake support for MIDAS
 
-** <2010-08-03 二 10:40> Import system configurations
+** <2010-08-03 Tue 10:40> Import system configurations
    + sys-configs/    -- configurations for DAQ PCs
 
 ** <2010-08-04 Wed 15:14> Import packages from CAEN
@@ -113,16 +113,16 @@
    | Scope        |   1.5.1 | CAENScope_1_5_1_linux.zip   |
    | WaveDu       |     1.9 | CAENWaveDump-1.9.tgz        |
    |--------------+---------+-----------------------------|
-** <2010-08-09 一 11:24> Fix compile bugs in *PLLConfig*
+** <2010-08-09 Mon 11:24> Fix compile bugs in *PLLConfig*
    Most of bugs are about ~wxString~ and ~const char*~.
-** <2010-08-09 一 13:26> Fix compile bugs in *Scope*
+** <2010-08-09 Mon 13:26> Fix compile bugs in *Scope*
    Most of bugs are the same as in *PLLConfig*.
-** <2010-08-09 一 13:58> CAENComm package imported
+** <2010-08-09 Mon 13:58> CAENComm package imported
    CAENComm, version 1.01, March 2010.
-** <2010-08-09 一 15:29> Fix icon load error in PLLConfig
-** <2010-08-10 二 11:16> Bus ERROR detected
+** <2010-08-09 Mon 15:29> Fix icon load error in PLLConfig
+** <2010-08-10 Tue 11:16> Bus ERROR detected
    The V2718 board test failed! Checking ....
-** <2010-08-18 三 10:03> Split sys-configs as a seperate repo
+** <2010-08-18 Wed 10:03> Split sys-configs as a seperate repo
    All things about directory "sys-configs" are deleted. New repo has been
    created. The original "exaos/daq4cjpl" has been removed.
 ** <2010-08-20 Fri 13:57> 在 daq-cjpl-1 上配置 CAENSoft
