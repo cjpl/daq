@@ -51,11 +51,28 @@
 *** DONE wavedump
     - <2010-08-20 Fri 15:37>
 
-** TODO [#A] 基于 WaveDump 编写与 MIDAS 连接的 FE 程序: dcmlfe
+** TODO [#A] 组建 DAQ 团队，明确任务列表
+   1. 需求－－＞目标－－＞任务－－＞分工；合作的内容需要明确
+   2. 对需要达到的目标要形成任何文字的目标：硬件种类，使用方式，预期采集速率，数
+      据吞吐量，用户界面要求等
+   3. 合作不是一个人的劳作，需要有明确的分工，需要有共同的任务列表
+** TODO [#A] 编写与 MIDAS 连接的 FE 程序: dcmlfe [1/3]
    + file:DCML/
-*** TODO WaveDump Config 读取
-*** TODO WaveDump 开始采集的命令
-*** TODO DCMLFE 的编写
+*** DONE WaveDump 的研究
+    - <2010-08-20 Fri 22:21>
+**** WaveDump Config 读取
+     + WaveInit: 读文件，存入 ~WAVE_CONFIG~ 结构
+       #+BEGIN_SRC C
+       void WaveInit(int argc, char* argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config)
+       #+END_SRC
+**** WaveDump 采集的流程：VME 的操作
+     + WaveRun
+     + WaveUserInput
+     + WaveClose
+**** 使用头文件： ~vme_wrapper.h~ -- 自定义的一套 VME 操作实现
+*** TODO CAENScope 的研究
+    + file:notes/scope-notes.org
+*** TODO 编写 DCML 代码
 ** TODO 为硬件建立使用维修档案
    + 基本信息
      - 型号
@@ -83,7 +100,7 @@
 ** <2010-08-03 二 10:40> Import system configurations
    + sys-configs/    -- configurations for DAQ PCs
 
-** [2010-08-04 三 15:14] Import packages from CAEN
+** <2010-08-04 Wed 15:14> Import packages from CAEN
    + Directory -- file:CAENsoft/
    + Versions --
    |--------------+---------+-----------------------------|

@@ -1,0 +1,12 @@
+#+ -*- mode: org; coding: utf-8;
+#+TITLE: CAENScope 的研究
+#+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
+
+ file:../CAENsoft/doc/Scope/index.html
+
+* 采集参数的设置
+
+* 采集控制
+
+* 事件的处理
+
