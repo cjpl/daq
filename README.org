@@ -20,9 +20,9 @@ README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用�
   CJPL. The latest progress of CJPL can be found in article[fn:4] or
   report[fn:2], and[fn:3].
 
-  The official page: http://exaos.github.com/daq4cjpl
+  The official page: http://cjpl.github.com/daq
 
-  The official git repo: http://github.com/exaos/daq4cjpl
+  The official git repo: http://github.com/cjpl/daq
 
 * Files and Directories
 
@@ -48,7 +48,6 @@ README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用�
    + Clock -- *AD9510*
 * Misc
 
-  + Exaos public TODOs on RememberTheMilk -- http://goo.gl/KkZA
   + Local TODOs -- file:TODO.org
 
 * References and footnotes
