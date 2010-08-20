@@ -82,7 +82,7 @@
 
     1. Configure it
        #+BEGIN_EXAMPLE
-       ./configure --prefix=/opt/DAQ CFLAGS="-I/opt/DAQ/include"
+       ./configure --prefix=/opt/DAQ CFLAGS="-I/opt/DAQ/include" \
                   CPPFLAGS="-I/opt/DAQ/include" LDFLAGS="-L/opt/DAQ/lib"
        #+END_EXAMPLE
     2. Make and make install
