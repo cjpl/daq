@@ -38,6 +38,7 @@ README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用�
 * System configurations, journal, TODOs
   + Please refer to file:JOURNAL.org
   + Local TODOs -- file:TODO.org
+  + Working notes -- file:notes/
 
 * References and footnotes
 
