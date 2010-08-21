@@ -14,8 +14,7 @@
 
 #+OPTIONS: toc:nil
 
-* INBOX
-** DELEGATED <2010-08-10 Tue 15:10> A2818 硬件故障
+* DELEGATED <2010-08-10 Tue 15:10> A2818 硬件故障
    + 症状：
       1) CAENVMEDemo 无响应
 	 #+BEGIN_EXAMPLE
@@ -34,108 +33,56 @@
      - Barcode -- WV2718XAAAAA 10444
      - S/N -- 0244
      - 故障描述：加电自检异常，程序无法正常通讯
-** DONE 使用 CAENSoft 测试 V1724 系统
-   + <2010-08-20 Fri 16:01>
-   + V1724
-     - Base address -- 0x172A0000
-     - Barcode --  WV1724XABAPR 09OPR.1422
-     - S/N -- 0194
-   + V2718
-     - S/N -- 0625
-   + 结果：可在 Linux 下使用 CAEN 提供的软件 CAENScope 或 WaveDump 进行采集
-   + 感谢吴昱成提供电子学信号等支持
-*** DONE CAENPLLConfig
-    - <2010-08-20 Fri 16:00>
-*** DONE CAENScope
-    - <2010-08-20 Fri 15:10>
-*** DONE wavedump
-    - <2010-08-20 Fri 15:37>
+* DONE 使用 CAENSoft 测试 V1724 系统
+  + <2010-08-20 Fri 16:01>
+  + V1724
+    - Base address -- 0x172A0000
+    - Barcode --  WV1724XABAPR 09OPR.1422
+    - S/N -- 0194
+  + V2718
+    - S/N -- 0625
+  + 结果：可在 Linux 下使用 CAEN 提供的软件 CAENScope 或 WaveDump 进行采集
+  + 感谢吴昱成提供电子学信号等支持
+** DONE CAENPLLConfig
+   - <2010-08-20 Fri 16:00>
+** DONE CAENScope
+   - <2010-08-20 Fri 15:10>
+** DONE wavedump
+   - <2010-08-20 Fri 15:37>
 
-** TODO [#A] 组建 DAQ 团队，明确任务列表
-   1. 需求－－＞目标－－＞任务－－＞分工；合作的内容需要明确
-   2. 对需要达到的目标要形成任何文字的目标：硬件种类，使用方式，预期采集速率，数
-      据吞吐量，用户界面要求等
-   3. 合作不是一个人的劳作，需要有明确的分工，需要有共同的任务列表
-** TODO [#A] 编写与 MIDAS 连接的 FE 程序: dcmlfe [1/5]
-   + file:DCML/
-*** DONE WaveDump 的研究
-    - <2010-08-20 Fri 22:21>
-**** WaveDump Config 读取
-     + WaveInit: 读文件，存入 ~WAVE_CONFIG~ 结构
-       #+BEGIN_SRC C
-       void WaveInit(int argc, char* argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config)
-       #+END_SRC
-**** WaveDump 采集的流程：VME 的操作
-     + WaveRun
-     + WaveUserInput
-     + WaveClose
-**** 使用头文件： ~vme_wrapper.h~ -- 自定义的一套 VME 操作实现
-*** TODO CAENScope 的研究
-    + file:notes/scope-notes.org
-*** TODO 编写 DCML 代码
-** TODO DCMLana -- 在线分析程序
-** TODO 为硬件建立使用维修档案
-   + 基本信息
-     - 型号
-     - 条形码号
-     - S/N
-     - 购买日期
-     - 其它
-   + 使用维修记录
-   + 委派相关人员管理
-** TODO 收集用户需求，建立任务档案
-   + 用户的不同实验需求不同，任务必须明确
-   + 针对特定任务，提出具体目录
-   + 建立每一个采集任务的档案，确定工作量
-* Journal
-** <2010-07-15 Thu 16:05> Git pages created
-   + Official URL http://exaos.github.com/daq4cjpl/
-   + Official repo http://github.com/exaos/daq4cjpl/
-
-** <2010-07-16 Fri 14:56> Import stuff from other repos
-   + 3rd-libs/caenvctrl      -- CAENVMElib with MIDAS mvmestd support
-   + drivers/a2818-drv-linux -- A2818 PCI-VME interface card driver for Linux
-   + misc/pyutil             -- Python utilites to handle libmvme_*.so libs
-   + midas/cmake             -- CMake support for MIDAS
-
-** <2010-08-03 Tue 10:40> Import system configurations
-   + sys-configs/    -- configurations for DAQ PCs
-
-** <2010-08-04 Wed 15:14> Import packages from CAEN
-   + Directory -- file:CAENsoft/
-   + Versions --
-   |--------------+---------+-----------------------------|
-   | Name         | Version | Origin File                 |
-   |--------------+---------+-----------------------------|
-   | CAENVMElib   |    2.11 | CAEN_VME_SW_Lib.zip         |
-   | cvUpgrade    |     2.2 | cvUpgrade_2_2_linux.zip     |
-   | DigitizerSDK |     1.3 | CAENDigitizerSDK-1.3.tar.gz |
-   | PLLConfig    |     2.0 | CAENPLLConfig-2.0.tgz       |
-   | Scope        |   1.5.1 | CAENScope_1_5_1_linux.zip   |
-   | WaveDu       |     1.9 | CAENWaveDump-1.9.tgz        |
-   |--------------+---------+-----------------------------|
-** <2010-08-09 Mon 11:24> Fix compile bugs in *PLLConfig*
-   Most of bugs are about ~wxString~ and ~const char*~.
-** <2010-08-09 Mon 13:26> Fix compile bugs in *Scope*
-   Most of bugs are the same as in *PLLConfig*.
-** <2010-08-09 Mon 13:58> CAENComm package imported
-   CAENComm, version 1.01, March 2010.
-** <2010-08-09 Mon 15:29> Fix icon load error in PLLConfig
-** <2010-08-10 Tue 11:16> Bus ERROR detected
-   The V2718 board test failed! Checking ....
-** <2010-08-18 Wed 10:03> Split sys-configs as a seperate repo
-   All things about directory "sys-configs" are deleted. New repo has been
-   created. The original "exaos/daq4cjpl" has been removed.
-** <2010-08-20 Fri 13:57> 在 daq-cjpl-1 上配置 CAENSoft
-   + CAENVMElib -- 示例程序 CAENVMEDemo 运行正常
-   + CAENPLLConfig 运行正常
-   + CAENScope 编译运行正常
-   + cvUpgrade 编译运行正常
-   + wavedump 编译运行正常
-   + 注：由于 CAENPLLConfig, CAENScope, wavedump 等程序均需要写入 */etc/* 中相应
-     的目录，故以普通用户安装时存在权限错误。故在安装时先用 root 权限创建好相应的
-     目录，并设置成普通用户所拥有，再执行即可。为进一步方便同步到多台计算机，特将
-     */etc/* 下的这几个目录 *CAENPLLConfig*, *CAENScope*, *cvUpgrade*,
-     *wavedump* 移动到 */opt/DAQ/etc* 目录，然后在 */etc* 中建立软链接。
-
-
+* TODO [#A] 组建 DAQ 团队，明确任务列表
+  1. 需求－－＞目标－－＞任务－－＞分工；合作的内容需要明确
+  2. 对需要达到的目标要形成任何文字的目标：硬件种类，使用方式，预期采集速率，数
+     据吞吐量，用户界面要求等
+  3. 合作不是一个人的劳作，需要有明确的分工，需要有共同的任务列表
+* TODO [#A] 编写与 MIDAS 连接的 FE 程序: dcmlfe [1/5]
+  + file:DCML/
+** DONE WaveDump 的研究
+   - <2010-08-20 Fri 22:21>
+*** WaveDump Config 读取
+    + WaveInit: 读文件，存入 ~WAVE_CONFIG~ 结构
+      #+BEGIN_SRC C
+      void WaveInit(int argc, char* argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config)
+      #+END_SRC
+*** WaveDump 采集的流程：VME 的操作
+    + WaveRun
+    + WaveUserInput
+    + WaveClose
+*** 使用头文件： ~vme_wrapper.h~ -- 自定义的一套 VME 操作实现
+** TODO CAENScope 的研究
+   + file:notes/scope-notes.org
+** TODO 编写 DCML 代码
+* TODO DCMLana -- 在线分析程序
+* TODO 为硬件建立使用维修档案
+  + 基本信息
+    - 型号
+    - 条形码号
+    - S/N
+    - 购买日期
+    - 其它
+  + 使用维修记录
+  + 委派相关人员管理
+* TODO 收集用户需求，建立任务档案
+  + 用户的不同实验需求不同，任务必须明确
+  + 针对特定任务，提出具体目录
+  + 建立每一个采集任务的档案，确定工作量
