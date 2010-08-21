@@ -35,7 +35,7 @@ README_zh.txt (还未创建)。该文件为 UTF-8 格式, 请中文 Windows 用�
   + misc/      -- others
   + DCML/      -- {D}AQ codes with {C}AEN {M}odules and {L}ibraries
 
-* System description
+* System configuration and description
   Please refer to file:SYSCONFIG.org
 
 * Misc

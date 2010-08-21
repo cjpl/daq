@@ -56,7 +56,7 @@
    2. 对需要达到的目标要形成任何文字的目标：硬件种类，使用方式，预期采集速率，数
       据吞吐量，用户界面要求等
    3. 合作不是一个人的劳作，需要有明确的分工，需要有共同的任务列表
-** TODO [#A] 编写与 MIDAS 连接的 FE 程序: dcmlfe [1/3]
+** TODO [#A] 编写与 MIDAS 连接的 FE 程序: dcmlfe [1/5]
    + file:DCML/
 *** DONE WaveDump 的研究
     - <2010-08-20 Fri 22:21>
@@ -73,6 +73,7 @@
 *** TODO CAENScope 的研究
     + file:notes/scope-notes.org
 *** TODO 编写 DCML 代码
+** TODO DCMLana -- 在线分析程序
 ** TODO 为硬件建立使用维修档案
    + 基本信息
      - 型号

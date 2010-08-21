@@ -1,5 +1,5 @@
 #+ -*- mode: org; coding: utf-8;
-#+TITLE: DAQ system configurations
+#+TITLE: DAQ system configurations and logging
 #+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
 #+FILETAGS: :4job:CJPL:DAQ:
 #+OPTIONS: toc:2
@@ -8,6 +8,7 @@
 ** VME control
    + A2818 PCI-VME bridge
    + V1728 VME bus controller
+
 ** VME modules
    + V1724 digitizer
    + V1290N TDC
@@ -15,19 +16,40 @@
    + V560 Scaler
 
 * Softwares and documents
+
 ** DAQ softwares
    1. All running codes should be installed to default directory
       */opt/DAQ*. Exceptions should be pointed out.
    2. All codes installed with common user privillege, but kernel module not
       included.
+   3. Installed softwares and libraries
+      |------------------+-----------+----------+-----------------|
+      | Name             | Path      |  Version | Comment         |
+      |------------------+-----------+----------+-----------------|
+      | ROOT             | /opt/ROOT | 5.26.00b | g++-4.3.2       |
+      | MIDAS            | /opt/DAQ  |          |                 |
+      | ROOTANA          | /opt/DAQ  |          |                 |
+      | ROODY            | /opt/DAQ  |          |                 |
+      | CAENScope        | /opt/DAQ  |    1.5.1 | libwxgtk2.8-dev |
+      | CAENPLLConfig    | /opt/DAQ  |    2.0.0 | libwxgtk2.8-dev |
+      | WaveDump         | /opt/DAQ  |      1.9 | gnuplot-4.2.2   |
+      | CAENComm         | /opt/DAQ  |     1.01 |                 |
+      | CAENdigitizerSDK | /opt/DAQ  |      1.3 |                 |
+      | CAENVMElib       | /opt/DAQ  |     2.11 |                 |
+      |------------------+-----------+----------+-----------------|
 
 ** Sources, archives and documents
    1. Directory */opt/DAQ/repos* contains common archives, sources and
       documents.
-   2. */opt/DAQ/repos/bot* -- MIDAS/PSI related sources
+   2. */opt/DAQ/repos/bot* -- MIDAS/PSI related sources, Please read *README.txt*
    3. */opt/DAQ/repos/daq* -- codes developed in CIAE
    4. */opt/DAQ/repos/doc* -- manuals and etc., *hw-man* contains all related
       hardware manuals.
+   3. Software information
+      + MIDAS   -- http://midas.psi.ch, https://midas.psi.ch/htmldoc/index.html
+      + ROOT    -- http://root.cern.ch
+      + ROODY   -- https://daq-plone.triumf.ca/SR/ROODY
+      + ROOTANA -- https://daq-plone.triumf.ca/SR/rootana
 
 ** Working directory
    1. *$HOME/online* is the acquisition workspace. Each experiment has its own
