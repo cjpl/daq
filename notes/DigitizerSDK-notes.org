@@ -2,3 +2,9 @@
 #+TITLE: DigitizerSDK 的研读笔记
 #+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
 
+* DigitizerSDK
+  + 头文件
+    - *cvt_common_defs.h*
+    - *cvt_board_commons.h*
+    - *cvt_V1724.h"
+  + 库： *libCAENdigitizerSDK.so.1.3*
