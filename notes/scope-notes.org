@@ -1,5 +1,5 @@
 #+ -*- mode: org; coding: utf-8;
-#+TITLE: CAENScope 的研究
+#+TITLE: CAENScope 的源码研究
 #+AUTHOR: Exaos Lee <Exaos.Lee(at)gmail.com>
 
  file:../CAENsoft/doc/Scope/index.html
@@ -43,3 +43,7 @@
   + ~INT frontend_init()~ 中可用
     - ~bool V17XXBoard::Init(long vme_handle)~ -- 初始化
 
+* 结论
+  可从中学习一下 *DigitizerSDK* 的使用。应该主攻 *DigitizerSDK* 的应用。
+
+  另见笔记 file:DigitizerSDK-notes.org
