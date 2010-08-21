@@ -8,3 +8,57 @@
     - *cvt_board_commons.h*
     - *cvt_V1724.h"
   + 库： *libCAENdigitizerSDK.so.1.3*
+    - *cvt_board_commons.o*
+    - *cvt_V1724.o*
+
+* *cvt_V1724.h*: V1724 VME digitizer definition
+  + 数据结构
+    - *cvt_V1724_data*: board data structure
+    - *cvt_V1724_HEADER*
+  + 实用函数
+    - *cvt_V1724_open(...)* -- 调用板之前先行使用
+    - *cvt_V1724_close(..)* -- 结束使用时调用
+    - *cvt_V1724_read_data(..)* -- 读取缓冲区
+    - *cvt_V1724_set_trigger_mode(..)*
+    - *cvt_V1724_get_trigger_mode(..)*
+    - *cvt_V1724_get_fp_trigger_out(..)*
+    - *cvt_V1724_set_fp_trigger_out(..)*
+    - *cvt_V1724_start_acquisition(..)*
+    - *cvt_V1724_stop_acquisition(..)*
+    - *cvt_V1724_set_acquisition_mode(..)*
+    - *cvt_V1724_get_acquisition_mode(..)*
+    - *cvt_V1724_get_acquisition_status(..)*
+    - *cvt_V1724_get_buffer_samples(..)*
+    - *cvt_V1724_set_buffer_samples(..)*
+    - *cvt_V1724_set_dither_enable(..)*
+    - *cvt_V1724_get_dither_enable(..)*
+    - *cvt_V1724_set_adc_conf(..)*
+    - *cvt_V1724_get_adc_conf(..)*
+    - *cvt_V1724_adc_calib(..)*
+    - *cvt_V1724_adc_temp(..)*
+    - *cvt_V1724_set_des_mode(..)*
+    - *cvt_V1724_set_interrupt(..)*
+    - *cvt_V1724_get_interrupt(..)*
+    - *cvt_V1724_set_readout_mode(..)*
+    - *cvt_V1724_get_readout_mode(..)*
+    - *cvt_V1724_software_reset(..)*
+    - *cvt_V1724_data_clear(..)*
+    - *cvt_V1724_set_channel_offset(..)*
+    - *cvt_V1724_get_channel_offset(..)*
+    - *cvt_V1724_set_channel_trigger(..)*
+    - *cvt_V1724_get_channel_trigger(..)*
+    - *cvt_V1724_set_front_panel_IO(..)*
+    - *cvt_V1724_get_front_panel_IO(..)*
+    - *cvt_V1724_software_trigger(..)*
+    - *cvt_V1724_get_channel_status(..)*
+    - *cvt_V1724_get_system_info(..)*
+    - *cvt_V1724_get_channel_info(..)*
+    - *cvt_V1724_set_MCST_CBLT(..)*
+    - *cvt_V1724_get_MCST_CBLT(..)*
+    - *cvt_V1724_write_flash_page(..)*
+    - *cvt_V1724_read_flash_page(..)*
+    - *cvt_V1724_erase_flash_page(..)*
+    - *cvt_V1724_fw_upgrade(..)*
+    - *cvt_V1724_pll_upgrade(..)*
+    - *cvt_V1724_SW_rev(void)*
+
