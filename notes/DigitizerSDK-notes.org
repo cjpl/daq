@@ -13,8 +13,16 @@
 
 * *cvt_V1724.h*: V1724 VME digitizer definition
   + 数据结构
-    - *cvt_V1724_data*: board data structure
-    - *cvt_V1724_HEADER*
+    - *cvt\_V1724\_data*: board data structure
+      * ~cvt_board_data m_common_data~
+      * ~CVT_V17XX_TYPES m_type~
+      * ~UINT32 *m_cache_sample_buffer~ -- cache buffer
+      * ~UINT32  m_cache_sample_buffer_size~  -- cache buffer size (BYTES)
+      * ~UINT32 m_cache_sample_buffer_read_bytes~ -- builtin number of samples
+        stored (BYTES)
+      * ~BOOL m_is_des_mode~ -- only for V1731
+    - *cvt\_V1724\_HEADER*  -- V1724 board event header
+    - *cvt\_V1724\_REG\_INDEX*
   + 实用函数
     - *cvt_V1724_open(...)* -- 调用板之前先行使用
     - *cvt_V1724_close(..)* -- 结束使用时调用

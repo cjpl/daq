@@ -65,7 +65,7 @@ extern "C" {
   /* not use interrupt mode */
 #undef USE_INT
   EQUIPMENT equipment[] = {
-    { "Trigger",          // Equipment name
+    { "Digitizer",          // Equipment name
 
       { 1, 0,             // Event ID, Trigger mask
 

@@ -17,3 +17,37 @@
     - "dcmlfe.c"  -- FE code
     - "dcmlana.c" -- online analyzer
 
+* Questions about using DigitizerSDK
+** V1724 data readout
+   1. Use ~cvt_V1724_read_data(...)~ to read data from the board's channels and
+      store to internal buffer.
+      + ~cvt_V1724_data* p_data~
+      + ~UINT32* p_ch_max_samples~
+      + ~UINT32* p_num_events~
+   2. Call ~cvt_V1724_get_buffer_cache(..)~ to get cached data.
+      + ~cvt_V1724_data* p_data~ -- pointer to board data
+      + ~UINT16  event_index~    -- The event index from which retrive data
+      + ~UINT8   ch_index~       -- The channel index
+      + ~UINT16* p_buff~         -- The target buffer: caller allocated
+      + ~UINT32* p_buff_size~    -- The buffer size (16-bit word).
+      + ~UINT8*  p_board_id~     -- The board id stored into event
+      + ~UINT32* p_trigger_time_tag~ -- The trigger time tag stored into event
+      + ~UINT32* p_event_counter~    -- The counter stored into event
+** V1724 data structure in buffer?
+** V1724 parameters?
+** V1724 Control?
+   1. Write parameters
+   2. Start/Stop/Reset
+   3. Check status
+   4. Readout
+** How to organize V1724 data in MIDAS banks?
+
+* Configurations
+** ODB basic settings
+   + ~export MIDAS_DIR=`pwd`~
+   + ~odbedit~
+     #+BEGIN_EXAMPLE
+     
+     #+END_EXAMPLE
+
+** V1724 settings
