@@ -70,3 +70,38 @@
     - *cvt_V1724_pll_upgrade(..)*
     - *cvt_V1724_SW_rev(void)*
 
+* Compile macros
+  - Linux      -- "-DLINUX"
+  - Windows    -- "-DWIN32"
+  - Debug mode -- "-DDEBUG"
+
+* Data type redefined
+  + Data types
+    |--------+--------------------+-----------------------+----------------------|
+    | Type   | Origin             | C99 convention        | MIDAS                |
+    |--------+--------------------+-----------------------+----------------------|
+    | BOOL   | int                | bool in <stdbool.h>   | DWORD (unsigned int) |
+    | TRUE   | -1                 | 1 (true)              | TRUE  (1)            |
+    | FALSE  | 0                  | 0 (false)             | FALSE (0)            |
+    |--------+--------------------+-----------------------+----------------------|
+    | UINT8  | unsigned char      | uint8_t in <stdint.h> | BYTE                 |
+    | UINT16 | unsigned short     | uint16_t              | WORD                 |
+    | UINT32 | unsigned int       | uint32_t              | DWORD                |
+    | UINT64 | unsigned long long | uint64_t              |                      |
+    | INT8   | signed char        | int8_t                |                      |
+    | INT16  | short              | int16_t               |                      |
+    | INT32  | int                | int32_t               |                      |
+    | INT64  | long long          | int64_t               |                      |
+    |        | long int           |                       | INT, POINTER_T       |
+    |--------+--------------------+-----------------------+----------------------|
+    | PCSTD  | const char*        |                       |                      |
+    |--------+--------------------+-----------------------+----------------------|
+  + *Warnings*
+    - The definitions of *TRUE* are different in "SDK" and "MIDAS".
+    - Pay more attention to pointer length, cause it may cause segfault.
+    - *long*, *long int*, are 4-bytes length in C standard.
+    - *int*, 4-bytes length.
+    - *pointer*, 4-bytes in 32-bit OS, 8-bytes in 64-bit OS.
+      * ~PCSTD, const char*~ -- 4-bytes in ~x86~, 8-bytes in ~x86_64~
+      * Use ~intprt_t~, ~uintptr_t~ instead of ~int*~ or ~unsigned int*~
+
