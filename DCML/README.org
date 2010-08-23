@@ -18,6 +18,26 @@
     - "dcmlana.cpp" -- online analyzer
 
 * Questions about using DigitizerSDK
+** Common data structures
+   + ~cvt_board_data~
+     - ~UINT16 m_base_address~
+     - ~long   m_vme_handle~
+     - ~const cvt_reg_table* m_p_reg_table~
+     - ~BOOL (*set_MCST_CBLT)(void*, UINT8, MCST_CBLT_board_pos)~
+   + ~cvt_reg_table~
+     - ~UINT16  m_address~
+     - ~UINT16  m_am~
+     - ~UINT16  m_data_size~
+   + ~MCST_CBLT_board_pos~
+
+** How to initialize a V1724?
+   1. Use ~CAENVME_Init()~ to get a ~vme_handle~ (*int32_t*).
+   2. Use ~BOOL cvt_V1724_open(cvt_V1724_data*, UINT16, long, CVT_V17XX_TYPES)~
+
+** How to close a V1724 board?
+   1. Use ~cvt_V1724_close()~.
+   2. Delete the ~p_data~ pointer.
+
 ** V1724 data readout
    1. Use ~cvt_V1724_read_data(...)~ to read data from the board's channels and
       store to internal buffer.
@@ -33,16 +53,32 @@
       + ~UINT8*  p_board_id~     -- The board id stored into event
       + ~UINT32* p_trigger_time_tag~ -- The trigger time tag stored into event
       + ~UINT32* p_event_counter~    -- The counter stored into event
+
 ** V1724 data structure in buffer?
+   + Resident values
+     - The VME handler: *int32_t*
+     - The board data:  *cvt_board_data*
+     - The buffer data: *
+
 ** V1724 parameters?
 *** Channel settings
+    + Channel mask
+    + Threshold
+*** Trigger settings
 *** Clock settings
 *** Control settings
+
 ** V1724 Control?
    1. Write parameters
    2. Start/Stop/Reset
+      - Start -- ~cvt_V1724_start_acquisition(p_data)~
+      - Stop  -- ~cvt_V1724_stop_acquisition(p_data)~
+      - Reset -- ~cvt_V1724_software_reset(p_data)~
    3. Check status
-   4. Readout
+      - ~cvt_V1724_get_acquisition_status()~
+      - ~cvt_V1724_get_channel_status()~
+   4. Readout (see above)
+
 ** How to organize V1724 data in MIDAS banks?
 
 * Configurations
