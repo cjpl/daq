@@ -14,95 +14,85 @@
 #include "dcml.h"
 #include "vme_wrapper.h"
 
-/* Pure C stuff, work with MIDAS. */
-#ifdef __cplusplus
-extern "C" {
-#endif
+/*-- Globals ----------------------------------------------------*/
 
-  /*-- Globals ----------------------------------------------------*/
+/* frontend name */
+char *frontend_name      = "FE with CAENVMElib";
+char *frontend_file_name = __FILE__;
+BOOL  frontend_call_loop = FALSE;
 
-  /* frontend name */
-  char *frontend_name      = "FE with CAENVMElib";
-  char *frontend_file_name = __FILE__;
-  BOOL  frontend_call_loop = FALSE;
+INT display_period       = 3000; /* micro-seconds, = 3 s */
+INT max_event_size       = 10000;
+INT max_event_size_frag  = 0x10 * 1024 * 1024; /* EQ_FRAGMENTED */
+INT event_buffer_size    = 10 * 10000;
 
-  INT display_period       = 3000; /* micro-seconds, = 3 s */
-  INT max_event_size       = 10000;
-  INT max_event_size_frag  = 0x10 * 1024 * 1024; /* EQ_FRAGMENTED */
-  INT event_buffer_size    = 10 * 10000;
+/* VME crate handle */
+MVME_INTERFACE *pvme;
 
-  /* VME crate handle */
-  MVME_INTERFACE *pvme;
+HNDLE             hSet;
+extern INT        run_state;
+extern HNDLE      hDB;
+TRIGGER_SETTINGS  trig_set; /* Trigger Settings */
 
-  HNDLE             hSet;
-  extern INT        run_state;
-  extern HNDLE      hDB;
-  TRIGGER_SETTINGS  trig_set; /* Trigger Settings */
+/* VME hardware address: Using TRIGGER_SETTINGS */
+BOOL  isAdcEnabled = FALSE;
+BOOL  isTdcEnabled = FALSE;
 
-  /* VME hardware address: Using TRIGGER_SETTINGS */
-  BOOL  isAdcEnabled = FALSE;
-  BOOL  isTdcEnabled = FALSE;
+/*-- Function declarations -----------------------------------------*/
+INT frontend_init();
+INT frontend_exit();
+INT  begin_of_run(INT rnum, char *error);
+INT    end_of_run(INT rnum, char *error);
+INT     pause_run(INT rnum, char *error);
+INT    resume_run(INT rnum, char *error);
+INT frontend_loop();
 
-  /*-- Function declarations -----------------------------------------*/
-  INT frontend_init();
-  INT frontend_exit();
-  INT  begin_of_run(INT rnum, char *error);
-  INT    end_of_run(INT rnum, char *error);
-  INT     pause_run(INT rnum, char *error);
-  INT    resume_run(INT rnum, char *error);
-  INT frontend_loop();
+INT read_trigger_event(char *pevent, INT off);
 
-  INT read_trigger_event(char *pevent, INT off);
+/*---  Bank definitions --------------------------------------------*/
+BANK_LIST trigger_bank_list[] = {
+  /* {"TDC1", TID_DWORD, N_TDC, NULL}, */
+  {""},
+};
 
-  /*---  Bank definitions --------------------------------------------*/
-  BANK_LIST trigger_bank_list[] = {
-    /* {"TDC1", TID_DWORD, N_TDC, NULL}, */
-    {""},
-  };
+/*-- Equipment list ------------------------------------------------*/
 
-  /*-- Equipment list ------------------------------------------------*/
-
-  /* not use interrupt mode */
+/* not use interrupt mode */
 #undef USE_INT
-  EQUIPMENT equipment[] = {
-    { "Digitizer",          // Equipment name
+EQUIPMENT equipment[] = {
+  { "Digitizer",          // Equipment name
 
-      { 1, 0,             // Event ID, Trigger mask
+    { 1, 0,             // Event ID, Trigger mask
 
-	"SYSTEM",         // Event buffer
+      "SYSTEM",         // Event buffer
 
 #ifdef USE_INT
-	EQ_INTERRUPT,     // Equipment type
+      EQ_INTERRUPT,     // Equipment type
 #else
-	EQ_POLLED,
+      EQ_POLLED,
 #endif
 
-	0,                // Event source
-	"MIDAS",          // format
-	TRUE,             // Enabled
-	RO_RUNNING 
-	| RO_ODB,         // Read only when running and update ODB
-	1,                // poll for 1ms
-	0,                // Stop run after this event limit
-	0,                // Number of sub-events
-	0,                // don't log history
+      0,                // Event source
+      "MIDAS",          // format
+      TRUE,             // Enabled
+      RO_RUNNING 
+      | RO_ODB,         // Read only when running and update ODB
+      1,                // poll for 1ms
+      0,                // Stop run after this event limit
+      0,                // Number of sub-events
+      0,                // don't log history
 
-	"", "", "", },
+      "", "", "", },
 
-      read_trigger_event, // readout routine
+    read_trigger_event, // readout routine
 
-      NULL, NULL,
+    NULL, NULL,
 
-      trigger_bank_list,  // Bank list
-    },
+    trigger_bank_list,  // Bank list
+  },
 
-    {""}
-  };
-
-#ifdef __cplusplus
-}
-#endif
-
+  {""}
+};
 
 /*---- sequencer callback info --------------------------*/
 void seq_callback(INT hDB, INT hseq, void *info)
