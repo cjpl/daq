@@ -106,7 +106,7 @@ BOOL WINAPI DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved
         case DLL_THREAD_DETACH:
                 break;
         }
-        return TRUE;
+        return _TRUE;
 }
 
 #else   //Linux
@@ -154,14 +154,14 @@ BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, long vme_handl
 	p_data->m_vme_handle= vme_handle;
 	p_data->m_p_reg_table= p_reg_table;
 	
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 BOOL cvt_board_close( cvt_board_data* p_data)
 {
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,9 +181,9 @@ BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVA
 		TRACE( "CAENVME_WriteCycle: ");
 		TRACE( CAENVME_DecodeError( err_code));
 		TRACE( "\n");
-		return FALSE;
+		return _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -197,9 +197,9 @@ BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressM
 		TRACE( "CAENVME_ReadCycle: ");
 		TRACE( CAENVME_DecodeError( err_code));
 		TRACE( "\n");
-		return FALSE;
+		return _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,10 +213,10 @@ BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVA
 		{
 			UINT8 reg_value= 0;
 			if( !cvt_read( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 			reg_value|= *(UINT8*)p_value;
 			if( !cvt_write( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 		}
 		break;
 	case cvD16:
@@ -224,10 +224,10 @@ BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVA
 		{
 			UINT16 reg_value= 0;
 			if( !cvt_read( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 			reg_value|= *(UINT16*)p_value;
 			if( !cvt_write( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 		}
 		break;
 	case cvD32:
@@ -235,17 +235,17 @@ BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVA
 		{
 			UINT32 reg_value= 0;
 			if( !cvt_read( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 			reg_value|= *(UINT32*)p_value;
 			if( !cvt_write( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 		}
 		break;
 	default:
-		return FALSE;
+		return _FALSE;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,10 +259,10 @@ BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void* p_value, C
 		{
 			UINT8 reg_value= 0;
 			if( !cvt_read( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 			reg_value&= ~*(UINT8*)p_value;
 			if( !cvt_write( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 		}
 		break;
 	case cvD16:
@@ -270,10 +270,10 @@ BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void* p_value, C
 		{
 			UINT16 reg_value= 0;
 			if( !cvt_read( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 			reg_value&= ~*(UINT16*)p_value;
 			if( !cvt_write( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 		}
 		break;
 	case cvD32:
@@ -281,17 +281,17 @@ BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void* p_value, C
 		{
 			UINT32 reg_value= 0;
 			if( !cvt_read( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 			reg_value&= ~*(UINT32*)p_value;
 			if( !cvt_write( p_data, address, &reg_value, am, data_size))
-				return FALSE;
+				return _FALSE;
 		}
 		break;
 	default:
-		return FALSE;
+		return _FALSE;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -309,25 +309,25 @@ BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, 
 	while( *p_read_bytes< buffer_size)
 	{
 		bytes_to_read= (( buffer_size- *p_read_bytes)>  MAX_BLT_SIZE)? MAX_BLT_SIZE: buffer_size- *p_read_bytes;
-		*p_is_berr= FALSE;
+		*p_is_berr= _FALSE;
 		switch( err_code= CAENVME_FIFOBLTReadCycle( p_data->m_vme_handle, (((UINT32)p_data->m_base_address)<< 16)| address, (void*)((UINT8*)p_buffer+ *p_read_bytes), bytes_to_read, am, data_size, &read_bytes))
 		{
 		case cvBusError:
-			*p_is_berr= TRUE;
+			*p_is_berr= _TRUE;
 		case cvSuccess:
 			break;
 		default:
 			TRACE( "CAENVME_FIFOBLTReadCycle: ");
 			TRACE( CAENVME_DecodeError( err_code));
 			TRACE( "\n");
-			return FALSE;
+			return _FALSE;
 		}
 		(*p_read_bytes)+= read_bytes;
 		if( bytes_to_read!= read_bytes)
 			break;
 
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -387,16 +387,16 @@ BOOL cvt_set_MCST_CBLT( UINT8 address, cvt_board_data** board_array, UINT16 boar
 		if( !board_array[ board_array_len]->set_MCST_CBLT)
 		{
 			TRACE1("cvt_set_MCST_CBLT: no set_MCST_CBLT method setted for board 0x%8p\n", board_array[ board_array_len]);
-			return FALSE;
+			return _FALSE;
 		}
 		if( !(board_array[ board_array_len]->set_MCST_CBLT)( board_array[ board_array_len], address, pos))
 		{
 			TRACE1("cvt_set_MCST_CBLT: set_MCST_CBLT method failure for board 0x%8p\n", board_array[ board_array_len]);
-			return FALSE;
+			return _FALSE;
 		}
 		pos= ( board_array_len- 1)? MCST_CBLT_board_pos_mid: MCST_CBLT_board_pos_first;
 	}
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //

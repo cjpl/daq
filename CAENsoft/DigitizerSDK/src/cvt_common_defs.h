@@ -26,11 +26,11 @@
 #if !defined BOOL
 	typedef int BOOL;						//!< Boolean type
 #endif
-#if !defined TRUE
-	#define		TRUE	-1					//!< Boolean TRUE value
+#if !defined _TRUE
+	#define		_TRUE	-1					//!< Boolean _TRUE value
 #endif
-#if !defined FALSE
-	#define		FALSE	0					//!< Boolean TRUE value
+#if !defined _FALSE
+	#define		_FALSE	0					//!< Boolean _TRUE value
 #endif
 
 #if !defined UINT8

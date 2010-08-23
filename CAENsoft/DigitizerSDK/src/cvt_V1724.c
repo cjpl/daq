@@ -266,12 +266,12 @@ BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, long vme_handl
 		break;
 	default:
 		TRACE1( "cvt_V1724_open: bad board type: %d\n", type);
-		return FALSE;
+		return _FALSE;
 	}
 	
 	// basic data initialization
 	if( !cvt_board_open( &p_data->m_common_data, base_address, vme_handle, CVT_V1724_REG_TABLE))
-		return FALSE;
+		return _FALSE;
 	// board specific data initialization
 	// TODO: verify type matches BOARD_INFO BOARD_ID value
 	p_data->m_type= type;
@@ -284,7 +284,7 @@ BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, long vme_handl
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BOARD_INFO_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_BOARD_INFO read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	// Get the number of WORDS
 	// reg_value32= CVT_V1724_GET_BRDINF_BLOCK_SIZE_KW( reg_value32)<< 10;
@@ -318,7 +318,7 @@ BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, long vme_handl
 		break;
 	default:
 		TRACE1( "cvt_V1724_get_buffer_samples: bad board type: %d\n", type);
-		return FALSE;
+		return _FALSE;
 	}
 
 	//p_data->m_cache_sample_buffer_size= (reg_value32<< 2)* CVT_V1724_MAX_CHANNEL+ sizeof( CVT_V1724_HEADER)* ( CVT_V1724_NBLK_1024+ 1);
@@ -342,15 +342,15 @@ BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, long vme_handl
 		if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_CTRL_INDEX, &reg_value32))
 		{
 			TRACE( "V1724 CVT_V1724_BROAD_CH_CTRL read failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
-		p_data->m_is_des_mode= ( reg_value32& CVT_V1724_BROAD_CHCTRL_DES_MODE_MSK)? TRUE: FALSE;
+		p_data->m_is_des_mode= ( reg_value32& CVT_V1724_BROAD_CHCTRL_DES_MODE_MSK)? _TRUE: _FALSE;
 		break;
 	default:
 		break;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -366,8 +366,8 @@ BOOL cvt_V1724_close( cvt_V1724_data* p_data)
 		p_data->m_cache_sample_buffer_read_bytes= 0;
 	}
 	if( !cvt_board_close( &p_data->m_common_data))
-		return FALSE;
-	return TRUE;
+		return _FALSE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -396,7 +396,7 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 {
 	UINT32 BLT_event_number= 0;
 	CVT_V1724_HEADER* p_header;
-	BOOL is_berr= FALSE;
+	BOOL is_berr= _FALSE;
 
 	*p_ch_max_samples= 0;
 	*p_num_events= 0;
@@ -406,7 +406,7 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_EVENT_STORED_INDEX, &BLT_event_number))
 	{
 		TRACE( "CVT_V1724_EVENT_STORED read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	if( BLT_event_number> CVT_V1724_MAX_BLT_EVENT_NUM)
 		BLT_event_number= CVT_V1724_MAX_BLT_EVENT_NUM;
@@ -418,12 +418,12 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 	if( !cvt_FIFO_BLT_read( &p_data->m_common_data, CVT_V1724_OUT_BUFFER_ADD, p_data->m_cache_sample_buffer, p_data->m_cache_sample_buffer_size, &p_data->m_cache_sample_buffer_read_bytes, CVT_V1724_OUT_BUFFER_AM, CVT_V1724_OUT_BUFFER_DATA_SIZE, &is_berr))
 	{
 		p_data->m_cache_sample_buffer_read_bytes= 0;
-		return FALSE;
+		return _FALSE;
 	}
 	if( p_data->m_cache_sample_buffer_read_bytes< sizeof( CVT_V1724_HEADER))
 	{
 		p_data->m_cache_sample_buffer_read_bytes= 0;
-		return FALSE;
+		return _FALSE;
 	}
 
 	// Parse the buffer for validity
@@ -442,7 +442,7 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 				p_data->m_cache_sample_buffer_read_bytes= 0;
 				*p_ch_max_samples= 0;
 				*p_num_events= 0;
-				return FALSE;
+				return _FALSE;
 			}
 			++(*p_num_events);
 			// Get the number of channels (groups for V1740)
@@ -453,7 +453,7 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 			}
 			if( !num_channels)
 			{
-				return TRUE;
+				return _TRUE;
 			}
 
 			switch( p_data->m_type)
@@ -479,7 +479,7 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 				break;
 			default:
 				TRACE1( "cvt_V1724_read_data: bad board type: %d\n", p_data->m_type);
-				return FALSE;
+				return _FALSE;
 			}
 			if( *p_ch_max_samples< samples)
 			{
@@ -488,7 +488,7 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 			offset+= p_header->m_fields.m_HEADER_0.m_fields.m_event_size<< 2;
 		}
 	}
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -525,7 +525,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 				if( !( p_header->m_fields.m_HEADER_1.m_fields.m_active_channel_msk& (1<< ch_index)))
 				{
 					// Channel not found
-					return FALSE;
+					return _FALSE;
 				}
 				// Get the number of channels
 				for( ch_msk= 0x01, index= -1, i= 0, num_channels= 0; i< CVT_V1724_MAX_CHANNEL; ch_msk<<= 1, i++)
@@ -542,7 +542,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 				}
 				if( index< 0)
 				{
-					return FALSE;
+					return _FALSE;
 				}
 				samples= ((( p_header->m_fields.m_HEADER_0.m_fields.m_event_size<< 2)- sizeof( CVT_V1724_HEADER))/ num_channels)>> 1;
 				// Get data as 14/12 bit values: 2 samples/DWORD
@@ -557,7 +557,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 				if( !( p_header->m_fields.m_HEADER_1.m_fields.m_active_channel_msk& (1<< ch_index)))
 				{
 					// Channel not found
-					return FALSE;
+					return _FALSE;
 				}
 				// Get the number of channels
 				for( ch_msk= 0x01, index= -1, i= 0, num_channels= 0; i< CVT_V1724_MAX_CHANNEL; ch_msk<<= 1, i++)
@@ -574,7 +574,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 				}
 				if( index< 0)
 				{
-					return FALSE;
+					return _FALSE;
 				}
 				samples= ((( p_header->m_fields.m_HEADER_0.m_fields.m_event_size<< 2)- sizeof( CVT_V1724_HEADER))/ num_channels);
 				// Get data as 14/12 bit values: 2 samples/DWORD
@@ -591,7 +591,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 					if( !( p_header->m_fields.m_HEADER_1.m_fields.m_active_channel_msk& (1<< grp_index)))
 					{
 						// Channel not found
-						return FALSE;
+						return _FALSE;
 					}
 					// Get the number of groups 
 					for( ch_msk= 0x01, index= -1, i= 0, num_channels= 0; i< CVT_V1724_MAX_CHANNEL; ch_msk<<= 1, i++)
@@ -608,7 +608,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 					}
 					if( index< 0)
 					{
-						return FALSE;
+						return _FALSE;
 					}
 					// Get data as 12 bit values: 3 nibbles per sample packed as 3 joined channel's samples
 					{
@@ -662,7 +662,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 				if( !( p_header->m_fields.m_HEADER_1.m_fields.m_active_channel_msk& (1<< ch_index)))
 				{
 					// Channel not found
-					return FALSE;
+					return _FALSE;
 				}
 				// Get the number of channels
 				for( ch_msk= 0x01, index= -1, i= 0, num_channels= 0; i< CVT_V1724_MAX_CHANNEL; ch_msk<<= 1, i++)
@@ -679,7 +679,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 				}
 				if( index< 0)
 				{
-					return FALSE;
+					return _FALSE;
 				}
 				samples= ((( p_header->m_fields.m_HEADER_0.m_fields.m_event_size<< 2)- sizeof( CVT_V1724_HEADER))/ num_channels)>> 2;
 				// in realtà in questo caso samples è il numero di word: samples= 3*word
@@ -691,7 +691,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 					ptr = ( UINT32*)p_data->m_cache_sample_buffer+ (( offset+ sizeof( CVT_V1724_HEADER))>>2)+ (index*samples+ i);
 					if( (char*)ptr>= (char*)p_data->m_cache_sample_buffer+ p_data->m_cache_sample_buffer_size) {
 						// Bad samples' number ?
-						return FALSE;
+						return _FALSE;
 					}
   				    app= *ptr;
 					p_buff[ 3*i]= *ptr & 0x03FF;
@@ -706,18 +706,18 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 				break;
 			default:
 				TRACE1( "cvt_V1724_get_buffer_cache: bad board type: %d\n", p_data->m_type);
-				return FALSE;
+				return _FALSE;
 			}
 
 			*p_buff_size= i;
-			return TRUE;
+			return _TRUE;
 		}
 		offset+= p_header->m_fields.m_HEADER_0.m_fields.m_event_size<< 2;
 	}
 	
 	while(( offset< p_data->m_cache_sample_buffer_read_bytes)&& (( --current_event)>= 0 ));
 
-	return FALSE;
+	return _FALSE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -762,7 +762,7 @@ BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL falling_edge_enabl
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_SET_CTRL_INDEX, &set_msk32))
 		{
 			TRACE( "V1724 BROADCAST CH CTRL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 	if( clear_msk32)
@@ -770,7 +770,7 @@ BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL falling_edge_enabl
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_CLEAR_CTRL_INDEX, &clear_msk32))
 		{
 			TRACE( "V1724 BROADCAST CH CTRL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 
@@ -809,7 +809,7 @@ BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL falling_edge_enabl
 		if( !cvt_set_bitmask_reg( &p_data->m_common_data, CVT_V1724_TRIGGER_SRC_ENABLE_INDEX, &set_msk32))
 		{
 			TRACE( "V1724 CVT_V1724_TRIGGER_SRC_ENABLE write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 	//
@@ -820,7 +820,7 @@ BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL falling_edge_enabl
 		if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CVT_V1724_TRIGGER_SRC_ENABLE_INDEX, &clear_msk32))
 		{
 			TRACE( "V1724 CVT_V1724_TRIGGER_SRC_ENABLE write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 
@@ -829,10 +829,10 @@ BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL falling_edge_enabl
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_POST_TRIG_INDEX, &post_trigger))
 	{
 		TRACE( "V1724 CVT_V1724_POST_TRIG write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -859,28 +859,28 @@ BOOL cvt_V1724_get_trigger_mode( cvt_V1724_data* p_data, BOOL *p_falling_edge_en
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_CTRL_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 BROADCAST CH CTRL read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// falling/rising edge enable ( Over/Under threshold)
-	*p_falling_edge_enable= ( reg_value32& CVT_V1724_BROAD_CHCTRL_TRG_OUT_THR_MSK) ? TRUE: FALSE;
+	*p_falling_edge_enable= ( reg_value32& CVT_V1724_BROAD_CHCTRL_TRG_OUT_THR_MSK) ? _TRUE: _FALSE;
 	// 
 	// Trigger Overlap
-	*p_trigger_overlap_enable= ( reg_value32& CVT_V1724_BROAD_CHCTRL_TRG_OVERLAP_MSK) ? TRUE: FALSE;
+	*p_trigger_overlap_enable= ( reg_value32& CVT_V1724_BROAD_CHCTRL_TRG_OVERLAP_MSK) ? _TRUE: _FALSE;
 	
 	//
 	// get CVT_V1724_TRIGGER_SRC_ENABLE register status
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_TRIGGER_SRC_ENABLE_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_TRIGGER_SRC_ENABLE read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// External trigger
-	*p_ext_trigger_enable= ( reg_value32& CVT_V1724_TRGEN_EXT_MSK) ? TRUE: FALSE;
+	*p_ext_trigger_enable= ( reg_value32& CVT_V1724_TRGEN_EXT_MSK) ? _TRUE: _FALSE;
 	//
 	// Software trigger
-	*p_sw_trigger_enable= ( reg_value32& CVT_V1724_TRGEN_SW_MSK) ? TRUE: FALSE;
+	*p_sw_trigger_enable= ( reg_value32& CVT_V1724_TRGEN_SW_MSK) ? _TRUE: _FALSE;
 	//
 	// Channels' trigger
 	{
@@ -898,10 +898,10 @@ BOOL cvt_V1724_get_trigger_mode( cvt_V1724_data* p_data, BOOL *p_falling_edge_en
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_POST_TRIG_INDEX, p_post_trigger))
 	{
 		TRACE( "V1724 CVT_V1724_POST_TRIG read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -930,7 +930,7 @@ BOOL cvt_V1724_start_acquisition( cvt_V1724_data* p_data, UINT8 ch_msk)
 		if(( p_data->m_is_des_mode)&& ( ch_msk& 0xaa))
 		{
 			TRACE( "cvt_V1724_start_acquisition: Cannot enable odd channels in des mode \n");
-			return FALSE;
+			return _FALSE;
 		}
 		break;
 	case CVT_V1751:							/*!< \brief The board is V1751 */
@@ -938,19 +938,19 @@ BOOL cvt_V1724_start_acquisition( cvt_V1724_data* p_data, UINT8 ch_msk)
 		if(( p_data->m_is_des_mode)&& ( ch_msk& 0x55))
 		{
 			TRACE( "cvt_V1724_start_acquisition: Cannot enable even channels in des mode \n");
-			return FALSE;
+			return _FALSE;
 		}
 		break;
 	default:
 		TRACE1( "cvt_V1724_start_acquisition: bad board type: %d\n", p_data->m_type);
-		return FALSE;
+		return _FALSE;
 	}
 	reg_value32= ch_msk;
 
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_CH_ENABLE_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CHANNEL ENABLE write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	// Start acquisition
@@ -959,9 +959,9 @@ BOOL cvt_V1724_start_acquisition( cvt_V1724_data* p_data, UINT8 ch_msk)
 	if( !cvt_set_bitmask_reg( &p_data->m_common_data, CVT_V1724_ACQ_CONTROL_INDEX, &set_msk))
 	{
 		TRACE( "V1724 ACQUISITION CONTROL write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -976,9 +976,9 @@ BOOL cvt_V1724_stop_acquisition( cvt_V1724_data* p_data)
 	if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CVT_V1724_ACQ_CONTROL_INDEX, &clear_msk))
 	{
 		TRACE( "V1724 ACQUISITION CONTROL write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}		
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -1007,7 +1007,7 @@ BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable,
 		break;
 	default:
 		TRACE1( "V1724 Bad block size '%d'!\n", block_size);
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// Sample enable
@@ -1021,7 +1021,7 @@ BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable,
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_SET_CTRL_INDEX, &set_msk))
 		{
 			TRACE( "V1724 CH SET CONTROL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 	if( clear_msk)
@@ -1029,7 +1029,7 @@ BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable,
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_CLEAR_CTRL_INDEX, &clear_msk))
 		{
 			TRACE( "V1724 CH CLEAR CONTROL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}		
 	}
 	//
@@ -1038,7 +1038,7 @@ BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable,
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_NUM_BLOCK_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CH BLOCK SIZE write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	reg_value32= 0;
@@ -1062,7 +1062,7 @@ BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable,
 		if( !cvt_set_bitmask_reg( &p_data->m_common_data, CVT_V1724_ACQ_CONTROL_INDEX, &set_msk))
 		{
 			TRACE( "V1724 ACQUISITION CONTROL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 	if( clear_msk)
@@ -1070,7 +1070,7 @@ BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable,
 		if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CVT_V1724_ACQ_CONTROL_INDEX, &clear_msk))
 		{
 			TRACE( "V1724 ACQUISITION CONTROL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}		
 	}
 
@@ -1080,10 +1080,10 @@ BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable,
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_DOWNSAMPLE_FACT_INDEX, &reg_value32))
 		{
 			TRACE( "V1724 DOWNSAMPLE FACTOR write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}		
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1098,21 +1098,21 @@ BOOL cvt_V1724_get_acquisition_mode( cvt_V1724_data* p_data, BOOL *p_sample_enab
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_CTRL_INDEX, &reg_value32))
 	{
 		TRACE( "CVT_V1724_BROAD_CH_CTRL read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// Sample enable
-	*p_sample_enable= ( reg_value32& CVT_V1724_BROAD_CHCTRL_GATE_MODE_MSK)? TRUE: FALSE;
+	*p_sample_enable= ( reg_value32& CVT_V1724_BROAD_CHCTRL_GATE_MODE_MSK)? _TRUE: _FALSE;
 	
 	//
 	// Get Block size	
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BROAD_NUM_BLOCK_INDEX, &reg_value32))
 	{
 		TRACE( "CVT_V1724_BROAD_NUM_BLOCK read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	*p_block_size= reg_value32;
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1127,34 +1127,34 @@ BOOL cvt_V1724_get_acquisition_status( cvt_V1724_data* p_data, BOOL *p_is_MEB_no
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ACQ_STATUS_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 ACQUISITION STATUS read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
 	// MEB not empty bit
-	*p_is_MEB_not_empty= ( reg_value32& CVT_V1724_ACQSTS_MEB_NOT_EMPTY_MSK)? TRUE: FALSE;
+	*p_is_MEB_not_empty= ( reg_value32& CVT_V1724_ACQSTS_MEB_NOT_EMPTY_MSK)? _TRUE: _FALSE;
 
 	//
 	// MEB full bit
-	*p_is_MEB_full= ( reg_value32& CVT_V1724_ACQSTS_MEB_FULL_MSK)? TRUE: FALSE;
+	*p_is_MEB_full= ( reg_value32& CVT_V1724_ACQSTS_MEB_FULL_MSK)? _TRUE: _FALSE;
 
 	//
 	// Run status bit
-	*p_is_running= ( reg_value32& CVT_V1724_ACQSTS_RUN_MSK)? TRUE: FALSE;
+	*p_is_running= ( reg_value32& CVT_V1724_ACQSTS_RUN_MSK)? _TRUE: _FALSE;
 
 	//
 	// Event ready bit
-	*p_some_event_ready= ( reg_value32& CVT_V1724_ACQSTS_EVENT_RDY_MSK)? TRUE: FALSE;
+	*p_some_event_ready= ( reg_value32& CVT_V1724_ACQSTS_EVENT_RDY_MSK)? _TRUE: _FALSE;
 
 	//
 	// Event full bit
-	*p_event_full= ( reg_value32& CVT_V1724_ACQSTS_EVENT_FULL_MSK)? TRUE: FALSE;
+	*p_event_full= ( reg_value32& CVT_V1724_ACQSTS_EVENT_FULL_MSK)? _TRUE: _FALSE;
 
 	//
 	// S-IN status bit
-	*p_s_in= ( reg_value32& CVT_V1724_ACQSTS_S_IN_MSK)? TRUE: FALSE;
+	*p_s_in= ( reg_value32& CVT_V1724_ACQSTS_S_IN_MSK)? _TRUE: _FALSE;
 			
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1170,7 +1170,7 @@ BOOL cvt_V1724_get_buffer_samples( cvt_V1724_data* p_data, UINT16 *p_num_k_sampl
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BOARD_INFO_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_BOARD_INFO read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 
@@ -1203,14 +1203,14 @@ BOOL cvt_V1724_get_buffer_samples( cvt_V1724_data* p_data, UINT16 *p_num_k_sampl
 	default:
         // HACK LCOL 20/07/2009: commentata la linea seguente => non è definito type!!
 		//TRACE1( "cvt_V1724_get_buffer_samples: bad board type: %d\n", type);
-		return FALSE;
+		return _FALSE;
 	}
 
 	// Get actual block size
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BROAD_NUM_BLOCK_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_BROAD_NUM_BLOCK read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	*p_num_block_read= reg_value32;
 
@@ -1218,7 +1218,7 @@ BOOL cvt_V1724_get_buffer_samples( cvt_V1724_data* p_data, UINT16 *p_num_k_sampl
 
 	*p_num_k_samples= ( UINT16)( UINT32)( num_kwords/ num_blocks);
 
-	return TRUE;
+	return _TRUE;
 }
 
 
@@ -1234,14 +1234,14 @@ BOOL cvt_V1724_set_buffer_samples( cvt_V1724_data* p_data, UINT16 num_k_samples,
 	if( num_k_samples== 0)
 	{
 		TRACE( "V1724 bad num_k_samples !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	// Get the number of words per channel
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BOARD_INFO_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_BOARD_INFO read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	// Convert to num samples
 	switch( p_data->m_type)
@@ -1272,7 +1272,7 @@ BOOL cvt_V1724_set_buffer_samples( cvt_V1724_data* p_data, UINT16 num_k_samples,
 	default:
         // HACK LCOL 20/07/2009: commentata la linea seguente => non è definito type!!
 		//TRACE1( "cvt_V1724_get_buffer_samples: bad board type: %d\n", type);
-		return FALSE;
+		return _FALSE;
 	}
 
 	// Get the number of blocks requested
@@ -1286,18 +1286,18 @@ BOOL cvt_V1724_set_buffer_samples( cvt_V1724_data* p_data, UINT16 num_k_samples,
 	if( num_blocks> CVT_V1724_NBLK_1024)
 	{
 		TRACE( "V1724 bad num_k_samples: too many blocks requested !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	// Set Block num	
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_NUM_BLOCK_INDEX, &num_blocks))
 	{
 		TRACE( "V1724 CVT_V1724_BROAD_NUM_BLOCK write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	*p_num_block_written= num_blocks;
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1352,7 +1352,7 @@ BOOL cvt_V1724_set_fp_trigger_out( cvt_V1724_data* p_data, BOOL ext_trigger_enab
 		if( !cvt_set_bitmask_reg( &p_data->m_common_data, CVT_V1724_FP_TRIGGER_OUT_ENABLE_INDEX, &set_msk32))
 		{
 			TRACE( "V1724 CVT_V1724_TRIGGER_SRC_ENABLE write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 	//
@@ -1363,11 +1363,11 @@ BOOL cvt_V1724_set_fp_trigger_out( cvt_V1724_data* p_data, BOOL ext_trigger_enab
 		if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CVT_V1724_FP_TRIGGER_OUT_ENABLE_INDEX, &clear_msk32))
 		{
 			TRACE( "V1724 CVT_V1724_TRIGGER_SRC_ENABLE write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -1393,14 +1393,14 @@ BOOL cvt_V1724_get_fp_trigger_out( cvt_V1724_data* p_data, BOOL *p_ext_trigger_e
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_FP_TRIGGER_OUT_ENABLE_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_FP_TRIGGER_OUT_ENABLE read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// External trigger
-	*p_ext_trigger_enable= ( reg_value32& CVT_V1724_FPTRGEN_EXT_MSK) ? TRUE: FALSE;
+	*p_ext_trigger_enable= ( reg_value32& CVT_V1724_FPTRGEN_EXT_MSK) ? _TRUE: _FALSE;
 	//
 	// Software trigger
-	*p_sw_trigger_enable= ( reg_value32& CVT_V1724_FPTRGEN_SW_MSK) ? TRUE: FALSE;
+	*p_sw_trigger_enable= ( reg_value32& CVT_V1724_FPTRGEN_SW_MSK) ? _TRUE: _FALSE;
 	//
 	// Channels' trigger
 	{
@@ -1413,7 +1413,7 @@ BOOL cvt_V1724_get_fp_trigger_out( cvt_V1724_data* p_data, BOOL *p_ext_trigger_e
 		}
 	}
 	
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1445,7 +1445,7 @@ BOOL cvt_V1724_set_dither_enable( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dit
 		break;
 	default:
 		TRACE( "V1724 cvt_V1724_set_dither_enable bad board type !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -1462,7 +1462,7 @@ BOOL cvt_V1724_set_dither_enable( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dit
 			if( !cvt_set_bitmask_reg( &p_data->m_common_data, CH_CONF[ i], &set_msk))
 			{
 				TRACE( "V1724 CH CONF write failed !\n");
-				return FALSE;
+				return _FALSE;
 			}
 		}
 	}
@@ -1476,11 +1476,11 @@ BOOL cvt_V1724_set_dither_enable( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dit
 			if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CH_CONF[ i], &set_msk))
 			{
 				TRACE( "V1724 CH CONF write failed !\n");
-				return FALSE;
+				return _FALSE;
 			}
 		}
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1512,7 +1512,7 @@ BOOL cvt_V1724_get_dither_enable( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *
 		break;
 	default:
 		TRACE( "V1724 cvt_V1724_set_dither_enable bad board type !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -1520,7 +1520,7 @@ BOOL cvt_V1724_get_dither_enable( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *
 	if( ch_index>= CVT_V1724_MAX_CHANNEL)
 	{
 		TRACE1( "V1724 cvt_V1724_get_dither_enable bad channel '%d'!\n", ch_index);
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -1528,14 +1528,14 @@ BOOL cvt_V1724_get_dither_enable( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *
 	if( !cvt_read_reg( &p_data->m_common_data, CH_CONF[ ch_index], &reg_value32))
 	{
 		TRACE( "V1724 CH CONF read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
 	// Dither
-	*p_dither_value= ( reg_value32& CVT_V1724_CHADCCONF_DITHER_MSK)? TRUE: FALSE;
+	*p_dither_value= ( reg_value32& CVT_V1724_CHADCCONF_DITHER_MSK)? _TRUE: _FALSE;
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1568,7 +1568,7 @@ BOOL cvt_V1724_set_adc_conf( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dither_v
 		break;
 	default:
 		TRACE( "V1724 cvt_V1724_set_adc_conf bad board type !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -1597,7 +1597,7 @@ BOOL cvt_V1724_set_adc_conf( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dither_v
 			if( !cvt_set_bitmask_reg( &p_data->m_common_data, CH_CONF[ i], &set_msk32))
 			{
 				TRACE( "V1724 CH CONF write failed !\n");
-				return FALSE;
+				return _FALSE;
 			}
 		}
 	}
@@ -1614,11 +1614,11 @@ BOOL cvt_V1724_set_adc_conf( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dither_v
 			if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CH_CONF[ i], &clear_msk32))
 			{
 				TRACE( "V1724 CH CONF write failed !\n");
-				return FALSE;
+				return _FALSE;
 			}
 		}
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1650,7 +1650,7 @@ BOOL cvt_V1724_get_adc_conf( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_dit
 		break;
 	default:
 		TRACE( "V1724 cvt_V1724_set_adc_conf bad board type !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -1658,7 +1658,7 @@ BOOL cvt_V1724_get_adc_conf( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_dit
 	if( ch_index>= CVT_V1724_MAX_CHANNEL)
 	{
 		TRACE1( "V1724 cvt_V1724_set_adc_conf bad channel '%d'!\n", ch_index);
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -1666,20 +1666,20 @@ BOOL cvt_V1724_get_adc_conf( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_dit
 	if( !cvt_read_reg( &p_data->m_common_data, CH_CONF[ ch_index], &reg_value32))
 	{
 		TRACE( "V1724 CH CONF read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
 	// Dither
-	*p_dither_value= ( reg_value32& CVT_V1724_CHADCCONF_DITHER_MSK)? TRUE: FALSE;
+	*p_dither_value= ( reg_value32& CVT_V1724_CHADCCONF_DITHER_MSK)? _TRUE: _FALSE;
 	//
 	// Clock duty stabilizer
-	*p_clk_duty_stab_value= ( reg_value32& CVT_V1724_CHADCCONF_CLK_DUTY_STAB_MSK)? TRUE: FALSE;
+	*p_clk_duty_stab_value= ( reg_value32& CVT_V1724_CHADCCONF_CLK_DUTY_STAB_MSK)? _TRUE: _FALSE;
 	//
 	// Output Randomize 
-	*p_randomize_value= ( reg_value32& CVT_V1724_CHADCCONF_RND_MSK)? TRUE: FALSE;
+	*p_randomize_value= ( reg_value32& CVT_V1724_CHADCCONF_RND_MSK)? _TRUE: _FALSE;
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1713,7 +1713,7 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 	UINT32 msk32= 0;
 	int i;
 	UINT8 act_ch_msk;
-	BOOL is_des_mode= FALSE;
+	BOOL is_des_mode= _FALSE;
 
 	//
 	// Board type verify
@@ -1725,7 +1725,7 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 		break;
 	default:
 		TRACE( "V1724 cvt_V1724_adc_calib bad board type !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	if( p_data->m_type!= CVT_V1751)
@@ -1734,13 +1734,13 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 		if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_CTRL_INDEX, &reg_value))
 		{
 			TRACE( "V1724 CVT_V1724_BROAD_CH_CTRL read failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 		is_des_mode= reg_value& CVT_V1724_BROAD_CHCTRL_DES_MODE_MSK;
 		
 		if( is_des_mode)
 		{
-			return cvt_V1724_set_des_mode( p_data, TRUE);
+			return cvt_V1724_set_des_mode( p_data, _TRUE);
 		}
 		// calibration bit
 		msk32|= CVT_V1724_CHADCCONF_CAL_MSK_2;
@@ -1754,7 +1754,7 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 			if( !cvt_set_bitmask_reg( &p_data->m_common_data, CH_CONF[ i], &msk32))
 			{
 				TRACE( "V1724 ADC calib write failed !\n");
-				return FALSE;
+				return _FALSE;
 			}
 		}
 		cvt_delay( 1);
@@ -1768,7 +1768,7 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 			if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CH_CONF[ i], &msk32))
 			{
 				TRACE( "V1724 ADC calib write failed !\n");
-				return FALSE;
+				return _FALSE;
 			}
 		}
 	}
@@ -1781,7 +1781,7 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_ADC_CONF_INDEX, &msk32))
 		{
 			TRACE( "V1724 ADC calib write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 		cvt_delay( 20);
 
@@ -1790,7 +1790,7 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_ADC_CONF_INDEX, &msk32))
 		{
 			TRACE( "V1724 ADC calib write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 	cvt_delay( 20);
@@ -1805,19 +1805,19 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 		if( !cvt_read_reg( &p_data->m_common_data, CH_STATUS[ i], &reg_value))
 		{
 			TRACE1( "V1724 CH_STATUS[%d] read failed !\n", i);
-			return FALSE;
+			return _FALSE;
 		}
 		if( !( reg_value& CVT_V1724_CHSTS_CAL_RUN_MSK))
 		{
 			TRACE1( "V1724 CH_STATUS[%d] calibration failed !\n", i);
-			return FALSE;
+			return _FALSE;
 		}
 	}
 
 	// Clear data
 	if( !cvt_V1724_data_clear( p_data))
 	{
-		return FALSE;
+		return _FALSE;
 	}
 
 	// Resynch
@@ -1825,10 +1825,10 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_SW_SYNC_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_SW_SYNC write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -1860,7 +1860,7 @@ BOOL cvt_V1724_adc_temp( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32* tempadc)
 		break;
 	default:
 		TRACE( "V1724 cvt_V1724_adc_temp bad board type !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 
@@ -1874,13 +1874,13 @@ BOOL cvt_V1724_adc_temp( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32* tempadc)
 		if( !cvt_read_reg( &p_data->m_common_data, ADC_TEMP[i] , &reg_value))
 		{
 			TRACE1( "V1724 TEMP_ADC[%d] read failed !\n", i);
-			return FALSE;
+			return _FALSE;
 		}
 		else
 		tempadc[i]=reg_value;
 
 	}
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -1900,7 +1900,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 		break;
 	default:
 		TRACE( "V1724 cvt_V1724_set_des_mode bad board type !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	if( is_des_mode)
@@ -1921,8 +1921,8 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 		UINT32 buff_size= DEF_BUFF_SIZE;
 		double mid_scale_value; 
 		double mid_scale_tolerance; 
-		BOOL ret_val= TRUE;
-		BOOL running= FALSE;
+		BOOL ret_val= _TRUE;
+		BOOL running= _FALSE;
 
 		//
 		// Board type verify
@@ -1939,12 +1939,12 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 			dac_delta= 100;
 			break;
 		default:
-			return FALSE;
+			return _FALSE;
 		}
 		max_dac_steps= (0xffff/ dac_delta)* 2;
 
 		if(p_data->m_type == CVT_V1751){
-			running= TRUE;
+			running= _TRUE;
 			goto exit_point;
 		}
 
@@ -1956,15 +1956,15 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_CLEAR_CTRL_INDEX, &reg_value))
 		{
 			TRACE( "V1724 CVT_V1724_BROAD_CH_CLEAR_CTRL write failed !\n");
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
-		p_data->m_is_des_mode= FALSE;
+		p_data->m_is_des_mode= _FALSE;
 
 		if(( p_buff= ( UINT16*)malloc( buff_size* sizeof( UINT16)))== NULL)
 		{
 			TRACE( "V1724 error allocating samples' buffer !\n");
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 
@@ -1973,7 +1973,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 
 		if( !cvt_V1724_adc_calib( p_data, ch_msk))
 		{
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 
@@ -1985,7 +1985,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 		ch_msk= 0xff;
 		if( !cvt_V1724_set_channel_offset( p_data, ch_msk, dac_value[ 0]))
 		{
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 		// Wait DAC settling time
@@ -1994,9 +1994,9 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 		// Set acquisition parameters
 
 		// Set acquisition mode
-		if( !cvt_V1724_set_acquisition_mode( p_data, FALSE, num_blocks, CVT_V1724_ACQCTRL_ACQ_MODE_REGISTER_CTRL, FALSE, 0))
+		if( !cvt_V1724_set_acquisition_mode( p_data, _FALSE, num_blocks, CVT_V1724_ACQCTRL_ACQ_MODE_REGISTER_CTRL, _FALSE, 0))
 		{
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 
@@ -2004,21 +2004,21 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 		ch_msk= 0xff;
 		if( !cvt_V1724_set_channel_trigger( p_data, ch_msk, 0x8000, 100))
 		{
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 
 		// Set trigger mode
-		if( !cvt_V1724_set_trigger_mode( p_data, FALSE, FALSE, TRUE, 0x00, FALSE, 10))
+		if( !cvt_V1724_set_trigger_mode( p_data, _FALSE, _FALSE, _TRUE, 0x00, _FALSE, 10))
 		{
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 
 		// Set VME read out mode
-		if( !cvt_V1724_set_readout_mode( p_data, TRUE, 1))
+		if( !cvt_V1724_set_readout_mode( p_data, _TRUE, 1))
 		{
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 
@@ -2029,15 +2029,15 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 		// Start acquisition mode
 		if( !cvt_V1724_start_acquisition( p_data, ch_msk))
 		{
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
-		running= TRUE;
+		running= _TRUE;
 
 		// Send data clear
 		if( !cvt_V1724_data_clear( p_data))
 		{
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 		while(( ch_ok_msk!= ch_msk)&& --max_dac_steps)
@@ -2049,7 +2049,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 			// Send software trigger
 			if( !cvt_V1724_software_trigger( p_data))
 			{
-				ret_val= FALSE;
+				ret_val= _FALSE;
 				goto exit_point;
 			}
 
@@ -2057,7 +2057,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 			samples_read= num_events= 0;
 			if( !cvt_V1724_read_data( p_data, &samples_read, &num_events))
 			{
-				ret_val= FALSE;
+				ret_val= _FALSE;
 				goto exit_point;
 			}
 
@@ -2074,7 +2074,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 				buff_size= DEF_BUFF_SIZE;
 				if( !cvt_V1724_get_buffer_cache( p_data, 0, i, p_buff, &buff_size, &reg_value8, &reg_value, &reg_value))
 				{
-					ret_val= FALSE;
+					ret_val= _FALSE;
 					goto exit_point;
 				}
 				if( !buff_size)
@@ -2102,7 +2102,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 						// Update value
 						if( !cvt_V1724_set_channel_offset( p_data, (1<< i), dac_value[ i]))
 						{
-							ret_val= FALSE;
+							ret_val= _FALSE;
 							goto exit_point;
 						}
 					}
@@ -2114,7 +2114,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 		if( ch_ok_msk!= ch_msk)
 		{
 			TRACE( "V1724 cvt_V1724_set_des_mode procedure failed !\n");
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 exit_point:
@@ -2124,7 +2124,7 @@ exit_point:
 			// Stop acquisition
 			if( !cvt_V1724_stop_acquisition( p_data))
 			{
-				ret_val= FALSE;
+				ret_val= _FALSE;
 				goto exit_point;
 			}
 			if( ret_val)
@@ -2134,17 +2134,17 @@ exit_point:
 				if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_SET_CTRL_INDEX, &reg_value))
 				{
 					TRACE( "V1724 CVT_V1724_BROAD_CH_SET_CTRL write failed !\n");
-					ret_val= FALSE;
+					ret_val= _FALSE;
 					goto exit_point;
 				}
-				p_data->m_is_des_mode= TRUE;
+				p_data->m_is_des_mode= _TRUE;
 			}
 		}
 
 		if( p_buff)
 			free( p_buff);
 		if( !ret_val)
-			return FALSE;
+			return _FALSE;
 	}
 	else
 	{
@@ -2156,11 +2156,11 @@ exit_point:
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BROAD_CH_CLEAR_CTRL_INDEX, &reg_value))
 		{
 			TRACE( "V1724 CVT_V1724_BROAD_CH_CLEAR_CTRL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
-		p_data->m_is_des_mode= FALSE;
+		p_data->m_is_des_mode= _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2175,18 +2175,18 @@ BOOL cvt_V1724_set_interrupt( cvt_V1724_data* p_data, UINT8 level, UINT32 status
 	if( level!= reg_value)
 	{
 		TRACE( "V1724 bad interrupt level !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_VME_CONTROL_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_VME_CONTROL read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	CVT_V1724_SET_INT_LEVEL( reg_value, level);
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_VME_CONTROL_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_VME_CONTROL write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -2195,12 +2195,12 @@ BOOL cvt_V1724_set_interrupt( cvt_V1724_data* p_data, UINT8 level, UINT32 status
 	if( event_number!= reg_value)
 	{
 		TRACE( "V1724 bad event number !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_INT_EVENT_NUM_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_INT_EVENT_NUM write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// interrupt status id (vector)
@@ -2208,10 +2208,10 @@ BOOL cvt_V1724_set_interrupt( cvt_V1724_data* p_data, UINT8 level, UINT32 status
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_INT_STATUS_ID_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_INT_STATUS_ID write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2225,7 +2225,7 @@ BOOL cvt_V1724_get_interrupt( cvt_V1724_data* p_data, UINT8 *p_level, UINT32 *p_
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_VME_CONTROL_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_VME_CONTROL read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// interrupt level
@@ -2236,7 +2236,7 @@ BOOL cvt_V1724_get_interrupt( cvt_V1724_data* p_data, UINT8 *p_level, UINT32 *p_
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_INT_EVENT_NUM_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_INT_EVENT_NUM read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	*p_event_number= reg_value32& 0x03ff;
 	
@@ -2245,13 +2245,13 @@ BOOL cvt_V1724_get_interrupt( cvt_V1724_data* p_data, UINT8 *p_level, UINT32 *p_
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_INT_STATUS_ID_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_INT_STATUS_ID read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// interrupt status_id
 	*p_status_id= ( UINT8)reg_value32;
 	
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2274,7 +2274,7 @@ BOOL cvt_V1724_set_readout_mode( cvt_V1724_data* p_data, BOOL enable_bus_error, 
 		if( !cvt_set_bitmask_reg( &p_data->m_common_data, CVT_V1724_VME_CONTROL_INDEX, &set_msk))
 		{
 			TRACE( "V1724 CVT_V1724_VME_CONTROL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 	//
@@ -2285,7 +2285,7 @@ BOOL cvt_V1724_set_readout_mode( cvt_V1724_data* p_data, BOOL enable_bus_error, 
 		if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CVT_V1724_VME_CONTROL_INDEX, &clear_msk))
 		{
 			TRACE( "V1724 CVT_V1724_CONTROL write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 
@@ -2294,10 +2294,10 @@ BOOL cvt_V1724_set_readout_mode( cvt_V1724_data* p_data, BOOL enable_bus_error, 
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_BLT_EVENT_NUM_INDEX, &BLT_event_number))
 	{
 		TRACE( "V1724 CVT_V1724_BLT_EVENT_NUM write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2312,21 +2312,21 @@ BOOL cvt_V1724_get_readout_mode( cvt_V1724_data* p_data, BOOL *p_enable_bus_erro
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_VME_CONTROL_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_VME_CONTROL read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// Bus error
-	*p_enable_bus_error= ( reg_value32&  CVT_V1724_VME_CTRL_BERR_ENABLE_MSK)? TRUE: FALSE;
+	*p_enable_bus_error= ( reg_value32&  CVT_V1724_VME_CTRL_BERR_ENABLE_MSK)? _TRUE: _FALSE;
 
 	// 
 	// Get BLT event number
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_BLT_EVENT_NUM_INDEX, p_BLT_event_number))
 	{
 		TRACE( "V1724 CVT_V1724_BLT_EVENT_NUM read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2340,9 +2340,9 @@ BOOL cvt_V1724_software_reset( cvt_V1724_data* p_data)
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_SW_RESET_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_SW_RESET write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2356,9 +2356,9 @@ BOOL cvt_V1724_data_clear( cvt_V1724_data* p_data)
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_SW_CLEAR_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_CLEAR_RESET write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2415,7 +2415,7 @@ BOOL cvt_V1724_set_channel_offset( cvt_V1724_data* p_data, UINT8 ch_msk, UINT16 
 				//
 				// Wait for DAC !busy
 				BOOL trash;
-				BOOL is_dac_busy= TRUE;
+				BOOL is_dac_busy= _TRUE;
 				while( is_dac_busy)
 				{
 					// HACK insert timeout here
@@ -2423,19 +2423,19 @@ BOOL cvt_V1724_set_channel_offset( cvt_V1724_data* p_data, UINT8 ch_msk, UINT16 
 					if( !cvt_V1724_get_channel_status( p_data, i, &is_dac_busy, &trash, &trash, &trash))
 					{
 						TRACE( "V1724 set channel offset failed !\n");
-						return FALSE;
+						return _FALSE;
 					}
 				}
 				if( !cvt_write_reg( &p_data->m_common_data, CH_DAC_CONF[ i], ( i& 0x01)? &reg_value_B: &reg_value_A))
 				{
 					TRACE( "V1724 CH DAC CONF write failed !\n");
-					return FALSE;
+					return _FALSE;
 				}
 			}
 		}
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -2455,14 +2455,14 @@ BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_index, UINT1
 	};
 	UINT32 reg_value32= 0;
 	BOOL trash;
-	BOOL is_dac_busy= TRUE;
+	BOOL is_dac_busy= _TRUE;
 
 	//
 	// input param check
 	if( ch_index>= CVT_V1724_MAX_CHANNEL)
 	{
 		TRACE1( "V1724 cvt_V1724_get_channel_offset bad channel '%d'!\n", ch_index);
-		return FALSE;
+		return _FALSE;
 	}
 
 
@@ -2483,7 +2483,7 @@ BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_index, UINT1
 		if( !cvt_V1724_get_channel_status( p_data, ch_index, &is_dac_busy, &trash, &trash, &trash))
 		{
 			TRACE( "V1724 set channel offset failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 	}
 	//
@@ -2491,13 +2491,13 @@ BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_index, UINT1
 	if( !cvt_read_reg( &p_data->m_common_data, CH_DAC_CONF[ ch_index], &reg_value32))
 	{
 		TRACE( "V1724 CH DAC CONF read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// Channel offset
 	*p_offset_value= CVT_V1724_GET_CH_DAC_CONF( reg_value32);
 
-	return TRUE;
+	return _TRUE;
 }
 
 
@@ -2543,7 +2543,7 @@ BOOL cvt_V1724_set_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32
 				if( !cvt_write_reg( &p_data->m_common_data, CH_TRG_THR[ i], &reg_value))
 				{
 					TRACE( "V1724 CH TRIGGER THRESHOLD write failed !\n");
-					return FALSE;
+					return _FALSE;
 				}
 			}
 		}
@@ -2562,12 +2562,12 @@ BOOL cvt_V1724_set_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32
 				if( !cvt_write_reg( &p_data->m_common_data, CH_TRG_THR_SAMPLE[ i], &reg_value))
 				{
 					TRACE( "V1724 CH TRIGGER THRESHOLD SAMPLES write failed !\n");
-					return FALSE;
+					return _FALSE;
 				}
 			}
 		}
 	}
-	return TRUE;
+	return _TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -2603,7 +2603,7 @@ BOOL cvt_V1724_get_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_index, UINT
 	if( ch_index>= CVT_V1724_MAX_CHANNEL)
 	{
 		TRACE1( "V1724 cvt_V1724_get_channel_trigger bad channel '%d'!\n", ch_index);
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -2611,7 +2611,7 @@ BOOL cvt_V1724_get_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_index, UINT
 	if( !cvt_read_reg( &p_data->m_common_data, CH_TRG_THR[ ch_index], p_trigger_threshold))
 	{
 		TRACE( "V1724 CH TRIGGER THRESHOLD read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -2619,10 +2619,10 @@ BOOL cvt_V1724_get_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_index, UINT
 	if( !cvt_read_reg( &p_data->m_common_data, CH_TRG_THR_SAMPLE[ ch_index], p_threshold_samples))
 	{
 		TRACE( "V1724 CH TRIGGER THRESHOLD SAMPLES read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2642,7 +2642,7 @@ BOOL cvt_V1724_set_front_panel_IO( cvt_V1724_data* p_data, BOOL use_TTL, BOOL ou
 			break;
 		default:
 			TRACE( "V1724 CVT_V1724_FRONT_PANEL_IO_CTRL bad mode !\n");
-			return FALSE;			
+			return _FALSE;			
 	}
 
 	//
@@ -2664,9 +2664,9 @@ BOOL cvt_V1724_set_front_panel_IO( cvt_V1724_data* p_data, BOOL use_TTL, BOOL ou
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FRONT_PANEL_IO_CTRL_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_FRONT_PANEL_IO_CTRL write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2681,16 +2681,16 @@ BOOL cvt_V1724_get_front_panel_IO( cvt_V1724_data* p_data, BOOL *p_use_TTL, BOOL
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_FRONT_PANEL_IO_CTRL_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_FRONT_PANEL_IO_CTRL read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// Ttl / Nim
-	*p_use_TTL= ( reg_value32& CVT_V1724_FPIO_CTRL_TTL_MSK)? TRUE: FALSE;
+	*p_use_TTL= ( reg_value32& CVT_V1724_FPIO_CTRL_TTL_MSK)? _TRUE: _FALSE;
 
 
 	//
 	// Output enable
-	*p_is_out_en= ( reg_value32& CVT_V1724_FPIO_CTRL_OUT_DIS_MSK)? FALSE: TRUE;
+	*p_is_out_en= ( reg_value32& CVT_V1724_FPIO_CTRL_OUT_DIS_MSK)? _FALSE: _TRUE;
 
 	//
 	// Direction
@@ -2700,7 +2700,7 @@ BOOL cvt_V1724_get_front_panel_IO( cvt_V1724_data* p_data, BOOL *p_use_TTL, BOOL
 	// Operational mode
 	*p_mode= CVT_V1724_GET_FPIO_CTRL_MODE( reg_value32);
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2715,9 +2715,9 @@ BOOL cvt_V1724_software_trigger( cvt_V1724_data* p_data)
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_SW_TRIGGER_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_SW_TRIGGER write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 
@@ -2745,21 +2745,21 @@ BOOL cvt_V1724_get_channel_status( cvt_V1724_data* p_data, UINT8 ch_index, BOOL 
 	if( ch_index>= CVT_V1724_MAX_CHANNEL)
 	{
 		TRACE1( "V1724 cvt_V1724_get_channel_status bad channel '%d'!\n", ch_index);
-		return FALSE;
+		return _FALSE;
 	}
 	//
 	// read channel status register 1
 	if( !cvt_read_reg( &p_data->m_common_data, CH_STATUS[ ch_index], &reg_value))
 	{
 		TRACE1( "V1724 CH_STATUS[%d] read failed !\n", ch_index);
-		return FALSE;
+		return _FALSE;
 	}
-	*p_is_dac_busy= ( reg_value& CVT_V1724_CHSTS_DAC_BUSY_MSK)? TRUE: FALSE;
-	*p_is_fifo_full= ( reg_value& CVT_V1724_CHSTS_FIFO_FULL_MSK)? TRUE: FALSE;
-	*p_is_fifo_empty= ( reg_value& CVT_V1724_CHSTS_FIFO_EMPTY_MSK)? TRUE: FALSE;
-	*p_is_block_remove_ok= ( reg_value& CVT_V1724_CHSTS_BLOCK_REM_OK_MSK)? TRUE: FALSE;
+	*p_is_dac_busy= ( reg_value& CVT_V1724_CHSTS_DAC_BUSY_MSK)? _TRUE: _FALSE;
+	*p_is_fifo_full= ( reg_value& CVT_V1724_CHSTS_FIFO_FULL_MSK)? _TRUE: _FALSE;
+	*p_is_fifo_empty= ( reg_value& CVT_V1724_CHSTS_FIFO_EMPTY_MSK)? _TRUE: _FALSE;
+	*p_is_block_remove_ok= ( reg_value& CVT_V1724_CHSTS_BLOCK_REM_OK_MSK)? _TRUE: _FALSE;
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2767,26 +2767,26 @@ BOOL cvt_V1724_get_channel_status( cvt_V1724_data* p_data, UINT8 ch_index, BOOL 
 BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, CVT_V1724_ROM_CONFIG *p_rom_config, BOOL *p_is_board_type_correct, BOOL *p_is_firmware_rev_correct)
 {
 	UINT32 reg_value= 0;
-	*p_is_board_type_correct= FALSE;
-	*p_is_firmware_rev_correct= FALSE;
+	*p_is_board_type_correct= _FALSE;
+	*p_is_firmware_rev_correct= _FALSE;
 
 	//
 	// Firmware revision register
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_FW_REV_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FW_REV read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	*p_firmware_rev= reg_value& 0x0000ffff;
 	if( *p_firmware_rev>= CVT_V1724_MIN_FIRMARE_REV)
-		*p_is_firmware_rev_correct= TRUE;
+		*p_is_firmware_rev_correct= _TRUE;
 
 	//
 	// Chksum
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_CHKSUM_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_CHKSUM_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_chksum= reg_value& 0x000000ff;
 
@@ -2795,19 +2795,19 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_CHKSUM_LEN_0_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_CHKSUM_LEN_0_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_chksum_len= reg_value& 0x000000ff;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_CHKSUM_LEN_1_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_CHKSUM_LEN_1_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_chksum_len|= (reg_value& 0x000000ff)<< 8;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_CHKSUM_LEN_2_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_CHKSUM_LEN_2_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_chksum_len|= (reg_value& 0x000000ff)<< 16;
 
@@ -2816,19 +2816,19 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_CONST_0_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_CONST_0_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_const= reg_value& 0x000000ff;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_CONST_1_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_CONST_1_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_const|= (reg_value& 0x000000ff)<< 8;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_CONST_2_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_CONST_2_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_const|= (reg_value& 0x000000ff)<< 16;
 
@@ -2837,7 +2837,7 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_C_CODE_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_C_CODE_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_c_code= reg_value& 0x000000ff;
 
@@ -2846,7 +2846,7 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_R_CODE_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_R_CODE_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_r_code= reg_value& 0x000000ff;
 
@@ -2855,19 +2855,19 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_OUI_0_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_OUI_0_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_OUI= reg_value& 0x000000ff;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_OUI_1_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_OUI_1_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_OUI|= (reg_value& 0x000000ff)<< 8;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_OUI_2_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_OUI_2_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_OUI|= (reg_value& 0x000000ff)<< 16;
 
@@ -2876,7 +2876,7 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_VERSION_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_VERSION_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_version= reg_value& 0x000000ff;
 
@@ -2885,19 +2885,19 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_BOARD_ID_0_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_BOARD_ID_0_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_board_id= reg_value& 0x000000ff;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_BOARD_ID_1_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_BOARD_ID_1_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_board_id|= (reg_value& 0x000000ff)<< 8;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_BOARD_ID_2_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_BOARD_ID_2_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_board_id|= (reg_value& 0x000000ff)<< 16;
 
@@ -2906,32 +2906,32 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	case CVT_V17XX_RCFG_BOARD_ID_V1724:			//  V1724
 	case CVT_V17XX_RCFG_BOARD_ID_VX1724:		// VX1724
 		if( p_data->m_type== CVT_V1724)
-			*p_is_board_type_correct= TRUE;
+			*p_is_board_type_correct= _TRUE;
 		break;
 	case CVT_V17XX_RCFG_BOARD_ID_V1721:			//  V1721
 	case CVT_V17XX_RCFG_BOARD_ID_VX1721:		// VX1721
 		if( p_data->m_type== CVT_V1721)
-			*p_is_board_type_correct= TRUE;
+			*p_is_board_type_correct= _TRUE;
 		break;
 	case CVT_V17XX_RCFG_BOARD_ID_V1731:			//  V1731
 	case CVT_V17XX_RCFG_BOARD_ID_VX1731:		// VX1731
 		if( p_data->m_type== CVT_V1731)
-			*p_is_board_type_correct= TRUE;
+			*p_is_board_type_correct= _TRUE;
 		break;
 	case CVT_V17XX_RCFG_BOARD_ID_V1720:			//  V1720
 	case CVT_V17XX_RCFG_BOARD_ID_VX1720:		// VX1720
 		if( p_data->m_type== CVT_V1720)
-			*p_is_board_type_correct= TRUE;
+			*p_is_board_type_correct= _TRUE;
 		break;
 	case CVT_V17XX_RCFG_BOARD_ID_V1740:			//  V1740
 	case CVT_V17XX_RCFG_BOARD_ID_VX1740:		// VX1740
 		if( p_data->m_type== CVT_V1740)
-			*p_is_board_type_correct= TRUE;
+			*p_is_board_type_correct= _TRUE;
 		break;
 	case CVT_V17XX_RCFG_BOARD_ID_V1751:			//  V1751
 	case CVT_V17XX_RCFG_BOARD_ID_VX1751:		// VX1751
 		if( p_data->m_type== CVT_V1751)
-			*p_is_board_type_correct= TRUE;
+			*p_is_board_type_correct= _TRUE;
 		break;
 	}
 
@@ -2940,25 +2940,25 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_REVISION_0_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_REVISION_0_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_revision= reg_value& 0x000000ff;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_REVISION_1_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_REVISION_1_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_revision|= (reg_value& 0x000000ff)<< 8;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_REVISION_2_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_REVISION_2_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_revision|= (reg_value& 0x000000ff)<< 16;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_REVISION_3_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_REVISION_3_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_revision|= (reg_value& 0x000000ff)<< 24;
 
@@ -2967,13 +2967,13 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_SERIAL_0_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_SERIAL_LSB read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_serial= reg_value& 0x00ff;
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_SERIAL_1_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_SERIAL_MSB read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_serial|= (reg_value& 0x00ff)<< 8;
 
@@ -2982,11 +2982,11 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_ROM_VCXO_TYPE_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_ROM_VCXO_TYPE_INDEX read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	p_rom_config->m_VCXO_type= reg_value& 0x000000ff;
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3013,7 +3013,7 @@ BOOL cvt_V1724_get_channel_info( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 
 	if( ch_index>= CVT_V1724_MAX_CHANNEL)
 	{
 		TRACE1( "V1724 cvt_V1724_get_channel_info bad channel '%d'!\n", ch_index);
-		return FALSE;
+		return _FALSE;
 	}
 
 	//
@@ -3021,11 +3021,11 @@ BOOL cvt_V1724_get_channel_info( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 
 	if( !cvt_read_reg( &p_data->m_common_data, CH_FW_REV[ ch_index], &reg_value))
 	{
 		TRACE1( "V1724 CH_FW_REV[%d] read failed !\n", ch_index);
-		return FALSE;
+		return _FALSE;
 	}
 	*p_firmware_rev= reg_value& 0x0000ffff;
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3055,16 +3055,16 @@ BOOL cvt_V1724_set_MCST_CBLT( cvt_V1724_data* p_data, UINT8 address, MCST_CBLT_b
 		break;
 	default:
 		TRACE1( "V1724 cvt_V1724_set_MCST_CBLT bad position indentifier '%d'!\n", pos);
-		return FALSE;
+		return _FALSE;
 	}
 
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_MCST_CBLT_ADD_CTRL_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_MCST_CBLT_ADD_CTRL write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3078,7 +3078,7 @@ BOOL cvt_V1724_get_MCST_CBLT( cvt_V1724_data* p_data, UINT8 *p_address, MCST_CBL
 	if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_MCST_CBLT_ADD_CTRL_INDEX, &reg_value32))
 	{
 		TRACE( "V1724 CVT_V1724_MCST_CBLT_ADD_CTRL read failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 	*p_address= CVT_V1724_GET_MCST_CBLT_ADD( reg_value32);
 
@@ -3098,9 +3098,9 @@ BOOL cvt_V1724_get_MCST_CBLT( cvt_V1724_data* p_data, UINT8 *p_address, MCST_CBL
 		break;
 	default:
 		TRACE1( "V1724 cvt_V1724_get_MCST_CBLT bad position indentifier '%d'!\n", reg_value32);
-		return FALSE;
+		return _FALSE;
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3111,7 +3111,7 @@ BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8* page_buff,
 	int i;
 	UINT32 reg_value;
 	UINT32 flash_addr;
-	BOOL ret_val= TRUE;
+	BOOL ret_val= _TRUE;
 
 	flash_addr= page_index << 9;
 
@@ -3121,7 +3121,7 @@ BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8* page_buff,
 	if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CVT_V1724_FLASH_EN_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH_EN write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	// write opcode
@@ -3129,7 +3129,7 @@ BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8* page_buff,
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	// write address
@@ -3137,21 +3137,21 @@ BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8* page_buff,
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	reg_value= (unsigned char)( flash_addr>> 8);
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	reg_value= (unsigned char) flash_addr;
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	// write flash page
@@ -3161,7 +3161,7 @@ BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8* page_buff,
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 		{
 			TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 	}
@@ -3172,7 +3172,7 @@ exit_point:
 	if( !cvt_set_bitmask_reg( &p_data->m_common_data, CVT_V1724_FLASH_EN_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH_EN write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 	}
 
 	// wait 50ms
@@ -3188,7 +3188,7 @@ BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32
 	int i;
 	UINT32 reg_value;
 	UINT32 flash_addr;
-	BOOL ret_val= TRUE;
+	BOOL ret_val= _TRUE;
 
 	flash_addr= page_index<< 9;
 
@@ -3197,7 +3197,7 @@ BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32
 	if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CVT_V1724_FLASH_EN_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH_EN write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	// write opcode
@@ -3205,7 +3205,7 @@ BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	// write address
@@ -3213,21 +3213,21 @@ BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	reg_value= (unsigned char)( flash_addr>> 8);
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	reg_value= (unsigned char) flash_addr;
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 
@@ -3239,7 +3239,7 @@ BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 		{
 			TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 	}
@@ -3250,7 +3250,7 @@ BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32
 		if( !cvt_read_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 		{
 			TRACE( "V1724 CVT_V1724_FLASH read failed !\n");
-			ret_val= FALSE;
+			ret_val= _FALSE;
 			goto exit_point;
 		}
 		page_buff[ i]= ( UINT8)reg_value;
@@ -3262,7 +3262,7 @@ exit_point:
 	if( !cvt_set_bitmask_reg( &p_data->m_common_data, CVT_V1724_FLASH_EN_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH_EN write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 	}
 
 	return ret_val;
@@ -3275,7 +3275,7 @@ BOOL cvt_V1724_erase_flash_page( cvt_V1724_data* p_data, UINT32 page_index)
 {
 	UINT32 reg_value;
 	UINT32 flash_addr;
-	BOOL ret_val= TRUE;
+	BOOL ret_val= _TRUE;
 
 	flash_addr= page_index<< 9;
 
@@ -3284,7 +3284,7 @@ BOOL cvt_V1724_erase_flash_page( cvt_V1724_data* p_data, UINT32 page_index)
 	if( !cvt_clear_bitmask_reg( &p_data->m_common_data, CVT_V1724_FLASH_EN_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH_EN write failed !\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	// write opcode
@@ -3292,7 +3292,7 @@ BOOL cvt_V1724_erase_flash_page( cvt_V1724_data* p_data, UINT32 page_index)
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	// write address
@@ -3300,21 +3300,21 @@ BOOL cvt_V1724_erase_flash_page( cvt_V1724_data* p_data, UINT32 page_index)
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	reg_value= (unsigned char)( flash_addr>> 8);
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 	reg_value= (unsigned char) flash_addr;
 	if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_FLASH_DATA_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 		goto exit_point;
 	}
 exit_point:
@@ -3323,7 +3323,7 @@ exit_point:
 	if( !cvt_set_bitmask_reg( &p_data->m_common_data, CVT_V1724_FLASH_EN_INDEX, &reg_value))
 	{
 		TRACE( "V1724 CVT_V1724_FLASH_EN write failed !\n");
-		ret_val= FALSE;
+		ret_val= _FALSE;
 	}
 
 	return ret_val;
@@ -3345,7 +3345,7 @@ BOOL cvt_V1724_fw_upgrade( cvt_V1724_data* p_data, const UINT8* data_buff, UINT3
 		break;
 	default:
 		TRACE( "V1724 cvt_V1724_fw_upgrade Invalid flash bank!\n");
-		return FALSE;
+		return _FALSE;
 	}
 
 	// Swap bits into data bytes
@@ -3362,29 +3362,29 @@ BOOL cvt_V1724_fw_upgrade( cvt_V1724_data* p_data, const UINT8* data_buff, UINT3
 		if( !cvt_V1724_write_flash_page( p_data, tmp_page_w, flash_bank))
 		{
 			TRACE( "V1724 CVT_V1724_FLASH write failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 		// read page from flash
 		if( !cvt_V1724_read_flash_page( p_data, tmp_page_r, flash_bank))
 		{
 			TRACE( "V1724 CVT_V1724_FLASH read failed !\n");
-			return FALSE;
+			return _FALSE;
 		}
 		// verify pages
 		if( memcmp( tmp_page_r, tmp_page_w, V1724_FLASH_PAGE_SIZE))
 		{
 			// read page differs from page written 
 			TRACE( "V1724 cvt_V1724_fw_upgrade page verify failure!\n");
-			return FALSE;
+			return _FALSE;
 		}
 		++flash_bank;
 		if( call_back)
 		{
 			if( !(*call_back)( tot_bytes))
-				return FALSE;
+				return _FALSE;
 		}
 	}
-	return TRUE;
+	return _TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3392,7 +3392,7 @@ BOOL cvt_V1724_fw_upgrade( cvt_V1724_data* p_data, const UINT8* data_buff, UINT3
 ////////////////////////////////////////////////////////////////////////////////////////////////
 BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
 {
-	BOOL ret= TRUE;
+	BOOL ret= _TRUE;
 	UINT8 page[ V1724_FLASH_PAGE_SIZE];
 	char file_line[300];
 	// int org_line= 15;
@@ -3403,7 +3403,7 @@ BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
 	if( ( from= fopen( filename, "rt"))== NULL)
 	{
 		TRACE( "V1724 cvt_V1724_pll_upgrade file open failure!\n");
-		return FALSE;
+		return _FALSE;
 	}
 	// Strip header lines
 	for( i= 0; i< 4; i++)
@@ -3411,13 +3411,13 @@ BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
 		if( fgets( file_line, 300, from)== NULL)
 		{
 			TRACE( "V1724 cvt_V1724_pll_upgrade bad file format !\n");
-			ret= FALSE;
+			ret= _FALSE;
 			goto exit_point;						
 		}
 	}
 	data_size= 0;
 	// Get data lines
-	while( TRUE)
+	while( _TRUE)
 	{
 		char *token;
 		char *trash;
@@ -3427,7 +3427,7 @@ BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
 			if( !feof( from))
 			{
 				TRACE( "V1724 cvt_V1724_pll_upgrade file read error !\n");
-				ret= FALSE;
+				ret= _FALSE;
 				goto exit_point;
 			}
 			break;
@@ -3435,7 +3435,7 @@ BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
 		if( data_size>= V1724_FLASH_PAGE_SIZE)
 		{
 			TRACE( "V1724 cvt_V1724_pll_upgrade file too large for flash page size !\n");
-			ret= FALSE;
+			ret= _FALSE;
 			goto exit_point;
 		}
 		// Get Address
@@ -3459,7 +3459,7 @@ BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
 	if( !cvt_V1724_write_flash_page( p_data, page, CVT_V1724_PLL_FLASH_PAGE))
 	{
 		TRACE( "V1724 cvt_V1724_pll_upgrade flash write failed !\n");
-		ret= FALSE;
+		ret= _FALSE;
 		goto exit_point;
 	}
 
@@ -3470,7 +3470,7 @@ BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
 		if( !cvt_write_reg( &p_data->m_common_data, CVT_V1724_RELOAD_CONFIG_INDEX, &reg_value32))
 		{
 			TRACE( "V1724 CVT_V1724_RELOAD_CONFIG_INDEX write failed !\n");
-			ret= FALSE;
+			ret= _FALSE;
 			goto exit_point;
 		}
 	}

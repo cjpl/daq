@@ -1491,7 +1491,7 @@ typedef union PACKED_1
 *   \param   base_address The board base address (MSW)
 *   \param   vme_handle The VME handle
 *   \param   type The board type : it must be a \ref CVT_V17XX_TYPES value
-*   \return  TRUE: board successfully opened
+*   \return  _TRUE: board successfully opened
 *   \note    Must be called before any other board specific API.
 *   \sa      CVT_V17XX_TYPES 
 */
@@ -1504,7 +1504,7 @@ CVT_DLL_API BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, lo
 *            
 *            Provides specific handling for V1724 boards closing.
 *   \param   p_data Pointer to board data
-*   \return  TRUE: board successfully closed
+*   \return  _TRUE: board successfully closed
 *   \note    Must be called when done with any other board specific API.
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1540,7 +1540,7 @@ CVT_DLL_API BOOL cvt_V1724_close( cvt_V1724_data* p_data);
 *   \param   p_data Pointer to board data
 *   \param   p_ch_max_samples returns the maximum number of samples per channel read for each event
 *   \param   p_num_events returns the number of events read
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      cvt_V1724_get_buffer_cache
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1560,7 +1560,7 @@ CVT_DLL_API BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_s
 *   \param   p_board_id The board id stored into event
 *   \param   p_trigger_time_tag The trigger time tag stored into event
 *   \param   p_event_counter The counter stored into event
-*   \return  TRUE: Procedure successfully executed, FALSE elsewhere (e.g. event or channel index not found)
+*   \return  _TRUE: Procedure successfully executed, _FALSE elsewhere (e.g. event or channel index not found)
 *   \sa      cvt_V1724_read_data
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1578,7 +1578,7 @@ CVT_DLL_API BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 even
 *   \param   ch_trigger_enable_msk Enable/Disable trigger from channels thresholds comparison. If bit i of the mask is setted, the channel i feature is setted.
 *   \param   trigger_overlap_enable Enable/Disable the trigger overlap feature.
 *   \param   post_trigger The amount of post trigger samples
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL falling_edge_enable, BOOL ext_trigger_enable, BOOL sw_trigger_enable, UINT8 ch_trigger_enable_msk, BOOL trigger_overlap_enable, UINT32 post_trigger);
@@ -1595,7 +1595,7 @@ CVT_DLL_API BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL fallin
 *   \param   p_ch_trigger_enable_msk Trigger from channels thresholds comparison status. If bit i of the mask is setted, the channel i feature is setted.
 *   \param   p_trigger_overlap_enable Trigger overlap feature status.
 *   \param   p_post_trigger Amount of post trigger samples status
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_trigger_mode( cvt_V1724_data* p_data, BOOL *p_falling_edge_enable, BOOL *p_ext_trigger_enable, BOOL *p_sw_trigger_enable, UINT8 *p_ch_trigger_enable_msk, BOOL *p_trigger_overlap_enable, UINT32 *p_post_trigger);
@@ -1609,7 +1609,7 @@ CVT_DLL_API BOOL cvt_V1724_get_trigger_mode( cvt_V1724_data* p_data, BOOL *p_fal
 *   \param   p_ext_trigger_enable External trigger status output enable.
 *   \param   p_sw_trigger_enable Software trigger status output enable.
 *   \param   p_ch_trigger_enable_msk Trigger output from channels thresholds comparison status.
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_fp_trigger_out( cvt_V1724_data* p_data, BOOL *p_ext_trigger_enable, BOOL *p_sw_trigger_enable, UINT8 *p_ch_trigger_enable_msk);
@@ -1623,7 +1623,7 @@ CVT_DLL_API BOOL cvt_V1724_get_fp_trigger_out( cvt_V1724_data* p_data, BOOL *p_e
 *   \param   ext_trigger_enable Enable/Disable the external trigger output.
 *   \param   sw_trigger_enable Enable/Disable the software trigger output.
 *   \param   ch_trigger_enable_msk Enable/Disable trigger output from channels thresholds comparison
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_set_fp_trigger_out( cvt_V1724_data* p_data, BOOL ext_trigger_enable, BOOL sw_trigger_enable, UINT8 ch_trigger_enable_msk);
@@ -1634,7 +1634,7 @@ CVT_DLL_API BOOL cvt_V1724_set_fp_trigger_out( cvt_V1724_data* p_data, BOOL ext_
 *            
 *   \param   p_data Pointer to board data
 *   \param   ch_msk The mask of enabled channels 
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_start_acquisition( cvt_V1724_data* p_data, UINT8 ch_msk);
@@ -1644,7 +1644,7 @@ CVT_DLL_API BOOL cvt_V1724_start_acquisition( cvt_V1724_data* p_data, UINT8 ch_m
 *   \brief   Stops the acquisition
 *            
 *   \param   p_data Pointer to board data
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_stop_acquisition( cvt_V1724_data* p_data);
@@ -1658,9 +1658,9 @@ CVT_DLL_API BOOL cvt_V1724_stop_acquisition( cvt_V1724_data* p_data);
 *   \param   sample_enable Enable/Disable the sample acquisition mode: if disabled the acquisition mode is windowed
 *   \param   block_size Setup the samples' number per block size foreach channel: it must be a valid \ref CVT_V1724_NUM_BLOCKS identifier.
 *   \param   acquisition_mode Setups the acquisition mode
-*   \param   count_all_trigger Set to TRUE if you want to count all triggers (accepted and not)
+*   \param   count_all_trigger Set to _TRUE if you want to count all triggers (accepted and not)
 *   \param   downsample_factor If != 0 the download factor will be setted and enabled , disabled otherwise
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      CVT_V1724_NUM_BLOCKS
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1674,7 +1674,7 @@ CVT_DLL_API BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sa
 *   \param   p_data Pointer to board data
 *   \param   p_sample_enable Sample acquisition mode: if disabled the acquisition mode is windowed
 *   \param   p_block_size Samples' number per block size foreach channel: it must be a valid \ref CVT_V1724_NUM_BLOCKS identifier.
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      CVT_V1724_NUM_BLOCKS
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1692,7 +1692,7 @@ CVT_DLL_API BOOL cvt_V1724_get_acquisition_mode( cvt_V1724_data* p_data, BOOL *p
 *   \param   p_some_event_ready This flag is set if some event is ready
 *   \param   p_event_full This flag is set if event memory is full
 *   \param   p_s_in This flag shows the front panel' S-IN signal logical state
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_acquisition_status( cvt_V1724_data* p_data, BOOL *p_is_MEB_not_empty, BOOL *p_is_MEB_full, BOOL *p_is_running, BOOL *p_some_event_ready, BOOL *p_event_full, BOOL *p_s_in);
@@ -1704,7 +1704,7 @@ CVT_DLL_API BOOL cvt_V1724_get_acquisition_status( cvt_V1724_data* p_data, BOOL 
 *   \param   p_data Pointer to board data
 *   \param   p_num_k_samples The number of samples (as K blocks) per channel or per group in case of CVT_V1740 
 *   \param   p_num_block_read The num block register value read ( \ref CVT_V1724_NUM_BLOCKS )
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_buffer_samples( cvt_V1724_data* p_data, UINT16 *p_num_k_samples, CVT_V1724_NUM_BLOCKS *p_num_block_read);
@@ -1716,7 +1716,7 @@ CVT_DLL_API BOOL cvt_V1724_get_buffer_samples( cvt_V1724_data* p_data, UINT16 *p
 *   \param   p_data Pointer to board data
 *   \param   num_k_samples The number of samples (as K blocks: valid values are power of 2 multiples) per channel or per group in case of CVT_V1740 
 *   \param   p_num_block_written The num block register value written ( \ref CVT_V1724_NUM_BLOCKS )
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_set_buffer_samples( cvt_V1724_data* p_data, UINT16 num_k_samples, CVT_V1724_NUM_BLOCKS *p_num_block_written);
@@ -1728,8 +1728,8 @@ CVT_DLL_API BOOL cvt_V1724_set_buffer_samples( cvt_V1724_data* p_data, UINT16 nu
 *            Enables/Disables the dither feature for each channel specified with ch_msk.
 *   \param   p_data Pointer to board data
 *   \param   ch_msk The channel mask 
-*   \param   dither_value Set to TRUE to enable the dither channels in the mask, FALSE to disable
-*   \return  TRUE: Procedure successfully executed
+*   \param   dither_value Set to _TRUE to enable the dither channels in the mask, _FALSE to disable
+*   \return  _TRUE: Procedure successfully executed
 *   \deprecated Use \ref cvt_V1724_set_adc_conf
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1742,8 +1742,8 @@ CVT_DLL_API BOOL cvt_V1724_set_dither_enable( cvt_V1724_data* p_data, UINT8 ch_m
 *            Gets the dither feature status for the specified channel.
 *   \param   p_data Pointer to board data
 *   \param   ch_index The channel index
-*   \param   p_dither_value If TRUE the dither feature is enabled, disable otherwise
-*   \return  TRUE: Procedure successfully executed
+*   \param   p_dither_value If _TRUE the dither feature is enabled, disable otherwise
+*   \return  _TRUE: Procedure successfully executed
 *   \deprecated Use \ref cvt_V1724_get_adc_conf
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1756,10 +1756,10 @@ CVT_DLL_API BOOL cvt_V1724_get_dither_enable( cvt_V1724_data* p_data, UINT8 ch_i
 *            Enables/Disables the dither, clock duty cycle stabilizer and output randomize features for each channel specified with ch_msk.
 *   \param   p_data Pointer to board data
 *   \param   ch_msk The channel mask 
-*   \param   dither_value Set to TRUE to enable the dither channels in the mask, FALSE to disable
-*   \param   clk_duty_stab_value Set to TRUE to enable the clock duty cycle stabilizer feature, FALSE to disable
-*   \param   randomize_value Set to TRUE to enable the output randomized feature, FALSE to disable
-*   \return  TRUE: Procedure successfully executed
+*   \param   dither_value Set to _TRUE to enable the dither channels in the mask, _FALSE to disable
+*   \param   clk_duty_stab_value Set to _TRUE to enable the clock duty cycle stabilizer feature, _FALSE to disable
+*   \param   randomize_value Set to _TRUE to enable the output randomized feature, _FALSE to disable
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_set_adc_conf( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dither_value, BOOL clk_duty_stab_value, BOOL randomize_value);
@@ -1771,10 +1771,10 @@ CVT_DLL_API BOOL cvt_V1724_set_adc_conf( cvt_V1724_data* p_data, UINT8 ch_msk, B
 *            Gets the dither, clock duty cycle stabilizer and output randomize features status for the specified channel.
 *   \param   p_data Pointer to board data
 *   \param   ch_index The channel index
-*   \param   p_dither_value If TRUE the dither feature is enabled, disable otherwise
-*   \param   p_clk_duty_stab_value If TRUE the clock duty cycle stabilizer feature is enabled, disable otherwise
-*   \param   p_randomize_value If TRUE the output randomized feature is enabled, disable otherwise
-*   \return  TRUE: Procedure successfully executed
+*   \param   p_dither_value If _TRUE the dither feature is enabled, disable otherwise
+*   \param   p_clk_duty_stab_value If _TRUE the clock duty cycle stabilizer feature is enabled, disable otherwise
+*   \param   p_randomize_value If _TRUE the output randomized feature is enabled, disable otherwise
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_adc_conf( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_dither_value, BOOL *p_clk_duty_stab_value, BOOL *p_randomize_value);
@@ -1785,7 +1785,7 @@ CVT_DLL_API BOOL cvt_V1724_get_adc_conf( cvt_V1724_data* p_data, UINT8 ch_index,
 *            
 *   \param   p_data Pointer to board data
 *   \param   ch_msk The channel mask to calibrate
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk);
@@ -1798,7 +1798,7 @@ CVT_DLL_API BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk);
 *   \param   ch_msk The channel mask read temperature from
 *   \param   tampadc The caller allocated storage to hold channels' temperatures: 
 *				it must be a CVT_V1724_MAX_CHANNEL UINT32 data array
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_adc_temp( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32* tempadc);
@@ -1809,8 +1809,8 @@ CVT_DLL_API BOOL cvt_V1724_adc_temp( cvt_V1724_data* p_data, UINT8 ch_msk, UINT3
 *            
 *            Performs the correct procedure to switch to DES mode ( 4 channels) or normal (8 channels) mode
 *   \param   p_data Pointer to board data
-*   \param   is_des_mode If TRUE the des mode is setted
-*   \return  TRUE: Procedure successfully executed
+*   \param   is_des_mode If _TRUE the des mode is setted
+*   \return  _TRUE: Procedure successfully executed
 *   \remark  !!! WARNING !!! Odd channel's input signal must be disconnected and acquisition setting will be modified
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1825,7 +1825,7 @@ CVT_DLL_API BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mod
 *   \param   level The interrupt level.
 *   \param   status_id The interrupt status id (interrupt vector).
 *   \param   event_number The number of events to get an interrupt (setting 0 interrupt feature is disabled).
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_set_interrupt( cvt_V1724_data* p_data, UINT8 level, UINT32 status_id, UINT16 event_number);
@@ -1839,7 +1839,7 @@ CVT_DLL_API BOOL cvt_V1724_set_interrupt( cvt_V1724_data* p_data, UINT8 level, U
 *   \param   p_level The interrupt level.
 *   \param   p_status_id The interrupt stayus id (interupt vector).
 *   \param   p_event_number The number of events to get an interrupt (if 0 interrupt feature is disabled).
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_interrupt( cvt_V1724_data* p_data, UINT8 *p_level, UINT32 *p_status_id, UINT16 *p_event_number);
@@ -1852,7 +1852,7 @@ CVT_DLL_API BOOL cvt_V1724_get_interrupt( cvt_V1724_data* p_data, UINT8 *p_level
 *   \param   p_data Pointer to board data
 *   \param   enable_bus_error Enable bus error: the module is enabled to generate a Bus error to finish a block transfer. 
 *   \param   BLT_event_number The number of events to readout foreach BLT cycle.
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_set_readout_mode( cvt_V1724_data* p_data, BOOL enable_bus_error, UINT32 BLT_event_number);
@@ -1863,9 +1863,9 @@ CVT_DLL_API BOOL cvt_V1724_set_readout_mode( cvt_V1724_data* p_data, BOOL enable
 *            
 *            Retrives the relevant parameters settings for data readout.
 *   \param   p_data Pointer to board data
-*   \param   *p_enable_bus_error Bus error status: if TRUE the module is enabled to generate a Bus error to finish a block transfer. 
+*   \param   *p_enable_bus_error Bus error status: if _TRUE the module is enabled to generate a Bus error to finish a block transfer. 
 *   \param   *p_BLT_event_number The number of events to readout foreach BLT cycle.
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_readout_mode( cvt_V1724_data* p_data, BOOL *p_enable_bus_error, UINT32 *p_BLT_event_number);
@@ -1876,7 +1876,7 @@ CVT_DLL_API BOOL cvt_V1724_get_readout_mode( cvt_V1724_data* p_data, BOOL *p_ena
 *            
 *            Writes a dummy value into SW_RESET_REGISTER register.
 *   \param   p_data Pointer to board data
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_software_reset( cvt_V1724_data* p_data);
@@ -1887,7 +1887,7 @@ CVT_DLL_API BOOL cvt_V1724_software_reset( cvt_V1724_data* p_data);
 *            
 *            Writes a dummy value into SW_CLEAR_REGISTER register.
 *   \param   p_data Pointer to board data
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_data_clear( cvt_V1724_data* p_data);
@@ -1900,7 +1900,7 @@ CVT_DLL_API BOOL cvt_V1724_data_clear( cvt_V1724_data* p_data);
 *   \param   p_data Pointer to board data
 *   \param   ch_msk The channel mask 
 *   \param   offset_value The offset value to be applied to specified channels.
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_set_channel_offset( cvt_V1724_data* p_data, UINT8 ch_msk, UINT16 offset_value);
@@ -1913,7 +1913,7 @@ CVT_DLL_API BOOL cvt_V1724_set_channel_offset( cvt_V1724_data* p_data, UINT8 ch_
 *   \param   p_data Pointer to board data
 *   \param   ch_index The channel index
 *   \param   p_offset_value The channel' offset value.
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 *p_offset_value);
@@ -1927,7 +1927,7 @@ CVT_DLL_API BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_
 *   \param   ch_msk The channel mask 
 *   \param   trigger_threshold The value of the trigger threshold
 *   \param   threshold_samples The hysteresis on threshold comparison 
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_set_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32 trigger_threshold, UINT32 threshold_samples);
@@ -1941,7 +1941,7 @@ CVT_DLL_API BOOL cvt_V1724_set_channel_trigger( cvt_V1724_data* p_data, UINT8 ch
 *   \param   ch_index The channel index
 *   \param   p_trigger_threshold The value of the trigger threshold
 *   \param   p_threshold_samples The hysteresis on threshold comparison 
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_index, UINT32 *p_trigger_threshold, UINT32 *p_threshold_samples);
@@ -1956,7 +1956,7 @@ CVT_DLL_API BOOL cvt_V1724_get_channel_trigger( cvt_V1724_data* p_data, UINT8 ch
 *   \param   out_en If setted enables the trigger output
 *   \param   dir_msk Set direction mask
 *   \param   mode Set the operational mode
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      CVT_V1724_FRONT_PANEL_IO_MODES
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1972,7 +1972,7 @@ CVT_DLL_API BOOL cvt_V1724_set_front_panel_IO( cvt_V1724_data* p_data, BOOL use_
 *   \param   p_is_out_en True if the trigger output is enabled
 *   \param   p_dir_msk Gets the direction mask
 *   \param   p_mode Gets the operational mode
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      CVT_V1724_FRONT_PANEL_IO_MODES
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1984,7 +1984,7 @@ CVT_DLL_API BOOL cvt_V1724_get_front_panel_IO( cvt_V1724_data* p_data, BOOL *p_u
 *            
 *            Sends a software trigger. Software triggers must be enabled
 *   \param   p_data Pointer to board data
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      cvt_V1724_set_trigger_mode
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2000,7 +2000,7 @@ CVT_DLL_API BOOL cvt_V1724_software_trigger( cvt_V1724_data* p_data);
 *   \param   p_is_fifo_full Returns the channel's FIFO_FULL flag status. 
 *   \param   p_is_fifo_empty Returns the channel's FIFO_EMPTY flag status. 
 *   \param   p_is_block_remove_ok Returns the channel's BLOCK_REM_OK flag status. 
-*   \return  TRUE: Procedure successfully executed.
+*   \return  _TRUE: Procedure successfully executed.
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_channel_status( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_is_dac_busy, BOOL *p_is_fifo_full, BOOL *p_is_fifo_almost_full, BOOL *p_is_block_remove_ok);
@@ -2013,9 +2013,9 @@ CVT_DLL_API BOOL cvt_V1724_get_channel_status( cvt_V1724_data* p_data, UINT8 ch_
 *   \param   p_data Pointer to board data
 *   \param   p_firmware_rev The firmare release (MSB major release, LSB minor release).
 *   \param   p_rom_config The ROM configuration.
-*   \param   p_is_board_type_correct Return TRUE if the cvt_V1724_data::m_type matches the CVT_V1724_ROM_CONFIG::m_board_id type
-*   \param   p_is_firmware_rev_correct Return TRUE if the CVT_V1724_FW_REV register value is greater or equal then minimum requested level for this tool's version \ref CVT_V1724_MIN_FIRMARE_REV
-*   \return  TRUE: Procedure successfully executed
+*   \param   p_is_board_type_correct Return _TRUE if the cvt_V1724_data::m_type matches the CVT_V1724_ROM_CONFIG::m_board_id type
+*   \param   p_is_firmware_rev_correct Return _TRUE if the CVT_V1724_FW_REV register value is greater or equal then minimum requested level for this tool's version \ref CVT_V1724_MIN_FIRMARE_REV
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      CVT_V1724_MIN_FIRMARE_REV
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2029,7 +2029,7 @@ CVT_DLL_API BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_fi
 *   \param   p_data Pointer to board data
 *   \param   ch_index The index of the channel to test.
 *   \param   p_firmware_rev The channel's firmare release (MSB major release, LSB minor release).
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_get_channel_info( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 *p_firmware_rev);
@@ -2042,7 +2042,7 @@ CVT_DLL_API BOOL cvt_V1724_get_channel_info( cvt_V1724_data* p_data, UINT8 ch_in
 *   \param   p_data Pointer to board data.
 *   \param   address The MCST/CBLT address.
 *   \param   pos The board position into the MCST / CBLT chain: it must be a \ref MCST_CBLT_board_pos identifier
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      MCST_CBLT_board_pos
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2056,7 +2056,7 @@ CVT_DLL_API BOOL cvt_V1724_set_MCST_CBLT( cvt_V1724_data* p_data, UINT8 address,
 *   \param   p_data Pointer to board data.
 *   \param   p_address The MCST/CBLT address.
 *   \param   p_pos The board position into the MCST / CBLT chain: it must be a \ref MCST_CBLT_board_pos identifier
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 *   \sa      MCST_CBLT_board_pos
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2069,7 +2069,7 @@ CVT_DLL_API BOOL cvt_V1724_get_MCST_CBLT( cvt_V1724_data* p_data, UINT8 *p_addre
 *   \param   p_data Pointer to board data.
 *   \param   page_buff The source page buffer: page_buff size must be \ref V1724_FLASH_PAGE_SIZE bytes
 *   \param   page_index The page index (0 based index) to be written
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8* page_buff, UINT32 page_index);
@@ -2081,7 +2081,7 @@ CVT_DLL_API BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8
 *   \param   p_data Pointer to board data.
 *   \param   page_buff The target page buffer: page_buff size must be \ref V1724_FLASH_PAGE_SIZE and allocated by the caller
 *   \param   page_index The page index (0 based index) to be read
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32 page_index);
@@ -2092,7 +2092,7 @@ CVT_DLL_API BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_
 *            
 *   \param   p_data Pointer to board data.
 *   \param   page_index The page index (0 based index) to be erased
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_erase_flash_page( cvt_V1724_data* p_data, UINT32 page_index);
@@ -2105,8 +2105,8 @@ CVT_DLL_API BOOL cvt_V1724_erase_flash_page( cvt_V1724_data* p_data, UINT32 page
 *   \param   data_buff The source data buffer
 *   \param   data_size The data_buff size (bytes)
 *   \param   flash_bank The flash bank to upgrade: must be a \ref CVT_V1724_FLASH_BANK valid one
-*   \param   call_back End user call back function, called for each new page transferred: may be NULL: you can return FALSE to abort procedure
-*   \return  TRUE: Procedure successfully executed
+*   \param   call_back End user call back function, called for each new page transferred: may be NULL: you can return _FALSE to abort procedure
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_fw_upgrade( cvt_V1724_data* p_data, const UINT8* data_buff, UINT32 data_size, CVT_V1724_FLASH_BANK flash_bank, BOOL (* call_back)(UINT32 written_bytes) );
@@ -2117,7 +2117,7 @@ CVT_DLL_API BOOL cvt_V1724_fw_upgrade( cvt_V1724_data* p_data, const UINT8* data
 *            
 *   \param   p_data Pointer to board data.
 *   \param   filename The source file
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename);

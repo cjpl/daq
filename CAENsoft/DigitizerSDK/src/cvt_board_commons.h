@@ -125,7 +125,7 @@ void cvt_delay(int msec);
 *   \param   base_address The board base address (MSW)
 *   \param   vme_handle The VME handle
 *   \param   p_reg_table The board specific register table pointer
-*   \return  TRUE: board successfully opened
+*   \return  _TRUE: board successfully opened
 *   \note    This API if typically called by derived boards during open procedure.
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +137,7 @@ CVT_DLL_API BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, lo
 *            
 *            Provides basic handling for board closing, common to all the boards.
 *   \param   p_data Pointer to board data
-*   \return  TRUE: board successfully closed
+*   \return  _TRUE: board successfully closed
 *   \note    This API if typically called by derived boards during close procedure.
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -159,7 +159,7 @@ CVT_DLL_API BOOL cvt_board_close( cvt_board_data* p_data);
 *   \param   p_value The pointer to the value to write
 *   \param   am The address modifier
 *   \param   data_size The data size
-*   \return  TRUE  write procedure ok
+*   \return  _TRUE  write procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVAddressModifier am, CVDataWidth data_size);
@@ -174,7 +174,7 @@ CVT_DLL_API BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* 
 *   \param   p_value The pointer to the value read
 *   \param   am The address modifier
 *   \param   data_size The data size
-*   \return  TRUE  read procedure ok
+*   \return  _TRUE  read procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size);
@@ -189,7 +189,7 @@ CVT_DLL_API BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value
 *   \param   p_value The pointer to the mask to set
 *   \param   am The address modifier
 *   \param   data_size The data size
-*   \return  TRUE  write procedure ok
+*   \return  _TRUE  write procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
@@ -204,7 +204,7 @@ CVT_DLL_API BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *
 *   \param   p_value The pointer to the mask to clear
 *   \param   am The address modifier
 *   \param   data_size The data size
-*   \return  TRUE  write procedure ok
+*   \return  _TRUE  write procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
@@ -221,8 +221,8 @@ CVT_DLL_API BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void
 *   \param   p_read_bytes The number of bytes really read
 *   \param   am The address modifier
 *   \param   data_size The data size
-*   \param   p_is_berr Returns TRUE if the Bus Error bit was setted
-*   \return  TRUE  read procedure ok
+*   \param   p_is_berr Returns _TRUE if the Bus Error bit was setted
+*   \return  _TRUE  read procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, CVAddressModifier am, CVDataWidth data_size, BOOL *p_is_berr);
@@ -236,7 +236,7 @@ CVT_DLL_API BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void
 *   \param   p_data Pointer to board data
 *   \param   reg_index The register's board index : it must be a valid CVT_VXXXX_REG_INDEX
 *   \param   p_value The pointer to the value to write
-*   \return  TRUE  write procedure ok
+*   \return  _TRUE  write procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const void* p_value);
@@ -250,7 +250,7 @@ CVT_DLL_API BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const 
 *   \param   p_data Pointer to board data
 *   \param   reg_index The register's board index : it must be a valid CVT_VXXXX_REG_INDEX
 *   \param   p_value The pointer to the value read
-*   \return  TRUE  read procedure ok
+*   \return  _TRUE  read procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value);
@@ -264,7 +264,7 @@ CVT_DLL_API BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p
 *   \param   reg_index The register's board index : it must be a valid CVT_VXXXX_REG_INDEX
 *   \param   p_data Pointer to board data
 *   \param   p_value The pointer to the mask to set
-*   \return  TRUE  write procedure ok
+*   \return  _TRUE  write procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
@@ -278,7 +278,7 @@ CVT_DLL_API BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, 
 *   \param   p_data Pointer to board data
 *   \param   reg_index The register's board index : it must be a valid CVT_VXXXX_REG_INDEX
 *   \param   p_value The pointer to the mask to clear
-*   \return  TRUE  write procedure ok
+*   \return  _TRUE  write procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
@@ -294,8 +294,8 @@ CVT_DLL_API BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index
 *   \param   p_buffer The pointer to target buffer
 *   \param   buffer_size The target buffer size (bytes)
 *   \param   p_read_bytes The number of bytes really read
-*   \param   p_is_berr Returns TRUE if the Bus Error bit was setted
-*   \return  TRUE  read procedure ok
+*   \param   p_is_berr Returns _TRUE if the Bus Error bit was setted
+*   \return  _TRUE  read procedure ok
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, BOOL *p_is_berr);
@@ -314,7 +314,7 @@ CVT_DLL_API BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index
 *   \param   address The MCST/CBLT address common to each board of the group
 *   \param   board_array The collection of boards to setup. The first board in the chain is board_array[0], and the last one is board_array[ board_array_len-1]
 *   \param   board_array_len The number of boards into board_array buffer.
-*   \return  TRUE: Procedure successfully executed
+*   \return  _TRUE: Procedure successfully executed
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CVT_DLL_API BOOL cvt_set_MCST_CBLT( UINT8 address, cvt_board_data** board_array, UINT16 board_array_len);

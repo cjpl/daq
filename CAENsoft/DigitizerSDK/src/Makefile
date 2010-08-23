@@ -14,11 +14,13 @@ LIBS	=
 INCLUDEDIR =	-I/opt/DAQ/include -I./ -I/usr/include/
 
 #INSTALLDIR =	/usr/lib
-INSTALLDIR =   /opt/DAQ/lib
+INSTALLDIR =   /opt/DAQ
 
 OBJS	=	cvt_board_commons.o cvt_V1724.o 
 
 INCLUDES =	CAENVMElib.h CAENVMEtypes.h CAENVMEoslib.h
+
+HEADERS  = 	cvt_board_commons.h cvt_common_defs.h cvt_V1724.h
 
 #########################################################################
 
@@ -28,9 +30,10 @@ clean	:
 		/bin/rm -f $(OBJS) $(LIB)
 
 install	:	$(LIB)
-		/bin/rm -f $(INSTALLDIR)/libCAENdigitizerSDK.so
-		install $(LIB) $(INSTALLDIR)
-		ln -sf $(INSTALLDIR)/$(LIB) $(INSTALLDIR)/libCAENdigitizerSDK.so
+		/bin/rm -f $(INSTALLDIR)/lib/libCAENdigitizerSDK.so
+		install $(LIB) $(INSTALLDIR)/lib
+		ln -sf $(INSTALLDIR)/lib/$(LIB) $(INSTALLDIR)/lib/libCAENdigitizerSDK.so
+		cp -p $(HEADERS) $(INSTALLDIR)/include/
 #		#ldconfig
 
 $(LIB)	:	$(OBJS)
