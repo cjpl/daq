@@ -35,6 +35,9 @@
       + ~UINT32* p_event_counter~    -- The counter stored into event
 ** V1724 data structure in buffer?
 ** V1724 parameters?
+*** Channel settings
+*** Clock settings
+*** Control settings
 ** V1724 Control?
    1. Write parameters
    2. Start/Stop/Reset
