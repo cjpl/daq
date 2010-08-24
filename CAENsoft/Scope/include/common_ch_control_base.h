@@ -36,15 +36,15 @@
 class CommonChControlBase: public wxPanel
 {    
     DECLARE_DYNAMIC_CLASS( CommonChControlBase )
-public:
+        public:
     /// Constructors
     CommonChControlBase( );
     CommonChControlBase( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style);
 
-	virtual void SetMediumLabel( double value);
-	virtual void SetOverloadBackground( const wxColor& color);
-	virtual void SetEnable( bool enable, bool disable_all);
+    virtual void SetMediumLabel( double value);
+    virtual void SetOverloadBackground( const wxColor& color);
+    virtual void SetEnable( bool enable, bool disable_all);
 };
 
 #endif
-    // _COMMON_CH_CONTROL_BASE_H_
+// _COMMON_CH_CONTROL_BASE_H_

@@ -1,69 +1,69 @@
 /*
-        ----------------------------------------------------------------------
+  ----------------------------------------------------------------------
 
-        --- CAEN SpA - Computing Systems Division ---
+  --- CAEN SpA - Computing Systems Division ---
 
-        a2818.h
+  a2818.h
 
-        Header file for the CAEN A2818 CONET board driver.
+  Header file for the CAEN A2818 CONET board driver.
 
-        June  2004 :   Created.
+  June  2004 :   Created.
 
-        ----------------------------------------------------------------------
+  ----------------------------------------------------------------------
 */
 #ifndef _a2818_H
 #define _a2818_H
 
 #ifndef VERSION
-	#define VERSION(ver,rel,seq) (((ver)<<16) | ((rel)<<8) | (seq))
-#endif	
+#define VERSION(ver,rel,seq) (((ver)<<16) | ((rel)<<8) | (seq))
+#endif  
 
 // Rev 1.5
 #if LINUX_VERSION_CODE < VERSION(2,5,0)
 
-	/*
-        	----------------------------------------------------------------------
-        	The following implements an interruptible wait_event
-        	with a timeout.  This is used instead of the function
-        	interruptible_sleep_on_timeout() since this is susceptible
-        	to race conditions.
-        	----------------------------------------------------------------------
-	*/
-	#define __wait_event_interruptible_timeout(wq, condition, ret)   	\
-	do {                                                          		\
-        	wait_queue_t __wait;                                  		\
-        	init_waitqueue_entry(&__wait, current);               		\
-                                                              			\
-        	add_wait_queue(&wq, &__wait);                         		\
-        	for (;;) {                                            		\
-                	set_current_state(TASK_INTERRUPTIBLE);        		\
-                	if (condition)                                          \
-                        	break;                                		\
-                	if (!signal_pending(current)) {               		\
-                        	ret = schedule_timeout(ret);          		\
-                        	if (!ret)                             		\
-                                	break;                        		\
-                        	continue;                             		\
-                	}                                             		\
-                	ret = -ERESTARTSYS;                           		\
-                	break;                                        		\
-        	}                                                     		\
-        	current->state = TASK_RUNNING;                        		\
-        	remove_wait_queue(&wq, &__wait);                      		\
-	} while (0)
+/*
+  ----------------------------------------------------------------------
+  The following implements an interruptible wait_event
+  with a timeout.  This is used instead of the function
+  interruptible_sleep_on_timeout() since this is susceptible
+  to race conditions.
+  ----------------------------------------------------------------------
+*/
+#define __wait_event_interruptible_timeout(wq, condition, ret)  \
+    do {                                                        \
+        wait_queue_t __wait;                                    \
+        init_waitqueue_entry(&__wait, current);                 \
+                                                                \
+        add_wait_queue(&wq, &__wait);                           \
+        for (;;) {                                              \
+            set_current_state(TASK_INTERRUPTIBLE);              \
+            if (condition)                                      \
+                break;                                          \
+            if (!signal_pending(current)) {                     \
+                ret = schedule_timeout(ret);                    \
+                if (!ret)                                       \
+                    break;                                      \
+                continue;                                       \
+            }                                                   \
+            ret = -ERESTARTSYS;                                 \
+            break;                                              \
+        }                                                       \
+        current->state = TASK_RUNNING;                          \
+        remove_wait_queue(&wq, &__wait);                        \
+    } while (0)
 
-	#define wait_event_interruptible_timeout(wq, condition, timeout)	                \
-	({                                                              	                \
-        	long __ret = timeout;                                   	                \
-        	if (!(condition))                                       	                \
-                	__wait_event_interruptible_timeout(wq, condition, __ret);        \
-        	__ret;                                                                          \
-	})
-	#define MIN(a, b)       ( (a) < (b) ? (a) : (b) )
+#define wait_event_interruptible_timeout(wq, condition, timeout)        \
+    ({                                                                  \
+        long __ret = timeout;                                           \
+        if (!(condition))                                               \
+            __wait_event_interruptible_timeout(wq, condition, __ret);   \
+        __ret;                                                          \
+    })
+#define MIN(a, b)       ( (a) < (b) ? (a) : (b) )
 #endif
 
 /*
-        Defines for the a2818
+  Defines for the a2818
 */
 #define MIN_DMA_SIZE                    (80)
 #define MAX_MINOR                       (256)
@@ -78,7 +78,7 @@
 #define PLX_REGION_SIZE                 (0x100)
 
 #define PCI_DEVICE_ID_PLX_9054          (0x9054)
-#define PCI_SUBDEVICE_ID_CAEN_A2818	(0x3057)
+#define PCI_SUBDEVICE_ID_CAEN_A2818     (0x3057)
 
 #define PCI_SIZE_8                      (0x0001)
 #define PCI_SIZE_16                     (0x0002)
@@ -104,7 +104,7 @@
 
 
 /*
-        A2818 Registers offsets
+  A2818 Registers offsets
 */
 #define A2818_TXFIFO                    (0x00)
 #define A2818_RXFIFO                    (0x04)
@@ -134,7 +134,7 @@
 #define A2818_IOCTL_CLR                 (0xA4)
 
 /*
-        PLX9054 Registers offsets
+  PLX9054 Registers offsets
 */
 #define PLX_INTCSR                      (0x68)
 #       define INTCSR_PCI_INT_ENA               (1 <<  8)
@@ -183,128 +183,128 @@
 #ifdef __KERNEL__
 
 #if LINUX_VERSION_CODE >= VERSION(2,5,0)
-		#define MAX_USER_PAGES  (( 16*1024*1024 + ~PAGE_MASK) >> PAGE_SHIFT)
+#define MAX_USER_PAGES  (( 16*1024*1024 + ~PAGE_MASK) >> PAGE_SHIFT)
 #endif
 
 
 /*
-        ----------------------------------------------------------------------
+  ----------------------------------------------------------------------
 
-        Types
+  Types
 
-        ----------------------------------------------------------------------
+  ----------------------------------------------------------------------
 */
 struct a2818_state {
-        /* Common globals */
-        unsigned char          *baseaddr;
-        unsigned long           phys;
-        unsigned char          *plx_vir;
-        unsigned long           plx_phy;
+    /* Common globals */
+    unsigned char          *baseaddr;
+    unsigned long           phys;
+    unsigned char          *plx_vir;
+    unsigned long           plx_phy;
 // Rev. 1.6
-        struct pci_dev	       *pcidev;
-        int                     irq;
-        int                     minor;
-        int                     timeout;
+    struct pci_dev             *pcidev;
+    int                     irq;
+    int                     minor;
+    int                     timeout;
 #ifdef PINGPONG
-        unsigned char          *i_buf[2];          // buffer per i dma. CPU address.
+    unsigned char          *i_buf[2];          // buffer per i dma. CPU address.
 // Rev. 1.6
 #if LINUX_VERSION_CODE >= VERSION(2,6,9)
-        dma_addr_t              i_buf_pci[2];      // PCI address of i_buf.
+    dma_addr_t              i_buf_pci[2];      // PCI address of i_buf.
 #endif
-        int                     i_buf_sz[2];
+    int                     i_buf_sz[2];
 // Rev. 1.6
-        uint32_t                tr_stat[2];
-        int                     pp;
+    uint32_t                tr_stat[2];
+    int                     pp;
 #else
 // Rev. 1.6
-        unsigned char          *i_buf;          // buffer per i dma. CPU address.
+    unsigned char          *i_buf;          // buffer per i dma. CPU address.
 #if LINUX_VERSION_CODE >= VERSION(2,6,9)
-        dma_addr_t              i_buf_pci;      // PCI address of i_buf.
+    dma_addr_t              i_buf_pci;      // PCI address of i_buf.
 #endif
-        int                     i_buf_sz;
+    int                     i_buf_sz;
 // Rev. 1.6
-        uint32_t                tr_stat;
+    uint32_t                tr_stat;
 #endif
-        unsigned int            reads;
-        unsigned int            writes;
-        unsigned int            ioctls;
+    unsigned int            reads;
+    unsigned int            writes;
+    unsigned int            ioctls;
 
-        unsigned int            DMAInProgress;
-        unsigned long           flags;
+    unsigned int            DMAInProgress;
+    unsigned long           flags;
 // Rev. 1.4
-        spinlock_t              Alock;
+    spinlock_t              Alock;
 // Rev 1.6
 #if LINUX_VERSION_CODE >= VERSION(2,6,11)
-        struct mutex           ioctl_lock;
+    struct mutex           ioctl_lock;
 #endif
 
-        /* Per slave globals */
+    /* Per slave globals */
 // Rev 1.6
-        uint32_t               *o_buf[MAX_V2718];
+    uint32_t               *o_buf[MAX_V2718];
 #if LINUX_VERSION_CODE >= VERSION(2,6,9)
-        dma_addr_t              o_buf_pci[MAX_V2718];
+    dma_addr_t              o_buf_pci[MAX_V2718];
 #endif
-        int                     o_buf_sz[MAX_V2718];
-        wait_queue_head_t       read_wait[MAX_V2718];
-        wait_queue_head_t       intr_wait[MAX_V2718];
+    int                     o_buf_sz[MAX_V2718];
+    wait_queue_head_t       read_wait[MAX_V2718];
+    wait_queue_head_t       intr_wait[MAX_V2718];
 #if SAFE_MODE
-        unsigned char          *il_buf[MAX_V2718];
-		int		   				il_buf_p[MAX_V2718];
+    unsigned char          *il_buf[MAX_V2718];
+    int                                         il_buf_p[MAX_V2718];
 #else 
-	// Rev 1.5	
-	#if LINUX_VERSION_CODE < VERSION(2,5,0)
-        struct kiobuf          *il_buf[MAX_V2718];
-	#else
+    // Rev 1.5  
+#if LINUX_VERSION_CODE < VERSION(2,5,0)
+    struct kiobuf          *il_buf[MAX_V2718];
+#else
 
-		struct scatterlist		*il_buf[MAX_V2718];
-        int          	        il_buff_pages[MAX_V2718];				// numero di pagine allocate in il_buff
-        int          	        il_buff_act_page_id[MAX_V2718];			// indice di pagina attuale in il_buff
-	#endif	
+    struct scatterlist          *il_buf[MAX_V2718];
+    int                         il_buff_pages[MAX_V2718];                               // numero di pagine allocate in il_buff
+    int                         il_buff_act_page_id[MAX_V2718];                 // indice di pagina attuale in il_buff
+#endif  
 #endif // SAFE MODE
-        int                     il_buf_sz[MAX_V2718];
-        int                     rx_ready[MAX_V2718];
-        int                     rx_status[MAX_V2718];
-        unsigned int            intr[MAX_V2718];
+    int                     il_buf_sz[MAX_V2718];
+    int                     rx_ready[MAX_V2718];
+    int                     rx_status[MAX_V2718];
+    unsigned int            intr[MAX_V2718];
 
-        /* we keep a2818 cards in a linked list */
-        struct                  a2818_state *next;
+    /* we keep a2818 cards in a linked list */
+    struct                  a2818_state *next;
 };
 #endif
 /*
-	Struct for communication argument in ioctl calls
+  Struct for communication argument in ioctl calls
 */
 typedef struct a2818_comm {
-        const char *out_buf;
-        int         out_count;
-        char       *in_buf;
-        int         in_count;
-        int        *status;
+    const char *out_buf;
+    int         out_count;
+    char       *in_buf;
+    int         in_count;
+    int        *status;
 } a2818_comm_t;
 
 /*
-	Struct for register argument in ioctl calls
+  Struct for register argument in ioctl calls
 */
 typedef struct a2818_reg {
 // Rev. 1.6
-	uint32_t address;
-	uint32_t value;
+    uint32_t address;
+    uint32_t value;
 } a2818_reg_t;
 
 /*
-	Struct for interrupt argument in ioctl calls
+  Struct for interrupt argument in ioctl calls
 */
 typedef struct a2818_intr {
-        unsigned int Mask;
-        unsigned int Timeout;
+    unsigned int Mask;
+    unsigned int Timeout;
 } a2818_intr_t;
 
 // Rev 1.5
 /*
-	Struct for revision argument in ioctl calls
+  Struct for revision argument in ioctl calls
 */
-#define A2818_DRIVER_VERSION_LEN	20
+#define A2818_DRIVER_VERSION_LEN        20
 typedef struct a2818_rev {
-        char 		rev_buf[A2818_DRIVER_VERSION_LEN];
+    char                rev_buf[A2818_DRIVER_VERSION_LEN];
 } a2818_rev_t;
 
 #endif

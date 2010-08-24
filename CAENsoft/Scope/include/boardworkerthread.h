@@ -29,12 +29,12 @@ class GenericBoard;
 class BoardWorkerThread :public wxThread
 {
 public:
-	BoardWorkerThread ( GenericBoard* parent);
-	~BoardWorkerThread (void);
-	ExitCode Entry( void);
+    BoardWorkerThread ( GenericBoard* parent);
+    ~BoardWorkerThread (void);
+    ExitCode Entry( void);
 protected:
-	GenericBoard* m_parent;
-	wxDateTime m_next_sw_trigger;
+    GenericBoard* m_parent;
+    wxDateTime m_next_sw_trigger;
 };
 
 

@@ -1,60 +1,60 @@
 /*
-	-----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-	               --- CAEN SpA - Computing Systems Division --- 
+  --- CAEN SpA - Computing Systems Division --- 
 
-	-----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-	Name		:	CONSOLE.c
+  Name          :       CONSOLE.c
 
-	Description :	Console library for Linux & Microsoft VISUAL C++  
-					(Win32 implementation).
-					Provide a set of function which permit the console 
-					screen management.
+  Description : Console library for Linux & Microsoft VISUAL C++  
+  (Win32 implementation).
+  Provide a set of function which permit the console 
+  screen management.
 
-					Linux Specifications :
+  Linux Specifications :
 
-					Version:      Linux 1.0
-					Platform:     Linux 2.4.x
-					Language:     GCC 2.95 and 3.0
+  Version:      Linux 1.0
+  Platform:     Linux 2.4.x
+  Language:     GCC 2.95 and 3.0
 
-	Date		:	November 2004
-	Release		:	1.0
-	Author		:	C.Landi
+  Date          :       November 2004
+  Release               :       1.0
+  Author                :       C.Landi
 
 
 
-	-----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-	This file contains the following procedures and functions:               
+  This file contains the following procedures and functions:               
                                                                           
-	con_init         initialize the console                                  
-	con_end          close the console                                       
-	write_log        write a message into the log file                       
-	con_getch        get a char from console without echoing                 
-	con_kbhit        read a char from console without stopping the program   
-	con_scanf        read formatted data from the console                    
-	con_printf       print formatted output to the standard output stream    
-	gotoxy           set the cursor position                                 
-	con_printf_xy    print formatted output on the X,Y screen position    
-    clrscr           clear the screen                                        
-	clear_line       clear a line                                            
-	delay            wait n milliseconds 
-	
-	-----------------------------------------------------------------------------
+  con_init         initialize the console                                  
+  con_end          close the console                                       
+  write_log        write a message into the log file                       
+  con_getch        get a char from console without echoing                 
+  con_kbhit        read a char from console without stopping the program   
+  con_scanf        read formatted data from the console                    
+  con_printf       print formatted output to the standard output stream    
+  gotoxy           set the cursor position                                 
+  con_printf_xy    print formatted output on the X,Y screen position    
+  clrscr           clear the screen                                        
+  clear_line       clear a line                                            
+  delay            wait n milliseconds 
+        
+  -----------------------------------------------------------------------------
 */
 
 #include "console.h"
 
 #ifdef LINUX
-	#include <ncurses.h>
-	#include <unistd.h>
-//	#include <stdlib.h>
+#include <ncurses.h>
+#include <unistd.h>
+//      #include <stdlib.h>
 #else
-	#include <conio.h>
-	#include <stdio.h>
-	#include <stdarg.h>
-	#include <windows.h>
+#include <conio.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <windows.h>
 
 static HANDLE ocon, icon;
 #endif
@@ -73,7 +73,7 @@ char LOG_FILE_NAME[] = "LOG_FILE";    /* log file name */
 /*------------------------------- console info -----------------------------*/
 
 #ifndef LINUX
-	BOOL t_type = TERM_NOT_INIT;
+BOOL t_type = TERM_NOT_INIT;
 #endif
 
 
@@ -87,35 +87,35 @@ void con_init()
 {
 #ifdef LINUX
 
-  initscr();
-  cbreak();
-  noecho();
-  nodelay(stdscr, FALSE);
-  curs_set(FALSE);
+    initscr();
+    cbreak();
+    noecho();
+    nodelay(stdscr, FALSE);
+    curs_set(FALSE);
 
 #else
 
-  COORD coordScreen = { 0, 0 };    /* home of the cursor */
-  CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */  
-  BOOL bSuccess;
-  DWORD cCharsWritten;
-  DWORD dwConSize; /* number of character cells in the current buffer */
+    COORD coordScreen = { 0, 0 };    /* home of the cursor */
+    CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */  
+    BOOL bSuccess;
+    DWORD cCharsWritten;
+    DWORD dwConSize; /* number of character cells in the current buffer */
 
  
-  ocon = GetStdHandle(STD_OUTPUT_HANDLE); /* handle for the standard output */
-  icon = GetStdHandle(STD_INPUT_HANDLE);  /* handle for the standard input */
+    ocon = GetStdHandle(STD_OUTPUT_HANDLE); /* handle for the standard output */
+    icon = GetStdHandle(STD_INPUT_HANDLE);  /* handle for the standard input */
 
-  t_type =TERM_INIT;
-  clrscr();  /* clear the screen */
+    t_type =TERM_INIT;
+    clrscr();  /* clear the screen */
 
-  /* information about the specified console screen buffer*/
-  bSuccess = GetConsoleScreenBufferInfo(ocon, &csbi);
+    /* information about the specified console screen buffer*/
+    bSuccess = GetConsoleScreenBufferInfo(ocon, &csbi);
   
-  dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+    dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
 
-  /* set the buffer's attributes */
-  bSuccess = FillConsoleOutputAttribute(ocon, csbi.wAttributes,
-             dwConSize, coordScreen, &cCharsWritten);
+    /* set the buffer's attributes */
+    bSuccess = FillConsoleOutputAttribute(ocon, csbi.wAttributes,
+                                          dwConSize, coordScreen, &cCharsWritten);
 
 #endif
 }
@@ -131,7 +131,7 @@ void con_end()
 {
 #ifdef LINUX
   
-  endwin();
+    endwin();
 
 #endif
 }
@@ -147,17 +147,17 @@ void con_end()
 
 void write_log(char *msg)
 {
-  if(log_file == NULL)
-    {
-    log_file = fopen(LOG_FILE_NAME,"w");   /* open log file */
     if(log_file == NULL)
-      {
-      printf("\n\nCan't open log file\n\n");
-      exit(0);
-      }
+    {
+        log_file = fopen(LOG_FILE_NAME,"w");   /* open log file */
+        if(log_file == NULL)
+        {
+            printf("\n\nCan't open log file\n\n");
+            exit(0);
+        }
     }
-  fprintf(log_file,"%s\n",msg);   /* write the error message in the log file */
-  fflush(stdout);                 /* empty the output buffer */
+    fprintf(log_file,"%s\n",msg);   /* write the error message in the log file */
+    fflush(stdout);                 /* empty the output buffer */
 }
 
 
@@ -174,14 +174,14 @@ int  con_getch(void)
 {
 #ifdef LINUX
 
-  int i;
+    int i;
   
-  while( ( i = getch() ) == ERR );
-  return i;
+    while( ( i = getch() ) == ERR );
+    return i;
 
 #else  
     
-  return _getch(); 
+    return _getch(); 
 
 #endif  
 }
@@ -202,21 +202,21 @@ char con_kbhit()
 {
 #ifdef LINUX
 
-  int i, g;  
+    int i, g;  
   
-  nodelay(stdscr, TRUE);
-  i = ( ( g = getch() ) == ERR ? 0 : g );
-  nodelay(stdscr, FALSE);
+    nodelay(stdscr, TRUE);
+    i = ( ( g = getch() ) == ERR ? 0 : g );
+    nodelay(stdscr, FALSE);
 
-  return i;   
+    return i;   
 
 #else
   
-  char c=0;
+    char c=0;
 
-  if(kbhit())            
-    c = (char)con_getch();  
-  return(c);
+    if(kbhit())            
+        c = (char)con_getch();  
+    return(c);
 
 #endif
 }
@@ -238,23 +238,23 @@ int con_scanf(char *fmt, void *app)
 {
 #ifdef LINUX
 
-  int i;
+    int i;
 
-  echo();
-  i = scanw(fmt,app);    
-  refresh();
-  noecho();
-  return i;
+    echo();
+    i = scanw(fmt,app);    
+    refresh();
+    noecho();
+    return i;
 
 #else
 
-  int res;
+    int res;
       
-  res = _cscanf(fmt, app) ;
+    res = _cscanf(fmt, app) ;
 
-  con_kbhit() ;                 /* Due to input reading problem */
+    con_kbhit() ;                 /* Due to input reading problem */
 
-  return res;
+    return res;
 
 #endif
 }
@@ -277,28 +277,28 @@ int con_printf(char *fmt,...)
 {
 #ifdef LINUX
 
-  va_list marker;
-  int     i;
-	
-  va_start(marker,fmt);
-  i = vwprintw(stdscr,fmt,marker);
-  va_end(marker);
+    va_list marker;
+    int     i;
+        
+    va_start(marker,fmt);
+    i = vwprintw(stdscr,fmt,marker);
+    va_end(marker);
   
-  refresh();
-  return i;
+    refresh();
+    return i;
 
 #else
 
-  va_list marker;
-  char buf[256];
+    va_list marker;
+    char buf[256];
 
-  va_start(marker, fmt);       /* Initialize variable arguments. */
-  vsprintf(buf,fmt,marker);
-  va_end(marker);              /* Reset variable arguments.      */
+    va_start(marker, fmt);       /* Initialize variable arguments. */
+    vsprintf(buf,fmt,marker);
+    va_end(marker);              /* Reset variable arguments.      */
 
-  fflush(stdout);              /* Empty the output buffer */
+    fflush(stdout);              /* Empty the output buffer */
 
-  return _cprintf(buf);
+    return _cprintf(buf);
 
 #endif
 }
@@ -316,16 +316,16 @@ void gotoxy(int x, int y)
 {
 #ifdef LINUX
 
-  move(y-1, x-1);     
-  refresh();
+    move(y-1, x-1);     
+    refresh();
 
 #else
 
-  COORD coord;
+    COORD coord;
 
-  coord.X = x-1;
-  coord.Y = y-1;
-  SetConsoleCursorPosition(ocon,coord);
+    coord.X = x-1;
+    coord.Y = y-1;
+    SetConsoleCursorPosition(ocon,coord);
 
 #endif
 }
@@ -347,33 +347,33 @@ int con_printf_xy(uint xpos, uint ypos, char *fmt,...)
 {
 #ifdef LINUX
 
-  va_list marker;
-  int     i;
+    va_list marker;
+    int     i;
 
-  move(ypos-1, xpos-1);     
-  refresh();
-	
-  va_start(marker,fmt);
-  i = vwprintw(stdscr,fmt,marker);
-  va_end(marker);
+    move(ypos-1, xpos-1);     
+    refresh();
+        
+    va_start(marker,fmt);
+    i = vwprintw(stdscr,fmt,marker);
+    va_end(marker);
   
-  refresh();
-  return i;
+    refresh();
+    return i;
 
 #else
 
-  va_list marker;
-  char buf[256];
+    va_list marker;
+    char buf[256];
 
-  gotoxy(xpos, ypos);            /* Set the cursor position */
+    gotoxy(xpos, ypos);            /* Set the cursor position */
  
-  va_start(marker, fmt);         /* Initialize variable arguments. */
-  vsprintf(buf,fmt,marker); 
-  va_end(marker);                /* Reset variable arguments.      */
+    va_start(marker, fmt);         /* Initialize variable arguments. */
+    vsprintf(buf,fmt,marker); 
+    va_end(marker);                /* Reset variable arguments.      */
 
-  fflush(stdout);                /* Empty the output buffer */
+    fflush(stdout);                /* Empty the output buffer */
 
-  return _cprintf(buf); 
+    return _cprintf(buf); 
 
 #endif
 }
@@ -389,33 +389,33 @@ void clrscr(void)
 {
 #ifdef LINUX
 
-  clear();  
-  move(0,0); 
-  refresh();
+    clear();  
+    move(0,0); 
+    refresh();
 
 #else
 
-  COORD coordScreen = { 0, 0 };    /* home of the cursor */
-  CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */
-  BOOL bSuccess;
-  DWORD cCharsWritten;
-  DWORD dwConSize; /* number of character cells in the current buffer */
+    COORD coordScreen = { 0, 0 };    /* home of the cursor */
+    CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */
+    BOOL bSuccess;
+    DWORD cCharsWritten;
+    DWORD dwConSize; /* number of character cells in the current buffer */
 
-  /* information about the specified console screen buffer*/
-  bSuccess = GetConsoleScreenBufferInfo(ocon, &csbi);
+    /* information about the specified console screen buffer*/
+    bSuccess = GetConsoleScreenBufferInfo(ocon, &csbi);
   
-  dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+    dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
  
-  /* fill the entire screen with blanks */
-  bSuccess = FillConsoleOutputCharacter(ocon, (TCHAR) ' ',
-             dwConSize, coordScreen, &cCharsWritten);
+    /* fill the entire screen with blanks */
+    bSuccess = FillConsoleOutputCharacter(ocon, (TCHAR) ' ',
+                                          dwConSize, coordScreen, &cCharsWritten);
    
-  /* set the buffer's attributes */
-  bSuccess = FillConsoleOutputAttribute(ocon, csbi.wAttributes,
-             dwConSize, coordScreen, &cCharsWritten);
+    /* set the buffer's attributes */
+    bSuccess = FillConsoleOutputAttribute(ocon, csbi.wAttributes,
+                                          dwConSize, coordScreen, &cCharsWritten);
     
-  /* put the cursor at (0, 0) */
-  bSuccess = SetConsoleCursorPosition(ocon, coordScreen);
+    /* put the cursor at (0, 0) */
+    bSuccess = SetConsoleCursorPosition(ocon, coordScreen);
 
 #endif
 }
@@ -432,38 +432,38 @@ void clrscr(void)
 void clear_line(uint line)
 {
 #ifdef LINUX
-	
-  gotoxy(1, line);
-  clrtoeol();
+        
+    gotoxy(1, line);
+    clrtoeol();
 
 #else
 
-  COORD coordScreen;
-  CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */
-  BOOL bSuccess;
-  DWORD cCharsWritten;
-  DWORD dwLineSize; /* number of character cells in the line to clear */
-  DWORD dwConSize; /* number of character cells in the current buffer */
+    COORD coordScreen;
+    CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */
+    BOOL bSuccess;
+    DWORD cCharsWritten;
+    DWORD dwLineSize; /* number of character cells in the line to clear */
+    DWORD dwConSize; /* number of character cells in the current buffer */
 
-  /* information about the specified console screen buffer*/
-  bSuccess = GetConsoleScreenBufferInfo(ocon, &csbi);
+    /* information about the specified console screen buffer*/
+    bSuccess = GetConsoleScreenBufferInfo(ocon, &csbi);
   
-  dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-  dwLineSize = csbi.dwSize.X;
+    dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+    dwLineSize = csbi.dwSize.X;
  
-  coordScreen.X=0;
-  coordScreen.Y=line-1;
+    coordScreen.X=0;
+    coordScreen.Y=line-1;
 
-  /* fill the entire screen with blanks */
-  bSuccess = FillConsoleOutputCharacter(ocon, (TCHAR) ' ',
-             dwLineSize, coordScreen, &cCharsWritten);  
+    /* fill the entire screen with blanks */
+    bSuccess = FillConsoleOutputCharacter(ocon, (TCHAR) ' ',
+                                          dwLineSize, coordScreen, &cCharsWritten);  
 
-  coordScreen.X=0;
-  coordScreen.Y=csbi.dwCursorPosition.Y;
+    coordScreen.X=0;
+    coordScreen.Y=csbi.dwCursorPosition.Y;
 
-  /* set the buffer's attributes */
-  bSuccess = FillConsoleOutputAttribute(ocon, csbi.wAttributes,
-             dwConSize, coordScreen, &cCharsWritten);
+    /* set the buffer's attributes */
+    bSuccess = FillConsoleOutputAttribute(ocon, csbi.wAttributes,
+                                          dwConSize, coordScreen, &cCharsWritten);
 
 #endif
 }
@@ -481,11 +481,11 @@ void delay(int msec)
 {
 #ifdef LINUX
   
-  usleep(msec*1000); 
-	
+    usleep(msec*1000); 
+        
 #else
 
-  Sleep(msec);
+    Sleep(msec);
 
 #endif
 }

@@ -55,106 +55,106 @@
 wxStatusBar* MainFrame::g_main_statusbar= NULL;
 wxFrame* g_main_frame= NULL;
 /*!
-* MainFrame type definition
-*/
+ * MainFrame type definition
+ */
 
 IMPLEMENT_CLASS( MainFrame, wxFrame )
 
 /*!
-* MainFrame event table definition
-*/
+ * MainFrame event table definition
+ */
 
 BEGIN_EVENT_TABLE( MainFrame, wxFrame )
 
 ////@begin MainFrame event table entries
-    EVT_CLOSE( MainFrame::OnCloseWindow )
-    EVT_SIZE( MainFrame::OnSize )
+EVT_CLOSE( MainFrame::OnCloseWindow )
+EVT_SIZE( MainFrame::OnSize )
 
-    EVT_CHOICE( ID_PLLSET_BOARD_TYPE_CHOICE, MainFrame::OnPllsetBoardTypeChoiceSelected )
+EVT_CHOICE( ID_PLLSET_BOARD_TYPE_CHOICE, MainFrame::OnPllsetBoardTypeChoiceSelected )
 
-    EVT_RADIOBOX( ID_PLLSET_CLKMOD_RADIOBOX, MainFrame::OnPllsetClkmodRadioboxSelected )
+EVT_RADIOBOX( ID_PLLSET_CLKMOD_RADIOBOX, MainFrame::OnPllsetClkmodRadioboxSelected )
 
-    EVT_SPINCTRL( ID_PLLSET_CLKIN_SPINCTRL, MainFrame::OnPllsetClkinSpinctrlUpdated )
-    EVT_TEXT( ID_PLLSET_CLKIN_SPINCTRL, MainFrame::OnPllsetClkinSpinctrlTextUpdated )
+EVT_SPINCTRL( ID_PLLSET_CLKIN_SPINCTRL, MainFrame::OnPllsetClkinSpinctrlUpdated )
+EVT_TEXT( ID_PLLSET_CLKIN_SPINCTRL, MainFrame::OnPllsetClkinSpinctrlTextUpdated )
 
-    EVT_CHOICE( ID_PLLSET_VCXO_TYPE_CHOICE, MainFrame::OnPllsetVcxoTypeChoiceSelected )
+EVT_CHOICE( ID_PLLSET_VCXO_TYPE_CHOICE, MainFrame::OnPllsetVcxoTypeChoiceSelected )
 
-    EVT_BUTTON( ID_PLLSET_READ_VCXO_TYPE_BUTTON, MainFrame::OnPllsetReadVcxoTypeButtonClick )
+EVT_BUTTON( ID_PLLSET_READ_VCXO_TYPE_BUTTON, MainFrame::OnPllsetReadVcxoTypeButtonClick )
 
-    EVT_CHOICE( ID_PLLSET_ADCFREQ_CHOICE, MainFrame::OnPllsetAdcfreqChoiceSelected )
+EVT_CHOICE( ID_PLLSET_ADCFREQ_CHOICE, MainFrame::OnPllsetAdcfreqChoiceSelected )
 
-    EVT_CHECKBOX( ID_PLLSET_CLKOUTEN_CHECKBOX, MainFrame::OnPllsetClkoutenCheckboxClick )
+EVT_CHECKBOX( ID_PLLSET_CLKOUTEN_CHECKBOX, MainFrame::OnPllsetClkoutenCheckboxClick )
 
-    EVT_CHOICE( ID_PLLSET_CLKOUTFREQ_CHOICE, MainFrame::OnPllsetClkoutfreqChoiceSelected )
+EVT_CHOICE( ID_PLLSET_CLKOUTFREQ_CHOICE, MainFrame::OnPllsetClkoutfreqChoiceSelected )
 
-    EVT_CHECKBOX( ID_PLLSET_CLKOUTDELAYEN_CHECKBOX, MainFrame::OnPllsetClkoutdelayenCheckboxClick )
+EVT_CHECKBOX( ID_PLLSET_CLKOUTDELAYEN_CHECKBOX, MainFrame::OnPllsetClkoutdelayenCheckboxClick )
 
-    EVT_CHOICE( ID_PLLSET_CLKOUTDELAY_CHOICE, MainFrame::OnPllsetClkoutdelayChoiceSelected )
+EVT_CHOICE( ID_PLLSET_CLKOUTDELAY_CHOICE, MainFrame::OnPllsetClkoutdelayChoiceSelected )
 
-    EVT_MENU( ID_EXIT_TOOL, MainFrame::OnExitToolClick )
+EVT_MENU( ID_EXIT_TOOL, MainFrame::OnExitToolClick )
 
-    EVT_MENU( ID_OPEN_TOOL, MainFrame::OnOpenToolClick )
+EVT_MENU( ID_OPEN_TOOL, MainFrame::OnOpenToolClick )
 
-    EVT_MENU( ID_SAVE_TOOL, MainFrame::OnSaveToolClick )
+EVT_MENU( ID_SAVE_TOOL, MainFrame::OnSaveToolClick )
 
-    EVT_MENU( ID_MAKE_OUTPUT_TOOL, MainFrame::OnMakeOutputToolClick )
+EVT_MENU( ID_MAKE_OUTPUT_TOOL, MainFrame::OnMakeOutputToolClick )
 
-    EVT_MENU( ID_DOWNLOAD_TOOL, MainFrame::OnDownloadToolClick )
+EVT_MENU( ID_DOWNLOAD_TOOL, MainFrame::OnDownloadToolClick )
 
-    EVT_MENU( ID_HELP_TOOL, MainFrame::OnHelpToolClick )
+EVT_MENU( ID_HELP_TOOL, MainFrame::OnHelpToolClick )
 
 ////@end MainFrame event table entries
-    EVT_TEXT( ID_PLLSET_CLKIN_DBLSPINCTRL, MainFrame::OnPllsetClkinDblSpinctrlTextUpdated )
-    EVT_SPINCTRL( ID_PLLSET_CLKIN_DBLSPINCTRL, MainFrame::OnPllsetClkinDblSpinctrlUpdated )
+EVT_TEXT( ID_PLLSET_CLKIN_DBLSPINCTRL, MainFrame::OnPllsetClkinDblSpinctrlTextUpdated )
+EVT_SPINCTRL( ID_PLLSET_CLKIN_DBLSPINCTRL, MainFrame::OnPllsetClkinDblSpinctrlUpdated )
 
 
 END_EVENT_TABLE()
 
 
 /*!
-* MainFrame constructors
-*/
+ * MainFrame constructors
+ */
 
 MainFrame::MainFrame( )
 {
-	this->m_loaded_doc= 0;
-	g_main_frame= this;
-	this->m_loaded_doc= new ConfigDoc();
-	this->m_updating= false;
+    this->m_loaded_doc= 0;
+    g_main_frame= this;
+    this->m_loaded_doc= new ConfigDoc();
+    this->m_updating= false;
 }
 
 MainFrame::MainFrame( wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
 {
-	this->m_updating= false;
-	this->m_loaded_doc= 0;
-	Create( parent, id, caption, pos, size, style );
-	g_main_frame= this;
-	this->m_loaded_doc= new ConfigDoc();
+    this->m_updating= false;
+    this->m_loaded_doc= 0;
+    Create( parent, id, caption, pos, size, style );
+    g_main_frame= this;
+    this->m_loaded_doc= new ConfigDoc();
 
 }
 MainFrame::~MainFrame( )
 {
-	if( this->m_loaded_doc)
-	{
-		delete this->m_loaded_doc;
-		this->m_loaded_doc= (ConfigDoc*) 0;
-	}
-	if( this->m_app_settings) {
-		delete this->m_app_settings;
-		this->m_app_settings= NULL;
+    if( this->m_loaded_doc)
+    {
+        delete this->m_loaded_doc;
+        this->m_loaded_doc= (ConfigDoc*) 0;
+    }
+    if( this->m_app_settings) {
+        delete this->m_app_settings;
+        this->m_app_settings= NULL;
     }
     this->m_main_toolbar->PopEventHandler( true);
 }
 
 /*!
-* MainFrame creator
-*/
+ * MainFrame creator
+ */
 
 bool MainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
 {
     this->m_updating = true;
 
-	////@begin MainFrame member initialisation
+    ////@begin MainFrame member initialisation
     m_pll_settings_panel = NULL;
     m_pllset_board_type_control = NULL;
     m_pllset_board_base_addr_control = NULL;
@@ -171,41 +171,41 @@ bool MainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& caption
     m_pllset_clkoutdelay_choice = NULL;
     m_main_toolbar = NULL;
     m_main_statusbar = NULL;
-	////@end MainFrame member initialisation
+    ////@end MainFrame member initialisation
 
     m_pllset_clkin_dblcontrol = NULL;
-	wxFileName fn( MainFrame::GetExecutablePath());
-	wxFileName::SetCwd( fn.GetPath());
-	
-	//
-	// Load application settings
-	this->m_app_settings= new AppSettings( );
+    wxFileName fn( MainFrame::GetExecutablePath());
+    wxFileName::SetCwd( fn.GetPath());
+        
+    //
+    // Load application settings
+    this->m_app_settings= new AppSettings( );
 
-	// 
-	// Load Application settings
-	if( !this->m_app_settings->Load( ))
-	{
-		wxLogError( _("Error loading application settings ..."));
-		return false;
-	}
+    // 
+    // Load Application settings
+    if( !this->m_app_settings->Load( ))
+    {
+        wxLogError( _("Error loading application settings ..."));
+        return false;
+    }
 
-	////@begin MainFrame creation
+    ////@begin MainFrame creation
     wxFrame::Create( parent, id, caption, pos, size, style );
 
     this->SetFont(wxFont(9, wxSWISS, wxNORMAL, wxNORMAL, false, _T("Verdana")));
     CreateControls();
     SetIcon(GetIconResource(AppSettings::get_default_img_path()+wxT("app_icon.ico")));
     Centre();
-	////@end MainFrame creation
-	
+    ////@end MainFrame creation
+        
     this->m_updating = false;
 
-	if( !this->UpdateControls())
-		return false;
+    if( !this->UpdateControls())
+        return false;
 
     Centre();
-	this->Layout();
-	return true;
+    this->Layout();
+    return true;
 }
 
 wxString MainFrame::GetExecutablePath()
@@ -260,8 +260,8 @@ wxString MainFrame::GetExecutablePath()
 }
 
 /*!
-* Control creation for MainFrame
-*/
+ * Control creation for MainFrame
+ */
 
 void MainFrame::CreateControls()
 {
@@ -471,52 +471,52 @@ void MainFrame::CreateControls()
     m_main_statusbar->SetStatusWidths(2, m_main_statusbarWidths);
     itemFrame1->SetStatusBar(m_main_statusbar);
 
-	////@end MainFrame content construction
+    ////@end MainFrame content construction
 
-	//
-	// !!!!!  WARNING  !!!!
-	// 
-	// Bypass Designer settings and add custom control
-	// The following code generated from designer (in the above section)
+    //
+    // !!!!!  WARNING  !!!!
+    // 
+    // Bypass Designer settings and add custom control
+    // The following code generated from designer (in the above section)
 
-	//   m_pllset_clkin_control = new wxSpinCtrl( m_pll_settings_panel, ID_PLLSET_CLKIN_SPINCTRL, _T("50"), wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 1, 250, 1 );
-	//   m_pllset_clkin_control->SetHelpText(_("Set the input frequency (MHz)"));
-	//   if (ShowToolTips())
-	//       m_pllset_clkin_control->SetToolTip(_("Set the input frequency (MHz)"));
-	//   m_pllset_clkin_control->SetFont(wxFont(8, wxSWISS, wxNORMAL, wxNORMAL, false, _T("Arial")));
-	//   m_pllset_clkin_sizer->Add(m_pllset_clkin_control, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+    //   m_pllset_clkin_control = new wxSpinCtrl( m_pll_settings_panel, ID_PLLSET_CLKIN_SPINCTRL, _T("50"), wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 1, 250, 1 );
+    //   m_pllset_clkin_control->SetHelpText(_("Set the input frequency (MHz)"));
+    //   if (ShowToolTips())
+    //       m_pllset_clkin_control->SetToolTip(_("Set the input frequency (MHz)"));
+    //   m_pllset_clkin_control->SetFont(wxFont(8, wxSWISS, wxNORMAL, wxNORMAL, false, _T("Arial")));
+    //   m_pllset_clkin_sizer->Add(m_pllset_clkin_control, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-	// must be replaced in the same position with this one 
-	//   m_pllset_clkin_dblcontrol = new wxSpinCtrlDbl( m_pll_settings_panel, ID_PLLSET_CLKIN_DBLSPINCTRL, _T("50"), wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 1, 250, 1 );
-	//   m_pllset_clkin_dblcontrol->SetHelpText(_("Requested input operating frequency (MHz)"));
-	//   if (ShowToolTips())
-	//       m_pllset_clkin_dblcontrol->SetToolTip(_("Requested input operating frequency (MHz)"));
-	//   m_pllset_clkin_dblcontrol->SetFont(wxFont(8, wxSWISS, wxNORMAL, wxNORMAL, false, _T("Arial")));
-	//   m_pllset_clkin_sizer->Add(m_pllset_clkin_dblcontrol, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+    // must be replaced in the same position with this one 
+    //   m_pllset_clkin_dblcontrol = new wxSpinCtrlDbl( m_pll_settings_panel, ID_PLLSET_CLKIN_DBLSPINCTRL, _T("50"), wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 1, 250, 1 );
+    //   m_pllset_clkin_dblcontrol->SetHelpText(_("Requested input operating frequency (MHz)"));
+    //   if (ShowToolTips())
+    //       m_pllset_clkin_dblcontrol->SetToolTip(_("Requested input operating frequency (MHz)"));
+    //   m_pllset_clkin_dblcontrol->SetFont(wxFont(8, wxSWISS, wxNORMAL, wxNORMAL, false, _T("Arial")));
+    //   m_pllset_clkin_sizer->Add(m_pllset_clkin_dblcontrol, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-	// Show Toolbar logo
- 	m_main_toolbar->PushEventHandler( new wxBackgroundBitmap( wxBitmap(AppSettings::get_default_img_path()+_("caen.png"), wxBITMAP_TYPE_PNG), this));
+    // Show Toolbar logo
+    m_main_toolbar->PushEventHandler( new wxBackgroundBitmap( wxBitmap(AppSettings::get_default_img_path()+_("caen.png"), wxBITMAP_TYPE_PNG), this));
 
-	MainFrame::g_main_statusbar= this->m_main_statusbar;
+    MainFrame::g_main_statusbar= this->m_main_statusbar;
 }
 
 /*!
-* Should we show tooltips?
-*/
+ * Should we show tooltips?
+ */
 
 bool MainFrame::ShowToolTips()
 {
-	return true;
+    return true;
 }
 
 /*!
-* Get bitmap resources
-*/
+ * Get bitmap resources
+ */
 
 wxBitmap MainFrame::GetBitmapResource( const wxString& name )
 {
-	// Bitmap retrieval
-	////@begin MainFrame bitmap retrieval
+    // Bitmap retrieval
+    ////@begin MainFrame bitmap retrieval
     wxUnusedVar(name);
     if (name == _T("exit_34.png"))
     {
@@ -549,16 +549,16 @@ wxBitmap MainFrame::GetBitmapResource( const wxString& name )
         return bitmap;
     }
     return wxNullBitmap;
-	////@end MainFrame bitmap retrieval
+    ////@end MainFrame bitmap retrieval
 }
 
 /*!
-* Get icon resources
-*/
+ * Get icon resources
+ */
 
 wxIcon MainFrame::GetIconResource( const wxString& name )
 {
-	// Icon retrieval
+    // Icon retrieval
     wxUnusedVar(name);
     if (name == _T("app_icon.ico"))
     {
@@ -568,27 +568,27 @@ wxIcon MainFrame::GetIconResource( const wxString& name )
     return wxNullIcon;
 }
 /*!
-* wxEVT_COMMAND_MENU_SELECTED event handler for ID_EXIT_TOOL
-*/
+ * wxEVT_COMMAND_MENU_SELECTED event handler for ID_EXIT_TOOL
+ */
 
 void MainFrame::OnExitToolClick( wxCommandEvent& /* event*/ )
 {
-	this->Close();
+    this->Close();
 }
 
 
 /*!
-* wxEVT_SIZE event handler for ID_MAIN_FRAME
-*/
+ * wxEVT_SIZE event handler for ID_MAIN_FRAME
+ */
 
 void MainFrame::OnSize( wxSizeEvent& /* event*/ )
 {
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	if( this->m_main_toolbar)
-		this->m_main_toolbar->Refresh( true);
+    if( this->m_main_toolbar)
+        this->m_main_toolbar->Refresh( true);
 }
 
 /*!
@@ -597,32 +597,32 @@ void MainFrame::OnSize( wxSizeEvent& /* event*/ )
 
 void MainFrame::OnCloseWindow( wxCloseEvent& event )
 {
-	if( this->m_loaded_doc->IsDirty())
-	{
-		switch( wxMessageBox( 
-			_("Do you want to save changes ?"), 
-			_( "Current document has changed !"), 
-			wxYES_NO| wxCANCEL| wxICON_QUESTION,
-			this))
-		{
-		case wxYES:
-			this->DoSaveConfig();
-			break;
-		case wxCANCEL:
-			return;
-		}
-	}
+    if( this->m_loaded_doc->IsDirty())
+    {
+        switch( wxMessageBox( 
+                    _("Do you want to save changes ?"), 
+                    _( "Current document has changed !"), 
+                    wxYES_NO| wxCANCEL| wxICON_QUESTION,
+                    this))
+        {
+        case wxYES:
+            this->DoSaveConfig();
+            break;
+        case wxCANCEL:
+            return;
+        }
+    }
 
-	if( this->m_app_settings)
-	{
-		{
+    if( this->m_app_settings)
+    {
+        {
             this->m_app_settings->SetVMEClkinFreq( this->m_pllset_clkin_dblcontrol->GetValue());
-			wxMutexLocker lock( this->m_app_settings->m_mutex);
-			this->m_app_settings->Save();
-		}
-		delete this->m_app_settings;
-		this->m_app_settings= NULL;
-	}
+            wxMutexLocker lock( this->m_app_settings->m_mutex);
+            this->m_app_settings->Save();
+        }
+        delete this->m_app_settings;
+        this->m_app_settings= NULL;
+    }
     event.Skip();
 }
 
@@ -630,33 +630,33 @@ void MainFrame::OnCloseWindow( wxCloseEvent& event )
 
 bool MainFrame::UpdateControls( void)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
 
-	this->m_pllset_board_type_control->Clear();
-	//this->m_pllset_board_type_control->Append( _(""), (void*)0);
+    this->m_pllset_board_type_control->Clear();
+    //this->m_pllset_board_type_control->Append( _(""), (void*)0);
 
-	for( unsigned int i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		this->m_pllset_board_type_control->Append( ((GenericBoard*)this->m_app_settings->m_board_array[i])->GetTypeString(), this->m_app_settings->m_board_array[i]);
-	}
-	this->m_pllset_board_type_control->SetSelection( 0);
+    for( unsigned int i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        this->m_pllset_board_type_control->Append( ((GenericBoard*)this->m_app_settings->m_board_array[i])->GetTypeString(), this->m_app_settings->m_board_array[i]);
+    }
+    this->m_pllset_board_type_control->SetSelection( 0);
 
-	this->m_pllset_clkoutfreq_choice->Enable( this->m_pllset_clkouten_control->GetValue());
-	this->m_pllset_clkoutdelayen_control->Enable( this->m_pllset_clkouten_control->GetValue());
-	this->m_pllset_clkoutdelay_choice->Enable( this->m_pllset_clkoutdelayen_control->GetValue()&& this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutfreq_choice->Enable( this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutdelayen_control->Enable( this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutdelay_choice->Enable( this->m_pllset_clkoutdelayen_control->GetValue()&& this->m_pllset_clkouten_control->GetValue());
 
-	//this->m_pllset_plldiv_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_pllset_clkin_label->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_pllset_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_pllset_read_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    //this->m_pllset_plldiv_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_clkin_label->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_read_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
 
-	//this->m_pllset_clkin_dblcontrol->Enable( this->m_pllset_clkmod_control->GetSelection()!= 0);
+    //this->m_pllset_clkin_dblcontrol->Enable( this->m_pllset_clkmod_control->GetSelection()!= 0);
 
-	this->UpdateVCXOTypes();
-	this->m_pllset_board_base_addr_control->SetValue(wxString::Format(_("%08x"), (this->m_app_settings->GetVMEBaseAddreess())));
+    this->UpdateVCXOTypes();
+    this->m_pllset_board_base_addr_control->SetValue(wxString::Format(_("%08x"), (this->m_app_settings->GetVMEBaseAddreess())));
     this->m_pllset_clkin_dblcontrol->SetValue(this->m_app_settings->GetVMEClkinFreq());
-	this->UpdateOutput();
-	return true;
+    this->UpdateOutput();
+    return true;
 }
 
 /*!
@@ -665,18 +665,18 @@ bool MainFrame::UpdateControls( void)
 
 void MainFrame::OnHelpToolClick( wxCommandEvent& /* event*/ )
 {
-	InfoDialog dlg( this);
-	dlg.ShowModal();
+    InfoDialog dlg( this);
+    dlg.ShowModal();
 }
 
 bool MainFrame::SetStsBarText( const wxString& text, int pane_index)
 {
-	if(( pane_index>= STS_BAR_NUM_PANES)|| ( MainFrame::g_main_statusbar== NULL))
-		return false;
-	//::wxMutexGuiEnter();
-	MainFrame::g_main_statusbar->SetStatusText( text, pane_index);
-	//::wxMutexGuiLeave();
-	return true;
+    if(( pane_index>= STS_BAR_NUM_PANES)|| ( MainFrame::g_main_statusbar== NULL))
+        return false;
+    //::wxMutexGuiEnter();
+    MainFrame::g_main_statusbar->SetStatusText( text, pane_index);
+    //::wxMutexGuiLeave();
+    return true;
 }
 
 
@@ -686,22 +686,22 @@ bool MainFrame::SetStsBarText( const wxString& text, int pane_index)
 
 void MainFrame::OnOpenToolClick( wxCommandEvent& /*event*/ )
 {
-	if( this->m_loaded_doc->IsDirty())
-	{
-		switch( wxMessageBox( 
-			_("Do you want to save changes ?"), 
-			_( "Current document has changed !"), 
-			wxYES_NO| wxCANCEL| wxICON_QUESTION,
-			this))
-		{
-		case wxYES:
-			this->DoSaveConfig();
-			break;
-		case wxCANCEL:
-			return;
-		}
-	}
-	this->DoLoadConfig();
+    if( this->m_loaded_doc->IsDirty())
+    {
+        switch( wxMessageBox( 
+                    _("Do you want to save changes ?"), 
+                    _( "Current document has changed !"), 
+                    wxYES_NO| wxCANCEL| wxICON_QUESTION,
+                    this))
+        {
+        case wxYES:
+            this->DoSaveConfig();
+            break;
+        case wxCANCEL:
+            return;
+        }
+    }
+    this->DoLoadConfig();
 }
 
 /*!
@@ -710,157 +710,157 @@ void MainFrame::OnOpenToolClick( wxCommandEvent& /*event*/ )
 
 void MainFrame::OnSaveToolClick( wxCommandEvent& /*event*/ )
 {
-	this->DoSaveConfig();
+    this->DoSaveConfig();
 }
 
 bool MainFrame::DoLoadConfig()
 {
-	wxString filename= wxFileSelector( 
-		_("Select a PLL configuration file to load ..."), 
-		_(""),
-		_(""), 
-		_("cpc"),
-		_("CAEN PLL Configuration files (*.cpc)|*.cpc|All files (*.*)|*.*"), 
-		wxOPEN| wxFILE_MUST_EXIST, 
-		this);
-	if( filename.IsEmpty())
-		return false;
+    wxString filename= wxFileSelector( 
+        _("Select a PLL configuration file to load ..."), 
+        _(""),
+        _(""), 
+        _("cpc"),
+        _("CAEN PLL Configuration files (*.cpc)|*.cpc|All files (*.*)|*.*"), 
+        wxOPEN| wxFILE_MUST_EXIST, 
+        this);
+    if( filename.IsEmpty())
+        return false;
 
-	if( !this->m_loaded_doc->Load( filename))
-		return false;
+    if( !this->m_loaded_doc->Load( filename))
+        return false;
 
-	if( !this->SetControls())
-		return false;
+    if( !this->SetControls())
+        return false;
 
-	this->SetDirty( false);
-	
-	// Status bar update
-	MainFrame::SetStsBarText( this->m_loaded_doc->GetFilename(), STS_BAR_PANE_FILENAME);
+    this->SetDirty( false);
+        
+    // Status bar update
+    MainFrame::SetStsBarText( this->m_loaded_doc->GetFilename(), STS_BAR_PANE_FILENAME);
 
-	return true;
+    return true;
 }
 bool MainFrame::DoSaveConfig()
 {
-	if( !this->GetControls())
-		return false;
+    if( !this->GetControls())
+        return false;
 
-	wxString cfg_filename= this->m_loaded_doc->GetFilename();
-	wxString path= _("");
-	wxString name= _("");
-	if( !cfg_filename.IsEmpty())
-	{
-		wxFileName::SplitPath( cfg_filename, &path, &name, NULL);
-	}
-	wxString filename= wxFileSelector( 
-		_("Select a PLL configuration file to save ..."), 
-		path,
-		name, 
-		_("cpc"),
-		_("CAEN PLL Configuration files (*.cpc)|*.cpc|All files (*.*)|*.*"), 
-		wxSAVE| wxOVERWRITE_PROMPT, 
-		this);
-	if( filename.IsEmpty())
-		return false;
+    wxString cfg_filename= this->m_loaded_doc->GetFilename();
+    wxString path= _("");
+    wxString name= _("");
+    if( !cfg_filename.IsEmpty())
+    {
+        wxFileName::SplitPath( cfg_filename, &path, &name, NULL);
+    }
+    wxString filename= wxFileSelector( 
+        _("Select a PLL configuration file to save ..."), 
+        path,
+        name, 
+        _("cpc"),
+        _("CAEN PLL Configuration files (*.cpc)|*.cpc|All files (*.*)|*.*"), 
+        wxSAVE| wxOVERWRITE_PROMPT, 
+        this);
+    if( filename.IsEmpty())
+        return false;
 
-	if( !this->m_loaded_doc->Save( filename))
-		return false;
+    if( !this->m_loaded_doc->Save( filename))
+        return false;
 
-	// Status bar update
-	MainFrame::SetStsBarText( this->m_loaded_doc->GetFilename(), STS_BAR_PANE_FILENAME);
-	return true;
+    // Status bar update
+    MainFrame::SetStsBarText( this->m_loaded_doc->GetFilename(), STS_BAR_PANE_FILENAME);
+    return true;
 
 }
 bool MainFrame::SetControls()
 {
-	for( unsigned int i= 0; i< this->m_pllset_board_type_control->GetCount(); i++)
-	{
-		GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( i);
-		if( !board)
-			continue;
-		if( board->GetType()== this->m_loaded_doc->GetBoardType())
-		{
-			this->m_pllset_board_type_control->SetSelection( i);
-			break;
-		}
-	}
-	this->m_pllset_board_base_addr_control->SetValue( wxString::Format( _("%04X"), this->m_loaded_doc->GetBoardBaseAddress()));
-	this->m_pllset_vcxo_type_control->SetStringSelection( wxString::Format( _("%d"), this->m_loaded_doc->GetVCXOFreq()));
-	this->m_pllset_clkmod_control->SetSelection( this->m_loaded_doc->GetPLLMode()? 0: 1);
-	this->m_pllset_clkin_dblcontrol->SetValue( this->m_loaded_doc->GetInputClock());
+    for( unsigned int i= 0; i< this->m_pllset_board_type_control->GetCount(); i++)
+    {
+        GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( i);
+        if( !board)
+            continue;
+        if( board->GetType()== this->m_loaded_doc->GetBoardType())
+        {
+            this->m_pllset_board_type_control->SetSelection( i);
+            break;
+        }
+    }
+    this->m_pllset_board_base_addr_control->SetValue( wxString::Format( _("%04X"), this->m_loaded_doc->GetBoardBaseAddress()));
+    this->m_pllset_vcxo_type_control->SetStringSelection( wxString::Format( _("%d"), this->m_loaded_doc->GetVCXOFreq()));
+    this->m_pllset_clkmod_control->SetSelection( this->m_loaded_doc->GetPLLMode()? 0: 1);
+    this->m_pllset_clkin_dblcontrol->SetValue( this->m_loaded_doc->GetInputClock());
 
-	this->UpdateOutput();
+    this->UpdateOutput();
 
-	this->m_pllset_clkouten_control->SetValue( this->m_loaded_doc->GetClockOutEnable());
-	this->SelectByData( this->m_pllset_clkoutdelay_choice, this->m_loaded_doc->GetClockOutDelay());
-	this->SelectByData( this->m_pllset_clkoutfreq_choice, this->m_loaded_doc->GetClockOutDivider());
-	this->SelectByData( this->m_pllset_adcfreq_choice, this->m_loaded_doc->GetADCDivider());
+    this->m_pllset_clkouten_control->SetValue( this->m_loaded_doc->GetClockOutEnable());
+    this->SelectByData( this->m_pllset_clkoutdelay_choice, this->m_loaded_doc->GetClockOutDelay());
+    this->SelectByData( this->m_pllset_clkoutfreq_choice, this->m_loaded_doc->GetClockOutDivider());
+    this->SelectByData( this->m_pllset_adcfreq_choice, this->m_loaded_doc->GetADCDivider());
 
-	this->m_pllset_clkoutdelayen_control->SetValue( this->m_loaded_doc->GetClockOutDelayEnable());
+    this->m_pllset_clkoutdelayen_control->SetValue( this->m_loaded_doc->GetClockOutDelayEnable());
 
-	this->m_pllset_clkoutfreq_choice->Enable( this->m_pllset_clkouten_control->GetValue());
-	this->m_pllset_clkoutdelayen_control->Enable( this->m_pllset_clkouten_control->GetValue());
-	this->m_pllset_clkoutdelay_choice->Enable( this->m_pllset_clkoutdelayen_control->GetValue()&& this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutfreq_choice->Enable( this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutdelayen_control->Enable( this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutdelay_choice->Enable( this->m_pllset_clkoutdelayen_control->GetValue()&& this->m_pllset_clkouten_control->GetValue());
 
-	this->m_pllset_clkin_label->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_pllset_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_pllset_read_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_clkin_label->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_read_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
 
 
-	return true;
+    return true;
 }
 bool MainFrame::GetControls()
 {
-	int sel;
-	unsigned long board_addr;
-	if( !this->m_pllset_board_base_addr_control->GetValue().ToULong( &board_addr, 16))
-	{
-		wxLogError( _("Invalid board base address !"));
-		return false;
-	}
-	this->m_loaded_doc->SetBoardType( (( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection()))->GetType());
-	this->m_loaded_doc->SetBoardBaseAddress( ( UINT32)board_addr); 
+    int sel;
+    unsigned long board_addr;
+    if( !this->m_pllset_board_base_addr_control->GetValue().ToULong( &board_addr, 16))
+    {
+        wxLogError( _("Invalid board base address !"));
+        return false;
+    }
+    this->m_loaded_doc->SetBoardType( (( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection()))->GetType());
+    this->m_loaded_doc->SetBoardBaseAddress( ( UINT32)board_addr); 
 
-	this->m_loaded_doc->SetClockOutEnable( this->m_pllset_clkouten_control->GetValue( ));
+    this->m_loaded_doc->SetClockOutEnable( this->m_pllset_clkouten_control->GetValue( ));
 
-	//this->m_loaded_doc->SetClockOutDelay( this->m_pllset_clkoutdelay_control->GetValue( ));
-	sel= this->m_pllset_clkoutdelay_choice->GetSelection();
-	if( sel< 0) {
-		wxLogError( _("Output Clock delay not selected !"));
-		return false;
-	}
-	this->m_loaded_doc->SetClockOutDelay( ((IntClientData*)this->m_pllset_clkoutdelay_choice->GetClientObject( sel))->GetVal());
+    //this->m_loaded_doc->SetClockOutDelay( this->m_pllset_clkoutdelay_control->GetValue( ));
+    sel= this->m_pllset_clkoutdelay_choice->GetSelection();
+    if( sel< 0) {
+        wxLogError( _("Output Clock delay not selected !"));
+        return false;
+    }
+    this->m_loaded_doc->SetClockOutDelay( ((IntClientData*)this->m_pllset_clkoutdelay_choice->GetClientObject( sel))->GetVal());
 
-	//this->m_loaded_doc->SetInputClockDivider( this->m_pllset_plldiv_control->GetValue( ));
-	long tmp= 0;
-	this->m_pllset_vcxo_type_control->GetStringSelection( ).ToLong( &tmp);
-	this->m_loaded_doc->SetVCXOFreq( (int)tmp);
-	this->m_loaded_doc->SetPLLMode( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_loaded_doc->SetInputClock( this->m_pllset_clkin_dblcontrol->GetValue( ));
-	this->m_loaded_doc->SetClockOutDelayEnable( this->m_pllset_clkoutdelayen_control->GetValue( ));
+    //this->m_loaded_doc->SetInputClockDivider( this->m_pllset_plldiv_control->GetValue( ));
+    long tmp= 0;
+    this->m_pllset_vcxo_type_control->GetStringSelection( ).ToLong( &tmp);
+    this->m_loaded_doc->SetVCXOFreq( (int)tmp);
+    this->m_loaded_doc->SetPLLMode( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_loaded_doc->SetInputClock( this->m_pllset_clkin_dblcontrol->GetValue( ));
+    this->m_loaded_doc->SetClockOutDelayEnable( this->m_pllset_clkoutdelayen_control->GetValue( ));
 
-	//this->m_loaded_doc->SetADCDivider( this->m_pllset_adcdivider_control->GetValue( ));
-	sel= this->m_pllset_adcfreq_choice->GetSelection();
-	if( sel< 0) {
-		wxLogError( _("Sampling frequency not selected !"));
-		return false;
-	}
-	this->m_loaded_doc->SetADCDivider( ((IntClientData*)this->m_pllset_adcfreq_choice->GetClientObject( sel))->GetVal());
+    //this->m_loaded_doc->SetADCDivider( this->m_pllset_adcdivider_control->GetValue( ));
+    sel= this->m_pllset_adcfreq_choice->GetSelection();
+    if( sel< 0) {
+        wxLogError( _("Sampling frequency not selected !"));
+        return false;
+    }
+    this->m_loaded_doc->SetADCDivider( ((IntClientData*)this->m_pllset_adcfreq_choice->GetClientObject( sel))->GetVal());
 
-	//this->m_loaded_doc->SetClockOutDivider( this->m_pllset_clkoutdivider_control->GetValue());
-	sel= this->m_pllset_clkoutfreq_choice->GetSelection();
-	if( sel< 0) {
-		wxLogError( _("Output Clock frequency not selected !"));
-		return false;
-	}
-	this->m_loaded_doc->SetClockOutDivider( ((IntClientData*)this->m_pllset_clkoutfreq_choice->GetClientObject( sel))->GetVal());
+    //this->m_loaded_doc->SetClockOutDivider( this->m_pllset_clkoutdivider_control->GetValue());
+    sel= this->m_pllset_clkoutfreq_choice->GetSelection();
+    if( sel< 0) {
+        wxLogError( _("Output Clock frequency not selected !"));
+        return false;
+    }
+    this->m_loaded_doc->SetClockOutDivider( ((IntClientData*)this->m_pllset_clkoutfreq_choice->GetClientObject( sel))->GetVal());
 
-	return true;
+    return true;
 }
 
 void MainFrame::SetDirty( bool value)
 {
-	if( this->m_loaded_doc)
-		this->m_loaded_doc->SetDirty( value);
+    if( this->m_loaded_doc)
+        this->m_loaded_doc->SetDirty( value);
 }
 /*!
  * wxEVT_COMMAND_CHOICE_SELECTED event handler for ID_PLLSET_BOARD_TYPE_CHOICE
@@ -868,37 +868,37 @@ void MainFrame::SetDirty( bool value)
 
 void MainFrame::OnPllsetBoardTypeChoiceSelected( wxCommandEvent& /*event*/ )
 {
-	if( this->m_updating)
-		return;
-	this->SetDirty( true);
-	this->UpdateOutput();
-	this->UpdateVCXOTypes();
+    if( this->m_updating)
+        return;
+    this->SetDirty( true);
+    this->UpdateOutput();
+    this->UpdateVCXOTypes();
 }
 void MainFrame::UpdateVCXOTypes( void)
 {
-	// Update VCXO types
-	this->m_pllset_vcxo_type_control->Clear();
-	if( this->m_pllset_board_type_control->GetSelection()< 0) 
-		return;
-	GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
-	int type= 0;
-	int freq= 0;
-	while( board->GetVCXOFreq( type++, freq))
-	{
-	  wxString item= wxString::Format(_("%d"), freq);
-		if( this->m_pllset_vcxo_type_control->FindString( item)< 0) {
-			this->m_pllset_vcxo_type_control->Append( item);
-		}
-	}
+    // Update VCXO types
+    this->m_pllset_vcxo_type_control->Clear();
+    if( this->m_pllset_board_type_control->GetSelection()< 0) 
+        return;
+    GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
+    int type= 0;
+    int freq= 0;
+    while( board->GetVCXOFreq( type++, freq))
+    {
+        wxString item= wxString::Format(_("%d"), freq);
+        if( this->m_pllset_vcxo_type_control->FindString( item)< 0) {
+            this->m_pllset_vcxo_type_control->Append( item);
+        }
+    }
     int index;
     if(( index= this->m_pllset_vcxo_type_control->FindString(_("500")))>= 0)
-	{
-		this->m_pllset_vcxo_type_control->SetSelection( index);
-	}
+    {
+        this->m_pllset_vcxo_type_control->SetSelection( index);
+    }
     else
-		this->m_pllset_vcxo_type_control->SetSelection( 0);
+        this->m_pllset_vcxo_type_control->SetSelection( 0);
 
-	//this->m_main_statusbar->Refresh();
+    //this->m_main_statusbar->Refresh();
 }
 
 
@@ -908,10 +908,10 @@ void MainFrame::UpdateVCXOTypes( void)
 
 void MainFrame::OnPllsetClkinSpinctrlUpdated( wxSpinEvent& /*event*/ )
 {
-	if( this->m_updating)
-		return;
-	this->SetDirty( true);
-	this->UpdateOutput();
+    if( this->m_updating)
+        return;
+    this->SetDirty( true);
+    this->UpdateOutput();
 }
 
 /*!
@@ -920,10 +920,10 @@ void MainFrame::OnPllsetClkinSpinctrlUpdated( wxSpinEvent& /*event*/ )
 
 void MainFrame::OnPllsetClkinDblSpinctrlUpdated( wxSpinEvent& /*event*/ )
 {
-	if( this->m_updating)
-		return;
-	this->SetDirty( true);
-	this->UpdateOutput();
+    if( this->m_updating)
+        return;
+    this->SetDirty( true);
+    this->UpdateOutput();
 }
 
 /*!
@@ -932,10 +932,10 @@ void MainFrame::OnPllsetClkinDblSpinctrlUpdated( wxSpinEvent& /*event*/ )
 
 void MainFrame::OnPllsetClkinSpinctrlTextUpdated( wxCommandEvent& /*event*/ )
 {
-	if( this->m_updating)
-		return;
-	this->SetDirty( true);
-	this->UpdateOutput();
+    if( this->m_updating)
+        return;
+    this->SetDirty( true);
+    this->UpdateOutput();
 }
 
 /*!
@@ -944,10 +944,10 @@ void MainFrame::OnPllsetClkinSpinctrlTextUpdated( wxCommandEvent& /*event*/ )
 
 void MainFrame::OnPllsetClkinDblSpinctrlTextUpdated( wxCommandEvent& /*event*/ )
 {
-	if( this->m_updating)
-		return;
-	this->SetDirty( true);
-	this->UpdateOutput();
+    if( this->m_updating)
+        return;
+    this->SetDirty( true);
+    this->UpdateOutput();
 }
 
 /*!
@@ -957,17 +957,17 @@ void MainFrame::OnPllsetClkinDblSpinctrlTextUpdated( wxCommandEvent& /*event*/ )
 void MainFrame::OnPllsetClkmodRadioboxSelected( wxCommandEvent& /*event*/ )
 {
 
-	//this->m_pllset_plldiv_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_pllset_clkin_label->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_pllset_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
-	this->m_pllset_read_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    //this->m_pllset_plldiv_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_clkin_label->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
+    this->m_pllset_read_vcxo_type_control->Enable( this->m_pllset_clkmod_control->GetSelection()== 0);
 
-	//this->m_pllset_clkin_dblcontrol->Enable( this->m_pllset_clkmod_control->GetSelection()!= 0);
+    //this->m_pllset_clkin_dblcontrol->Enable( this->m_pllset_clkmod_control->GetSelection()!= 0);
 
-	if( this->m_updating)
-		return;
-	this->SetDirty( true);
-	this->UpdateOutput();
+    if( this->m_updating)
+        return;
+    this->SetDirty( true);
+    this->UpdateOutput();
 
 }
 
@@ -977,10 +977,10 @@ void MainFrame::OnPllsetClkmodRadioboxSelected( wxCommandEvent& /*event*/ )
 
 void MainFrame::OnPllsetClkoutenCheckboxClick( wxCommandEvent& /*event*/ )
 {
-	this->SetDirty( true);
-	this->m_pllset_clkoutfreq_choice->Enable( this->m_pllset_clkouten_control->GetValue());
-	this->m_pllset_clkoutdelayen_control->Enable( this->m_pllset_clkouten_control->GetValue());
-	this->m_pllset_clkoutdelay_choice->Enable( this->m_pllset_clkoutdelayen_control->GetValue()&& this->m_pllset_clkouten_control->GetValue());
+    this->SetDirty( true);
+    this->m_pllset_clkoutfreq_choice->Enable( this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutdelayen_control->Enable( this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutdelay_choice->Enable( this->m_pllset_clkoutdelayen_control->GetValue()&& this->m_pllset_clkouten_control->GetValue());
 
 }
 
@@ -990,7 +990,7 @@ void MainFrame::OnPllsetClkoutenCheckboxClick( wxCommandEvent& /*event*/ )
 
 void MainFrame::OnMakeOutputToolClick( wxCommandEvent& /*event*/ )
 {
-	this->MakeDownloadFile();
+    this->MakeDownloadFile();
 }
 
 /*!
@@ -999,181 +999,181 @@ void MainFrame::OnMakeOutputToolClick( wxCommandEvent& /*event*/ )
 
 void MainFrame::OnDownloadToolClick( wxCommandEvent& /*event*/ )
 {
-	this->DownloadFile();
+    this->DownloadFile();
 }
 bool MainFrame::DownloadFile()
 {
-	if( !this->GetControls())
-	{
-		return false;
-	}
-	wxString cfg_filename= this->m_loaded_doc->GetFilename();
-	wxString path= _("");
-	wxString name= _("");
-	if( !cfg_filename.IsEmpty())
-	{
-		wxFileName::SplitPath( cfg_filename, &path, &name, NULL);
-	}
-	wxString filename= wxFileSelector( 
-		_("Select the output file to write into flash ..."), 
-		path,
-		name, 
-		_("txt"),
-		_("Output files (*.txt)|*.txt|All files (*.*)|*.*"), 
-		wxOPEN| wxFILE_MUST_EXIST, 
-		this);
-	if( filename.IsEmpty())
-		return false;
-	
-	// select board
-	GenericBoard* board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
+    if( !this->GetControls())
+    {
+        return false;
+    }
+    wxString cfg_filename= this->m_loaded_doc->GetFilename();
+    wxString path= _("");
+    wxString name= _("");
+    if( !cfg_filename.IsEmpty())
+    {
+        wxFileName::SplitPath( cfg_filename, &path, &name, NULL);
+    }
+    wxString filename= wxFileSelector( 
+        _("Select the output file to write into flash ..."), 
+        path,
+        name, 
+        _("txt"),
+        _("Output files (*.txt)|*.txt|All files (*.*)|*.*"), 
+        wxOPEN| wxFILE_MUST_EXIST, 
+        this);
+    if( filename.IsEmpty())
+        return false;
+        
+    // select board
+    GenericBoard* board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
 
-	// Download the file 
-	if( !board->DownLoadFile( filename, this->m_loaded_doc->GetBoardBaseAddress()))
-	{
-		wxLogError( _("Some errors occurred during PLL file writing !"));
-		return false;
-	}
-	wxMessageBox( 
-		_("PLL file written correctly !"), 
-		_( "PLL file writing ..."), 
-		wxOK| wxICON_INFORMATION,
-		this);
-	return true;
+    // Download the file 
+    if( !board->DownLoadFile( filename, this->m_loaded_doc->GetBoardBaseAddress()))
+    {
+        wxLogError( _("Some errors occurred during PLL file writing !"));
+        return false;
+    }
+    wxMessageBox( 
+        _("PLL file written correctly !"), 
+        _( "PLL file writing ..."), 
+        wxOK| wxICON_INFORMATION,
+        this);
+    return true;
 }
 
 bool MainFrame::MakeDownloadFile()
 {
-	if( !this->GetControls())
-	{
-		return false;
-	}
+    if( !this->GetControls())
+    {
+        return false;
+    }
 
-	wxString cfg_filename= this->m_loaded_doc->GetFilename();
-	wxString path= _("");
-	wxString name= _("");
-	if( !cfg_filename.IsEmpty())
-	{
-		wxFileName::SplitPath( cfg_filename, &path, &name, NULL);
-	}
-	wxString filename= wxFileSelector( 
-		_("Select the output file to be created ..."), 
-		path,
-		name, 
-		_("txt"),
-		_("Output files (*.txt)|*.txt|All files (*.*)|*.*"), 
-		wxSAVE| wxOVERWRITE_PROMPT, 
-		this);
-	if( filename.IsEmpty())
-		return false;
+    wxString cfg_filename= this->m_loaded_doc->GetFilename();
+    wxString path= _("");
+    wxString name= _("");
+    if( !cfg_filename.IsEmpty())
+    {
+        wxFileName::SplitPath( cfg_filename, &path, &name, NULL);
+    }
+    wxString filename= wxFileSelector( 
+        _("Select the output file to be created ..."), 
+        path,
+        name, 
+        _("txt"),
+        _("Output files (*.txt)|*.txt|All files (*.*)|*.*"), 
+        wxSAVE| wxOVERWRITE_PROMPT, 
+        this);
+    if( filename.IsEmpty())
+        return false;
 
-	GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
-	return board->MakeDownloadFile( filename, *this->m_loaded_doc);
+    GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
+    return board->MakeDownloadFile( filename, *this->m_loaded_doc);
 }
 
 void MainFrame::UpdateOutput()
 {
-	this->m_main_statusbar->Refresh();
+    this->m_main_statusbar->Refresh();
 
-	GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
-	this->m_updating= true;
-	// Update Output frequency 
-	float input_freq;
-	if( this->m_pllset_clkmod_control->GetSelection()== 0)
-	{
-		// PLL mode: get it from CLK2 (internal source)
-		wxString item= this->m_pllset_vcxo_type_control->GetStringSelection();
-		double val= 0;
-		if( !item.Length()) {
-			this->m_updating= false;
-			return;
-		}
-		if( !item.ToDouble( &val)) {
-			wxMessageBox( _("The input clock value was not correctly formatted."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
-			this->m_updating= false;
-			return;
-		}
-		input_freq= (float) val;
-		float clkin= (float) this->m_pllset_clkin_dblcontrol->GetValue();
-		int R, N;
-		float f_pfd= board->GetPFDFreqMHz();
-		float f_pfd_tolerance= board->GetPFDFreqToleranceMHz();
-		if( !GenericBoard::ApproximateFin( clkin, input_freq, f_pfd, f_pfd_tolerance, R, N)){
-			//wxMessageBox( _("Cannot get a valid dividers set and/or PFD frequency for the specified input clock value."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
-			this->m_pllset_clkin_label->SetLabel( _("Undefined value"));
-			this->m_pllset_clkin_label->SetForegroundColour( wxColour( 255, 0, 0));
-			this->m_updating= false;
-			return;
-		}
-		// Show clock in 
-		this->m_pllset_clkin_label->SetLabel( wxString::Format( _("%0.4f MHz"), clkin));
-		if( fabs( clkin- this->m_pllset_clkin_dblcontrol->GetValue())> 0.000001) {
-			this->m_pllset_clkin_label->SetForegroundColour( wxColour( 255, 0, 0));
-		} else {
-			this->m_pllset_clkin_label->SetForegroundColour( wxColour( 0, 0, 0));
-		}
-	}
-	else
-	{
-		// Bypass mode: get it from input control
-		input_freq= this->m_pllset_clkin_dblcontrol->GetValue();
-		// Show clock in 
-		this->m_pllset_clkin_label->SetLabel( wxString::Format(_("%0.4f MHz"), input_freq));
-		this->m_pllset_clkin_label->SetForegroundColour( wxColour( 0, 0, 0));
-	}
+    GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
+    this->m_updating= true;
+    // Update Output frequency 
+    float input_freq;
+    if( this->m_pllset_clkmod_control->GetSelection()== 0)
+    {
+        // PLL mode: get it from CLK2 (internal source)
+        wxString item= this->m_pllset_vcxo_type_control->GetStringSelection();
+        double val= 0;
+        if( !item.Length()) {
+            this->m_updating= false;
+            return;
+        }
+        if( !item.ToDouble( &val)) {
+            wxMessageBox( _("The input clock value was not correctly formatted."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
+            this->m_updating= false;
+            return;
+        }
+        input_freq= (float) val;
+        float clkin= (float) this->m_pllset_clkin_dblcontrol->GetValue();
+        int R, N;
+        float f_pfd= board->GetPFDFreqMHz();
+        float f_pfd_tolerance= board->GetPFDFreqToleranceMHz();
+        if( !GenericBoard::ApproximateFin( clkin, input_freq, f_pfd, f_pfd_tolerance, R, N)){
+            //wxMessageBox( _("Cannot get a valid dividers set and/or PFD frequency for the specified input clock value."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
+            this->m_pllset_clkin_label->SetLabel( _("Undefined value"));
+            this->m_pllset_clkin_label->SetForegroundColour( wxColour( 255, 0, 0));
+            this->m_updating= false;
+            return;
+        }
+        // Show clock in 
+        this->m_pllset_clkin_label->SetLabel( wxString::Format( _("%0.4f MHz"), clkin));
+        if( fabs( clkin- this->m_pllset_clkin_dblcontrol->GetValue())> 0.000001) {
+            this->m_pllset_clkin_label->SetForegroundColour( wxColour( 255, 0, 0));
+        } else {
+            this->m_pllset_clkin_label->SetForegroundColour( wxColour( 0, 0, 0));
+        }
+    }
+    else
+    {
+        // Bypass mode: get it from input control
+        input_freq= this->m_pllset_clkin_dblcontrol->GetValue();
+        // Show clock in 
+        this->m_pllset_clkin_label->SetLabel( wxString::Format(_("%0.4f MHz"), input_freq));
+        this->m_pllset_clkin_label->SetForegroundColour( wxColour( 0, 0, 0));
+    }
 
-	// ADC Freq
-	// Calculate the allowed adc frequencies
-	wxString adc_freq_org_val= this->m_pllset_adcfreq_choice->GetStringSelection();
-	// free up values77
-	this->m_pllset_adcfreq_choice->Clear();
-	for( int i= 1; i<= 32; i++) {
-		float freq= input_freq/ i;
-		if( ( freq> board->GetMaxFreq())|| 
-			( freq< board->GetMinFreq())) {
-			// value out of board range
-			continue;
-		}
-		// Add value to list
-		this->m_pllset_adcfreq_choice->Append( wxString::Format(_("%0.4f MHz"), freq), new IntClientData( i));
-	}
-	if( !this->m_pllset_adcfreq_choice->SetStringSelection( adc_freq_org_val)) {
-		this->m_pllset_adcfreq_choice->SetSelection( 0);
-	}
+    // ADC Freq
+    // Calculate the allowed adc frequencies
+    wxString adc_freq_org_val= this->m_pllset_adcfreq_choice->GetStringSelection();
+    // free up values77
+    this->m_pllset_adcfreq_choice->Clear();
+    for( int i= 1; i<= 32; i++) {
+        float freq= input_freq/ i;
+        if( ( freq> board->GetMaxFreq())|| 
+            ( freq< board->GetMinFreq())) {
+            // value out of board range
+            continue;
+        }
+        // Add value to list
+        this->m_pllset_adcfreq_choice->Append( wxString::Format(_("%0.4f MHz"), freq), new IntClientData( i));
+    }
+    if( !this->m_pllset_adcfreq_choice->SetStringSelection( adc_freq_org_val)) {
+        this->m_pllset_adcfreq_choice->SetSelection( 0);
+    }
 
-	// Clock Out Freq
-	// Calculate the allowed clockout frequencies
-	wxString clkout_freq_org_val= this->m_pllset_clkoutfreq_choice->GetStringSelection();
-	// free up values
-	this->m_pllset_clkoutfreq_choice->Clear();
-	for( int i= 1; i<= 32; i++) {
-		float freq= input_freq/ i;
-		// Add value to list
-		this->m_pllset_clkoutfreq_choice->Append( wxString::Format(_("%0.4f MHz"), freq), new IntClientData( i));
-	}
-	if( !this->m_pllset_clkoutfreq_choice->SetStringSelection( clkout_freq_org_val)) {
-		this->m_pllset_clkoutfreq_choice->SetSelection( 0);
-	}
+    // Clock Out Freq
+    // Calculate the allowed clockout frequencies
+    wxString clkout_freq_org_val= this->m_pllset_clkoutfreq_choice->GetStringSelection();
+    // free up values
+    this->m_pllset_clkoutfreq_choice->Clear();
+    for( int i= 1; i<= 32; i++) {
+        float freq= input_freq/ i;
+        // Add value to list
+        this->m_pllset_clkoutfreq_choice->Append( wxString::Format(_("%0.4f MHz"), freq), new IntClientData( i));
+    }
+    if( !this->m_pllset_clkoutfreq_choice->SetStringSelection( clkout_freq_org_val)) {
+        this->m_pllset_clkoutfreq_choice->SetSelection( 0);
+    }
 
-	// Output delay
-	// Calculate the allowed output delay values
-	wxString delay_org_val= this->m_pllset_clkoutdelay_choice->GetStringSelection();
-	// free up values
-	this->m_pllset_clkoutdelay_choice->Clear();
-	for( int i= 0; i<= 31; i++) {
-		double calc_delay_ps= (double)i* ( board->GetClockOutDelayStepNS()* 1000.0)+ ( board->GetClockOutDelayBaseNS()* 1000.0);
-		if( calc_delay_ps>= 1000)
-			// Show as nS
-		  this->m_pllset_clkoutdelay_choice->Append( wxString::Format(_("%0.2f nS"), calc_delay_ps* 0.001), new IntClientData( i));
-		else
-			// Show as pS
-		  this->m_pllset_clkoutdelay_choice->Append( wxString::Format(_("%0.2f pS"), calc_delay_ps), new IntClientData( i));
-	}
-	if( !this->m_pllset_clkoutdelay_choice->SetStringSelection( delay_org_val)) {
-		this->m_pllset_clkoutdelay_choice->SetSelection( 0);
-	}
+    // Output delay
+    // Calculate the allowed output delay values
+    wxString delay_org_val= this->m_pllset_clkoutdelay_choice->GetStringSelection();
+    // free up values
+    this->m_pllset_clkoutdelay_choice->Clear();
+    for( int i= 0; i<= 31; i++) {
+        double calc_delay_ps= (double)i* ( board->GetClockOutDelayStepNS()* 1000.0)+ ( board->GetClockOutDelayBaseNS()* 1000.0);
+        if( calc_delay_ps>= 1000)
+            // Show as nS
+            this->m_pllset_clkoutdelay_choice->Append( wxString::Format(_("%0.2f nS"), calc_delay_ps* 0.001), new IntClientData( i));
+        else
+            // Show as pS
+            this->m_pllset_clkoutdelay_choice->Append( wxString::Format(_("%0.2f pS"), calc_delay_ps), new IntClientData( i));
+    }
+    if( !this->m_pllset_clkoutdelay_choice->SetStringSelection( delay_org_val)) {
+        this->m_pllset_clkoutdelay_choice->SetSelection( 0);
+    }
 
-	this->m_updating= false;
+    this->m_updating= false;
 }
 
 /*!
@@ -1182,7 +1182,7 @@ void MainFrame::UpdateOutput()
 
 void MainFrame::OnPllsetClkoutdelayenCheckboxClick( wxCommandEvent& /*event */)
 {
-	this->m_pllset_clkoutdelay_choice->Enable( this->m_pllset_clkoutdelayen_control->GetValue()&& this->m_pllset_clkouten_control->GetValue());
+    this->m_pllset_clkoutdelay_choice->Enable( this->m_pllset_clkoutdelayen_control->GetValue()&& this->m_pllset_clkouten_control->GetValue());
 }
 
 
@@ -1192,10 +1192,10 @@ void MainFrame::OnPllsetClkoutdelayenCheckboxClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnPllsetVcxoTypeChoiceSelected( wxCommandEvent& /*event */)
 {
-	if( this->m_updating)
-		return;
-	this->SetDirty( true);
-	this->UpdateOutput();
+    if( this->m_updating)
+        return;
+    this->SetDirty( true);
+    this->UpdateOutput();
 }
 
 
@@ -1205,31 +1205,31 @@ void MainFrame::OnPllsetVcxoTypeChoiceSelected( wxCommandEvent& /*event */)
 
 void MainFrame::OnPllsetReadVcxoTypeButtonClick( wxCommandEvent& /*event */)
 {
-	unsigned long board_addr;
-	if( !this->m_pllset_board_base_addr_control->GetValue().ToULong( &board_addr, 16))
-	{
-		wxLogError( _("Invalid board base address !"));
-		return;
-	}
+    unsigned long board_addr;
+    if( !this->m_pllset_board_base_addr_control->GetValue().ToULong( &board_addr, 16))
+    {
+        wxLogError( _("Invalid board base address !"));
+        return;
+    }
 
-	// Read the VCXO type from board
-	GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
+    // Read the VCXO type from board
+    GenericBoard *board= ( GenericBoard *)this->m_pllset_board_type_control->GetClientData( this->m_pllset_board_type_control->GetSelection());
 
-	int vcxo_type= 0;
-	if( !board->ReadVCXOType( vcxo_type, board_addr)) {
-		wxMessageBox( _("Error reading VCXO type from board."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
-		return;
-	}
-	int freq= 0;
-	if( !board->GetVCXOFreq( vcxo_type, freq)){
-		wxMessageBox( _("Unknown VCXO type. Please update your settings' file."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
-		return;
-	}
-	if( !this->m_pllset_vcxo_type_control->SetStringSelection( wxString::Format(_("%d"), freq))) {
-		wxMessageBox( _("Unknown VCXO type. Please update your settings' file."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
-		return;
-	}
-	this->UpdateOutput();
+    int vcxo_type= 0;
+    if( !board->ReadVCXOType( vcxo_type, board_addr)) {
+        wxMessageBox( _("Error reading VCXO type from board."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
+        return;
+    }
+    int freq= 0;
+    if( !board->GetVCXOFreq( vcxo_type, freq)){
+        wxMessageBox( _("Unknown VCXO type. Please update your settings' file."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
+        return;
+    }
+    if( !this->m_pllset_vcxo_type_control->SetStringSelection( wxString::Format(_("%d"), freq))) {
+        wxMessageBox( _("Unknown VCXO type. Please update your settings' file."), wxT("CAENPLLConfig"), wxOK | wxCENTRE | wxICON_ERROR  );
+        return;
+    }
+    this->UpdateOutput();
 }
 
 
@@ -1271,13 +1271,13 @@ void MainFrame::OnPllsetClkoutdelayChoiceSelected( wxCommandEvent& event )
 }
 
 bool MainFrame::SelectByData( wxChoice* p_ctrl, int val) {
-	for( unsigned int i= 0; i< p_ctrl->GetCount(); i++) {
-		if( ((IntClientData* )p_ctrl->GetClientObject( i))->GetVal()== val) {
-			p_ctrl->SetSelection( i);
-			return true;
-		}
-	}
-	return false;
+    for( unsigned int i= 0; i< p_ctrl->GetCount(); i++) {
+        if( ((IntClientData* )p_ctrl->GetClientObject( i))->GetVal()== val) {
+            p_ctrl->SetSelection( i);
+            return true;
+        }
+    }
+    return false;
 }
 
 

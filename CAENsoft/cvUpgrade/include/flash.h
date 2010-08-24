@@ -35,12 +35,12 @@
 // Atmel AT45DB081D specific constants
 typedef enum AT45_OPCODES
 {
-  AT45_PAGE_SIZE                        =  264,    // Number of bytes per page in the target flash
-  AT45_IDREG_LENGTH                     =  128,    // Lunghezza (in bytes) del registro ID della flash Atmel
-  AT45_MAIN_MEM_PAGE_READ_OPCODE        =  0x00D2,
-  AT45_MAIN_MEM_PAGE_PROG_TH_BUF1_OPCODE=  0x0082,
-  AT45_READ_SECURITY_REGISTER_OPCODE    =  0x0077,
-  AT45_STATUS_READ_CMD_OPCODE           =  0x00D7,
+    AT45_PAGE_SIZE                        =  264,    // Number of bytes per page in the target flash
+    AT45_IDREG_LENGTH                     =  128,    // Lunghezza (in bytes) del registro ID della flash Atmel
+    AT45_MAIN_MEM_PAGE_READ_OPCODE        =  0x00D2,
+    AT45_MAIN_MEM_PAGE_PROG_TH_BUF1_OPCODE=  0x0082,
+    AT45_READ_SECURITY_REGISTER_OPCODE    =  0x0077,
+    AT45_STATUS_READ_CMD_OPCODE           =  0x00D7,
 } AT45_OPCODES;
 
 typedef struct CROM_MAP
@@ -61,21 +61,21 @@ typedef struct CROM_MAP
 
 
 typedef struct FlashAccess {
-  int            Handle;         // CAENComm handle for board access
-  unsigned long  RW_Flash;       // Address of the R/W Flash Register
-  unsigned long  Sel_Flash;      // Address of the Select Flash Register
-  unsigned long  FlashEnable;    // Flash Enable pin polarity
-  unsigned int   RegSize;        // Register Data Size (2 = D16, 4 = D32)
-  unsigned int   PageSize;       // Flash Page Size
+    int            Handle;         // CAENComm handle for board access
+    unsigned long  RW_Flash;       // Address of the R/W Flash Register
+    unsigned long  Sel_Flash;      // Address of the Select Flash Register
+    unsigned long  FlashEnable;    // Flash Enable pin polarity
+    unsigned int   RegSize;        // Register Data Size (2 = D16, 4 = D32)
+    unsigned int   PageSize;       // Flash Page Size
 } cvFlashAccess;
 
 typedef enum cvupgrade_ErrorCode {
 /* Error Types */
- CvUpgrade_Success		      =  0,     /* Operation completed successfully              	*/
- CvUpgrade_GenericError       = -1,     /* Generic error                        			*/
- CvUpgrade_CAENCommError      = -2,     /* CAENComm function call error        			*/
- CvUpgrade_UnsupportedRegSize = -3,     /* Unsupported Register Size from parameter file	*/
- CvUpgrade_FileAccessError    = -4      /* File access	error */
+    CvUpgrade_Success                 =  0,     /* Operation completed successfully                     */
+    CvUpgrade_GenericError       = -1,     /* Generic error                                             */
+    CvUpgrade_CAENCommError      = -2,     /* CAENComm function call error                              */
+    CvUpgrade_UnsupportedRegSize = -3,     /* Unsupported Register Size from parameter file     */
+    CvUpgrade_FileAccessError    = -4      /* File access       error */
 } cvupgrade_ErrorCode;
 
 

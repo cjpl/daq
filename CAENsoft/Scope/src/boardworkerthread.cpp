@@ -34,13 +34,13 @@
 #include "appsettings.h"
 extern "C" 
 {
-	#include "cvt_V1724.h"
+#include "cvt_V1724.h"
 }
 extern wxFrame* g_main_frame;
 
 BoardWorkerThread::BoardWorkerThread(GenericBoard* parent)
 {
-	this->m_parent= parent;
+    this->m_parent= parent;
 }
 
 BoardWorkerThread::~BoardWorkerThread(void)
@@ -49,120 +49,120 @@ BoardWorkerThread::~BoardWorkerThread(void)
 
 wxThread::ExitCode BoardWorkerThread::Entry( void)
 {
-	const int SW_TRIGGER_INTERVAL_MSEC= 1;
-	const int SAMPLES_READY_TIMEOUT_MSEC= 1000;
-	wxDateTime samples_ready_timeout= wxDateTime::UNow();
-	bool sample_ready= false;
-	this->m_next_sw_trigger= wxDateTime::UNow();
-	while( !this->TestDestroy())
-	{
-		UINT32 num_samples_read;
-		UINT32 num_events;
-		//
-		// Get channels' samples
+    const int SW_TRIGGER_INTERVAL_MSEC= 1;
+    const int SAMPLES_READY_TIMEOUT_MSEC= 1000;
+    wxDateTime samples_ready_timeout= wxDateTime::UNow();
+    bool sample_ready= false;
+    this->m_next_sw_trigger= wxDateTime::UNow();
+    while( !this->TestDestroy())
+    {
+        UINT32 num_samples_read;
+        UINT32 num_events;
+        //
+        // Get channels' samples
 
-		// Refresh channels' data cache
-		
-		num_samples_read= num_events= 0;
-		if( this->m_parent->ReadBoardData( &num_samples_read, &num_events))
-		{
-			if( num_samples_read)
-			{
-				if( num_samples_read> (UINT32)this->m_parent->m_p_app_settings->m_max_log_X)
-					num_samples_read= (UINT32)this->m_parent->m_p_app_settings->m_max_log_X;
+        // Refresh channels' data cache
+                
+        num_samples_read= num_events= 0;
+        if( this->m_parent->ReadBoardData( &num_samples_read, &num_events))
+        {
+            if( num_samples_read)
+            {
+                if( num_samples_read> (UINT32)this->m_parent->m_p_app_settings->m_max_log_X)
+                    num_samples_read= (UINT32)this->m_parent->m_p_app_settings->m_max_log_X;
 
-				if(( this->m_parent->m_is_recording)&& ( this->m_parent->m_record_use_max_buffers))
-				{
-					if( ( --this->m_parent->m_record_max_buffers)< 0)
-					{
-						// toggle mainform record button here
-						this->m_parent->m_is_recording= false;
-						wxCommandEvent event( wxEVT_RECORD_END_EVENT, BOARD_WORKER_THREAD_ID);
-						// Send it in a thread safe way
-						wxPostEvent( g_main_frame, event );
+                if(( this->m_parent->m_is_recording)&& ( this->m_parent->m_record_use_max_buffers))
+                {
+                    if( ( --this->m_parent->m_record_max_buffers)< 0)
+                    {
+                        // toggle mainform record button here
+                        this->m_parent->m_is_recording= false;
+                        wxCommandEvent event( wxEVT_RECORD_END_EVENT, BOARD_WORKER_THREAD_ID);
+                        // Send it in a thread safe way
+                        wxPostEvent( g_main_frame, event );
 
-						this->Sleep( 10);
-					}
-				}
+                        this->Sleep( 10);
+                    }
+                }
 
-				// 
-				// Update samples ready timeout
-				samples_ready_timeout= wxDateTime::UNow().Add( wxTimeSpan( 0, 0, 0, SAMPLES_READY_TIMEOUT_MSEC));
-				for( size_t i= 0; ( i< this->m_parent->m_channel_array.GetCount())&& !this->TestDestroy(); i++)
-				{
-					PhysicalBoardChannel *board_channel= ( PhysicalBoardChannel *)this->m_parent->m_channel_array[i];
-					if( board_channel->ReadSamplesCache( num_samples_read))
-					{
-						if( this->m_parent->m_is_recording)
-							board_channel->RecordSamples( );
-					}
-					this->Sleep( 1);
-				}
-				if( this->m_parent->m_is_recording)
-				{
-					for( size_t i= 0; ( i< this->m_parent->m_virtual_channel_array.GetCount())&& !this->TestDestroy(); i++)
-					{
-						VirtualBoardChannel *board_channel= ( VirtualBoardChannel *)this->m_parent->m_virtual_channel_array[i];
-						board_channel->RecordSamples( );
-						this->Sleep( 1);
-					}
-				}
-			}
-		}
-		else
-		{
-			num_samples_read= 0;
-		}
-		this->Sleep( 1);
-		//
-		// Check samples ready timeout
-		if( wxDateTime::UNow()>= samples_ready_timeout)
-		{
-			// Samples ready Timeout
-			if( sample_ready)
-			{
-				sample_ready= false;
-				// Reset main panel led
-				this->m_parent->UpdateSamplesReadyLed( false);
-			}
-		}
-		else
-		{
-			if( !sample_ready)
-			{
-				sample_ready= true;
-				// Set main panel led
-				this->m_parent->UpdateSamplesReadyLed( true);
-			}
-		}
-		//
-		// Software autoretrig.
-		if( this->TestDestroy())
-			goto exit_point;
-		if(( this->m_parent->m_p_app_settings->m_trigger_msk& (int)AppSettings::SW_AUTO_TRIGGER_MSK)&& !this->TestDestroy())
-		{
-			if( wxDateTime::UNow()>= this->m_next_sw_trigger)
-			{
-				// Update next trigger timer
-				this->m_next_sw_trigger= wxDateTime::UNow().Add( wxTimeSpan( 0, 0, 0, SW_TRIGGER_INTERVAL_MSEC));
+                // 
+                // Update samples ready timeout
+                samples_ready_timeout= wxDateTime::UNow().Add( wxTimeSpan( 0, 0, 0, SAMPLES_READY_TIMEOUT_MSEC));
+                for( size_t i= 0; ( i< this->m_parent->m_channel_array.GetCount())&& !this->TestDestroy(); i++)
+                {
+                    PhysicalBoardChannel *board_channel= ( PhysicalBoardChannel *)this->m_parent->m_channel_array[i];
+                    if( board_channel->ReadSamplesCache( num_samples_read))
+                    {
+                        if( this->m_parent->m_is_recording)
+                            board_channel->RecordSamples( );
+                    }
+                    this->Sleep( 1);
+                }
+                if( this->m_parent->m_is_recording)
+                {
+                    for( size_t i= 0; ( i< this->m_parent->m_virtual_channel_array.GetCount())&& !this->TestDestroy(); i++)
+                    {
+                        VirtualBoardChannel *board_channel= ( VirtualBoardChannel *)this->m_parent->m_virtual_channel_array[i];
+                        board_channel->RecordSamples( );
+                        this->Sleep( 1);
+                    }
+                }
+            }
+        }
+        else
+        {
+            num_samples_read= 0;
+        }
+        this->Sleep( 1);
+        //
+        // Check samples ready timeout
+        if( wxDateTime::UNow()>= samples_ready_timeout)
+        {
+            // Samples ready Timeout
+            if( sample_ready)
+            {
+                sample_ready= false;
+                // Reset main panel led
+                this->m_parent->UpdateSamplesReadyLed( false);
+            }
+        }
+        else
+        {
+            if( !sample_ready)
+            {
+                sample_ready= true;
+                // Set main panel led
+                this->m_parent->UpdateSamplesReadyLed( true);
+            }
+        }
+        //
+        // Software autoretrig.
+        if( this->TestDestroy())
+            goto exit_point;
+        if(( this->m_parent->m_p_app_settings->m_trigger_msk& (int)AppSettings::SW_AUTO_TRIGGER_MSK)&& !this->TestDestroy())
+        {
+            if( wxDateTime::UNow()>= this->m_next_sw_trigger)
+            {
+                // Update next trigger timer
+                this->m_next_sw_trigger= wxDateTime::UNow().Add( wxTimeSpan( 0, 0, 0, SW_TRIGGER_INTERVAL_MSEC));
 
-				// Send SW retrigger
-				this->m_parent->WriteSoftwareTrigger( );
-			}
-		}
-		if( num_samples_read&& this->m_parent->ScopeRefresh)
-		{
-			for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-			{
-				( this->m_parent->ScopeRefresh)( i, false);
-			}
-		}
+                // Send SW retrigger
+                this->m_parent->WriteSoftwareTrigger( );
+            }
+        }
+        if( num_samples_read&& this->m_parent->ScopeRefresh)
+        {
+            for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+            {
+                ( this->m_parent->ScopeRefresh)( i, false);
+            }
+        }
 
-	}
+    }
 exit_point:
-				
-	this->m_parent->UpdateSamplesReadyLed( false);
+                                
+    this->m_parent->UpdateSamplesReadyLed( false);
 //    this->m_parent->m_thread_exited= true;
-	return (wxThread::ExitCode)0;
+    return (wxThread::ExitCode)0;
 }
 

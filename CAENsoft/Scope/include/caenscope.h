@@ -46,9 +46,9 @@
 class CAENScopeApp: public wxApp
 {    
     DECLARE_CLASS( CAENScopeApp )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructor
     CAENScopeApp();
 
@@ -79,4 +79,4 @@ DECLARE_APP(CAENScopeApp)
 ////@end declare app
 
 #endif
-    // _CAENSCOPE_H_
+// _CAENSCOPE_H_

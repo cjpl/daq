@@ -47,13 +47,13 @@ IMPLEMENT_DYNAMIC_CLASS( CursorChControl, wxPanel )
 BEGIN_EVENT_TABLE( CursorChControl, wxPanel )
 
 ////@begin CursorChControl event table entries
-    EVT_TOGGLEBUTTON( ID_CURSOR_TOGGLEBUTTON, CursorChControl::OnCursorTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_CURSOR_TOGGLEBUTTON, CursorChControl::OnCursorTogglebuttonClick )
 
-    EVT_BUTTON( ID_CURSOR_RESET_BUTTON, CursorChControl::OnCursorResetButtonClick )
+EVT_BUTTON( ID_CURSOR_RESET_BUTTON, CursorChControl::OnCursorResetButtonClick )
 
-    EVT_SPIN( ID_CURSOR_POSITION_SPINBUTTON, CursorChControl::OnCursorPositionSpinbuttonUpdated )
+EVT_SPIN( ID_CURSOR_POSITION_SPINBUTTON, CursorChControl::OnCursorPositionSpinbuttonUpdated )
 
-    EVT_CHOICE( ID_CURSOR_POS_MULTIPLIER_CHOICE, CursorChControl::OnCursorPosMultiplierChoiceSelected )
+EVT_CHOICE( ID_CURSOR_POS_MULTIPLIER_CHOICE, CursorChControl::OnCursorPosMultiplierChoiceSelected )
 
 ////@end CursorChControl event table entries
 
@@ -63,12 +63,12 @@ END_EVENT_TABLE()
  * CursorChControl constructors
  */
 
- CursorChControl::CursorChControl( ): m_last_cursor_pos( 0)
+CursorChControl::CursorChControl( ): m_last_cursor_pos( 0)
 {
 }
 
 CursorChControl::CursorChControl( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style )
-								: m_last_cursor_pos( 0)
+    : m_last_cursor_pos( 0)
 {
     Create(parent, id, pos, size, style);
 }
@@ -195,14 +195,14 @@ void CursorChControl::CreateControls()
     itemBoxSizer18->Add(m_mV_label, 0, wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 2);
 
 ////@end CursorChControl content construction
-	this->m_set_cursor_position_control->SetRange( -9999999, 9999999);
+    this->m_set_cursor_position_control->SetRange( -9999999, 9999999);
 
-	this->m_cursor_pos_multiplier_control->Append( _("x   1"));
-	this->m_cursor_pos_multiplier_control->Append( _("x  10"));
-	this->m_cursor_pos_multiplier_control->Append( _("x 100"));
-	this->m_cursor_pos_multiplier_control->Append( _("x1000"));
+    this->m_cursor_pos_multiplier_control->Append( _("x   1"));
+    this->m_cursor_pos_multiplier_control->Append( _("x  10"));
+    this->m_cursor_pos_multiplier_control->Append( _("x 100"));
+    this->m_cursor_pos_multiplier_control->Append( _("x1000"));
 
-	this->m_cursor_pos_multiplier_control->SetSelection( 0);
+    this->m_cursor_pos_multiplier_control->SetSelection( 0);
 }
 
 /*!
@@ -245,9 +245,9 @@ wxIcon CursorChControl::GetIconResource( const wxString& name )
 
 void CursorChControl::OnCursorTogglebuttonClick( wxCommandEvent& /* event*/ )
 {
-	this->m_p_board_channel->m_cursor_enabled[ this->m_scope_index]= this->m_ch_enable_control->GetValue( )!= 0;
-	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
-	(this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
+    this->m_p_board_channel->m_cursor_enabled[ this->m_scope_index]= this->m_ch_enable_control->GetValue( )!= 0;
+    this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    (this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
 }
 
 /*!
@@ -256,9 +256,9 @@ void CursorChControl::OnCursorTogglebuttonClick( wxCommandEvent& /* event*/ )
 
 void CursorChControl::OnCursorResetButtonClick( wxCommandEvent& /*event*/ )
 {
-	this->m_last_cursor_pos= 0;
-	this->m_set_cursor_position_control->SetValue( this->m_last_cursor_pos);
-	this->UpdateCursorPosition( 0);
+    this->m_last_cursor_pos= 0;
+    this->m_set_cursor_position_control->SetValue( this->m_last_cursor_pos);
+    this->UpdateCursorPosition( 0);
 }
 
 /*!
@@ -267,79 +267,79 @@ void CursorChControl::OnCursorResetButtonClick( wxCommandEvent& /*event*/ )
 
 void CursorChControl::OnCursorPositionSpinbuttonUpdated( wxSpinEvent& /*event*/ )
 {
-	int new_pos= this->m_set_cursor_position_control->GetValue( );
-	this->m_last_cursor_pos+= ( new_pos- this->m_last_cursor_pos)* this->GetCursorMultipler();
-	this->m_set_cursor_position_control->SetValue( this->m_last_cursor_pos);
+    int new_pos= this->m_set_cursor_position_control->GetValue( );
+    this->m_last_cursor_pos+= ( new_pos- this->m_last_cursor_pos)* this->GetCursorMultipler();
+    this->m_set_cursor_position_control->SetValue( this->m_last_cursor_pos);
 
-	this->UpdateCursorPosition( this->m_set_cursor_position_control->GetValue( ));
+    this->UpdateCursorPosition( this->m_set_cursor_position_control->GetValue( ));
 }
 
 bool CursorChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, int scope_index, bool is_virtual)
 {
-	this->m_is_virtual= is_virtual;
-	this->m_p_board= p_board;
-	this->m_ch_index= ch_index;
-	this->m_ch_count= ch_count;
-	this->m_scope_index= scope_index;
-	if( this->m_is_virtual)
-	{
-		this->m_mV_label->SetLabel( _("  "));
-		if( ( size_t)this->m_ch_index>= this->m_p_board->m_virtual_channel_array.GetCount())
-			return false;
-		this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_virtual_channel_array[ this->m_ch_index];
-	}
-	else
-	{
-		if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
-			return false;
-		this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
-	}
+    this->m_is_virtual= is_virtual;
+    this->m_p_board= p_board;
+    this->m_ch_index= ch_index;
+    this->m_ch_count= ch_count;
+    this->m_scope_index= scope_index;
+    if( this->m_is_virtual)
+    {
+        this->m_mV_label->SetLabel( _("  "));
+        if( ( size_t)this->m_ch_index>= this->m_p_board->m_virtual_channel_array.GetCount())
+            return false;
+        this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_virtual_channel_array[ this->m_ch_index];
+    }
+    else
+    {
+        if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
+            return false;
+        this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
+    }
 
-	this->m_p_board_channel->m_p_cursor_ch_control[ scope_index]= this;
-	
-	if( !this->UpdateControls())
-		return false;
-	return true;
+    this->m_p_board_channel->m_p_cursor_ch_control[ scope_index]= this;
+        
+    if( !this->UpdateControls())
+        return false;
+    return true;
 }
 bool CursorChControl::UpdateControls( )
 {
-	if( this->m_is_virtual)
-	{
-	  this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
-	}
-	else
-	{
-	  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
-	}
-	this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_cursor_enabled[ this->m_scope_index]);
-	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    if( this->m_is_virtual)
+    {
+        this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
+    }
+    else
+    {
+        this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
+    }
+    this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_cursor_enabled[ this->m_scope_index]);
+    this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
 
-	return true;
+    return true;
 }
 int CursorChControl::GetCursorMultipler( void)
 {
-	const int MULTIPLIER_TABLE[]=
-	{
-		1,
-		10,
-		100,
-		1000
-	};
-	int multiplier= 100;
-	if( this->m_cursor_pos_multiplier_control->GetSelection()< ( sizeof( MULTIPLIER_TABLE)/ sizeof( MULTIPLIER_TABLE[0])))
-	{
-		multiplier= MULTIPLIER_TABLE[ this->m_cursor_pos_multiplier_control->GetSelection()];
-	}
-	return multiplier;
+    const int MULTIPLIER_TABLE[]=
+        {
+            1,
+            10,
+            100,
+            1000
+        };
+    int multiplier= 100;
+    if( this->m_cursor_pos_multiplier_control->GetSelection()< ( sizeof( MULTIPLIER_TABLE)/ sizeof( MULTIPLIER_TABLE[0])))
+    {
+        multiplier= MULTIPLIER_TABLE[ this->m_cursor_pos_multiplier_control->GetSelection()];
+    }
+    return multiplier;
 }
 bool CursorChControl::UpdateCursorPosition( int cursor_position)
 {
-	this->m_p_board_channel->m_cursor_position[ this->m_scope_index]= cursor_position;
-	(this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
+    this->m_p_board_channel->m_cursor_position[ this->m_scope_index]= cursor_position;
+    (this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
 
-	double position_usec= this->m_p_board_channel->Sample2Sec( this->m_p_board_channel->m_cursor_position[ this->m_scope_index])* 1000000.0;
-	this->m_cursor_position_control->SetLabel( wxString::Format(_("%.3f"), position_usec));
-	return true;
+    double position_usec= this->m_p_board_channel->Sample2Sec( this->m_p_board_channel->m_cursor_position[ this->m_scope_index])* 1000000.0;
+    this->m_cursor_position_control->SetLabel( wxString::Format(_("%.3f"), position_usec));
+    return true;
 }
 
 /*!
@@ -348,7 +348,7 @@ bool CursorChControl::UpdateCursorPosition( int cursor_position)
 
 void CursorChControl::OnCursorPosMultiplierChoiceSelected( wxCommandEvent& /*event*/ )
 {
-	// this->UpdateCursorPosition( this->m_set_cursor_position_control->GetValue( ));
+    // this->UpdateCursorPosition( this->m_set_cursor_position_control->GetValue( ));
 }
 
 void CursorChControl::SetEnable( bool enable)

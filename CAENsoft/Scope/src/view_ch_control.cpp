@@ -49,22 +49,22 @@ IMPLEMENT_DYNAMIC_CLASS( ViewChControl, wxPanel )
 BEGIN_EVENT_TABLE( ViewChControl, wxPanel )
 
 ////@begin ViewChControl event table entries
-    EVT_TOGGLEBUTTON( ID_VIEW_ENABLE_TOGGLEBUTTON, ViewChControl::OnViewEnableTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_VIEW_ENABLE_TOGGLEBUTTON, ViewChControl::OnViewEnableTogglebuttonClick )
 
-    EVT_BUTTON( ID_CHOOSE_COLOR_BUTTON, ViewChControl::OnChooseColorButtonClick )
+EVT_BUTTON( ID_CHOOSE_COLOR_BUTTON, ViewChControl::OnChooseColorButtonClick )
 
-    EVT_SPINCTRL( ID_LINE_WIDTH_SPINCTRL, ViewChControl::OnLineWidthSpinctrlUpdated )
+EVT_SPINCTRL( ID_LINE_WIDTH_SPINCTRL, ViewChControl::OnLineWidthSpinctrlUpdated )
 
-    EVT_BUTTON( ID_OFFSET_Y_RESET_BUTTON, ViewChControl::OnOffsetYResetButtonClick )
+EVT_BUTTON( ID_OFFSET_Y_RESET_BUTTON, ViewChControl::OnOffsetYResetButtonClick )
 
-    EVT_SPIN( ID_SPINBUTTON1, ViewChControl::OnSpinbutton1Updated )
+EVT_SPIN( ID_SPINBUTTON1, ViewChControl::OnSpinbutton1Updated )
 
-    EVT_SPINCTRL( ID_VOLT_PER_DIV_SPINCTRL, ViewChControl::OnVoltPerDivSpinctrlUpdated )
+EVT_SPINCTRL( ID_VOLT_PER_DIV_SPINCTRL, ViewChControl::OnVoltPerDivSpinctrlUpdated )
 
 ////@end ViewChControl event table entries
 
-    EVT_TEXT_ENTER( ID_LINE_WIDTH_SPINCTRL, ViewChControl::OnLineWidthSpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_VOLT_PER_DIV_SPINCTRL, ViewChControl::OnVoltPerDivSpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_LINE_WIDTH_SPINCTRL, ViewChControl::OnLineWidthSpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_VOLT_PER_DIV_SPINCTRL, ViewChControl::OnVoltPerDivSpinctrlTextUpdated )
 END_EVENT_TABLE()
 
 /*!
@@ -173,7 +173,7 @@ void ViewChControl::CreateControls()
 
 ////@end ViewChControl content construction
 
-	this->m_ch_offset_control->SetRange( -200, 200);
+    this->m_ch_offset_control->SetRange( -200, 200);
 }
 
 /*!
@@ -213,47 +213,47 @@ wxIcon ViewChControl::GetIconResource( const wxString& name )
 
 bool ViewChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, int scope_index, bool is_virtual)
 {
-	this->m_is_virtual= is_virtual;
-	this->m_p_board= p_board;
-	this->m_ch_index= ch_index;
-	this->m_ch_count= ch_count;
-	this->m_scope_index= scope_index;
-	if( this->m_is_virtual)
-	{
-		if( ( size_t)this->m_ch_index>= this->m_p_board->m_virtual_channel_array.GetCount())
-			return false;
-		this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_virtual_channel_array[ this->m_ch_index];
-	}
-	else
-	{
-		if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
-			return false;
-		this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
-	}
-	
-	if( !this->UpdateControls())
-		return false;
-	return true;
+    this->m_is_virtual= is_virtual;
+    this->m_p_board= p_board;
+    this->m_ch_index= ch_index;
+    this->m_ch_count= ch_count;
+    this->m_scope_index= scope_index;
+    if( this->m_is_virtual)
+    {
+        if( ( size_t)this->m_ch_index>= this->m_p_board->m_virtual_channel_array.GetCount())
+            return false;
+        this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_virtual_channel_array[ this->m_ch_index];
+    }
+    else
+    {
+        if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
+            return false;
+        this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
+    }
+        
+    if( !this->UpdateControls())
+        return false;
+    return true;
 }
 bool ViewChControl::UpdateControls( )
 {
-	if( this->m_is_virtual)
-	  this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
-	else
-	  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
-	this->m_color_control->SetBackgroundColour( this->m_p_board_channel->m_line_color[ this->m_scope_index]);
-	this->m_line_width_control->SetValue( this->m_p_board_channel->m_line_width[ this->m_scope_index]);
+    if( this->m_is_virtual)
+        this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
+    else
+        this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
+    this->m_color_control->SetBackgroundColour( this->m_p_board_channel->m_line_color[ this->m_scope_index]);
+    this->m_line_width_control->SetValue( this->m_p_board_channel->m_line_width[ this->m_scope_index]);
 
-	this->m_ch_offset_control->SetValue( (int)(double)(this->m_p_board_channel->m_offset_y[ this->m_scope_index]* 10.0));
-	if( this->m_p_board_channel->m_volt_2_div[ this->m_scope_index]== 0)
-		this->m_p_board_channel->m_volt_2_div[ this->m_scope_index]= 0.01;
-	this->m_ch_volt_per_div_control->SetValue( (int)(double)(1000.0/ this->m_p_board_channel->m_volt_2_div[ this->m_scope_index]));
-	this->UpdateLinePen();
+    this->m_ch_offset_control->SetValue( (int)(double)(this->m_p_board_channel->m_offset_y[ this->m_scope_index]* 10.0));
+    if( this->m_p_board_channel->m_volt_2_div[ this->m_scope_index]== 0)
+        this->m_p_board_channel->m_volt_2_div[ this->m_scope_index]= 0.01;
+    this->m_ch_volt_per_div_control->SetValue( (int)(double)(1000.0/ this->m_p_board_channel->m_volt_2_div[ this->m_scope_index]));
+    this->UpdateLinePen();
 
-	this->m_view_enable_control->SetValue( this->m_p_board_channel->m_scope_view_enabled[ this->m_scope_index]);
-	this->m_view_enable_control->SetLabel( this->m_view_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    this->m_view_enable_control->SetValue( this->m_p_board_channel->m_scope_view_enabled[ this->m_scope_index]);
+    this->m_view_enable_control->SetLabel( this->m_view_enable_control->GetValue( )? _("Disable"): _("Enable"));
 
-	return true;
+    return true;
 }
 /*!
  * wxEVT_COMMAND_BUTTON_CLICKED event handler for ID_CHOOSE_COLOR_BUTTON
@@ -261,18 +261,18 @@ bool ViewChControl::UpdateControls( )
 
 void ViewChControl::OnChooseColorButtonClick( wxCommandEvent& /* event*/ )
 {
-	wxColourData colour_data;
-	colour_data.SetColour( this->m_p_board_channel->m_line_color[ this->m_scope_index]);
-	wxColourDialog *dlg= new wxColourDialog( this, &colour_data);
-	dlg->Centre();
-	if( dlg->ShowModal()== wxID_OK)
-	{
-		this->m_p_board_channel->m_line_color[ this->m_scope_index]= dlg->GetColourData().GetColour();
-		this->m_color_control->SetBackgroundColour( this->m_p_board_channel->m_line_color[ this->m_scope_index]);
-		this->m_color_control->Refresh();
-		this->UpdateLinePen();
-	}
-	delete dlg;
+    wxColourData colour_data;
+    colour_data.SetColour( this->m_p_board_channel->m_line_color[ this->m_scope_index]);
+    wxColourDialog *dlg= new wxColourDialog( this, &colour_data);
+    dlg->Centre();
+    if( dlg->ShowModal()== wxID_OK)
+    {
+        this->m_p_board_channel->m_line_color[ this->m_scope_index]= dlg->GetColourData().GetColour();
+        this->m_color_control->SetBackgroundColour( this->m_p_board_channel->m_line_color[ this->m_scope_index]);
+        this->m_color_control->Refresh();
+        this->UpdateLinePen();
+    }
+    delete dlg;
 }
 
 
@@ -282,18 +282,18 @@ void ViewChControl::OnChooseColorButtonClick( wxCommandEvent& /* event*/ )
 
 void ViewChControl::OnLineWidthSpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateLineWidth( event.GetPosition());
+    this->UpdateLineWidth( event.GetPosition());
 }
 
 
 void ViewChControl::UpdateLinePen( )
 {
-	int wx_pen_style= wxSOLID;
+    int wx_pen_style= wxSOLID;
 
-	wxPen line_pen= wxPen( this->m_p_board_channel->m_line_color[ this->m_scope_index], this->m_p_board_channel->m_line_width[ this->m_scope_index], wx_pen_style);
-	wxPen trigger_pen= wxPen( this->m_p_board_channel->m_line_color[ this->m_scope_index], 1, wxSOLID);
-	this->m_p_board_channel->SetLinePen( this->m_scope_index, &line_pen, &trigger_pen);
-	(this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
+    wxPen line_pen= wxPen( this->m_p_board_channel->m_line_color[ this->m_scope_index], this->m_p_board_channel->m_line_width[ this->m_scope_index], wx_pen_style);
+    wxPen trigger_pen= wxPen( this->m_p_board_channel->m_line_color[ this->m_scope_index], 1, wxSOLID);
+    this->m_p_board_channel->SetLinePen( this->m_scope_index, &line_pen, &trigger_pen);
+    (this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
 }
 
 
@@ -303,28 +303,28 @@ void ViewChControl::UpdateLinePen( )
 
 void ViewChControl::OnLineWidthSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-  int value= atoi( this->m_line_width_control->GetLabel().ToAscii());
+    int value= atoi( this->m_line_width_control->GetLabel().ToAscii());
     this->UpdateLineWidth( value);
 }
 
 
 void ViewChControl::UpdateLineWidth( int value)
 {
-	this->m_p_board_channel->m_line_width[ this->m_scope_index]= value;
-	this->UpdateLinePen();
+    this->m_p_board_channel->m_line_width[ this->m_scope_index]= value;
+    this->UpdateLinePen();
 }
 
 void ViewChControl::UpdateOffset( void)
 {
-	this->m_p_board_channel->m_offset_y[ this->m_scope_index]= (double)this->m_ch_offset_control->GetValue( )* 0.1;
-	(this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
+    this->m_p_board_channel->m_offset_y[ this->m_scope_index]= (double)this->m_ch_offset_control->GetValue( )* 0.1;
+    (this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
 }
 void ViewChControl::UpdateVoltPerDiv( int value)
 {
-	if( value== 0)
-		value= 1;
-	this->m_p_board_channel->SetVolt2Div( this->m_scope_index, 1000.0/ (double)value);
-	(this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
+    if( value== 0)
+        value= 1;
+    this->m_p_board_channel->SetVolt2Div( this->m_scope_index, 1000.0/ (double)value);
+    (this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
 }
 /*!
  * wxEVT_COMMAND_SPINCTRL_UPDATED event handler for ID_VOLT_PER_DIV_SPINCTRL
@@ -332,7 +332,7 @@ void ViewChControl::UpdateVoltPerDiv( int value)
 
 void ViewChControl::OnVoltPerDivSpinctrlUpdated( wxSpinEvent& event)
 {
-	this->UpdateVoltPerDiv( event.GetPosition());
+    this->UpdateVoltPerDiv( event.GetPosition());
 }
 
 /*!
@@ -341,8 +341,8 @@ void ViewChControl::OnVoltPerDivSpinctrlUpdated( wxSpinEvent& event)
 
 void ViewChControl::OnVoltPerDivSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-  int value= atoi( this->m_ch_volt_per_div_control->GetLabel().ToAscii());
-	this->UpdateVoltPerDiv( value);
+    int value= atoi( this->m_ch_volt_per_div_control->GetLabel().ToAscii());
+    this->UpdateVoltPerDiv( value);
 }
 
 
@@ -352,8 +352,8 @@ void ViewChControl::OnVoltPerDivSpinctrlTextUpdated( wxCommandEvent& /* event*/ 
 
 void ViewChControl::OnOffsetYResetButtonClick( wxCommandEvent& /* event*/)
 {
-	this->m_ch_offset_control->SetValue( 0);
-	this->UpdateOffset();
+    this->m_ch_offset_control->SetValue( 0);
+    this->UpdateOffset();
 }
 
 /*!
@@ -362,7 +362,7 @@ void ViewChControl::OnOffsetYResetButtonClick( wxCommandEvent& /* event*/)
 
 void ViewChControl::OnSpinbutton1Updated( wxSpinEvent& /* event*/ )
 {
-	this->UpdateOffset();
+    this->UpdateOffset();
 }
 
 /*!
@@ -371,9 +371,9 @@ void ViewChControl::OnSpinbutton1Updated( wxSpinEvent& /* event*/ )
 
 void ViewChControl::OnViewEnableTogglebuttonClick( wxCommandEvent& /*event*/ )
 {
-	this->m_p_board_channel->m_scope_view_enabled[ this->m_scope_index]= this->m_view_enable_control->GetValue( )!= 0;
-	this->m_view_enable_control->SetLabel( this->m_view_enable_control->GetValue( )? _("Disable"): _("Enable"));
-	(this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
+    this->m_p_board_channel->m_scope_view_enabled[ this->m_scope_index]= this->m_view_enable_control->GetValue( )!= 0;
+    this->m_view_enable_control->SetLabel( this->m_view_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    (this->m_p_board_channel->ScopeRefresh)( this->m_scope_index, true);
 }
 
 

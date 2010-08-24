@@ -1,15 +1,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \file    filename
-*   \brief   Brief file description here
-*   \author  NDA
-*   \version 1.0
-*   \date    03/2006
-*            
-*            Detailed file description here
-*   \todo    todo list here
-*   \bug     bug list here
-*   \note    optional notes here
-*/
+ *   \brief   Brief file description here
+ *   \author  NDA
+ *   \version 1.0
+ *   \date    03/2006
+ *            
+ *            Detailed file description here
+ *   \todo    todo list here
+ *   \bug     bug list here
+ *   \note    optional notes here
+ */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __TEMPLATE_DEF_H
@@ -26,10 +26,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \def     define id
-*   \brief   Brief description for the define
-*            
-*            Detailed description for the define
-*/
+ *   \brief   Brief description for the define
+ *            
+ *            Detailed description for the define
+ */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,10 +38,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \var     typed variable name
-*   \brief   Brief description for the variable
-*            
-*            Detailed description for the variable
-*/
+ *   \brief   Brief description for the variable
+ *            
+ *            Detailed description for the variable
+ */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,13 +50,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \fn      function prototipe
-*   \brief   Brief description for the function
-*            
-*            Detailed description for the function
-*   \param   param description
-*   \return  return value description
-*   \note    optional notes here
-*/
+ *   \brief   Brief description for the function
+ *            
+ *            Detailed description for the function
+ *   \param   param description
+ *   \return  return value description
+ *   \note    optional notes here
+ */
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-#endif			// __TEMPLATE_DEF_H
+#endif                  // __TEMPLATE_DEF_H

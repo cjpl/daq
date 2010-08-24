@@ -27,39 +27,39 @@ class AppSettings;
 class VirtualBoardChannel: public GenericBoardChannel
 {
 public:
-	VirtualBoardChannel( GenericBoard* parent, int ch_index, cvt_board_data* p_data, void (* scope_refresh)( int, bool), wxMutex *p_data_mutex, AppSettings* p_app_settings);
-	~VirtualBoardChannel(void);
-	//
-	// Properties
+    VirtualBoardChannel( GenericBoard* parent, int ch_index, cvt_board_data* p_data, void (* scope_refresh)( int, bool), wxMutex *p_data_mutex, AppSettings* p_app_settings);
+    ~VirtualBoardChannel(void);
+    //
+    // Properties
 
-	//
-	// Methods
+    //
+    // Methods
 
-	// Pure virtual implementation
-	virtual inline int GetSample( int i);
-	virtual inline double GetSampleVolt( int i);
-	
-	virtual inline UINT32 GetBufferCount( void);
-	virtual void DrawTrigger( int scope_index, wxDC &dc);
+    // Pure virtual implementation
+    virtual inline int GetSample( int i);
+    virtual inline double GetSampleVolt( int i);
+        
+    virtual inline UINT32 GetBufferCount( void);
+    virtual void DrawTrigger( int scope_index, wxDC &dc);
 
-	// Virtual override
-	bool LoadConfig( wxConfigBase* p_config, const wxString& base_section);
-	bool SaveConfig( wxConfigBase* p_config, const wxString& base_section);
-	wxString GetRecordChannelNumber( void);
+    // Virtual override
+    bool LoadConfig( wxConfigBase* p_config, const wxString& base_section);
+    bool SaveConfig( wxConfigBase* p_config, const wxString& base_section);
+    wxString GetRecordChannelNumber( void);
 
-	const char* GetExpressionDef( void);
-	void SetExpressionDef( const char* expression_def);
+    const char* GetExpressionDef( void);
+    void SetExpressionDef( const char* expression_def);
 
 protected:
 
-	RpnHandler *m_p_rpn_handler;
-	bool GetChannelValue( int channel_id, double& result);
-	bool GetChannelValueVolt( int channel_id, double& result);
-	bool GetChannelBufferCount( int channel_id, UINT32& result);
-	int m_sample_index;
+    RpnHandler *m_p_rpn_handler;
+    bool GetChannelValue( int channel_id, double& result);
+    bool GetChannelValueVolt( int channel_id, double& result);
+    bool GetChannelBufferCount( int channel_id, UINT32& result);
+    int m_sample_index;
 
-	friend class RpnHandler;
+    friend class RpnHandler;
 };
 
 
-#endif	// _VIRTUAL_BOARD_CHANNEL_H_
+#endif  // _VIRTUAL_BOARD_CHANNEL_H_

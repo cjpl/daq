@@ -80,9 +80,9 @@ class RpnHandler;
 class VirtualChannelDefDialog: public wxDialog
 {    
     DECLARE_DYNAMIC_CLASS( VirtualChannelDefDialog )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     VirtualChannelDefDialog( );
     VirtualChannelDefDialog( VirtualBoardChannel* board_channel, wxWindow* parent, wxWindowID id = SYMBOL_VIRTUALCHANNELDEFDIALOG_IDNAME, const wxString& caption = SYMBOL_VIRTUALCHANNELDEFDIALOG_TITLE, const wxPoint& pos = SYMBOL_VIRTUALCHANNELDEFDIALOG_POSITION, const wxSize& size = SYMBOL_VIRTUALCHANNELDEFDIALOG_SIZE, long style = SYMBOL_VIRTUALCHANNELDEFDIALOG_STYLE );
@@ -145,9 +145,9 @@ public:
     wxListBox* m_definition_ctrl;
 ////@end VirtualChannelDefDialog member variables
 protected:
-	VirtualBoardChannel* m_p_board_channel;
-	wxString MakeExpressionDef( void);
+    VirtualBoardChannel* m_p_board_channel;
+    wxString MakeExpressionDef( void);
 };
 
 #endif
-    // _VIRTUAL_CHANNEL_DEF_DIALOG_H_
+// _VIRTUAL_CHANNEL_DEF_DIALOG_H_

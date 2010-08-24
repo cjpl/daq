@@ -57,37 +57,37 @@
 
 static const double SEC_PER_DIV_TABLE[]=
 {
-	0.000000001,		//   1 nS
-	0.000000002,		//   2 nS
-	0.000000004,		//   4 nS
+    0.000000001,                //   1 nS
+    0.000000002,                //   2 nS
+    0.000000004,                //   4 nS
 
-	0.000000010,		//  10 nS
-	0.000000020,		//  20 nS
-	0.000000040,		//  40 nS
+    0.000000010,                //  10 nS
+    0.000000020,                //  20 nS
+    0.000000040,                //  40 nS
 
-	0.000000100,		// 100 nS
-	0.000000200,		// 200 nS
-	0.000000400,		// 400 nS
+    0.000000100,                // 100 nS
+    0.000000200,                // 200 nS
+    0.000000400,                // 400 nS
 
-	0.000001000,		//   1 uS
-	0.000002000,		//   2 uS
-	0.000004000,		//   4 uS
+    0.000001000,                //   1 uS
+    0.000002000,                //   2 uS
+    0.000004000,                //   4 uS
 
-	0.000010000,		//  10 uS
-	0.000020000,		//  20 uS
-	0.000040000,		//  40 uS
+    0.000010000,                //  10 uS
+    0.000020000,                //  20 uS
+    0.000040000,                //  40 uS
 
-	0.000100000,		// 100 uS
-	0.000200000,		// 200 uS
-	0.000400000,		// 400 uS
+    0.000100000,                // 100 uS
+    0.000200000,                // 200 uS
+    0.000400000,                // 400 uS
 
-	0.001000000,		//   1 mS
-	0.002000000,		//   2 mS
-	0.004000000,		//   4 mS
+    0.001000000,                //   1 mS
+    0.002000000,                //   2 mS
+    0.004000000,                //   4 mS
 
-	0.010000000,		//  10 mS
-	0.020000000,		//  20 mS
-	0.040000000,		//  40 mS
+    0.010000000,                //  10 mS
+    0.020000000,                //  20 mS
+    0.040000000,                //  40 mS
 
 };
 
@@ -96,8 +96,8 @@ wxStatusBar* MainFrame::g_main_statusbar= NULL;
 wxPanel* MainFrame::g_samples_ready_control= NULL;
 wxFrame* g_main_frame= NULL;
 /*!
-* MainFrame type definition
-*/
+ * MainFrame type definition
+ */
 
 // DbgOnly
 DEFINE_EVENT_TYPE( wxEVT_RECORD_END_EVENT)
@@ -105,167 +105,167 @@ DEFINE_EVENT_TYPE( wxEVT_RECORD_END_EVENT)
 IMPLEMENT_CLASS( MainFrame, wxFrame )
 
 /*!
-* MainFrame event table definition
-*/
+ * MainFrame event table definition
+ */
 
 BEGIN_EVENT_TABLE( MainFrame, wxFrame )
 
 ////@begin MainFrame event table entries
-    EVT_CLOSE( MainFrame::OnCloseWindow )
-    EVT_SIZE( MainFrame::OnSize )
+EVT_CLOSE( MainFrame::OnCloseWindow )
+EVT_SIZE( MainFrame::OnSize )
 
-    EVT_SASH_DRAGGED( ID_SASHLAYOUTWINDOW2, MainFrame::OnBottomWindowSashDragged )
+EVT_SASH_DRAGGED( ID_SASHLAYOUTWINDOW2, MainFrame::OnBottomWindowSashDragged )
 
-    EVT_TOGGLEBUTTON( ID_COMMON_RUN_TOGGLEBUTTON, MainFrame::OnCommonRunTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_COMMON_RUN_TOGGLEBUTTON, MainFrame::OnCommonRunTogglebuttonClick )
 
-    EVT_TOGGLEBUTTON( ID_FRONT_PANEL_NIM_TOGGLEBUTTON, MainFrame::OnFrontPanelNimTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_FRONT_PANEL_NIM_TOGGLEBUTTON, MainFrame::OnFrontPanelNimTogglebuttonClick )
 
-    EVT_CHOICE( ID_SIZE_X_CHOICE, MainFrame::OnSizeXChoiceSelected )
+EVT_CHOICE( ID_SIZE_X_CHOICE, MainFrame::OnSizeXChoiceSelected )
 
-    EVT_BUTTON( ID_MAIN_DAC_RESET_BUTTON, MainFrame::OnMainDacResetButtonClick )
+EVT_BUTTON( ID_MAIN_DAC_RESET_BUTTON, MainFrame::OnMainDacResetButtonClick )
 
-    EVT_SPIN( ID_MAIN_DAC_OFFSET_SPINBUTTON, MainFrame::OnMainDacOffsetSpinbuttonUpdated )
+EVT_SPIN( ID_MAIN_DAC_OFFSET_SPINBUTTON, MainFrame::OnMainDacOffsetSpinbuttonUpdated )
 
-    EVT_TOGGLEBUTTON( ID_TRIGGER_EXT_TOGGLEBUTTON, MainFrame::OnTriggerExtTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_TRIGGER_EXT_TOGGLEBUTTON, MainFrame::OnTriggerExtTogglebuttonClick )
 
-    EVT_TOGGLEBUTTON( ID_TRIGGER_AUTO_TOGGLEBUTTON, MainFrame::OnTriggerAutoTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_TRIGGER_AUTO_TOGGLEBUTTON, MainFrame::OnTriggerAutoTogglebuttonClick )
 
-    EVT_BUTTON( ID_TRIGGER_FORCE_BUTTON, MainFrame::OnTriggerForceButtonClick )
+EVT_BUTTON( ID_TRIGGER_FORCE_BUTTON, MainFrame::OnTriggerForceButtonClick )
 
-    EVT_SPINCTRL( ID_TRIGGER_POST_SPINCTRL, MainFrame::OnTriggerPostSpinctrlUpdated )
+EVT_SPINCTRL( ID_TRIGGER_POST_SPINCTRL, MainFrame::OnTriggerPostSpinctrlUpdated )
 
-    EVT_CHECKBOX( ID_TRIGGER_POSITION_KEEP_CHECKBOX, MainFrame::OnTriggerPositionKeepCheckboxClick )
+EVT_CHECKBOX( ID_TRIGGER_POSITION_KEEP_CHECKBOX, MainFrame::OnTriggerPositionKeepCheckboxClick )
 
-    EVT_CHOICE( ID_TRIGGER_EDGE_CHOICE, MainFrame::OnTriggerEdgeChoiceSelected )
+EVT_CHOICE( ID_TRIGGER_EDGE_CHOICE, MainFrame::OnTriggerEdgeChoiceSelected )
 
-    EVT_TOGGLEBUTTON( ID_RECORDTOGGLEBUTTON, MainFrame::OnRecordtogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_RECORDTOGGLEBUTTON, MainFrame::OnRecordtogglebuttonClick )
 
-    EVT_CHECKBOX( ID_RECORD_MAX_BUFFERS_CHECKBOX, MainFrame::OnRecordMaxBuffersCheckboxClick )
+EVT_CHECKBOX( ID_RECORD_MAX_BUFFERS_CHECKBOX, MainFrame::OnRecordMaxBuffersCheckboxClick )
 
-    EVT_TEXT( ID_RECORDDIRTEXTCTRL, MainFrame::OnRecorddirtextctrlUpdated )
-    EVT_TEXT_ENTER( ID_RECORDDIRTEXTCTRL, MainFrame::OnRecorddirtextctrlEnter )
+EVT_TEXT( ID_RECORDDIRTEXTCTRL, MainFrame::OnRecorddirtextctrlUpdated )
+EVT_TEXT_ENTER( ID_RECORDDIRTEXTCTRL, MainFrame::OnRecorddirtextctrlEnter )
 
-    EVT_BUTTON( ID_RECORDDIRBUTTON, MainFrame::OnRecorddirbuttonClick )
+EVT_BUTTON( ID_RECORDDIRBUTTON, MainFrame::OnRecorddirbuttonClick )
 
-    EVT_SASH_DRAGGED( ID_SASHLAYOUTWINDOW, MainFrame::OnLeftWindowSashDragged )
+EVT_SASH_DRAGGED( ID_SASHLAYOUTWINDOW, MainFrame::OnLeftWindowSashDragged )
 
-    EVT_BUTTON( ID_BACK_CHOOSE_COLOR_1_BUTTON, MainFrame::OnBackChooseColor1ButtonClick )
+EVT_BUTTON( ID_BACK_CHOOSE_COLOR_1_BUTTON, MainFrame::OnBackChooseColor1ButtonClick )
 
-    EVT_CHOICE( ID_SEC_PER_DIV_1_CHOICE, MainFrame::OnSecPerDiv1ChoiceSelected )
+EVT_CHOICE( ID_SEC_PER_DIV_1_CHOICE, MainFrame::OnSecPerDiv1ChoiceSelected )
 
-    EVT_SPINCTRL( ID_OFFSET_SEC_1_SPINCTRL, MainFrame::OnOffsetSec1SpinctrlUpdated )
+EVT_SPINCTRL( ID_OFFSET_SEC_1_SPINCTRL, MainFrame::OnOffsetSec1SpinctrlUpdated )
 
-    EVT_BUTTON( ID_GRID_CHOOSE_COLOR_1_BUTTON, MainFrame::OnGridChooseColor1ButtonClick )
+EVT_BUTTON( ID_GRID_CHOOSE_COLOR_1_BUTTON, MainFrame::OnGridChooseColor1ButtonClick )
 
-    EVT_SPINCTRL( ID_GRID_LINE_WIDTH_1_SPINCTRL, MainFrame::OnGridLineWidth1SpinctrlUpdated )
+EVT_SPINCTRL( ID_GRID_LINE_WIDTH_1_SPINCTRL, MainFrame::OnGridLineWidth1SpinctrlUpdated )
 
-    EVT_CHOICE( ID_GRID_LINE_TYPE_1_CHOICE, MainFrame::OnGridLineType1ChoiceSelected )
+EVT_CHOICE( ID_GRID_LINE_TYPE_1_CHOICE, MainFrame::OnGridLineType1ChoiceSelected )
 
-    EVT_BUTTON( ID_BACK_CHOOSE_COLOR_2_BUTTON, MainFrame::OnBackChooseColor2ButtonClick )
+EVT_BUTTON( ID_BACK_CHOOSE_COLOR_2_BUTTON, MainFrame::OnBackChooseColor2ButtonClick )
 
-    EVT_CHOICE( ID_SEC_PER_DIV_2_CHOICE, MainFrame::OnSecPerDiv2ChoiceSelected )
+EVT_CHOICE( ID_SEC_PER_DIV_2_CHOICE, MainFrame::OnSecPerDiv2ChoiceSelected )
 
-    EVT_SPINCTRL( ID_OFFSET_SEC_2_SPINCTRL, MainFrame::OnOffsetSec2SpinctrlUpdated )
+EVT_SPINCTRL( ID_OFFSET_SEC_2_SPINCTRL, MainFrame::OnOffsetSec2SpinctrlUpdated )
 
-    EVT_BUTTON( ID_GRID_CHOOSE_COLOR_2_BUTTON, MainFrame::OnGridChooseColor2ButtonClick )
+EVT_BUTTON( ID_GRID_CHOOSE_COLOR_2_BUTTON, MainFrame::OnGridChooseColor2ButtonClick )
 
-    EVT_SPINCTRL( ID_GRID_LINE_WIDTH_2_SPINCTRL, MainFrame::OnGridLineWidth2SpinctrlUpdated )
+EVT_SPINCTRL( ID_GRID_LINE_WIDTH_2_SPINCTRL, MainFrame::OnGridLineWidth2SpinctrlUpdated )
 
-    EVT_CHOICE( ID_GRID_LINE_TYPE_2_CHOICE, MainFrame::OnGridLineType2ChoiceSelected )
+EVT_CHOICE( ID_GRID_LINE_TYPE_2_CHOICE, MainFrame::OnGridLineType2ChoiceSelected )
 
-    EVT_BUTTON( ID_BACK_CHOOSE_COLOR_3_BUTTON, MainFrame::OnBackChooseColor3ButtonClick )
+EVT_BUTTON( ID_BACK_CHOOSE_COLOR_3_BUTTON, MainFrame::OnBackChooseColor3ButtonClick )
 
-    EVT_CHOICE( ID_SEC_PER_DIV_3_CHOICE, MainFrame::OnSecPerDiv3ChoiceSelected )
+EVT_CHOICE( ID_SEC_PER_DIV_3_CHOICE, MainFrame::OnSecPerDiv3ChoiceSelected )
 
-    EVT_SPINCTRL( ID_OFFSET_SEC_3_SPINCTRL, MainFrame::OnOffsetSec3SpinctrlUpdated )
+EVT_SPINCTRL( ID_OFFSET_SEC_3_SPINCTRL, MainFrame::OnOffsetSec3SpinctrlUpdated )
 
-    EVT_BUTTON( ID_GRID_CHOOSE_COLOR_3_BUTTON, MainFrame::OnGridChooseColor3ButtonClick )
+EVT_BUTTON( ID_GRID_CHOOSE_COLOR_3_BUTTON, MainFrame::OnGridChooseColor3ButtonClick )
 
-    EVT_SPINCTRL( ID_GRID_LINE_WIDTH_3_SPINCTRL, MainFrame::OnGridLineWidth3SpinctrlUpdated )
+EVT_SPINCTRL( ID_GRID_LINE_WIDTH_3_SPINCTRL, MainFrame::OnGridLineWidth3SpinctrlUpdated )
 
-    EVT_CHOICE( ID_GRID_LINE_TYPE_3_CHOICE, MainFrame::OnGridLineType3ChoiceSelected )
+EVT_CHOICE( ID_GRID_LINE_TYPE_3_CHOICE, MainFrame::OnGridLineType3ChoiceSelected )
 
-    EVT_BUTTON( ID_BACK_CHOOSE_COLOR_4_BUTTON, MainFrame::OnBackChooseColor4ButtonClick )
+EVT_BUTTON( ID_BACK_CHOOSE_COLOR_4_BUTTON, MainFrame::OnBackChooseColor4ButtonClick )
 
-    EVT_CHOICE( ID_SEC_PER_DIV_4_CHOICE, MainFrame::OnSecPerDiv4ChoiceSelected )
+EVT_CHOICE( ID_SEC_PER_DIV_4_CHOICE, MainFrame::OnSecPerDiv4ChoiceSelected )
 
-    EVT_SPINCTRL( ID_OFFSET_SEC_4_SPINCTRL, MainFrame::OnOffsetSec4SpinctrlUpdated )
+EVT_SPINCTRL( ID_OFFSET_SEC_4_SPINCTRL, MainFrame::OnOffsetSec4SpinctrlUpdated )
 
-    EVT_BUTTON( ID_GRID_CHOOSE_COLOR_4_BUTTON, MainFrame::OnGridChooseColor4ButtonClick )
+EVT_BUTTON( ID_GRID_CHOOSE_COLOR_4_BUTTON, MainFrame::OnGridChooseColor4ButtonClick )
 
-    EVT_SPINCTRL( ID_GRID_LINE_WIDTH_4_SPINCTRL, MainFrame::OnGridLineWidth4SpinctrlUpdated )
+EVT_SPINCTRL( ID_GRID_LINE_WIDTH_4_SPINCTRL, MainFrame::OnGridLineWidth4SpinctrlUpdated )
 
-    EVT_CHOICE( ID_GRID_LINE_TYPE_4_CHOICE, MainFrame::OnGridLineType4ChoiceSelected )
+EVT_CHOICE( ID_GRID_LINE_TYPE_4_CHOICE, MainFrame::OnGridLineType4ChoiceSelected )
 
-    EVT_SPLITTER_SASH_POS_CHANGED( ID_SCOPE_HORIZ_SPLITTERWINDOW, MainFrame::OnScopeHorizSplitterwindowSashPosChanged )
+EVT_SPLITTER_SASH_POS_CHANGED( ID_SCOPE_HORIZ_SPLITTERWINDOW, MainFrame::OnScopeHorizSplitterwindowSashPosChanged )
 
-    EVT_MENU( ID_EXIT_TOOL, MainFrame::OnExitToolClick )
+EVT_MENU( ID_EXIT_TOOL, MainFrame::OnExitToolClick )
 
-    EVT_MENU( ID_VIEW_LEFT_TOOL, MainFrame::OnViewLeftToolClick )
+EVT_MENU( ID_VIEW_LEFT_TOOL, MainFrame::OnViewLeftToolClick )
 
-    EVT_MENU( ID_VIEW_BOTTOM_TOOL, MainFrame::OnViewBottomToolClick )
+EVT_MENU( ID_VIEW_BOTTOM_TOOL, MainFrame::OnViewBottomToolClick )
 
-    EVT_MENU( ID_VIEW_SCOPE_LEFT_TOP_TOOL, MainFrame::OnViewScopeLeftTopToolClick )
+EVT_MENU( ID_VIEW_SCOPE_LEFT_TOP_TOOL, MainFrame::OnViewScopeLeftTopToolClick )
 
-    EVT_MENU( ID_VIEW_SCOPE_RIGHT_TOP_TOOL, MainFrame::OnViewScopeRightTopToolClick )
+EVT_MENU( ID_VIEW_SCOPE_RIGHT_TOP_TOOL, MainFrame::OnViewScopeRightTopToolClick )
 
-    EVT_MENU( ID_VIEW_SCOPE_LEFT_BOTTOM_TOOL, MainFrame::OnViewScopeLeftBottomToolClick )
+EVT_MENU( ID_VIEW_SCOPE_LEFT_BOTTOM_TOOL, MainFrame::OnViewScopeLeftBottomToolClick )
 
-    EVT_MENU( ID_VIEW_SCOPE_RIGHT_BOTTOM_TOOL, MainFrame::OnViewScopeRightBottomToolClick )
+EVT_MENU( ID_VIEW_SCOPE_RIGHT_BOTTOM_TOOL, MainFrame::OnViewScopeRightBottomToolClick )
 
-    EVT_MENU( ID_HELP_TOOL, MainFrame::OnHelpToolClick )
+EVT_MENU( ID_HELP_TOOL, MainFrame::OnHelpToolClick )
 
 ////@end MainFrame event table entries
-    EVT_TEXT_ENTER( ID_OFFSET_SEC_1_SPINCTRL, MainFrame::OnOffsetSec1SpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_GRID_LINE_WIDTH_1_SPINCTRL, MainFrame::OnGridLineWidth1SpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_OFFSET_SEC_2_SPINCTRL, MainFrame::OnOffsetSec2SpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_GRID_LINE_WIDTH_2_SPINCTRL, MainFrame::OnGridLineWidth2SpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_OFFSET_SEC_3_SPINCTRL, MainFrame::OnOffsetSec3SpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_GRID_LINE_WIDTH_3_SPINCTRL, MainFrame::OnGridLineWidth3SpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_OFFSET_SEC_4_SPINCTRL, MainFrame::OnOffsetSec4SpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_GRID_LINE_WIDTH_4_SPINCTRL, MainFrame::OnGridLineWidth4SpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_TRIGGER_POST_SPINCTRL, MainFrame::OnTriggerPostSpinctrlTextUpdated )
-    EVT_SPLITTER_SASH_POS_CHANGED( ID_SCOPE_VERT_TOP_SPLITTERWINDOW, MainFrame::OnScopeVertTopSplitterwindowSashPosChanged )
-    EVT_SPLITTER_SASH_POS_CHANGED( ID_SCOPE_VERT_BOTTOM_SPLITTERWINDOW, MainFrame::OnScopeVertBottomSplitterwindowSashPosChanged )
-	EVT_COMMAND( BOARD_WORKER_THREAD_ID, wxEVT_RECORD_END_EVENT, MainFrame::OnRecordEnd)
+EVT_TEXT_ENTER( ID_OFFSET_SEC_1_SPINCTRL, MainFrame::OnOffsetSec1SpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_GRID_LINE_WIDTH_1_SPINCTRL, MainFrame::OnGridLineWidth1SpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_OFFSET_SEC_2_SPINCTRL, MainFrame::OnOffsetSec2SpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_GRID_LINE_WIDTH_2_SPINCTRL, MainFrame::OnGridLineWidth2SpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_OFFSET_SEC_3_SPINCTRL, MainFrame::OnOffsetSec3SpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_GRID_LINE_WIDTH_3_SPINCTRL, MainFrame::OnGridLineWidth3SpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_OFFSET_SEC_4_SPINCTRL, MainFrame::OnOffsetSec4SpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_GRID_LINE_WIDTH_4_SPINCTRL, MainFrame::OnGridLineWidth4SpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_TRIGGER_POST_SPINCTRL, MainFrame::OnTriggerPostSpinctrlTextUpdated )
+EVT_SPLITTER_SASH_POS_CHANGED( ID_SCOPE_VERT_TOP_SPLITTERWINDOW, MainFrame::OnScopeVertTopSplitterwindowSashPosChanged )
+EVT_SPLITTER_SASH_POS_CHANGED( ID_SCOPE_VERT_BOTTOM_SPLITTERWINDOW, MainFrame::OnScopeVertBottomSplitterwindowSashPosChanged )
+EVT_COMMAND( BOARD_WORKER_THREAD_ID, wxEVT_RECORD_END_EVENT, MainFrame::OnRecordEnd)
 
 END_EVENT_TABLE()
 
 
 /*!
-* MainFrame constructors
-*/
+ * MainFrame constructors
+ */
 
 MainFrame::MainFrame( )
 {
-	g_main_frame= this;
+    g_main_frame= this;
 }
 
 MainFrame::MainFrame( wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
 {
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->m_scope_panel_array[ i] = NULL;
-	}
-	Create( parent, id, caption, pos, size, style );
-	g_main_frame= this;
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->m_scope_panel_array[ i] = NULL;
+    }
+    Create( parent, id, caption, pos, size, style );
+    g_main_frame= this;
 }
 MainFrame::~MainFrame( ) {
-	for( int i= 0; i< (int)this->m_size_X_control->GetCount(); i++) {
-		void *data= this->m_size_X_control->GetClientData( i);
-		if( data) {
-			delete (int*)data;
-		}
-	}
+    for( int i= 0; i< (int)this->m_size_X_control->GetCount(); i++) {
+        void *data= this->m_size_X_control->GetClientData( i);
+        if( data) {
+            delete (int*)data;
+        }
+    }
 }
 
 /*!
-* MainFrame creator
-*/
+ * MainFrame creator
+ */
 
 bool MainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
 {
-	////@begin MainFrame member initialisation
+    ////@begin MainFrame member initialisation
     m_bottom_pane = NULL;
     m_common_settings_notebook = NULL;
     m_common_panel = NULL;
@@ -350,295 +350,295 @@ bool MainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& caption
     m_scope_horiz_splitter = NULL;
     m_main_toolbar = NULL;
     m_main_statusbar = NULL;
-	////@end MainFrame member initialisation
+    ////@end MainFrame member initialisation
 
-	wxFileName::SetCwd( AppSettings::GetExecutablePath());
-	
-	//
-	// Load application settings
-	this->m_app_settings= new AppSettings( MainFrame::ScopeRefresh, MainFrame::UpdateSamplesReadyLed);
+    wxFileName::SetCwd( AppSettings::GetExecutablePath());
+        
+    //
+    // Load application settings
+    this->m_app_settings= new AppSettings( MainFrame::ScopeRefresh, MainFrame::UpdateSamplesReadyLed);
 
-	// 
-	// Load Application settings
-	if( !this->m_app_settings->Load( ))
-	{
-		wxLogError( _("Error loading application settings ..."));
-		return false;
-	}
+    // 
+    // Load Application settings
+    if( !this->m_app_settings->Load( ))
+    {
+        wxLogError( _("Error loading application settings ..."));
+        return false;
+    }
 
-	////@begin MainFrame creation
+    ////@begin MainFrame creation
     wxFrame::Create( parent, id, caption, pos, size, style );
 
     this->SetFont(wxFont(9, wxSWISS, wxNORMAL, wxNORMAL, false, _T("Verdana")));
     CreateControls();
     SetIcon(GetIconResource(wxT("scope2.png")));
     Centre();
-	////@end MainFrame creation
-	
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->m_scope_panel_array[ i]->m_app_settings= this->m_app_settings;
-	}
+    ////@end MainFrame creation
+        
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->m_scope_panel_array[ i]->m_app_settings= this->m_app_settings;
+    }
 
-	//
-	// Create dynamic controls
-	if( !this->CreateDynControls())
-		return false;
+    //
+    // Create dynamic controls
+    if( !this->CreateDynControls())
+        return false;
 
-	if( !this->UpdateControls())
-		return false;
+    if( !this->UpdateControls())
+        return false;
 
     Centre();
 
-	if( this->m_app_settings->m_started)
-	{
-		this->m_common_run_control->SetValue( true);
-		this->DoStartStopRunning( );
-	}
+    if( this->m_app_settings->m_started)
+    {
+        this->m_common_run_control->SetValue( true);
+        this->DoStartStopRunning( );
+    }
 
-	if( this->m_app_settings->m_show_bottom_pane)
-	{
-		this->m_main_toolbar->ToggleTool( ID_VIEW_BOTTOM_TOOL, true);
-	}
-	else
-	{
-		this->DoShowHideBottomPane();
-	}
-	if( this->m_app_settings->m_show_left_pane)
-	{
-		this->m_main_toolbar->ToggleTool( ID_VIEW_LEFT_TOOL, true);
-	}
-	else
-	{
-		this->DoShowHideLeftPane();
-	}
-	// Add scope panels show/ hide state
-	if( this->m_app_settings->m_show_scope_left_top_pane)
-	{
-		this->m_main_toolbar->ToggleTool( ID_VIEW_SCOPE_LEFT_TOP_TOOL, true);
-	}
-	else
-	{
-		this->DoShowHideScopeLeftTopPane( false);
-	}
-	if( this->m_app_settings->m_show_scope_right_top_pane)
-	{
-		this->m_main_toolbar->ToggleTool( ID_VIEW_SCOPE_RIGHT_TOP_TOOL, true);
-	}
-	else
-	{
-		this->DoShowHideScopeRightTopPane( false);
-	}
-	if( this->m_app_settings->m_show_scope_left_bottom_pane)
-	{
-		this->m_main_toolbar->ToggleTool( ID_VIEW_SCOPE_LEFT_BOTTOM_TOOL, true);
-	}
-	else
-	{
-		this->DoShowHideScopeLeftBottomPane( false);
-	}
-	if( this->m_app_settings->m_show_scope_right_bottom_pane)
-	{
-		this->m_main_toolbar->ToggleTool( ID_VIEW_SCOPE_RIGHT_BOTTOM_TOOL, true);
-	}
-	else
-	{
-		this->DoShowHideScopeRightBottomPane( false);
-	}
+    if( this->m_app_settings->m_show_bottom_pane)
+    {
+        this->m_main_toolbar->ToggleTool( ID_VIEW_BOTTOM_TOOL, true);
+    }
+    else
+    {
+        this->DoShowHideBottomPane();
+    }
+    if( this->m_app_settings->m_show_left_pane)
+    {
+        this->m_main_toolbar->ToggleTool( ID_VIEW_LEFT_TOOL, true);
+    }
+    else
+    {
+        this->DoShowHideLeftPane();
+    }
+    // Add scope panels show/ hide state
+    if( this->m_app_settings->m_show_scope_left_top_pane)
+    {
+        this->m_main_toolbar->ToggleTool( ID_VIEW_SCOPE_LEFT_TOP_TOOL, true);
+    }
+    else
+    {
+        this->DoShowHideScopeLeftTopPane( false);
+    }
+    if( this->m_app_settings->m_show_scope_right_top_pane)
+    {
+        this->m_main_toolbar->ToggleTool( ID_VIEW_SCOPE_RIGHT_TOP_TOOL, true);
+    }
+    else
+    {
+        this->DoShowHideScopeRightTopPane( false);
+    }
+    if( this->m_app_settings->m_show_scope_left_bottom_pane)
+    {
+        this->m_main_toolbar->ToggleTool( ID_VIEW_SCOPE_LEFT_BOTTOM_TOOL, true);
+    }
+    else
+    {
+        this->DoShowHideScopeLeftBottomPane( false);
+    }
+    if( this->m_app_settings->m_show_scope_right_bottom_pane)
+    {
+        this->m_main_toolbar->ToggleTool( ID_VIEW_SCOPE_RIGHT_BOTTOM_TOOL, true);
+    }
+    else
+    {
+        this->DoShowHideScopeRightBottomPane( false);
+    }
 
-	this->Layout();
-	return true;
+    this->Layout();
+    return true;
 }
 
 bool MainFrame::CreateDynControls()
 {
     wxBoxSizer* common_panel_HBoxSizer= new wxBoxSizer( wxHORIZONTAL);
-	this->m_common_main_sizer->Add( common_panel_HBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_common_main_sizer->Add( common_panel_HBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* trigger_panel_HBoxSizer= new wxBoxSizer( wxHORIZONTAL);
-	this->m_trigger_main_sizer->Add( trigger_panel_HBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_trigger_main_sizer->Add( trigger_panel_HBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* record_panel_HBoxSizer= new wxBoxSizer( wxHORIZONTAL);
-	this->m_record_main_sizer->Add( record_panel_HBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_record_main_sizer->Add( record_panel_HBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* view_1_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
-	this->m_view_1_main_sizer->Add( view_1_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_view_1_main_sizer->Add( view_1_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* view_2_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
-	this->m_view_2_main_sizer->Add( view_2_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_view_2_main_sizer->Add( view_2_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* view_3_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
-	this->m_view_3_main_sizer->Add( view_3_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_view_3_main_sizer->Add( view_3_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* view_4_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
-	this->m_view_4_main_sizer->Add( view_4_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_view_4_main_sizer->Add( view_4_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* cursor_1_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
-	this->m_cursor_1_main_sizer->Add( cursor_1_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_cursor_1_main_sizer->Add( cursor_1_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
 
-	wxBoxSizer* cursor_2_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
-	this->m_cursor_2_main_sizer->Add( cursor_2_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
+    wxBoxSizer* cursor_2_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
+    this->m_cursor_2_main_sizer->Add( cursor_2_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* cursor_3_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
-	this->m_cursor_3_main_sizer->Add( cursor_3_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_cursor_3_main_sizer->Add( cursor_3_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
 
     wxBoxSizer* cursor_4_panel_VBoxSizer= new wxBoxSizer( wxVERTICAL);
-	this->m_cursor_4_main_sizer->Add( cursor_4_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
+    this->m_cursor_4_main_sizer->Add( cursor_4_panel_VBoxSizer, 1, wxGROW|wxALL, 5);
 
-	// Channel controls
-	int ch_count= 0;
-	int virt_ch_count= 0;
+    // Channel controls
+    int ch_count= 0;
+    int virt_ch_count= 0;
 
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		//size_t i= 0;
-		bool show_dac= true;
-		switch( ((GenericBoard*)this->m_app_settings->m_board_array[i])->GetType())
-		{
-			case CVT_V1740:
-			//case DT5740:
-			//case N6740:
-				ch_count= (((V1740Board*)this->m_app_settings->m_board_array[i])->m_channel_group)<<3;
-				show_dac= false;
-				break;
-		}
-		for( size_t j= 0; j< ((GenericBoard*)this->m_app_settings->m_board_array[i])->m_channel_array.GetCount(); j++, ch_count++)
-		{
-			//
-			// Common controls
-			CommonChControl *common_ch_ctrl= new CommonChControl( this->m_common_panel, show_dac);
-			common_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count);
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        //size_t i= 0;
+        bool show_dac= true;
+        switch( ((GenericBoard*)this->m_app_settings->m_board_array[i])->GetType())
+        {
+        case CVT_V1740:
+            //case DT5740:
+            //case N6740:
+            ch_count= (((V1740Board*)this->m_app_settings->m_board_array[i])->m_channel_group)<<3;
+            show_dac= false;
+            break;
+        }
+        for( size_t j= 0; j< ((GenericBoard*)this->m_app_settings->m_board_array[i])->m_channel_array.GetCount(); j++, ch_count++)
+        {
+            //
+            // Common controls
+            CommonChControl *common_ch_ctrl= new CommonChControl( this->m_common_panel, show_dac);
+            common_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count);
 
-			common_panel_HBoxSizer->Add( common_ch_ctrl, 0, wxGROW|wxALL, 1);
+            common_panel_HBoxSizer->Add( common_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			if( !show_dac) {
-				if( ((V1740Board*)this->m_app_settings->m_board_array[i])->m_channel_group== (int)j) {
-					//
-					// Trigger controls
-					TriggerChControl *trigger_ch_ctrl= new TriggerChControl( this->m_trigger_panel);
-					trigger_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ((V1740Board*)this->m_app_settings->m_board_array[i])->m_channel_group);
-					trigger_panel_HBoxSizer->Add( trigger_ch_ctrl, 0, wxGROW|wxALL, 1);
-				}
-			} else {
-				//
-				// Trigger controls
-				TriggerChControl *trigger_ch_ctrl= new TriggerChControl( this->m_trigger_panel);
-				trigger_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count);
-				trigger_panel_HBoxSizer->Add( trigger_ch_ctrl, 0, wxGROW|wxALL, 1);
-			}
-			//
-			// Record controls
-			RecordChControl *record_ch_ctrl= new RecordChControl( this->m_record_panel);
-			record_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, false);
+            if( !show_dac) {
+                if( ((V1740Board*)this->m_app_settings->m_board_array[i])->m_channel_group== (int)j) {
+                    //
+                    // Trigger controls
+                    TriggerChControl *trigger_ch_ctrl= new TriggerChControl( this->m_trigger_panel);
+                    trigger_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ((V1740Board*)this->m_app_settings->m_board_array[i])->m_channel_group);
+                    trigger_panel_HBoxSizer->Add( trigger_ch_ctrl, 0, wxGROW|wxALL, 1);
+                }
+            } else {
+                //
+                // Trigger controls
+                TriggerChControl *trigger_ch_ctrl= new TriggerChControl( this->m_trigger_panel);
+                trigger_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count);
+                trigger_panel_HBoxSizer->Add( trigger_ch_ctrl, 0, wxGROW|wxALL, 1);
+            }
+            //
+            // Record controls
+            RecordChControl *record_ch_ctrl= new RecordChControl( this->m_record_panel);
+            record_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, false);
 
-			record_panel_HBoxSizer->Add( record_ch_ctrl, 0, wxGROW|wxALL, 1);
+            record_panel_HBoxSizer->Add( record_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			//
-			// View controls
-			ViewChControl *view_1_ch_ctrl= new ViewChControl( this->m_view_scope_1_panel);
-			view_1_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 0, false);
-			view_1_panel_VBoxSizer->Add( view_1_ch_ctrl, 0, wxGROW|wxALL, 1);
+            //
+            // View controls
+            ViewChControl *view_1_ch_ctrl= new ViewChControl( this->m_view_scope_1_panel);
+            view_1_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 0, false);
+            view_1_panel_VBoxSizer->Add( view_1_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			ViewChControl *view_2_ch_ctrl= new ViewChControl( this->m_view_scope_2_panel);
-			view_2_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 1, false);
-			view_2_panel_VBoxSizer->Add( view_2_ch_ctrl, 0, wxGROW|wxALL, 1);
+            ViewChControl *view_2_ch_ctrl= new ViewChControl( this->m_view_scope_2_panel);
+            view_2_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 1, false);
+            view_2_panel_VBoxSizer->Add( view_2_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			ViewChControl *view_3_ch_ctrl= new ViewChControl( this->m_view_scope_3_panel);
-			view_3_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 2, false);
-			view_3_panel_VBoxSizer->Add( view_3_ch_ctrl, 0, wxGROW|wxALL, 1);
+            ViewChControl *view_3_ch_ctrl= new ViewChControl( this->m_view_scope_3_panel);
+            view_3_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 2, false);
+            view_3_panel_VBoxSizer->Add( view_3_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			ViewChControl *view_4_ch_ctrl= new ViewChControl( this->m_view_scope_4_panel);
-			view_4_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 3, false);
-			view_4_panel_VBoxSizer->Add( view_4_ch_ctrl, 0, wxGROW|wxALL, 1);
+            ViewChControl *view_4_ch_ctrl= new ViewChControl( this->m_view_scope_4_panel);
+            view_4_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 3, false);
+            view_4_panel_VBoxSizer->Add( view_4_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			//
-			// Cursor controls
-			CursorChControl *cursor_1_ch_ctrl= new CursorChControl( this->m_cursor_1_panel);
-			cursor_1_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 0, false);
-			cursor_1_panel_VBoxSizer->Add( cursor_1_ch_ctrl, 0, wxGROW|wxALL, 1);
+            //
+            // Cursor controls
+            CursorChControl *cursor_1_ch_ctrl= new CursorChControl( this->m_cursor_1_panel);
+            cursor_1_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 0, false);
+            cursor_1_panel_VBoxSizer->Add( cursor_1_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			CursorChControl *cursor_2_ch_ctrl= new CursorChControl( this->m_cursor_2_panel);
-			cursor_2_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 1, false);
-			cursor_2_panel_VBoxSizer->Add( cursor_2_ch_ctrl, 0, wxGROW|wxALL, 1);
+            CursorChControl *cursor_2_ch_ctrl= new CursorChControl( this->m_cursor_2_panel);
+            cursor_2_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 1, false);
+            cursor_2_panel_VBoxSizer->Add( cursor_2_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			CursorChControl *cursor_3_ch_ctrl= new CursorChControl( this->m_cursor_3_panel);
-			cursor_3_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 2, false);
-			cursor_3_panel_VBoxSizer->Add( cursor_3_ch_ctrl, 0, wxGROW|wxALL, 1);
+            CursorChControl *cursor_3_ch_ctrl= new CursorChControl( this->m_cursor_3_panel);
+            cursor_3_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 2, false);
+            cursor_3_panel_VBoxSizer->Add( cursor_3_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			CursorChControl *cursor_4_ch_ctrl= new CursorChControl( this->m_cursor_4_panel);
-			cursor_4_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 3, false);
-			cursor_4_panel_VBoxSizer->Add( cursor_4_ch_ctrl, 0, wxGROW|wxALL, 1);
-		}
-		// Virtual Channels
-		for( size_t j= 0; j< ((GenericBoard*)this->m_app_settings->m_board_array[i])->m_virtual_channel_array.GetCount(); j++, virt_ch_count++)
-		{
-			//
-			// Common controls
-			VirtualCommonChControl *common_ch_ctrl= new VirtualCommonChControl( this->m_common_panel);
-			common_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count);
+            CursorChControl *cursor_4_ch_ctrl= new CursorChControl( this->m_cursor_4_panel);
+            cursor_4_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, ch_count, 3, false);
+            cursor_4_panel_VBoxSizer->Add( cursor_4_ch_ctrl, 0, wxGROW|wxALL, 1);
+        }
+        // Virtual Channels
+        for( size_t j= 0; j< ((GenericBoard*)this->m_app_settings->m_board_array[i])->m_virtual_channel_array.GetCount(); j++, virt_ch_count++)
+        {
+            //
+            // Common controls
+            VirtualCommonChControl *common_ch_ctrl= new VirtualCommonChControl( this->m_common_panel);
+            common_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count);
 
-			common_panel_HBoxSizer->Add( common_ch_ctrl, 0, wxGROW|wxALL, 1);
+            common_panel_HBoxSizer->Add( common_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			//
-			// Record controls
-			RecordChControl *record_ch_ctrl= new RecordChControl( this->m_record_panel);
-			record_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, true);
+            //
+            // Record controls
+            RecordChControl *record_ch_ctrl= new RecordChControl( this->m_record_panel);
+            record_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, true);
 
-			record_panel_HBoxSizer->Add( record_ch_ctrl, 0, wxGROW|wxALL, 1);
+            record_panel_HBoxSizer->Add( record_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			//
-			// View controls
-			ViewChControl *view_1_ch_ctrl= new ViewChControl( this->m_view_scope_1_panel);
-			view_1_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 0, true);
-			view_1_panel_VBoxSizer->Add( view_1_ch_ctrl, 0, wxGROW|wxALL, 1);
+            //
+            // View controls
+            ViewChControl *view_1_ch_ctrl= new ViewChControl( this->m_view_scope_1_panel);
+            view_1_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 0, true);
+            view_1_panel_VBoxSizer->Add( view_1_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			ViewChControl *view_2_ch_ctrl= new ViewChControl( this->m_view_scope_2_panel);
-			view_2_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 1, true);
-			view_2_panel_VBoxSizer->Add( view_2_ch_ctrl, 0, wxGROW|wxALL, 1);
+            ViewChControl *view_2_ch_ctrl= new ViewChControl( this->m_view_scope_2_panel);
+            view_2_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 1, true);
+            view_2_panel_VBoxSizer->Add( view_2_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			ViewChControl *view_3_ch_ctrl= new ViewChControl( this->m_view_scope_3_panel);
-			view_3_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 2, true);
-			view_3_panel_VBoxSizer->Add( view_3_ch_ctrl, 0, wxGROW|wxALL, 1);
+            ViewChControl *view_3_ch_ctrl= new ViewChControl( this->m_view_scope_3_panel);
+            view_3_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 2, true);
+            view_3_panel_VBoxSizer->Add( view_3_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			ViewChControl *view_4_ch_ctrl= new ViewChControl( this->m_view_scope_4_panel);
-			view_4_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 3, true);
-			view_4_panel_VBoxSizer->Add( view_4_ch_ctrl, 0, wxGROW|wxALL, 1);
+            ViewChControl *view_4_ch_ctrl= new ViewChControl( this->m_view_scope_4_panel);
+            view_4_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 3, true);
+            view_4_panel_VBoxSizer->Add( view_4_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			//
-			// Cursor controls
-			CursorChControl *cursor_1_ch_ctrl= new CursorChControl( this->m_cursor_1_panel);
-			cursor_1_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 0, true);
-			cursor_1_panel_VBoxSizer->Add( cursor_1_ch_ctrl, 0, wxGROW|wxALL, 1);
+            //
+            // Cursor controls
+            CursorChControl *cursor_1_ch_ctrl= new CursorChControl( this->m_cursor_1_panel);
+            cursor_1_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 0, true);
+            cursor_1_panel_VBoxSizer->Add( cursor_1_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			CursorChControl *cursor_2_ch_ctrl= new CursorChControl( this->m_cursor_2_panel);
-			cursor_2_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 1, true);
-			cursor_2_panel_VBoxSizer->Add( cursor_2_ch_ctrl, 0, wxGROW|wxALL, 1);
+            CursorChControl *cursor_2_ch_ctrl= new CursorChControl( this->m_cursor_2_panel);
+            cursor_2_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 1, true);
+            cursor_2_panel_VBoxSizer->Add( cursor_2_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			CursorChControl *cursor_3_ch_ctrl= new CursorChControl( this->m_cursor_3_panel);
-			cursor_3_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 2, true);
-			cursor_3_panel_VBoxSizer->Add( cursor_3_ch_ctrl, 0, wxGROW|wxALL, 1);
+            CursorChControl *cursor_3_ch_ctrl= new CursorChControl( this->m_cursor_3_panel);
+            cursor_3_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 2, true);
+            cursor_3_panel_VBoxSizer->Add( cursor_3_ch_ctrl, 0, wxGROW|wxALL, 1);
 
-			CursorChControl *cursor_4_ch_ctrl= new CursorChControl( this->m_cursor_4_panel);
-			cursor_4_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 3, true);
-			cursor_4_panel_VBoxSizer->Add( cursor_4_ch_ctrl, 0, wxGROW|wxALL, 1);
-		}
-		// HACK : TBD for multiple board handling
-		this->m_DAC_offset_label->Show( show_dac);
-		this->m_DAC_sizer->Show( !show_dac);
-		if( !show_dac) {
-		  this->m_trigger_channel_sizer->GetStaticBox()->SetLabel(_(""));
-		}
-	}
-	return true;
+            CursorChControl *cursor_4_ch_ctrl= new CursorChControl( this->m_cursor_4_panel);
+            cursor_4_ch_ctrl->SetupBoard( (GenericBoard*)this->m_app_settings->m_board_array[i], j, virt_ch_count, 3, true);
+            cursor_4_panel_VBoxSizer->Add( cursor_4_ch_ctrl, 0, wxGROW|wxALL, 1);
+        }
+        // HACK : TBD for multiple board handling
+        this->m_DAC_offset_label->Show( show_dac);
+        this->m_DAC_sizer->Show( !show_dac);
+        if( !show_dac) {
+            this->m_trigger_channel_sizer->GetStaticBox()->SetLabel(_(""));
+        }
+    }
+    return true;
 }
 
 /*!
-* Control creation for MainFrame
-*/
+ * Control creation for MainFrame
+ */
 
 void MainFrame::CreateControls()
 {    
-	////@begin MainFrame content construction
+    ////@begin MainFrame content construction
     // Generated by DialogBlocks, 19/05/2008 17:44:38 (unregistered)
 
     MainFrame* itemFrame1 = this;
@@ -1269,212 +1269,212 @@ void MainFrame::CreateControls()
 
     // Connect events and objects
     m_scope_horiz_splitter->Connect(ID_SCOPE_HORIZ_SPLITTERWINDOW, wxEVT_SIZE, wxSizeEventHandler(MainFrame::OnSize), NULL, this);
-	////@end MainFrame content construction
+    ////@end MainFrame content construction
 
-	this->m_ch_DAC_control->SetRange( -0x8000, 0x7fff);
+    this->m_ch_DAC_control->SetRange( -0x8000, 0x7fff);
 
-	// Connect events and objects
+    // Connect events and objects
     m_scope_horiz_splitter->Connect(ID_SCOPE_HORIZ_SPLITTERWINDOW, wxEVT_SIZE, wxSizeEventHandler(MainFrame::OnSize), NULL, this);
 
-	// Show Toolbar logo
-	m_main_toolbar->PushEventHandler( new wxBackgroundBitmap( wxBitmap(AppSettings::get_default_path()+ _T("caen.png"), wxBITMAP_TYPE_PNG), this));
+    // Show Toolbar logo
+    m_main_toolbar->PushEventHandler( new wxBackgroundBitmap( wxBitmap(AppSettings::get_default_path()+ _T("caen.png"), wxBITMAP_TYPE_PNG), this));
 
-	MainFrame::g_main_statusbar= this->m_main_statusbar;
+    MainFrame::g_main_statusbar= this->m_main_statusbar;
 
-	MainFrame::g_samples_ready_control= this->m_samples_ready_control;
-	//
-	// Scope Notebook panel
+    MainFrame::g_samples_ready_control= this->m_samples_ready_control;
+    //
+    // Scope Notebook panel
 
-	this->m_scope_vert_splitter_top = new wxSplitterWindow( this->m_scope_horiz_splitter, ID_SCOPE_VERT_TOP_SPLITTERWINDOW, wxDefaultPosition, this->m_scope_horiz_splitter->ConvertDialogToPixels(wxSize(100, 100)), wxSP_3DBORDER|wxSP_3DSASH|wxSP_PERMIT_UNSPLIT|wxNO_BORDER );
-	this->m_scope_vert_splitter_top->SetMinimumPaneSize( 50);
+    this->m_scope_vert_splitter_top = new wxSplitterWindow( this->m_scope_horiz_splitter, ID_SCOPE_VERT_TOP_SPLITTERWINDOW, wxDefaultPosition, this->m_scope_horiz_splitter->ConvertDialogToPixels(wxSize(100, 100)), wxSP_3DBORDER|wxSP_3DSASH|wxSP_PERMIT_UNSPLIT|wxNO_BORDER );
+    this->m_scope_vert_splitter_top->SetMinimumPaneSize( 50);
 
-	this->m_scope_vert_splitter_bottom = new wxSplitterWindow( this->m_scope_horiz_splitter, ID_SCOPE_VERT_BOTTOM_SPLITTERWINDOW, wxDefaultPosition, this->m_scope_horiz_splitter->ConvertDialogToPixels(wxSize(100, 100)), wxSP_3DBORDER|wxSP_3DSASH|wxSP_PERMIT_UNSPLIT|wxNO_BORDER );
-	this->m_scope_vert_splitter_bottom->SetMinimumPaneSize( 50);
+    this->m_scope_vert_splitter_bottom = new wxSplitterWindow( this->m_scope_horiz_splitter, ID_SCOPE_VERT_BOTTOM_SPLITTERWINDOW, wxDefaultPosition, this->m_scope_horiz_splitter->ConvertDialogToPixels(wxSize(100, 100)), wxSP_3DBORDER|wxSP_3DSASH|wxSP_PERMIT_UNSPLIT|wxNO_BORDER );
+    this->m_scope_vert_splitter_bottom->SetMinimumPaneSize( 50);
 
-	int i;
-	for( i= 0; i< SCOPE_NUM_PANELS/ 2; i++)
-	{
-		this->m_scope_panel_array[ i] = new DrawingPanel( i, this->m_scope_vert_splitter_top, ID_DRAWING_PANEL+ 1000+ i, wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
-		MainFrame::g_scope_panel_array[ i]= this->m_scope_panel_array[ i];
-	}
-	for( ; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->m_scope_panel_array[ i] = new DrawingPanel( i, this->m_scope_vert_splitter_bottom, ID_DRAWING_PANEL+ 1000+ i, wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
-		MainFrame::g_scope_panel_array[ i]= this->m_scope_panel_array[ i];
-	}
+    int i;
+    for( i= 0; i< SCOPE_NUM_PANELS/ 2; i++)
+    {
+        this->m_scope_panel_array[ i] = new DrawingPanel( i, this->m_scope_vert_splitter_top, ID_DRAWING_PANEL+ 1000+ i, wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
+        MainFrame::g_scope_panel_array[ i]= this->m_scope_panel_array[ i];
+    }
+    for( ; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->m_scope_panel_array[ i] = new DrawingPanel( i, this->m_scope_vert_splitter_bottom, ID_DRAWING_PANEL+ 1000+ i, wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
+        MainFrame::g_scope_panel_array[ i]= this->m_scope_panel_array[ i];
+    }
 
-	this->m_scope_vert_splitter_top->SetSashGravity( 0.5);
-	this->m_scope_vert_splitter_bottom->SetSashGravity( 0.5);
-	this->m_scope_horiz_splitter->SetSashGravity( 0.5);
+    this->m_scope_vert_splitter_top->SetSashGravity( 0.5);
+    this->m_scope_vert_splitter_bottom->SetSashGravity( 0.5);
+    this->m_scope_horiz_splitter->SetSashGravity( 0.5);
 
-	//
-	// Grid line type items
-	this->m_grid_line_type_1_control->Append( _("NO GRID"));
-	this->m_grid_line_type_1_control->Append( _("SOLID"));
-	this->m_grid_line_type_1_control->Append( _("DASHED"));
-	this->m_grid_line_type_1_control->Append( _("DASH-DOT"));
-	this->m_grid_line_type_1_control->Append( _("DOTTED"));
+    //
+    // Grid line type items
+    this->m_grid_line_type_1_control->Append( _("NO GRID"));
+    this->m_grid_line_type_1_control->Append( _("SOLID"));
+    this->m_grid_line_type_1_control->Append( _("DASHED"));
+    this->m_grid_line_type_1_control->Append( _("DASH-DOT"));
+    this->m_grid_line_type_1_control->Append( _("DOTTED"));
 
-	this->m_grid_line_type_1_control->SetSelection( 0);
+    this->m_grid_line_type_1_control->SetSelection( 0);
 
-	this->m_grid_line_type_2_control->Append( _("NO GRID"));
-	this->m_grid_line_type_2_control->Append( _("SOLID"));
-	this->m_grid_line_type_2_control->Append( _("DASHED"));
-	this->m_grid_line_type_2_control->Append( _("DASH-DOT"));
-	this->m_grid_line_type_2_control->Append( _("DOTTED"));
+    this->m_grid_line_type_2_control->Append( _("NO GRID"));
+    this->m_grid_line_type_2_control->Append( _("SOLID"));
+    this->m_grid_line_type_2_control->Append( _("DASHED"));
+    this->m_grid_line_type_2_control->Append( _("DASH-DOT"));
+    this->m_grid_line_type_2_control->Append( _("DOTTED"));
 
-	this->m_grid_line_type_2_control->SetSelection( 0);
+    this->m_grid_line_type_2_control->SetSelection( 0);
 
-	this->m_grid_line_type_3_control->Append( _("NO GRID"));
-	this->m_grid_line_type_3_control->Append( _("SOLID"));
-	this->m_grid_line_type_3_control->Append( _("DASHED"));
-	this->m_grid_line_type_3_control->Append( _("DASH-DOT"));
-	this->m_grid_line_type_3_control->Append( _("DOTTED"));
+    this->m_grid_line_type_3_control->Append( _("NO GRID"));
+    this->m_grid_line_type_3_control->Append( _("SOLID"));
+    this->m_grid_line_type_3_control->Append( _("DASHED"));
+    this->m_grid_line_type_3_control->Append( _("DASH-DOT"));
+    this->m_grid_line_type_3_control->Append( _("DOTTED"));
 
-	this->m_grid_line_type_3_control->SetSelection( 0);
+    this->m_grid_line_type_3_control->SetSelection( 0);
 
-	this->m_grid_line_type_4_control->Append( _("NO GRID"));
-	this->m_grid_line_type_4_control->Append( _("SOLID"));
-	this->m_grid_line_type_4_control->Append( _("DASHED"));
-	this->m_grid_line_type_4_control->Append( _("DASH-DOT"));
-	this->m_grid_line_type_4_control->Append( _("DOTTED"));
+    this->m_grid_line_type_4_control->Append( _("NO GRID"));
+    this->m_grid_line_type_4_control->Append( _("SOLID"));
+    this->m_grid_line_type_4_control->Append( _("DASHED"));
+    this->m_grid_line_type_4_control->Append( _("DASH-DOT"));
+    this->m_grid_line_type_4_control->Append( _("DOTTED"));
 
-	this->m_grid_line_type_4_control->SetSelection( 0);
+    this->m_grid_line_type_4_control->SetSelection( 0);
 
-	//
-	// Number of samples per channel
-	UINT32 num_ksamples_per_channel= 1024;
+    //
+    // Number of samples per channel
+    UINT32 num_ksamples_per_channel= 1024;
 
-	char tmp[ 50];
-	// HACK : MainFrame::CreateControls TBD for multiple board usage
-	if( this->m_app_settings->m_board_array.Count())
-	{
-		if( !((GenericBoard*) this->m_app_settings->m_board_array[0])->GetBoardMemory( num_ksamples_per_channel))
-		{
-		  wxLogError( wxString::Format(_("Cannot read BOARD MEMORY capabilities: defaulting to %d K samples per channel\n"), num_ksamples_per_channel));
-		}
-	}
+    char tmp[ 50];
+    // HACK : MainFrame::CreateControls TBD for multiple board usage
+    if( this->m_app_settings->m_board_array.Count())
+    {
+        if( !((GenericBoard*) this->m_app_settings->m_board_array[0])->GetBoardMemory( num_ksamples_per_channel))
+        {
+            wxLogError( wxString::Format(_("Cannot read BOARD MEMORY capabilities: defaulting to %d K samples per channel\n"), num_ksamples_per_channel));
+        }
+    }
 
-	int n_samples;
-	for( int i= CVT_V1724_NBLK_1024; i>= CVT_V1724_NBLK_1; i--)
-	{
-		if( ( n_samples= ( num_ksamples_per_channel<< 10)/( 1<< i))<= 0)
-		{
-			continue;
-		}
-		if( n_samples>> 10) {
-			sprintf( tmp, "%i K", n_samples>> 10);
-		} else {
-			sprintf( tmp, "%i", n_samples);
-		}
-		int *data= new int();
-		*data= n_samples;
-		this->m_size_X_control->Append( wxString::FromAscii(tmp), data);
-	}
+    int n_samples;
+    for( int i= CVT_V1724_NBLK_1024; i>= CVT_V1724_NBLK_1; i--)
+    {
+        if( ( n_samples= ( num_ksamples_per_channel<< 10)/( 1<< i))<= 0)
+        {
+            continue;
+        }
+        if( n_samples>> 10) {
+            sprintf( tmp, "%i K", n_samples>> 10);
+        } else {
+            sprintf( tmp, "%i", n_samples);
+        }
+        int *data= new int();
+        *data= n_samples;
+        this->m_size_X_control->Append( wxString::FromAscii(tmp), data);
+    }
 
 /*
-	this->m_size_X_control->Append( _("1 K"));
-	this->m_size_X_control->Append( _("2 K"));
-	this->m_size_X_control->Append( _("4 K"));
-	this->m_size_X_control->Append( _("8 K"));
-	this->m_size_X_control->Append( _("16 K"));
-	this->m_size_X_control->Append( _("32 K"));
-	this->m_size_X_control->Append( _("64 K"));
-	this->m_size_X_control->Append( _("128 K"));
-	this->m_size_X_control->Append( _("256 K"));
-	this->m_size_X_control->Append( _("512 K"));
+  this->m_size_X_control->Append( _("1 K"));
+  this->m_size_X_control->Append( _("2 K"));
+  this->m_size_X_control->Append( _("4 K"));
+  this->m_size_X_control->Append( _("8 K"));
+  this->m_size_X_control->Append( _("16 K"));
+  this->m_size_X_control->Append( _("32 K"));
+  this->m_size_X_control->Append( _("64 K"));
+  this->m_size_X_control->Append( _("128 K"));
+  this->m_size_X_control->Append( _("256 K"));
+  this->m_size_X_control->Append( _("512 K"));
 */
-	this->m_size_X_control->SetSelection( 0);
+    this->m_size_X_control->SetSelection( 0);
 
-	////
-	//// External clock values
-	//this->m_ext_clock_control->Append( _("10   MHz"));
-	//this->m_ext_clock_control->Append( _("40   MHz"));
-	//this->m_ext_clock_control->Append( _("50   MHz"));
-	//this->m_ext_clock_control->Append( _("62.5 MHz"));
+    ////
+    //// External clock values
+    //this->m_ext_clock_control->Append( _("10   MHz"));
+    //this->m_ext_clock_control->Append( _("40   MHz"));
+    //this->m_ext_clock_control->Append( _("50   MHz"));
+    //this->m_ext_clock_control->Append( _("62.5 MHz"));
 
-	//this->m_ext_clock_control->SetSelection( 0);
+    //this->m_ext_clock_control->SetSelection( 0);
 
-	//
-	// Sample block size 
-	for( int i= 0; ; i++)
-	{
-		wxChoice *ctrl= (wxChoice *)0;
-		switch( i)
-		{
-		case 0:
-			ctrl= this->m_sec_per_div_1_control;
-			break;
-		case 1:
-			ctrl= this->m_sec_per_div_2_control;
-			break;
-		case 2:
-			ctrl= this->m_sec_per_div_3_control;
-			break;
-		case 3:
-			ctrl= this->m_sec_per_div_4_control;
-			break;
-		}
-		if( ctrl== (wxChoice *)0)
-			break;
-		ctrl->Append( _("  1 nS"));
-		ctrl->Append( _("  2 nS"));
-		ctrl->Append( _("  4 nS"));
+    //
+    // Sample block size 
+    for( int i= 0; ; i++)
+    {
+        wxChoice *ctrl= (wxChoice *)0;
+        switch( i)
+        {
+        case 0:
+            ctrl= this->m_sec_per_div_1_control;
+            break;
+        case 1:
+            ctrl= this->m_sec_per_div_2_control;
+            break;
+        case 2:
+            ctrl= this->m_sec_per_div_3_control;
+            break;
+        case 3:
+            ctrl= this->m_sec_per_div_4_control;
+            break;
+        }
+        if( ctrl== (wxChoice *)0)
+            break;
+        ctrl->Append( _("  1 nS"));
+        ctrl->Append( _("  2 nS"));
+        ctrl->Append( _("  4 nS"));
 
-		ctrl->Append( _(" 10 nS"));
-		ctrl->Append( _(" 20 nS"));
-		ctrl->Append( _(" 40 nS"));
+        ctrl->Append( _(" 10 nS"));
+        ctrl->Append( _(" 20 nS"));
+        ctrl->Append( _(" 40 nS"));
 
-		ctrl->Append( _("100 nS"));
-		ctrl->Append( _("200 nS"));
-		ctrl->Append( _("400 nS"));
+        ctrl->Append( _("100 nS"));
+        ctrl->Append( _("200 nS"));
+        ctrl->Append( _("400 nS"));
 
-		ctrl->Append( _("  1 uS"));
-		ctrl->Append( _("  2 uS"));
-		ctrl->Append( _("  4 uS"));
+        ctrl->Append( _("  1 uS"));
+        ctrl->Append( _("  2 uS"));
+        ctrl->Append( _("  4 uS"));
 
-		ctrl->Append( _(" 10 uS"));
-		ctrl->Append( _(" 20 uS"));
-		ctrl->Append( _(" 40 uS"));
+        ctrl->Append( _(" 10 uS"));
+        ctrl->Append( _(" 20 uS"));
+        ctrl->Append( _(" 40 uS"));
 
-		ctrl->Append( _("100 uS"));
-		ctrl->Append( _("200 uS"));
-		ctrl->Append( _("400 uS"));
+        ctrl->Append( _("100 uS"));
+        ctrl->Append( _("200 uS"));
+        ctrl->Append( _("400 uS"));
 
-		ctrl->Append( _("  1 mS"));
-		ctrl->Append( _("  2 mS"));
-		ctrl->Append( _("  4 mS"));
+        ctrl->Append( _("  1 mS"));
+        ctrl->Append( _("  2 mS"));
+        ctrl->Append( _("  4 mS"));
 
-		ctrl->Append( _(" 10 mS"));
-		ctrl->Append( _(" 20 mS"));
-		ctrl->Append( _(" 40 mS"));
+        ctrl->Append( _(" 10 mS"));
+        ctrl->Append( _(" 20 mS"));
+        ctrl->Append( _(" 40 mS"));
 
-		ctrl->SetSelection( 0);
-	}
+        ctrl->SetSelection( 0);
+    }
 
-	this->m_trigger_edge_control->Append( _("NO TRIG"));
-	this->m_trigger_edge_control->Append( _("RISING"));
-	this->m_trigger_edge_control->Append( _("FALLING"));
+    this->m_trigger_edge_control->Append( _("NO TRIG"));
+    this->m_trigger_edge_control->Append( _("RISING"));
+    this->m_trigger_edge_control->Append( _("FALLING"));
 
 }
 
 /*!
-* Should we show tooltips?
-*/
+ * Should we show tooltips?
+ */
 
 bool MainFrame::ShowToolTips()
 {
-	return true;
+    return true;
 }
 
 /*!
-* Get bitmap resources
-*/
+ * Get bitmap resources
+ */
 
 wxBitmap MainFrame::GetBitmapResource( const wxString& name )
 {
-	// Bitmap retrieval
-	////@begin MainFrame bitmap retrieval
+    // Bitmap retrieval
+    ////@begin MainFrame bitmap retrieval
     wxUnusedVar(name);
     if (name == _T("exit_34.png"))
     {
@@ -1517,71 +1517,71 @@ wxBitmap MainFrame::GetBitmapResource( const wxString& name )
         return bitmap;
     }
     return wxNullBitmap;
-	////@end MainFrame bitmap retrieval
+    ////@end MainFrame bitmap retrieval
 }
 
 /*!
-* Get icon resources
-*/
+ * Get icon resources
+ */
 
 wxIcon MainFrame::GetIconResource( const wxString& /*name*/ )
 {
-	// Icon retrieval
+    // Icon retrieval
 #include "../img/scope2.xpm"
     wxIcon icon( scope2_xpm);
     return icon;
 
- //   wxUnusedVar(name);
- //   if (name == _T("scope2.png"))
- //   {
- //       wxIcon icon(_T("scope2.png"), wxBITMAP_TYPE_PNG);
- //       return icon;
- //   }
- //   return wxNullIcon;
+    //   wxUnusedVar(name);
+    //   if (name == _T("scope2.png"))
+    //   {
+    //       wxIcon icon(_T("scope2.png"), wxBITMAP_TYPE_PNG);
+    //       return icon;
+    //   }
+    //   return wxNullIcon;
 }
 /*!
-* wxEVT_COMMAND_MENU_SELECTED event handler for ID_EXIT_TOOL
-*/
+ * wxEVT_COMMAND_MENU_SELECTED event handler for ID_EXIT_TOOL
+ */
 
 void MainFrame::OnExitToolClick( wxCommandEvent& /* event*/ )
 {
-	this->Close();
+    this->Close();
 }
 
 
 /*!
-* wxEVT_SASH_DRAGGED event handler for ID_SASHLAYOUTWINDOW
-*/
+ * wxEVT_SASH_DRAGGED event handler for ID_SASHLAYOUTWINDOW
+ */
 
 void MainFrame::OnLeftWindowSashDragged( wxSashEvent& event )
 {
-	if (event.GetDragStatus() == wxSASH_STATUS_OUT_OF_RANGE)
-		return;
+    if (event.GetDragStatus() == wxSASH_STATUS_OUT_OF_RANGE)
+        return;
 
-	this->m_left_pane->SetDefaultSize(wxSize(event.GetDragRect().width, 1000));
+    this->m_left_pane->SetDefaultSize(wxSize(event.GetDragRect().width, 1000));
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
 }
 
 /*!
-* wxEVT_SIZE event handler for ID_MAIN_FRAME
-*/
+ * wxEVT_SIZE event handler for ID_MAIN_FRAME
+ */
 
 void MainFrame::OnSize( wxSizeEvent& /* event*/ )
 {
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	this->CheckScopeSplitters();
-	if( this->m_main_toolbar)
-		this->m_main_toolbar->Refresh( true);
+    this->CheckScopeSplitters();
+    if( this->m_main_toolbar)
+        this->m_main_toolbar->Refresh( true);
 }
 
 
@@ -1591,18 +1591,18 @@ void MainFrame::OnSize( wxSizeEvent& /* event*/ )
 
 void MainFrame::OnBottomWindowSashDragged( wxSashEvent& event )
 {
-	if (event.GetDragStatus() == wxSASH_STATUS_OUT_OF_RANGE)
-		return;
+    if (event.GetDragStatus() == wxSASH_STATUS_OUT_OF_RANGE)
+        return;
 
-	this->m_bottom_pane->SetDefaultSize( wxSize( 1000, event.GetDragRect().height));
+    this->m_bottom_pane->SetDefaultSize( wxSize( 1000, event.GetDragRect().height));
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
 }
 
 
@@ -1612,24 +1612,24 @@ void MainFrame::OnBottomWindowSashDragged( wxSashEvent& event )
 
 void MainFrame::OnCloseWindow( wxCloseEvent& event )
 {
-	if( this->m_app_settings)
-	{
-		for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-		{
-			::wxMutexGuiLeave();
-			(( GenericBoard*)this->m_app_settings->m_board_array[i])->DoStopRunning();
-		}
-		{
-		    wxMutexLocker lock( this->m_app_settings->m_mutex);
-			for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-			{
-				this->m_scope_panel_array[i]->Freeze();
-			}
-			this->m_app_settings->Save();
-		}
-		delete this->m_app_settings;
-		this->m_app_settings= NULL;
-	}
+    if( this->m_app_settings)
+    {
+        for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+        {
+            ::wxMutexGuiLeave();
+            (( GenericBoard*)this->m_app_settings->m_board_array[i])->DoStopRunning();
+        }
+        {
+            wxMutexLocker lock( this->m_app_settings->m_mutex);
+            for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+            {
+                this->m_scope_panel_array[i]->Freeze();
+            }
+            this->m_app_settings->Save();
+        }
+        delete this->m_app_settings;
+        this->m_app_settings= NULL;
+    }
     event.Skip();
 }
 
@@ -1640,29 +1640,29 @@ void MainFrame::OnCloseWindow( wxCloseEvent& event )
 #include "virtual_board_channel.h"
 void MainFrame::OnCommonRunTogglebuttonClick( wxCommandEvent& /* event*/ )
 {
-	this->DoStartStopRunning();
+    this->DoStartStopRunning();
 }
 
 void MainFrame::DoStartStopRunning( void)
 {
-	this->m_common_run_control->SetLabel( this->m_common_run_control->GetValue()? _("Stop"): _("Run"));
-	MainFrame::SetStsBarText( this->m_common_run_control->GetValue() ? _("RUN"): _(""), STS_BAR_PANE_RUN);
-	this->m_common_TTL_control->Enable( !this->m_common_run_control->GetValue());
-	this->m_size_X_control->Enable( !this->m_common_run_control->GetValue());
+    this->m_common_run_control->SetLabel( this->m_common_run_control->GetValue()? _("Stop"): _("Run"));
+    MainFrame::SetStsBarText( this->m_common_run_control->GetValue() ? _("RUN"): _(""), STS_BAR_PANE_RUN);
+    this->m_common_TTL_control->Enable( !this->m_common_run_control->GetValue());
+    this->m_size_X_control->Enable( !this->m_common_run_control->GetValue());
 
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteTriggerMode( this->m_common_run_control->GetValue()!= 0);
-		if( this->m_common_run_control->GetValue()!= 0)
-		{
-			((GenericBoard*) this->m_app_settings->m_board_array[i])->DoStartRunning();
-		}
-		else
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        ((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteTriggerMode( this->m_common_run_control->GetValue()!= 0);
+        if( this->m_common_run_control->GetValue()!= 0)
+        {
+            ((GenericBoard*) this->m_app_settings->m_board_array[i])->DoStartRunning();
+        }
+        else
         {
             ::wxMutexGuiLeave();
-			((GenericBoard*) this->m_app_settings->m_board_array[i])->DoStopRunning();
-		}
-	}
+            ((GenericBoard*) this->m_app_settings->m_board_array[i])->DoStopRunning();
+        }
+    }
 }
 
 
@@ -1672,10 +1672,10 @@ void MainFrame::DoStartStopRunning( void)
 
 void MainFrame::OnTriggerForceButtonClick( wxCommandEvent& /* event*/ )
 {
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteSoftwareTrigger();
-	}
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        ((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteSoftwareTrigger();
+    }
 }
 
 
@@ -1685,18 +1685,18 @@ void MainFrame::OnTriggerForceButtonClick( wxCommandEvent& /* event*/ )
 
 void MainFrame::OnTriggerAutoTogglebuttonClick( wxCommandEvent& /* event*/ )
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	int msk= this->m_app_settings->m_trigger_msk;
-	if( this->m_trigger_auto_control->GetValue())
-		msk|= (int)AppSettings::SW_AUTO_TRIGGER_MSK;
-	else
-		msk&= ~(int)AppSettings::SW_AUTO_TRIGGER_MSK;
-	this->m_app_settings->m_trigger_msk= (AppSettings::TRIGGER_MSK)msk;
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
-	MainFrame::SetStsBarText( this->m_trigger_auto_control->GetValue() ? _("AUTO TRIG"): _(""), STS_BAR_PANE_AUTO_TRIG);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    int msk= this->m_app_settings->m_trigger_msk;
+    if( this->m_trigger_auto_control->GetValue())
+        msk|= (int)AppSettings::SW_AUTO_TRIGGER_MSK;
+    else
+        msk&= ~(int)AppSettings::SW_AUTO_TRIGGER_MSK;
+    this->m_app_settings->m_trigger_msk= (AppSettings::TRIGGER_MSK)msk;
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
+    MainFrame::SetStsBarText( this->m_trigger_auto_control->GetValue() ? _("AUTO TRIG"): _(""), STS_BAR_PANE_AUTO_TRIG);
 }
 
 
@@ -1706,22 +1706,22 @@ void MainFrame::OnTriggerAutoTogglebuttonClick( wxCommandEvent& /* event*/ )
 
 void MainFrame::OnTriggerExtTogglebuttonClick( wxCommandEvent& /* event */)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	int msk= this->m_app_settings->m_trigger_msk;
-	if( this->m_trigger_ext_control->GetValue())
-		msk|= (int)AppSettings::EXT_TRIGGER_MSK;
-	else
-		msk&= ~(int)AppSettings::EXT_TRIGGER_MSK;
-	this->m_app_settings->m_trigger_msk= (AppSettings::TRIGGER_MSK)msk;
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteTriggerMode( this->m_common_run_control->GetValue()!= 0);
-	}
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
-	MainFrame::SetStsBarText( this->m_trigger_ext_control->GetValue() ? _("EXT TRIG"): _(""), STS_BAR_PANE_EXT_TRIG);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    int msk= this->m_app_settings->m_trigger_msk;
+    if( this->m_trigger_ext_control->GetValue())
+        msk|= (int)AppSettings::EXT_TRIGGER_MSK;
+    else
+        msk&= ~(int)AppSettings::EXT_TRIGGER_MSK;
+    this->m_app_settings->m_trigger_msk= (AppSettings::TRIGGER_MSK)msk;
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        ((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteTriggerMode( this->m_common_run_control->GetValue()!= 0);
+    }
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
+    MainFrame::SetStsBarText( this->m_trigger_ext_control->GetValue() ? _("EXT TRIG"): _(""), STS_BAR_PANE_EXT_TRIG);
 
 }
 
@@ -1731,7 +1731,7 @@ void MainFrame::OnTriggerExtTogglebuttonClick( wxCommandEvent& /* event */)
 
 void MainFrame::OnTriggerPostSpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateTriggerPost( event.GetPosition());
+    this->UpdateTriggerPost( event.GetPosition());
 }
 
 
@@ -1741,21 +1741,21 @@ void MainFrame::OnTriggerPostSpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnViewLeftToolClick( wxCommandEvent& /*event */ )
 {
-	this->DoShowHideLeftPane();
+    this->DoShowHideLeftPane();
 }
 
 void MainFrame::DoShowHideLeftPane( )
 {
-	this->m_left_pane->Show( !this->m_left_pane->IsShown( ));
-	this->m_app_settings->m_show_left_pane= this->m_left_pane->IsShown( );
+    this->m_left_pane->Show( !this->m_left_pane->IsShown( ));
+    this->m_app_settings->m_show_left_pane= this->m_left_pane->IsShown( );
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
 }
 
 /*!
@@ -1764,21 +1764,21 @@ void MainFrame::DoShowHideLeftPane( )
 
 void MainFrame::OnViewBottomToolClick( wxCommandEvent& /* event*/ )
 {
-	this->DoShowHideBottomPane( );
+    this->DoShowHideBottomPane( );
 }
 
 void MainFrame::DoShowHideBottomPane( )
 {
-	this->m_bottom_pane->Show( !this->m_bottom_pane->IsShown( ));
-	this->m_app_settings->m_show_bottom_pane= this->m_bottom_pane->IsShown( );
+    this->m_bottom_pane->Show( !this->m_bottom_pane->IsShown( ));
+    this->m_app_settings->m_show_bottom_pane= this->m_bottom_pane->IsShown( );
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
 }
 
 /*!
@@ -1787,256 +1787,256 @@ void MainFrame::DoShowHideBottomPane( )
 
 void MainFrame::OnGridChooseColor1ButtonClick( wxCommandEvent& /* event*/ )
 {
-	this->DoGridChooseColor( 0, this->m_grid_color_1_control);
+    this->DoGridChooseColor( 0, this->m_grid_color_1_control);
 }
 void MainFrame::DoGridChooseColor( int scope_index, wxPanel *grid_color_control)
 {
-	wxColourData colour_data;
-	colour_data.SetColour( this->m_app_settings->m_grid_line_color[ scope_index]);
-	wxColourDialog *dlg= new wxColourDialog( this, &colour_data);
-	dlg->Centre();
-	if( dlg->ShowModal()== wxID_OK)
-	{
-		wxMutexLocker lock( this->m_app_settings->m_mutex);
-		this->m_app_settings->m_grid_line_color[ scope_index]= dlg->GetColourData().GetColour();
-		grid_color_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ scope_index]);
-		grid_color_control->Refresh();
-		this->UpdateGrid( scope_index);
-	}
-	delete dlg;
+    wxColourData colour_data;
+    colour_data.SetColour( this->m_app_settings->m_grid_line_color[ scope_index]);
+    wxColourDialog *dlg= new wxColourDialog( this, &colour_data);
+    dlg->Centre();
+    if( dlg->ShowModal()== wxID_OK)
+    {
+        wxMutexLocker lock( this->m_app_settings->m_mutex);
+        this->m_app_settings->m_grid_line_color[ scope_index]= dlg->GetColourData().GetColour();
+        grid_color_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ scope_index]);
+        grid_color_control->Refresh();
+        this->UpdateGrid( scope_index);
+    }
+    delete dlg;
 }
 
 bool MainFrame::UpdateControls( void)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
 
-	// Background controls
-	this->m_back_color_1_control->SetBackgroundColour( this->m_app_settings->m_background_color[ 0]);
-	this->m_back_color_1_control->Refresh();
-	wxBrush back_1_brush= wxBrush( this->m_app_settings->m_background_color[ 0]);
-	this->m_app_settings->SetBackBrush( 0, &back_1_brush);
+    // Background controls
+    this->m_back_color_1_control->SetBackgroundColour( this->m_app_settings->m_background_color[ 0]);
+    this->m_back_color_1_control->Refresh();
+    wxBrush back_1_brush= wxBrush( this->m_app_settings->m_background_color[ 0]);
+    this->m_app_settings->SetBackBrush( 0, &back_1_brush);
 
-	this->m_back_color_2_control->SetBackgroundColour( this->m_app_settings->m_background_color[ 1]);
-	this->m_back_color_2_control->Refresh();
-	wxBrush back_2_brush= wxBrush( this->m_app_settings->m_background_color[ 1]);
-	this->m_app_settings->SetBackBrush( 1, &back_2_brush);
+    this->m_back_color_2_control->SetBackgroundColour( this->m_app_settings->m_background_color[ 1]);
+    this->m_back_color_2_control->Refresh();
+    wxBrush back_2_brush= wxBrush( this->m_app_settings->m_background_color[ 1]);
+    this->m_app_settings->SetBackBrush( 1, &back_2_brush);
 
-	this->m_back_color_3_control->SetBackgroundColour( this->m_app_settings->m_background_color[ 2]);
-	this->m_back_color_3_control->Refresh();
-	wxBrush back_3_brush= wxBrush( this->m_app_settings->m_background_color[ 2]);
-	this->m_app_settings->SetBackBrush( 2, &back_3_brush);
+    this->m_back_color_3_control->SetBackgroundColour( this->m_app_settings->m_background_color[ 2]);
+    this->m_back_color_3_control->Refresh();
+    wxBrush back_3_brush= wxBrush( this->m_app_settings->m_background_color[ 2]);
+    this->m_app_settings->SetBackBrush( 2, &back_3_brush);
 
-	this->m_back_color_4_control->SetBackgroundColour( this->m_app_settings->m_background_color[ 3]);
-	this->m_back_color_4_control->Refresh();
-	wxBrush back_4_brush= wxBrush( this->m_app_settings->m_background_color[ 3]);
-	this->m_app_settings->SetBackBrush( 3, &back_4_brush);
+    this->m_back_color_4_control->SetBackgroundColour( this->m_app_settings->m_background_color[ 3]);
+    this->m_back_color_4_control->Refresh();
+    wxBrush back_4_brush= wxBrush( this->m_app_settings->m_background_color[ 3]);
+    this->m_app_settings->SetBackBrush( 3, &back_4_brush);
 
-	// Grid controls
-	this->m_grid_line_type_1_control->SetSelection( (int)this->m_app_settings->m_grid_line_type[ 0]);
-	this->m_grid_line_width_1_control->SetValue( (int)this->m_app_settings->m_grid_line_width[ 0]);
-	this->m_grid_color_1_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ 0]);
-	this->m_grid_color_1_control->Refresh();
-	this->UpdateGrid( 0);
+    // Grid controls
+    this->m_grid_line_type_1_control->SetSelection( (int)this->m_app_settings->m_grid_line_type[ 0]);
+    this->m_grid_line_width_1_control->SetValue( (int)this->m_app_settings->m_grid_line_width[ 0]);
+    this->m_grid_color_1_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ 0]);
+    this->m_grid_color_1_control->Refresh();
+    this->UpdateGrid( 0);
 
-	this->m_grid_line_type_2_control->SetSelection( (int)this->m_app_settings->m_grid_line_type[ 1]);
-	this->m_grid_line_width_2_control->SetValue( (int)this->m_app_settings->m_grid_line_width[ 1]);
-	this->m_grid_color_2_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ 1]);
-	this->m_grid_color_2_control->Refresh();
-	this->UpdateGrid( 1);
+    this->m_grid_line_type_2_control->SetSelection( (int)this->m_app_settings->m_grid_line_type[ 1]);
+    this->m_grid_line_width_2_control->SetValue( (int)this->m_app_settings->m_grid_line_width[ 1]);
+    this->m_grid_color_2_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ 1]);
+    this->m_grid_color_2_control->Refresh();
+    this->UpdateGrid( 1);
 
-	this->m_grid_line_type_3_control->SetSelection( (int)this->m_app_settings->m_grid_line_type[ 2]);
-	this->m_grid_line_width_3_control->SetValue( (int)this->m_app_settings->m_grid_line_width[ 2]);
-	this->m_grid_color_3_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ 2]);
-	this->m_grid_color_3_control->Refresh();
-	this->UpdateGrid( 2);
+    this->m_grid_line_type_3_control->SetSelection( (int)this->m_app_settings->m_grid_line_type[ 2]);
+    this->m_grid_line_width_3_control->SetValue( (int)this->m_app_settings->m_grid_line_width[ 2]);
+    this->m_grid_color_3_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ 2]);
+    this->m_grid_color_3_control->Refresh();
+    this->UpdateGrid( 2);
 
-	this->m_grid_line_type_4_control->SetSelection( (int)this->m_app_settings->m_grid_line_type[ 3]);
-	this->m_grid_line_width_4_control->SetValue( (int)this->m_app_settings->m_grid_line_width[ 3]);
-	this->m_grid_color_4_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ 3]);
-	this->m_grid_color_4_control->Refresh();
-	this->UpdateGrid( 3);
+    this->m_grid_line_type_4_control->SetSelection( (int)this->m_app_settings->m_grid_line_type[ 3]);
+    this->m_grid_line_width_4_control->SetValue( (int)this->m_app_settings->m_grid_line_width[ 3]);
+    this->m_grid_color_4_control->SetBackgroundColour( this->m_app_settings->m_grid_line_color[ 3]);
+    this->m_grid_color_4_control->Refresh();
+    this->UpdateGrid( 3);
 
-	// Trigger controls
-	this->m_trigger_ext_control->SetValue( (this->m_app_settings->m_trigger_msk& AppSettings::EXT_TRIGGER_MSK)!= 0);
-	this->m_trigger_auto_control->SetValue( (this->m_app_settings->m_trigger_msk& AppSettings::SW_AUTO_TRIGGER_MSK)!= 0);
-	this->m_trigger_post_control->SetValue( this->m_app_settings->m_post_trigger);
-	this->m_trigger_edge_control->SetSelection( this->m_app_settings->m_trigger_edge_type);
-	this->UpdateTriggerEdge();
+    // Trigger controls
+    this->m_trigger_ext_control->SetValue( (this->m_app_settings->m_trigger_msk& AppSettings::EXT_TRIGGER_MSK)!= 0);
+    this->m_trigger_auto_control->SetValue( (this->m_app_settings->m_trigger_msk& AppSettings::SW_AUTO_TRIGGER_MSK)!= 0);
+    this->m_trigger_post_control->SetValue( this->m_app_settings->m_post_trigger);
+    this->m_trigger_edge_control->SetSelection( this->m_app_settings->m_trigger_edge_type);
+    this->UpdateTriggerEdge();
 
-	// Record controls
-	this->m_record_dir_control->SetValue( this->m_app_settings->m_record_folder);
-	this->UpdateRecordFolder();
+    // Record controls
+    this->m_record_dir_control->SetValue( this->m_app_settings->m_record_folder);
+    this->UpdateRecordFolder();
 
-	// Common controls
-	// Search the matching block size
-	this->m_size_X_control->SetSelection( 0);
-	for( int i= 0; i< (int)this->m_size_X_control->GetCount(); i++) {
-		if( *( int*)this->m_size_X_control->GetClientData( i)>= this->m_app_settings->m_num_sample){
-			this->m_size_X_control->SetSelection( i);
-			break;
-		}
-	}
-	//if( this->m_app_settings->m_sample_block_size>= this->m_size_X_control->GetCount())
-	//	this->m_size_X_control->SetSelection( this->m_size_X_control->GetCount()- 1);
-	//else
-	//	this->m_size_X_control->SetSelection( this->m_app_settings->m_sample_block_size);
+    // Common controls
+    // Search the matching block size
+    this->m_size_X_control->SetSelection( 0);
+    for( int i= 0; i< (int)this->m_size_X_control->GetCount(); i++) {
+        if( *( int*)this->m_size_X_control->GetClientData( i)>= this->m_app_settings->m_num_sample){
+            this->m_size_X_control->SetSelection( i);
+            break;
+        }
+    }
+    //if( this->m_app_settings->m_sample_block_size>= this->m_size_X_control->GetCount())
+    //  this->m_size_X_control->SetSelection( this->m_size_X_control->GetCount()- 1);
+    //else
+    //  this->m_size_X_control->SetSelection( this->m_app_settings->m_sample_block_size);
 
-	// Get best combo selection for sec_2_div setting
-	const int num_sels= sizeof( SEC_PER_DIV_TABLE)/sizeof( SEC_PER_DIV_TABLE[0]);
-	double sec_per_div_1= 1/ this->m_app_settings->m_sec_2_div[ 0];
-	for( int i= 1; i< num_sels; i++)
-	{
-		if( ( SEC_PER_DIV_TABLE[i-1]<= sec_per_div_1)&& 
-			( SEC_PER_DIV_TABLE[i]>= sec_per_div_1))
-		{
-			if(( sec_per_div_1- SEC_PER_DIV_TABLE[i-1])< ( SEC_PER_DIV_TABLE[i]- sec_per_div_1))
-			{
-				this->m_sec_per_div_1_control->SetSelection( i- 1);
-			}
-			else
-			{
-				this->m_sec_per_div_1_control->SetSelection( i);
-			}
-			break;
-		}
-	}
-	double sec_per_div_2= 1/ this->m_app_settings->m_sec_2_div[ 1];
-	for( int i= 1; i< num_sels; i++)
-	{
-		if( ( SEC_PER_DIV_TABLE[i-1]<= sec_per_div_2)&& 
-			( SEC_PER_DIV_TABLE[i]>= sec_per_div_2))
-		{
-			if(( sec_per_div_2- SEC_PER_DIV_TABLE[i-1])< ( SEC_PER_DIV_TABLE[i]- sec_per_div_2))
-			{
-				this->m_sec_per_div_2_control->SetSelection( i- 1);
-			}
-			else
-			{
-				this->m_sec_per_div_2_control->SetSelection( i);
-			}
-			break;
-		}
-	}
-	double sec_per_div_3= 1/ this->m_app_settings->m_sec_2_div[ 2];
-	for( int i= 1; i< num_sels; i++)
-	{
-		if( ( SEC_PER_DIV_TABLE[i-1]<= sec_per_div_3)&& 
-			( SEC_PER_DIV_TABLE[i]>= sec_per_div_3))
-		{
-			if(( sec_per_div_3- SEC_PER_DIV_TABLE[i-1])< ( SEC_PER_DIV_TABLE[i]- sec_per_div_3))
-			{
-				this->m_sec_per_div_3_control->SetSelection( i- 1);
-			}
-			else
-			{
-				this->m_sec_per_div_3_control->SetSelection( i);
-			}
-			break;
-		}
-	}
-	double sec_per_div_4= 1/ this->m_app_settings->m_sec_2_div[ 3];
-	for( int i= 1; i< num_sels; i++)
-	{
-		if( ( SEC_PER_DIV_TABLE[i-1]<= sec_per_div_4)&& 
-			( SEC_PER_DIV_TABLE[i]>= sec_per_div_4))
-		{
-			if(( sec_per_div_4- SEC_PER_DIV_TABLE[i-1])< ( SEC_PER_DIV_TABLE[i]- sec_per_div_4))
-			{
-				this->m_sec_per_div_4_control->SetSelection( i- 1);
-			}
-			else
-			{
-				this->m_sec_per_div_4_control->SetSelection( i);
-			}
-			break;
-		}
-	}
+    // Get best combo selection for sec_2_div setting
+    const int num_sels= sizeof( SEC_PER_DIV_TABLE)/sizeof( SEC_PER_DIV_TABLE[0]);
+    double sec_per_div_1= 1/ this->m_app_settings->m_sec_2_div[ 0];
+    for( int i= 1; i< num_sels; i++)
+    {
+        if( ( SEC_PER_DIV_TABLE[i-1]<= sec_per_div_1)&& 
+            ( SEC_PER_DIV_TABLE[i]>= sec_per_div_1))
+        {
+            if(( sec_per_div_1- SEC_PER_DIV_TABLE[i-1])< ( SEC_PER_DIV_TABLE[i]- sec_per_div_1))
+            {
+                this->m_sec_per_div_1_control->SetSelection( i- 1);
+            }
+            else
+            {
+                this->m_sec_per_div_1_control->SetSelection( i);
+            }
+            break;
+        }
+    }
+    double sec_per_div_2= 1/ this->m_app_settings->m_sec_2_div[ 1];
+    for( int i= 1; i< num_sels; i++)
+    {
+        if( ( SEC_PER_DIV_TABLE[i-1]<= sec_per_div_2)&& 
+            ( SEC_PER_DIV_TABLE[i]>= sec_per_div_2))
+        {
+            if(( sec_per_div_2- SEC_PER_DIV_TABLE[i-1])< ( SEC_PER_DIV_TABLE[i]- sec_per_div_2))
+            {
+                this->m_sec_per_div_2_control->SetSelection( i- 1);
+            }
+            else
+            {
+                this->m_sec_per_div_2_control->SetSelection( i);
+            }
+            break;
+        }
+    }
+    double sec_per_div_3= 1/ this->m_app_settings->m_sec_2_div[ 2];
+    for( int i= 1; i< num_sels; i++)
+    {
+        if( ( SEC_PER_DIV_TABLE[i-1]<= sec_per_div_3)&& 
+            ( SEC_PER_DIV_TABLE[i]>= sec_per_div_3))
+        {
+            if(( sec_per_div_3- SEC_PER_DIV_TABLE[i-1])< ( SEC_PER_DIV_TABLE[i]- sec_per_div_3))
+            {
+                this->m_sec_per_div_3_control->SetSelection( i- 1);
+            }
+            else
+            {
+                this->m_sec_per_div_3_control->SetSelection( i);
+            }
+            break;
+        }
+    }
+    double sec_per_div_4= 1/ this->m_app_settings->m_sec_2_div[ 3];
+    for( int i= 1; i< num_sels; i++)
+    {
+        if( ( SEC_PER_DIV_TABLE[i-1]<= sec_per_div_4)&& 
+            ( SEC_PER_DIV_TABLE[i]>= sec_per_div_4))
+        {
+            if(( sec_per_div_4- SEC_PER_DIV_TABLE[i-1])< ( SEC_PER_DIV_TABLE[i]- sec_per_div_4))
+            {
+                this->m_sec_per_div_4_control->SetSelection( i- 1);
+            }
+            else
+            {
+                this->m_sec_per_div_4_control->SetSelection( i);
+            }
+            break;
+        }
+    }
 
-	// Overridden into WriteSampleBufferSize
-	this->m_app_settings->m_max_log_X= 100+ this->m_app_settings->m_num_sample;
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		(( GenericBoard*)this->m_app_settings->m_board_array[i])->WriteSampleBufferSize();
-	}
+    // Overridden into WriteSampleBufferSize
+    this->m_app_settings->m_max_log_X= 100+ this->m_app_settings->m_num_sample;
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        (( GenericBoard*)this->m_app_settings->m_board_array[i])->WriteSampleBufferSize();
+    }
 
-	this->m_offset_sec_1_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ 0]* 1000000.0));
-	this->m_offset_sec_2_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ 1]* 1000000.0));
-	this->m_offset_sec_3_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ 2]* 1000000.0));
-	this->m_offset_sec_4_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ 3]* 1000000.0));
+    this->m_offset_sec_1_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ 0]* 1000000.0));
+    this->m_offset_sec_2_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ 1]* 1000000.0));
+    this->m_offset_sec_3_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ 2]* 1000000.0));
+    this->m_offset_sec_4_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ 3]* 1000000.0));
 
-	//this->m_use_ext_clock_control->SetValue( this->m_app_settings->m_use_ext_clock);
-	//// Search first corrisponding value to setted MHz 
-	//{
-	//	int sel= 0;
-	//	for( ; sel< sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0])- 1; sel++)
-	//	{
-	//		if( this->m_app_settings->m_ext_rate_MHz* 1000<= CVT_V1724_EXTCLOCK_KHZ[ sel])
-	//			break;
-	//	}
-	//	this->m_ext_clock_control->SetSelection( sel);
-	//	this->UpdateClock( this->m_app_settings->m_ext_rate_MHz);
-	//}
+    //this->m_use_ext_clock_control->SetValue( this->m_app_settings->m_use_ext_clock);
+    //// Search first corrisponding value to setted MHz 
+    //{
+    //  int sel= 0;
+    //  for( ; sel< sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0])- 1; sel++)
+    //  {
+    //          if( this->m_app_settings->m_ext_rate_MHz* 1000<= CVT_V1724_EXTCLOCK_KHZ[ sel])
+    //                  break;
+    //  }
+    //  this->m_ext_clock_control->SetSelection( sel);
+    //  this->UpdateClock( this->m_app_settings->m_ext_rate_MHz);
+    //}
 
-	this->AdjustTriggerPost();
-	this->m_trigger_position_keep_control->SetValue( this->m_app_settings->m_trigger_position_keep);
+    this->AdjustTriggerPost();
+    this->m_trigger_position_keep_control->SetValue( this->m_app_settings->m_trigger_position_keep);
 
-	this->m_common_TTL_control->SetValue( this->m_app_settings->m_use_TTL);
-	this->UpdateUseTTL();
+    this->m_common_TTL_control->SetValue( this->m_app_settings->m_use_TTL);
+    this->UpdateUseTTL();
 
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, true);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, true);
+    }
 
-	// Status bar update
-	MainFrame::SetStsBarText( this->m_app_settings->m_use_ext_clock? _("EXT CLK"): _(""), STS_BAR_PANE_EXT_CLOCK);
-	MainFrame::SetStsBarText( this->m_trigger_ext_control->GetValue() ? _("EXT TRIG"): _(""), STS_BAR_PANE_EXT_TRIG);
-	MainFrame::SetStsBarText( this->m_trigger_auto_control->GetValue() ? _("AUTO TRIG"): _(""), STS_BAR_PANE_AUTO_TRIG);
+    // Status bar update
+    MainFrame::SetStsBarText( this->m_app_settings->m_use_ext_clock? _("EXT CLK"): _(""), STS_BAR_PANE_EXT_CLOCK);
+    MainFrame::SetStsBarText( this->m_trigger_ext_control->GetValue() ? _("EXT TRIG"): _(""), STS_BAR_PANE_EXT_TRIG);
+    MainFrame::SetStsBarText( this->m_trigger_auto_control->GetValue() ? _("AUTO TRIG"): _(""), STS_BAR_PANE_AUTO_TRIG);
 
-	// Common DAC control
-	if( this->m_DAC_sizer->IsShown((size_t)0)){
-		if( this->m_app_settings->m_board_array.GetCount()) {
-			PhysicalBoardChannel* board_channel= ( PhysicalBoardChannel* )((GenericBoard*)this->m_app_settings->m_board_array[0])->m_channel_array[0];
-			this->m_ch_DAC_control->SetValue( (int)(double)( board_channel->m_DAC_offset_bit));
-			this->UpdateDAC();
-		}
-	}
-	return true;
+    // Common DAC control
+    if( this->m_DAC_sizer->IsShown((size_t)0)){
+        if( this->m_app_settings->m_board_array.GetCount()) {
+            PhysicalBoardChannel* board_channel= ( PhysicalBoardChannel* )((GenericBoard*)this->m_app_settings->m_board_array[0])->m_channel_array[0];
+            this->m_ch_DAC_control->SetValue( (int)(double)( board_channel->m_DAC_offset_bit));
+            this->UpdateDAC();
+        }
+    }
+    return true;
 }
 bool MainFrame::UpdateGrid( int scope_index)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	int wx_pen_style= wxSOLID;
-	switch( this->m_app_settings->m_grid_line_type[ scope_index])
-	{
-	case AppSettings::NO_LINE:
-		if( !this->m_app_settings->SetGridPen( scope_index, NULL))
-			return false;
-		this->ScopeRefresh( scope_index, true);
-		return true;
-	case AppSettings::DASHED:
-		wx_pen_style= wxSHORT_DASH;
-		break;
-	case AppSettings::DOTTED:
-		wx_pen_style= wxDOT;
-		break;
-	case AppSettings::DASH_DOT:
-		wx_pen_style= wxDOT_DASH;
-		break;
-	case AppSettings::SOLID:
-	default:
-		wx_pen_style= wxSOLID;
-		break;
-	}
-	wxPen grid_pen= wxPen( this->m_app_settings->m_grid_line_color[ scope_index], this->m_app_settings->m_grid_line_width[ scope_index], wx_pen_style);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    int wx_pen_style= wxSOLID;
+    switch( this->m_app_settings->m_grid_line_type[ scope_index])
+    {
+    case AppSettings::NO_LINE:
+        if( !this->m_app_settings->SetGridPen( scope_index, NULL))
+            return false;
+        this->ScopeRefresh( scope_index, true);
+        return true;
+    case AppSettings::DASHED:
+        wx_pen_style= wxSHORT_DASH;
+        break;
+    case AppSettings::DOTTED:
+        wx_pen_style= wxDOT;
+        break;
+    case AppSettings::DASH_DOT:
+        wx_pen_style= wxDOT_DASH;
+        break;
+    case AppSettings::SOLID:
+    default:
+        wx_pen_style= wxSOLID;
+        break;
+    }
+    wxPen grid_pen= wxPen( this->m_app_settings->m_grid_line_color[ scope_index], this->m_app_settings->m_grid_line_width[ scope_index], wx_pen_style);
 
-//	wxPen mid_grid_pen= wxPen( this->m_app_settings->m_grid_line_color, ( this->m_app_settings->m_grid_line_width<= 2)? 3: this->m_app_settings->m_grid_line_width<< 1, wx_pen_style);
-	wxPen mid_grid_pen= wxPen( this->m_app_settings->m_grid_line_color[ scope_index], this->m_app_settings->m_grid_line_width[ scope_index]+ 1, wx_pen_style);
-	if( !this->m_app_settings->SetGridPen( scope_index, &grid_pen, &mid_grid_pen))
-		return false;
-	this->ScopeRefresh( scope_index, true);
+//      wxPen mid_grid_pen= wxPen( this->m_app_settings->m_grid_line_color, ( this->m_app_settings->m_grid_line_width<= 2)? 3: this->m_app_settings->m_grid_line_width<< 1, wx_pen_style);
+    wxPen mid_grid_pen= wxPen( this->m_app_settings->m_grid_line_color[ scope_index], this->m_app_settings->m_grid_line_width[ scope_index]+ 1, wx_pen_style);
+    if( !this->m_app_settings->SetGridPen( scope_index, &grid_pen, &mid_grid_pen))
+        return false;
+    this->ScopeRefresh( scope_index, true);
 
-	return true;
+    return true;
 }
 
 /*!
@@ -2045,7 +2045,7 @@ bool MainFrame::UpdateGrid( int scope_index)
 
 void MainFrame::OnGridLineWidth1SpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateGridLineWidth( 0, event.GetPosition());
+    this->UpdateGridLineWidth( 0, event.GetPosition());
 }
 
 
@@ -2055,9 +2055,9 @@ void MainFrame::OnGridLineWidth1SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnGridLineType1ChoiceSelected( wxCommandEvent& /* event*/ )
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_app_settings->m_grid_line_type[ 0]= ( AppSettings::GRID_LINE_TYPE)this->m_grid_line_type_1_control->GetSelection();
-	this->UpdateGrid( 0);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_app_settings->m_grid_line_type[ 0]= ( AppSettings::GRID_LINE_TYPE)this->m_grid_line_type_1_control->GetSelection();
+    this->UpdateGrid( 0);
 }
 
 
@@ -2067,63 +2067,63 @@ void MainFrame::OnGridLineType1ChoiceSelected( wxCommandEvent& /* event*/ )
 
 void MainFrame::OnBackChooseColor1ButtonClick( wxCommandEvent& /* event*/ )
 {
-	this->DoChooseColor( 0, this->m_back_color_1_control);
+    this->DoChooseColor( 0, this->m_back_color_1_control);
 }
 void MainFrame::DoChooseColor( int scope_index, wxPanel *back_color_control)
 {
-	wxColourData colour_data;
-	colour_data.SetColour( this->m_app_settings->m_background_color[ scope_index]);
-	wxColourDialog *dlg= new wxColourDialog( this, &colour_data);
-	dlg->Centre();
-	if( dlg->ShowModal()== wxID_OK)
-	{
-		wxMutexLocker lock( this->m_app_settings->m_mutex);
-		this->m_app_settings->m_background_color[ scope_index]= dlg->GetColourData().GetColour();
-		back_color_control->SetBackgroundColour( this->m_app_settings->m_background_color[ scope_index]);
-		back_color_control->Refresh();
-		wxBrush back_brush= wxBrush( this->m_app_settings->m_background_color[ scope_index]);
-		this->m_app_settings->SetBackBrush( scope_index, &back_brush);
-		this->ScopeRefresh( scope_index, true);
-	}
-	delete dlg;
+    wxColourData colour_data;
+    colour_data.SetColour( this->m_app_settings->m_background_color[ scope_index]);
+    wxColourDialog *dlg= new wxColourDialog( this, &colour_data);
+    dlg->Centre();
+    if( dlg->ShowModal()== wxID_OK)
+    {
+        wxMutexLocker lock( this->m_app_settings->m_mutex);
+        this->m_app_settings->m_background_color[ scope_index]= dlg->GetColourData().GetColour();
+        back_color_control->SetBackgroundColour( this->m_app_settings->m_background_color[ scope_index]);
+        back_color_control->Refresh();
+        wxBrush back_brush= wxBrush( this->m_app_settings->m_background_color[ scope_index]);
+        this->m_app_settings->SetBackBrush( scope_index, &back_brush);
+        this->ScopeRefresh( scope_index, true);
+    }
+    delete dlg;
 }
 
 
 void MainFrame:: ScopeRefresh( int scope_index, bool erase_background)
 {
-	if( MainFrame::g_scope_panel_array[ scope_index]== NULL)
-	 return;
+    if( MainFrame::g_scope_panel_array[ scope_index]== NULL)
+        return;
     if( !MainFrame::g_scope_panel_array[ scope_index]->IsShown())
-		return;
-	if( erase_background)
-	{
-		MainFrame::g_scope_panel_array[ scope_index]->RefreshBackBitmap();
-		MainFrame::g_scope_panel_array[ scope_index]->RefreshLeftBackBitmap();
-	}
+        return;
+    if( erase_background)
+    {
+        MainFrame::g_scope_panel_array[ scope_index]->RefreshBackBitmap();
+        MainFrame::g_scope_panel_array[ scope_index]->RefreshLeftBackBitmap();
+    }
 #ifndef __WXMSW__
-	if( !::wxIsMainThread())
-		::wxMutexGuiEnter();
+    if( !::wxIsMainThread())
+        ::wxMutexGuiEnter();
 #endif
-	MainFrame::g_scope_panel_array[ scope_index]->Refresh();
+    MainFrame::g_scope_panel_array[ scope_index]->Refresh();
 #ifndef __WXMSW__
-	if( !::wxIsMainThread())
-		::wxMutexGuiLeave();
+    if( !::wxIsMainThread())
+        ::wxMutexGuiLeave();
 #endif
 }
 
 void MainFrame:: UpdateSamplesReadyLed( bool is_on)
 {
 #ifndef __WXMSW__
-	if( !::wxIsMainThread())
-		::wxMutexGuiEnter();
+    if( !::wxIsMainThread())
+        ::wxMutexGuiEnter();
 #endif
 
-	MainFrame::g_samples_ready_control->SetBackgroundColour( is_on? wxColour(0, 255, 0): wxColour(255, 0, 0));
-	MainFrame::g_samples_ready_control->Refresh();
+    MainFrame::g_samples_ready_control->SetBackgroundColour( is_on? wxColour(0, 255, 0): wxColour(255, 0, 0));
+    MainFrame::g_samples_ready_control->Refresh();
 
 #ifndef __WXMSW__
-	if( !::wxIsMainThread())
-		::wxMutexGuiLeave();
+    if( !::wxIsMainThread())
+        ::wxMutexGuiLeave();
 #endif
 }
 
@@ -2133,34 +2133,34 @@ void MainFrame:: UpdateSamplesReadyLed( bool is_on)
 
 void MainFrame::OnSizeXChoiceSelected( wxCommandEvent& /* event*/ )
 {
-	// Get the block size
-	//wxString selection_string= this->m_size_X_control->GetStringSelection();
-	//if( selection_string== _(""))
-	//	return;
-	//wxStringTokenizer tkz( selection_string, _(" "));
-	//wxString first_entry= tkz.GetNextToken();
-	//long size= 0;
-	//if( !first_entry.ToLong( &size))
-	//	return;
-	//this->m_app_settings->m_sample_block_size= 0;
-	//while( size>>= 1)
-	//	++this->m_app_settings->m_sample_block_size;
+    // Get the block size
+    //wxString selection_string= this->m_size_X_control->GetStringSelection();
+    //if( selection_string== _(""))
+    //  return;
+    //wxStringTokenizer tkz( selection_string, _(" "));
+    //wxString first_entry= tkz.GetNextToken();
+    //long size= 0;
+    //if( !first_entry.ToLong( &size))
+    //  return;
+    //this->m_app_settings->m_sample_block_size= 0;
+    //while( size>>= 1)
+    //  ++this->m_app_settings->m_sample_block_size;
 
-	////this->m_app_settings->m_sample_block_size= this->m_size_X_control->GetSelection();
-	this->m_app_settings->m_num_sample= *( int*)this->m_size_X_control->GetClientData( this->m_size_X_control->GetSelection());
+    ////this->m_app_settings->m_sample_block_size= this->m_size_X_control->GetSelection();
+    this->m_app_settings->m_num_sample= *( int*)this->m_size_X_control->GetClientData( this->m_size_X_control->GetSelection());
 
-	// Overridden into WriteSampleBufferSize
-	this->m_app_settings->m_max_log_X= 100+ this->m_app_settings->m_num_sample;
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		(( GenericBoard*)this->m_app_settings->m_board_array[i])->WriteSampleBufferSize();
-	}
-	this->AdjustTriggerPost();
+    // Overridden into WriteSampleBufferSize
+    this->m_app_settings->m_max_log_X= 100+ this->m_app_settings->m_num_sample;
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        (( GenericBoard*)this->m_app_settings->m_board_array[i])->WriteSampleBufferSize();
+    }
+    this->AdjustTriggerPost();
 
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, true);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, true);
+    }
 }
 
 
@@ -2170,15 +2170,15 @@ void MainFrame::OnSizeXChoiceSelected( wxCommandEvent& /* event*/ )
 
 void MainFrame::OnGridLineWidth1SpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-  int value= atoi( this->m_grid_line_width_1_control->GetLabel().ToAscii());
-	this->UpdateGridLineWidth( 0, value);
+    int value= atoi( this->m_grid_line_width_1_control->GetLabel().ToAscii());
+    this->UpdateGridLineWidth( 0, value);
 }
 
 void MainFrame::UpdateGridLineWidth( int scope_index, int value)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_app_settings->m_grid_line_width[ scope_index]= value;
-	this->UpdateGrid( scope_index);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_app_settings->m_grid_line_width[ scope_index]= value;
+    this->UpdateGrid( scope_index);
 }
 
 
@@ -2188,22 +2188,22 @@ void MainFrame::UpdateGridLineWidth( int scope_index, int value)
 
 void MainFrame::OnTriggerPostSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-  int value= atoi( this->m_trigger_post_control->GetLabel().ToAscii());
-	this->UpdateTriggerPost( value);
+    int value= atoi( this->m_trigger_post_control->GetLabel().ToAscii());
+    this->UpdateTriggerPost( value);
 }
 
 void MainFrame::UpdateTriggerPost( int value)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_app_settings->m_post_trigger= value;
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteTriggerMode( this->m_common_run_control->GetValue()!= 0);
-	}
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, true);
-	}
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_app_settings->m_post_trigger= value;
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        ((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteTriggerMode( this->m_common_run_control->GetValue()!= 0);
+    }
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, true);
+    }
 }
 
 /*!
@@ -2212,28 +2212,28 @@ void MainFrame::UpdateTriggerPost( int value)
 
 void MainFrame::OnSecPerDiv1ChoiceSelected( wxCommandEvent& /* event*/ )
 {
-	int selection= this->m_sec_per_div_1_control->GetSelection();
-	this->UpdateSecPerDiv( 0, selection, this->m_offset_sec_1_control);
+    int selection= this->m_sec_per_div_1_control->GetSelection();
+    this->UpdateSecPerDiv( 0, selection, this->m_offset_sec_1_control);
 }
 void MainFrame::UpdateSecPerDiv( int scope_index, int selection, wxSpinCtrl* offset_sec_control)
 {
-	if( selection>= sizeof( SEC_PER_DIV_TABLE)/sizeof( SEC_PER_DIV_TABLE[0]))
-		return;
-	if( this->m_app_settings->m_trigger_position_keep)
-	{
-		double sec_2_div_old= this->m_app_settings->m_sec_2_div[ scope_index];
-		double sample_2_sec_old= this->m_app_settings->m_sample_2_sec;
-		this->m_app_settings->SetSec2Div( scope_index, 1.0/ SEC_PER_DIV_TABLE[ selection]);
-		// recalculate offset to keep trigger position fixed on screen
-		double fix_old= sec_2_div_old*( this->m_app_settings->m_offset_sec[ scope_index]+ sample_2_sec_old*( this->m_app_settings->m_max_log_X- this->m_app_settings->m_post_trigger));
-		this->m_app_settings->m_offset_sec[ scope_index]= fix_old/ this->m_app_settings->m_sec_2_div[ scope_index]- this->m_app_settings->m_sample_2_sec*( this->m_app_settings->m_max_log_X- this->m_app_settings->m_post_trigger);
-		offset_sec_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ scope_index]* 1000000.0));
-	}
-	else
-	{
-		this->m_app_settings->SetSec2Div( scope_index, 1.0/ SEC_PER_DIV_TABLE[ selection]);
-	}
-	this->ScopeRefresh( scope_index, true);
+    if( selection>= sizeof( SEC_PER_DIV_TABLE)/sizeof( SEC_PER_DIV_TABLE[0]))
+        return;
+    if( this->m_app_settings->m_trigger_position_keep)
+    {
+        double sec_2_div_old= this->m_app_settings->m_sec_2_div[ scope_index];
+        double sample_2_sec_old= this->m_app_settings->m_sample_2_sec;
+        this->m_app_settings->SetSec2Div( scope_index, 1.0/ SEC_PER_DIV_TABLE[ selection]);
+        // recalculate offset to keep trigger position fixed on screen
+        double fix_old= sec_2_div_old*( this->m_app_settings->m_offset_sec[ scope_index]+ sample_2_sec_old*( this->m_app_settings->m_max_log_X- this->m_app_settings->m_post_trigger));
+        this->m_app_settings->m_offset_sec[ scope_index]= fix_old/ this->m_app_settings->m_sec_2_div[ scope_index]- this->m_app_settings->m_sample_2_sec*( this->m_app_settings->m_max_log_X- this->m_app_settings->m_post_trigger);
+        offset_sec_control->SetValue( (int)(double)( this->m_app_settings->m_offset_sec[ scope_index]* 1000000.0));
+    }
+    else
+    {
+        this->m_app_settings->SetSec2Div( scope_index, 1.0/ SEC_PER_DIV_TABLE[ selection]);
+    }
+    this->ScopeRefresh( scope_index, true);
 }
 
 
@@ -2243,7 +2243,7 @@ void MainFrame::UpdateSecPerDiv( int scope_index, int selection, wxSpinCtrl* off
 
 void MainFrame::OnOffsetSec1SpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateOffsetSec( 0, event.GetPosition());
+    this->UpdateOffsetSec( 0, event.GetPosition());
 }
 
 /*!
@@ -2252,8 +2252,8 @@ void MainFrame::OnOffsetSec1SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnOffsetSec1SpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-  int value= atoi( this->m_offset_sec_1_control->GetLabel().ToAscii());
-	this->UpdateOffsetSec( 0, value);
+    int value= atoi( this->m_offset_sec_1_control->GetLabel().ToAscii());
+    this->UpdateOffsetSec( 0, value);
 }
 
 void MainFrame::UpdateOffsetSec( int scope_index, int value)
@@ -2261,18 +2261,18 @@ void MainFrame::UpdateOffsetSec( int scope_index, int value)
     wxMutexLocker lock( this->m_app_settings->m_mutex);
     this->m_app_settings->m_offset_sec[ scope_index]= (double)value/ 1000000.0;
 
-	this->ScopeRefresh( scope_index, true);
+    this->ScopeRefresh( scope_index, true);
 }
 
 bool MainFrame::UpdateRecordFolder( void)
 {
-	if( !wxDir::Exists( this->m_record_dir_control->GetValue()))
-		return false;
-	this->m_app_settings->m_record_folder= this->m_record_dir_control->GetValue();
-	this->m_record_dir_control->SetBackgroundColour(wxColour(255, 255, 255));
-	this->m_record_dir_control->SetToolTip( this->m_record_dir_control->GetValue());
-	this->m_record_dir_control->Refresh( true);
-	return true;
+    if( !wxDir::Exists( this->m_record_dir_control->GetValue()))
+        return false;
+    this->m_app_settings->m_record_folder= this->m_record_dir_control->GetValue();
+    this->m_record_dir_control->SetBackgroundColour(wxColour(255, 255, 255));
+    this->m_record_dir_control->SetToolTip( this->m_record_dir_control->GetValue());
+    this->m_record_dir_control->Refresh( true);
+    return true;
 }
 
 /*!
@@ -2281,29 +2281,29 @@ bool MainFrame::UpdateRecordFolder( void)
 
 void MainFrame::OnRecordtogglebuttonClick( wxCommandEvent& /*event */)
 {
-	wxString path= this->m_record_dir_control->GetValue();
-	wxString file_name= _("caen_scope_");
-	wxString date= wxDateTime::Now().FormatISODate();
-	date.Replace( _("-"), _("_"));
-	wxString time= wxDateTime::Now().FormatISOTime();
-	time.Replace(_(":"), _("_"));
-	wxString timestamp( wxString::Format(_("%s_%s"), date.c_str(), time.c_str()));
-	bool start= this->m_record_start_stop_control->GetValue();
-	bool use_max_buffer= this->m_record_max_buffers_check_box->GetValue();
-	int max_buffers= this->m_record_max_buffers_control->GetValue();
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		(( GenericBoard *)this->m_app_settings->m_board_array[i])->ToggleRecordStatus( path, file_name, timestamp, start, use_max_buffer, max_buffers);
-	}
-	this->m_record_dir_browse_button->Enable( !start);
-	this->m_record_dir_control->Enable( !start);
-	this->m_record_max_buffers_check_box->Enable( !start);
-	if( start)
-		this->m_record_max_buffers_control->Enable( false);
-	else
-		this->m_record_max_buffers_control->Enable( this->m_record_max_buffers_check_box->GetValue());
-	this->m_record_start_stop_control->SetLabel( this->m_record_start_stop_control->GetValue( )? _("Stop"): _("Start"));
-	MainFrame::SetStsBarText( this->m_record_start_stop_control->GetValue( ) ? _("REC"): _(""), STS_BAR_PANE_REC);
+    wxString path= this->m_record_dir_control->GetValue();
+    wxString file_name= _("caen_scope_");
+    wxString date= wxDateTime::Now().FormatISODate();
+    date.Replace( _("-"), _("_"));
+    wxString time= wxDateTime::Now().FormatISOTime();
+    time.Replace(_(":"), _("_"));
+    wxString timestamp( wxString::Format(_("%s_%s"), date.c_str(), time.c_str()));
+    bool start= this->m_record_start_stop_control->GetValue();
+    bool use_max_buffer= this->m_record_max_buffers_check_box->GetValue();
+    int max_buffers= this->m_record_max_buffers_control->GetValue();
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        (( GenericBoard *)this->m_app_settings->m_board_array[i])->ToggleRecordStatus( path, file_name, timestamp, start, use_max_buffer, max_buffers);
+    }
+    this->m_record_dir_browse_button->Enable( !start);
+    this->m_record_dir_control->Enable( !start);
+    this->m_record_max_buffers_check_box->Enable( !start);
+    if( start)
+        this->m_record_max_buffers_control->Enable( false);
+    else
+        this->m_record_max_buffers_control->Enable( this->m_record_max_buffers_check_box->GetValue());
+    this->m_record_start_stop_control->SetLabel( this->m_record_start_stop_control->GetValue( )? _("Stop"): _("Start"));
+    MainFrame::SetStsBarText( this->m_record_start_stop_control->GetValue( ) ? _("REC"): _(""), STS_BAR_PANE_REC);
 
 }
 
@@ -2314,15 +2314,15 @@ void MainFrame::OnRecordtogglebuttonClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnRecorddirbuttonClick( wxCommandEvent& /*event*/ )
 {
-	// Show directory browse folder
-	wxFileName org_dir( this->m_record_dir_control->GetValue());
-	org_dir.Normalize();
-	wxDirDialog dlg( this, _("Choose a directory for recording"), org_dir.GetFullPath());
-	if( dlg.ShowModal()!= wxID_OK )
-		return;
-	this->m_record_dir_control->SetValue( dlg.GetPath());
+    // Show directory browse folder
+    wxFileName org_dir( this->m_record_dir_control->GetValue());
+    org_dir.Normalize();
+    wxDirDialog dlg( this, _("Choose a directory for recording"), org_dir.GetFullPath());
+    if( dlg.ShowModal()!= wxID_OK )
+        return;
+    this->m_record_dir_control->SetValue( dlg.GetPath());
 
-	this->UpdateRecordFolder();
+    this->UpdateRecordFolder();
 }
 
 
@@ -2332,8 +2332,8 @@ void MainFrame::OnRecorddirbuttonClick( wxCommandEvent& /*event*/ )
 
 void MainFrame::OnRecorddirtextctrlUpdated( wxCommandEvent& /* event */)
 {
-	this->m_record_dir_control->SetBackgroundColour(wxColour(255, 128, 128));
-	this->m_record_dir_control->Refresh( true);
+    this->m_record_dir_control->SetBackgroundColour(wxColour(255, 128, 128));
+    this->m_record_dir_control->Refresh( true);
 }
 
 /*!
@@ -2342,7 +2342,7 @@ void MainFrame::OnRecorddirtextctrlUpdated( wxCommandEvent& /* event */)
 
 void MainFrame::OnRecorddirtextctrlEnter( wxCommandEvent& /*event*/ )
 {
-	this->UpdateRecordFolder();
+    this->UpdateRecordFolder();
 }
 
 /*!
@@ -2351,32 +2351,32 @@ void MainFrame::OnRecorddirtextctrlEnter( wxCommandEvent& /*event*/ )
 
 //void MainFrame::OnExtClockCheckboxClick( wxCommandEvent& /*event */)
 //{
-//	int sel= this->m_ext_clock_control->GetSelection();
-//	if( sel>= sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0]))
-//		sel= sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0])- 1;
+//      int sel= this->m_ext_clock_control->GetSelection();
+//      if( sel>= sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0]))
+//              sel= sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0])- 1;
 //
-//	this->UpdateClock( (double)CVT_V1724_EXTCLOCK_KHZ[ sel]* 0.001);
+//      this->UpdateClock( (double)CVT_V1724_EXTCLOCK_KHZ[ sel]* 0.001);
 //}
 
 void MainFrame::UpdateClock( double value)
 {
-	//this->m_ext_clock_control->Enable( this->m_use_ext_clock_control->IsChecked());
+    //this->m_ext_clock_control->Enable( this->m_use_ext_clock_control->IsChecked());
 
-	//// setup AppSettings
-	//this->m_app_settings->SetClock( this->m_use_ext_clock_control->IsChecked(), value);
-	//for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	//{
-	//	this->ScopeRefresh( i, true);
-	//}
-	//MainFrame::SetStsBarText( this->m_app_settings->m_use_ext_clock? _("EXT CLK"): _(""), STS_BAR_PANE_EXT_CLOCK);
+    //// setup AppSettings
+    //this->m_app_settings->SetClock( this->m_use_ext_clock_control->IsChecked(), value);
+    //for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    //{
+    //  this->ScopeRefresh( i, true);
+    //}
+    //MainFrame::SetStsBarText( this->m_app_settings->m_use_ext_clock? _("EXT CLK"): _(""), STS_BAR_PANE_EXT_CLOCK);
 
-	// setup AppSettings
-	this->m_app_settings->SetClock( false, value);
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, true);
-	}
-	MainFrame::SetStsBarText( false? _("EXT CLK"): _(""), STS_BAR_PANE_EXT_CLOCK);
+    // setup AppSettings
+    this->m_app_settings->SetClock( false, value);
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, true);
+    }
+    MainFrame::SetStsBarText( false? _("EXT CLK"): _(""), STS_BAR_PANE_EXT_CLOCK);
 }
 
 
@@ -2386,18 +2386,18 @@ void MainFrame::UpdateClock( double value)
 
 void MainFrame::OnHelpToolClick( wxCommandEvent& /* event*/ )
 {
-	InfoDialog dlg( this);
-	dlg.ShowModal();
+    InfoDialog dlg( this);
+    dlg.ShowModal();
 }
 
 bool MainFrame::SetStsBarText( const wxString& text, int pane_index)
 {
-	if(( pane_index>= STS_BAR_NUM_PANES)|| ( MainFrame::g_main_statusbar== NULL))
-		return false;
-	//::wxMutexGuiEnter();
-	MainFrame::g_main_statusbar->SetStatusText( text, pane_index);
-	//::wxMutexGuiLeave();
-	return true;
+    if(( pane_index>= STS_BAR_NUM_PANES)|| ( MainFrame::g_main_statusbar== NULL))
+        return false;
+    //::wxMutexGuiEnter();
+    MainFrame::g_main_statusbar->SetStatusText( text, pane_index);
+    //::wxMutexGuiLeave();
+    return true;
 }
 
 /*!
@@ -2406,32 +2406,32 @@ bool MainFrame::SetStsBarText( const wxString& text, int pane_index)
 
 void MainFrame::OnTriggerEdgeChoiceSelected( wxCommandEvent& /*event*/ )
 {
-	this->UpdateTriggerEdge();
+    this->UpdateTriggerEdge();
 }
 void MainFrame::UpdateTriggerEdge( void)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_app_settings->m_trigger_edge_type= ( AppSettings::TRIGGER_EDGE_TYPE)this->m_trigger_edge_control->GetSelection();
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteTriggerMode( this->m_common_run_control->GetValue()!= 0);
-	}
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, true);
-	}
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_app_settings->m_trigger_edge_type= ( AppSettings::TRIGGER_EDGE_TYPE)this->m_trigger_edge_control->GetSelection();
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        ((GenericBoard*) this->m_app_settings->m_board_array[i])->WriteTriggerMode( this->m_common_run_control->GetValue()!= 0);
+    }
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, true);
+    }
 
-	wxString sts_msg= _("");
-	switch( this->m_app_settings->m_trigger_edge_type)
-	{
-	case AppSettings::FALLING_EDGE:
-		sts_msg= _("FALLING EDGE");
-		break;
-	case AppSettings::RISING_EDGE:
-		sts_msg= _("RISING EDGE");
-		break;
-	}
-	MainFrame::SetStsBarText( sts_msg, STS_BAR_PANE_TRIG_EDGE);
+    wxString sts_msg= _("");
+    switch( this->m_app_settings->m_trigger_edge_type)
+    {
+    case AppSettings::FALLING_EDGE:
+        sts_msg= _("FALLING EDGE");
+        break;
+    case AppSettings::RISING_EDGE:
+        sts_msg= _("RISING EDGE");
+        break;
+    }
+    MainFrame::SetStsBarText( sts_msg, STS_BAR_PANE_TRIG_EDGE);
 }
 
 
@@ -2441,27 +2441,27 @@ void MainFrame::UpdateTriggerEdge( void)
 
 void MainFrame::OnFrontPanelNimTogglebuttonClick( wxCommandEvent& /*event*/ )
 {
-	this->UpdateUseTTL();
+    this->UpdateUseTTL();
 }
 
 void MainFrame::UpdateUseTTL( void)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_app_settings->m_use_TTL= this->m_common_TTL_control->GetValue();
-	for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		((GenericBoard*) this->m_app_settings->m_board_array[i])->SetFrontPanelIO( this->m_app_settings->m_use_TTL!= 0);
-	}
-	this->m_common_TTL_control->SetLabel( this->m_app_settings->m_use_TTL? _("NIM"): _("TTL"));
-	MainFrame::SetStsBarText( !this->m_app_settings->m_use_TTL? _("NIM"): _("TTL"), STS_BAR_PANE_NIM);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_app_settings->m_use_TTL= this->m_common_TTL_control->GetValue();
+    for( size_t i= 0; i< this->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        ((GenericBoard*) this->m_app_settings->m_board_array[i])->SetFrontPanelIO( this->m_app_settings->m_use_TTL!= 0);
+    }
+    this->m_common_TTL_control->SetLabel( this->m_app_settings->m_use_TTL? _("NIM"): _("TTL"));
+    MainFrame::SetStsBarText( !this->m_app_settings->m_use_TTL? _("NIM"): _("TTL"), STS_BAR_PANE_NIM);
 }
 
 void MainFrame::AdjustTriggerPost( void)
 {
-	int post_trigger= this->m_trigger_post_control->GetValue();
-	if( post_trigger>= this->m_app_settings->m_max_log_X)
-		this->m_trigger_post_control->SetValue( this->m_app_settings->m_max_log_X- 1);
-	this->m_trigger_post_control->SetRange( 0, this->m_app_settings->m_max_log_X- 1);
+    int post_trigger= this->m_trigger_post_control->GetValue();
+    if( post_trigger>= this->m_app_settings->m_max_log_X)
+        this->m_trigger_post_control->SetValue( this->m_app_settings->m_max_log_X- 1);
+    this->m_trigger_post_control->SetRange( 0, this->m_app_settings->m_max_log_X- 1);
 
 }
 /*!
@@ -2470,7 +2470,7 @@ void MainFrame::AdjustTriggerPost( void)
 
 void MainFrame::OnTriggerPositionKeepCheckboxClick( wxCommandEvent& /*event */)
 {
-	this->m_app_settings->m_trigger_position_keep= this->m_trigger_position_keep_control->GetValue();
+    this->m_app_settings->m_trigger_position_keep= this->m_trigger_position_keep_control->GetValue();
 }
 /*!
  * wxEVT_COMMAND_MENU_SELECTED event handler for ID_TOOL
@@ -2478,7 +2478,7 @@ void MainFrame::OnTriggerPositionKeepCheckboxClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnViewScopeLeftTopToolClick( wxCommandEvent& /* event*/ )
 {
-	this->DoShowHideScopeLeftTopPane( true);
+    this->DoShowHideScopeLeftTopPane( true);
 }
 
 /*!
@@ -2487,7 +2487,7 @@ void MainFrame::OnViewScopeLeftTopToolClick( wxCommandEvent& /* event*/ )
 
 void MainFrame::OnViewScopeRightTopToolClick( wxCommandEvent& /* event*/ )
 {
-	this->DoShowHideScopeRightTopPane( true);
+    this->DoShowHideScopeRightTopPane( true);
 }
 
 /*!
@@ -2496,7 +2496,7 @@ void MainFrame::OnViewScopeRightTopToolClick( wxCommandEvent& /* event*/ )
 
 void MainFrame::OnViewScopeLeftBottomToolClick( wxCommandEvent& /* event*/ )
 {
-	this->DoShowHideScopeLeftBottomPane( true);
+    this->DoShowHideScopeLeftBottomPane( true);
 }
 
 /*!
@@ -2505,229 +2505,229 @@ void MainFrame::OnViewScopeLeftBottomToolClick( wxCommandEvent& /* event*/ )
 
 void MainFrame::OnViewScopeRightBottomToolClick( wxCommandEvent& /* event*/ )
 {
-	this->DoShowHideScopeRightBottomPane( true);
+    this->DoShowHideScopeRightBottomPane( true);
 }
 
 void MainFrame::DoShowHideScopeLeftTopPane( bool do_check)
 {
-	this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->Show( !this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( ));
-	this->m_app_settings->m_show_scope_left_top_pane= this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( );
-	if( do_check)
-		this->CheckScopeSplitters();
+    this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->Show( !this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( ));
+    this->m_app_settings->m_show_scope_left_top_pane= this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( );
+    if( do_check)
+        this->CheckScopeSplitters();
 }
 
 void MainFrame::DoShowHideScopeRightTopPane( bool do_check)
 {
-	this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->Show( !this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->IsShown( ));
-	this->m_app_settings->m_show_scope_right_top_pane= this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->IsShown( );
-	if( do_check)
-		this->CheckScopeSplitters();
+    this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->Show( !this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->IsShown( ));
+    this->m_app_settings->m_show_scope_right_top_pane= this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->IsShown( );
+    if( do_check)
+        this->CheckScopeSplitters();
 }
 
 void MainFrame::DoShowHideScopeLeftBottomPane( bool do_check)
 {
-	this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->Show( !this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( ));
-	this->m_app_settings->m_show_scope_left_bottom_pane= this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( );
-	if( do_check)
-		this->CheckScopeSplitters();
+    this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->Show( !this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( ));
+    this->m_app_settings->m_show_scope_left_bottom_pane= this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( );
+    if( do_check)
+        this->CheckScopeSplitters();
 }
 void MainFrame::DoShowHideScopeRightBottomPane( bool do_check)
 {
-	this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->Show( !this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->IsShown( ));
-	this->m_app_settings->m_show_scope_right_bottom_pane= this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->IsShown( );
-	if( do_check)
-		this->CheckScopeSplitters();
+    this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->Show( !this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->IsShown( ));
+    this->m_app_settings->m_show_scope_right_bottom_pane= this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->IsShown( );
+    if( do_check)
+        this->CheckScopeSplitters();
 }
 void MainFrame::CheckScopeSplitters()
 {
-	if( this->m_scope_panel_array[0]== NULL)
-		return;
-	//
-	// Top Splitter
-	if( !this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( )&& !this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->IsShown( ))
-	{
-		// Hide Top splitter
-		this->m_scope_vert_splitter_top->Show( false);
-		if( this->m_scope_vert_splitter_top->IsSplit())
-			this->m_scope_vert_splitter_top->Unsplit( );
-	}
-	else
-	{
-		this->m_scope_vert_splitter_top->Show( true);
+    if( this->m_scope_panel_array[0]== NULL)
+        return;
+    //
+    // Top Splitter
+    if( !this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( )&& !this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->IsShown( ))
+    {
+        // Hide Top splitter
+        this->m_scope_vert_splitter_top->Show( false);
+        if( this->m_scope_vert_splitter_top->IsSplit())
+            this->m_scope_vert_splitter_top->Unsplit( );
+    }
+    else
+    {
+        this->m_scope_vert_splitter_top->Show( true);
 
-		if( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( )&& this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->IsShown( ))
-		{
-			// Split Top slitter
-			if( this->m_scope_vert_splitter_top->IsSplit())
-				this->m_scope_vert_splitter_top->Unsplit( );
-			this->m_scope_vert_splitter_top->SplitVertically( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT], this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]);
-			int width, height;
-			this->m_scope_vert_splitter_top->GetClientSize( &width, &height);
-			this->m_scope_vert_splitter_top->SetSashPosition( width/2, true);
-		}
-		else if( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( ))
-		{
-			if( this->m_scope_vert_splitter_top->IsSplit())
-				this->m_scope_vert_splitter_top->Unsplit( this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]);
-			else 
-			{
-				if( this->m_scope_vert_splitter_top->GetWindow1())
-					this->m_scope_vert_splitter_top->ReplaceWindow( this->m_scope_vert_splitter_top->GetWindow1(), this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]);
-				else
-					this->m_scope_vert_splitter_top->Initialize( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]);
-			}
-		}
-		else
-		{
-			if( this->m_scope_vert_splitter_top->IsSplit())
-				this->m_scope_vert_splitter_top->Unsplit( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]);
-			else
-			{
-				if( this->m_scope_vert_splitter_top->GetWindow1())
-					this->m_scope_vert_splitter_top->ReplaceWindow( this->m_scope_vert_splitter_top->GetWindow1(), this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]);
-				else
-					this->m_scope_vert_splitter_top->Initialize( this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]);
-			}
-		}
-	}
+        if( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( )&& this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]->IsShown( ))
+        {
+            // Split Top slitter
+            if( this->m_scope_vert_splitter_top->IsSplit())
+                this->m_scope_vert_splitter_top->Unsplit( );
+            this->m_scope_vert_splitter_top->SplitVertically( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT], this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]);
+            int width, height;
+            this->m_scope_vert_splitter_top->GetClientSize( &width, &height);
+            this->m_scope_vert_splitter_top->SetSashPosition( width/2, true);
+        }
+        else if( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]->IsShown( ))
+        {
+            if( this->m_scope_vert_splitter_top->IsSplit())
+                this->m_scope_vert_splitter_top->Unsplit( this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]);
+            else 
+            {
+                if( this->m_scope_vert_splitter_top->GetWindow1())
+                    this->m_scope_vert_splitter_top->ReplaceWindow( this->m_scope_vert_splitter_top->GetWindow1(), this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]);
+                else
+                    this->m_scope_vert_splitter_top->Initialize( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]);
+            }
+        }
+        else
+        {
+            if( this->m_scope_vert_splitter_top->IsSplit())
+                this->m_scope_vert_splitter_top->Unsplit( this->m_scope_panel_array[ SCOPE_POS_TOP_LEFT]);
+            else
+            {
+                if( this->m_scope_vert_splitter_top->GetWindow1())
+                    this->m_scope_vert_splitter_top->ReplaceWindow( this->m_scope_vert_splitter_top->GetWindow1(), this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]);
+                else
+                    this->m_scope_vert_splitter_top->Initialize( this->m_scope_panel_array[ SCOPE_POS_TOP_RIGHT]);
+            }
+        }
+    }
 
-	//
-	// Bottom Splitter
-	if( !this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( )&& !this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->IsShown( ))
-	{
-		// Hide Top splitter
-		this->m_scope_vert_splitter_bottom->Show( false);
-		if( this->m_scope_vert_splitter_bottom->IsSplit())
-			this->m_scope_vert_splitter_bottom->Unsplit( );
-	}	
-	else 
-	{
-		this->m_scope_vert_splitter_bottom->Show( true);
-		if( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( )&& this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->IsShown( ))
-		{
-			// Split Top slitter
-			if( this->m_scope_vert_splitter_bottom->IsSplit())
-				this->m_scope_vert_splitter_bottom->Unsplit( );
-			this->m_scope_vert_splitter_bottom->SplitVertically( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT], this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]);
-			int width, height;
-			this->m_scope_vert_splitter_bottom->GetClientSize( &width, &height);
-			this->m_scope_vert_splitter_bottom->SetSashPosition( width/2, true);
-		}
-		else if( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( ))
-		{
-			if( this->m_scope_vert_splitter_bottom->IsSplit())
-				this->m_scope_vert_splitter_bottom->Unsplit( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]);
-			else
-			{
-				if( this->m_scope_vert_splitter_bottom->GetWindow1())
-					this->m_scope_vert_splitter_bottom->ReplaceWindow( this->m_scope_vert_splitter_bottom->GetWindow1(), this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]);
-				else
-					this->m_scope_vert_splitter_bottom->Initialize( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]);
-			}
-		}
-		else
-		{
-			if( this->m_scope_vert_splitter_bottom->IsSplit())
-				this->m_scope_vert_splitter_bottom->Unsplit( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]);
-			else
-			{
-				if( this->m_scope_vert_splitter_bottom->GetWindow1())
-					this->m_scope_vert_splitter_bottom->ReplaceWindow( this->m_scope_vert_splitter_bottom->GetWindow1(), this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]);
-				else
-					this->m_scope_vert_splitter_bottom->Initialize( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]);
-			}
-		}
-	}
-	//
-	// Horizontal splitter
-	if( !this->m_scope_vert_splitter_top->IsShown( )&& !this->m_scope_vert_splitter_bottom->IsShown( ))
-	{
-		this->m_scope_horiz_splitter->Show( false);
-		if( this->m_scope_horiz_splitter->IsSplit())
-			this->m_scope_horiz_splitter->Unsplit( );
-	}
-	else 
-	{
-		this->m_scope_horiz_splitter->Show( true);
+    //
+    // Bottom Splitter
+    if( !this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( )&& !this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->IsShown( ))
+    {
+        // Hide Top splitter
+        this->m_scope_vert_splitter_bottom->Show( false);
+        if( this->m_scope_vert_splitter_bottom->IsSplit())
+            this->m_scope_vert_splitter_bottom->Unsplit( );
+    }   
+    else 
+    {
+        this->m_scope_vert_splitter_bottom->Show( true);
+        if( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( )&& this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]->IsShown( ))
+        {
+            // Split Top slitter
+            if( this->m_scope_vert_splitter_bottom->IsSplit())
+                this->m_scope_vert_splitter_bottom->Unsplit( );
+            this->m_scope_vert_splitter_bottom->SplitVertically( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT], this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]);
+            int width, height;
+            this->m_scope_vert_splitter_bottom->GetClientSize( &width, &height);
+            this->m_scope_vert_splitter_bottom->SetSashPosition( width/2, true);
+        }
+        else if( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]->IsShown( ))
+        {
+            if( this->m_scope_vert_splitter_bottom->IsSplit())
+                this->m_scope_vert_splitter_bottom->Unsplit( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]);
+            else
+            {
+                if( this->m_scope_vert_splitter_bottom->GetWindow1())
+                    this->m_scope_vert_splitter_bottom->ReplaceWindow( this->m_scope_vert_splitter_bottom->GetWindow1(), this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]);
+                else
+                    this->m_scope_vert_splitter_bottom->Initialize( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]);
+            }
+        }
+        else
+        {
+            if( this->m_scope_vert_splitter_bottom->IsSplit())
+                this->m_scope_vert_splitter_bottom->Unsplit( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_LEFT]);
+            else
+            {
+                if( this->m_scope_vert_splitter_bottom->GetWindow1())
+                    this->m_scope_vert_splitter_bottom->ReplaceWindow( this->m_scope_vert_splitter_bottom->GetWindow1(), this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]);
+                else
+                    this->m_scope_vert_splitter_bottom->Initialize( this->m_scope_panel_array[ SCOPE_POS_BOTTOM_RIGHT]);
+            }
+        }
+    }
+    //
+    // Horizontal splitter
+    if( !this->m_scope_vert_splitter_top->IsShown( )&& !this->m_scope_vert_splitter_bottom->IsShown( ))
+    {
+        this->m_scope_horiz_splitter->Show( false);
+        if( this->m_scope_horiz_splitter->IsSplit())
+            this->m_scope_horiz_splitter->Unsplit( );
+    }
+    else 
+    {
+        this->m_scope_horiz_splitter->Show( true);
 
-		if( this->m_scope_vert_splitter_top->IsShown( )&& this->m_scope_vert_splitter_bottom->IsShown( ))
-		{
-			// Split Top slitter
-			if( this->m_scope_horiz_splitter->IsSplit())
-				this->m_scope_horiz_splitter->Unsplit( );
-			this->m_scope_horiz_splitter->SplitHorizontally( this->m_scope_vert_splitter_top, this->m_scope_vert_splitter_bottom);
-			int width, height;
-			this->m_scope_horiz_splitter->GetClientSize( &width, &height);
-			this->m_scope_horiz_splitter->SetSashPosition( height/ 2, true);
-		}
-		else if( this->m_scope_vert_splitter_top->IsShown( ))
-		{
-			if( this->m_scope_horiz_splitter->IsSplit())
-				this->m_scope_horiz_splitter->Unsplit( this->m_scope_vert_splitter_bottom);
-			else
-			{
-				if( this->m_scope_horiz_splitter->GetWindow1())
-					this->m_scope_horiz_splitter->ReplaceWindow( this->m_scope_horiz_splitter->GetWindow1(), this->m_scope_vert_splitter_top);
-				else
-					this->m_scope_horiz_splitter->Initialize( this->m_scope_vert_splitter_top);
-			}
-		}
-		else
-		{
-			if( this->m_scope_horiz_splitter->IsSplit())
-				this->m_scope_horiz_splitter->Unsplit( this->m_scope_vert_splitter_top);
-			else
-			{
-				if( this->m_scope_horiz_splitter->GetWindow1())
-					this->m_scope_horiz_splitter->ReplaceWindow( this->m_scope_horiz_splitter->GetWindow1(), this->m_scope_vert_splitter_bottom);
-				else
-					this->m_scope_horiz_splitter->Initialize( this->m_scope_vert_splitter_bottom);
-			}
-		}
-	}
-	this->m_scope_vert_splitter_top->SetSashGravity( 0.5);
-	this->m_scope_vert_splitter_bottom->SetSashGravity( 0.5);
-	this->m_scope_horiz_splitter->SetSashGravity( 0.5);
+        if( this->m_scope_vert_splitter_top->IsShown( )&& this->m_scope_vert_splitter_bottom->IsShown( ))
+        {
+            // Split Top slitter
+            if( this->m_scope_horiz_splitter->IsSplit())
+                this->m_scope_horiz_splitter->Unsplit( );
+            this->m_scope_horiz_splitter->SplitHorizontally( this->m_scope_vert_splitter_top, this->m_scope_vert_splitter_bottom);
+            int width, height;
+            this->m_scope_horiz_splitter->GetClientSize( &width, &height);
+            this->m_scope_horiz_splitter->SetSashPosition( height/ 2, true);
+        }
+        else if( this->m_scope_vert_splitter_top->IsShown( ))
+        {
+            if( this->m_scope_horiz_splitter->IsSplit())
+                this->m_scope_horiz_splitter->Unsplit( this->m_scope_vert_splitter_bottom);
+            else
+            {
+                if( this->m_scope_horiz_splitter->GetWindow1())
+                    this->m_scope_horiz_splitter->ReplaceWindow( this->m_scope_horiz_splitter->GetWindow1(), this->m_scope_vert_splitter_top);
+                else
+                    this->m_scope_horiz_splitter->Initialize( this->m_scope_vert_splitter_top);
+            }
+        }
+        else
+        {
+            if( this->m_scope_horiz_splitter->IsSplit())
+                this->m_scope_horiz_splitter->Unsplit( this->m_scope_vert_splitter_top);
+            else
+            {
+                if( this->m_scope_horiz_splitter->GetWindow1())
+                    this->m_scope_horiz_splitter->ReplaceWindow( this->m_scope_horiz_splitter->GetWindow1(), this->m_scope_vert_splitter_bottom);
+                else
+                    this->m_scope_horiz_splitter->Initialize( this->m_scope_vert_splitter_bottom);
+            }
+        }
+    }
+    this->m_scope_vert_splitter_top->SetSashGravity( 0.5);
+    this->m_scope_vert_splitter_bottom->SetSashGravity( 0.5);
+    this->m_scope_horiz_splitter->SetSashGravity( 0.5);
 
 
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
 }
 
 void MainFrame::OnScopeHorizSplitterwindowSashPosChanged( wxSplitterEvent& /*event */)
 {
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
 }
 void MainFrame::OnScopeVertTopSplitterwindowSashPosChanged ( wxSplitterEvent& /*event */)
 {
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
 }
 void MainFrame::OnScopeVertBottomSplitterwindowSashPosChanged( wxSplitterEvent& /*event */)
 {
 #if wxUSE_MDI_ARCHITECTURE
-	wxLayoutAlgorithm layout;
-	layout.LayoutFrame(this);
+    wxLayoutAlgorithm layout;
+    layout.LayoutFrame(this);
 #endif // wxUSE_MDI_ARCHITECTURE
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		this->ScopeRefresh( i, false);
-	}
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        this->ScopeRefresh( i, false);
+    }
 }
 
 /*!
@@ -2736,7 +2736,7 @@ void MainFrame::OnScopeVertBottomSplitterwindowSashPosChanged( wxSplitterEvent& 
 
 void MainFrame::OnBackChooseColor2ButtonClick( wxCommandEvent& /*event */)
 {
-	this->DoChooseColor( 1, this->m_back_color_2_control);
+    this->DoChooseColor( 1, this->m_back_color_2_control);
 }
 
 /*!
@@ -2745,8 +2745,8 @@ void MainFrame::OnBackChooseColor2ButtonClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnSecPerDiv2ChoiceSelected( wxCommandEvent& /*event */)
 {
-	int selection= this->m_sec_per_div_2_control->GetSelection();
-	this->UpdateSecPerDiv( 1, selection, this->m_offset_sec_2_control);
+    int selection= this->m_sec_per_div_2_control->GetSelection();
+    this->UpdateSecPerDiv( 1, selection, this->m_offset_sec_2_control);
 }
 
 /*!
@@ -2755,7 +2755,7 @@ void MainFrame::OnSecPerDiv2ChoiceSelected( wxCommandEvent& /*event */)
 
 void MainFrame::OnOffsetSec2SpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateOffsetSec( 1, event.GetPosition());
+    this->UpdateOffsetSec( 1, event.GetPosition());
 }
 
 /*!
@@ -2764,8 +2764,8 @@ void MainFrame::OnOffsetSec2SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnOffsetSec2SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-  int value= atoi( this->m_offset_sec_2_control->GetLabel().ToAscii());
-	this->UpdateOffsetSec( 1, value);
+    int value= atoi( this->m_offset_sec_2_control->GetLabel().ToAscii());
+    this->UpdateOffsetSec( 1, value);
 }
 
 /*!
@@ -2774,7 +2774,7 @@ void MainFrame::OnOffsetSec2SpinctrlTextUpdated( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridChooseColor2ButtonClick( wxCommandEvent& /*event */)
 {
-	this->DoGridChooseColor( 1, this->m_grid_color_2_control);
+    this->DoGridChooseColor( 1, this->m_grid_color_2_control);
 }
 
 /*!
@@ -2783,7 +2783,7 @@ void MainFrame::OnGridChooseColor2ButtonClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridLineWidth2SpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateGridLineWidth( 1, event.GetPosition());
+    this->UpdateGridLineWidth( 1, event.GetPosition());
 }
 
 /*!
@@ -2792,8 +2792,8 @@ void MainFrame::OnGridLineWidth2SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnGridLineWidth2SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-  int value= atoi( this->m_grid_line_width_2_control->GetLabel().ToAscii());
-	this->UpdateGridLineWidth( 1, value);
+    int value= atoi( this->m_grid_line_width_2_control->GetLabel().ToAscii());
+    this->UpdateGridLineWidth( 1, value);
 }
 
 /*!
@@ -2802,9 +2802,9 @@ void MainFrame::OnGridLineWidth2SpinctrlTextUpdated( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridLineType2ChoiceSelected( wxCommandEvent& /*event */)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_app_settings->m_grid_line_type[ 1]= ( AppSettings::GRID_LINE_TYPE)this->m_grid_line_type_2_control->GetSelection();
-	this->UpdateGrid( 1);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_app_settings->m_grid_line_type[ 1]= ( AppSettings::GRID_LINE_TYPE)this->m_grid_line_type_2_control->GetSelection();
+    this->UpdateGrid( 1);
 }
 
 /*!
@@ -2813,7 +2813,7 @@ void MainFrame::OnGridLineType2ChoiceSelected( wxCommandEvent& /*event */)
 
 void MainFrame::OnBackChooseColor3ButtonClick( wxCommandEvent& /*event */)
 {
-	this->DoChooseColor( 2, this->m_back_color_3_control);
+    this->DoChooseColor( 2, this->m_back_color_3_control);
 }
 
 /*!
@@ -2822,8 +2822,8 @@ void MainFrame::OnBackChooseColor3ButtonClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnSecPerDiv3ChoiceSelected( wxCommandEvent& /*event */)
 {
-	int selection= this->m_sec_per_div_3_control->GetSelection();
-	this->UpdateSecPerDiv( 2, selection, this->m_offset_sec_3_control);
+    int selection= this->m_sec_per_div_3_control->GetSelection();
+    this->UpdateSecPerDiv( 2, selection, this->m_offset_sec_3_control);
 }
 
 /*!
@@ -2832,7 +2832,7 @@ void MainFrame::OnSecPerDiv3ChoiceSelected( wxCommandEvent& /*event */)
 
 void MainFrame::OnOffsetSec3SpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateOffsetSec( 2, event.GetPosition());
+    this->UpdateOffsetSec( 2, event.GetPosition());
 }
 
 /*!
@@ -2841,8 +2841,8 @@ void MainFrame::OnOffsetSec3SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnOffsetSec3SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-  int value= atoi( this->m_offset_sec_3_control->GetLabel().ToAscii());
-	this->UpdateOffsetSec( 2, value);
+    int value= atoi( this->m_offset_sec_3_control->GetLabel().ToAscii());
+    this->UpdateOffsetSec( 2, value);
 }
 
 /*!
@@ -2851,7 +2851,7 @@ void MainFrame::OnOffsetSec3SpinctrlTextUpdated( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridChooseColor3ButtonClick( wxCommandEvent& /*event */)
 {
-	this->DoGridChooseColor( 2, this->m_grid_color_3_control);
+    this->DoGridChooseColor( 2, this->m_grid_color_3_control);
 }
 
 /*!
@@ -2860,7 +2860,7 @@ void MainFrame::OnGridChooseColor3ButtonClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridLineWidth3SpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateGridLineWidth( 2, event.GetPosition());
+    this->UpdateGridLineWidth( 2, event.GetPosition());
 }
 
 /*!
@@ -2869,8 +2869,8 @@ void MainFrame::OnGridLineWidth3SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnGridLineWidth3SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-  int value= atoi( this->m_grid_line_width_3_control->GetLabel().ToAscii());
-	this->UpdateGridLineWidth( 2, value);
+    int value= atoi( this->m_grid_line_width_3_control->GetLabel().ToAscii());
+    this->UpdateGridLineWidth( 2, value);
 }
 
 /*!
@@ -2879,9 +2879,9 @@ void MainFrame::OnGridLineWidth3SpinctrlTextUpdated( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridLineType3ChoiceSelected( wxCommandEvent& /*event */)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_app_settings->m_grid_line_type[ 2]= ( AppSettings::GRID_LINE_TYPE)this->m_grid_line_type_3_control->GetSelection();
-	this->UpdateGrid( 2);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_app_settings->m_grid_line_type[ 2]= ( AppSettings::GRID_LINE_TYPE)this->m_grid_line_type_3_control->GetSelection();
+    this->UpdateGrid( 2);
 }
 
 /*!
@@ -2890,7 +2890,7 @@ void MainFrame::OnGridLineType3ChoiceSelected( wxCommandEvent& /*event */)
 
 void MainFrame::OnBackChooseColor4ButtonClick( wxCommandEvent& /*event */)
 {
-	this->DoChooseColor( 3, this->m_back_color_4_control);
+    this->DoChooseColor( 3, this->m_back_color_4_control);
 }
 
 /*!
@@ -2899,8 +2899,8 @@ void MainFrame::OnBackChooseColor4ButtonClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnSecPerDiv4ChoiceSelected( wxCommandEvent& /*event */)
 {
-	int selection= this->m_sec_per_div_4_control->GetSelection();
-	this->UpdateSecPerDiv( 3, selection, this->m_offset_sec_4_control);
+    int selection= this->m_sec_per_div_4_control->GetSelection();
+    this->UpdateSecPerDiv( 3, selection, this->m_offset_sec_4_control);
 }
 
 /*!
@@ -2909,7 +2909,7 @@ void MainFrame::OnSecPerDiv4ChoiceSelected( wxCommandEvent& /*event */)
 
 void MainFrame::OnOffsetSec4SpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateOffsetSec( 3, event.GetPosition());
+    this->UpdateOffsetSec( 3, event.GetPosition());
 }
 
 /*!
@@ -2918,8 +2918,8 @@ void MainFrame::OnOffsetSec4SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnOffsetSec4SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-  int value= atoi( this->m_offset_sec_4_control->GetLabel().ToAscii());
-	this->UpdateOffsetSec( 3, value);
+    int value= atoi( this->m_offset_sec_4_control->GetLabel().ToAscii());
+    this->UpdateOffsetSec( 3, value);
 }
 
 /*!
@@ -2928,7 +2928,7 @@ void MainFrame::OnOffsetSec4SpinctrlTextUpdated( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridChooseColor4ButtonClick( wxCommandEvent& /*event */)
 {
-	this->DoGridChooseColor( 3, this->m_grid_color_4_control);
+    this->DoGridChooseColor( 3, this->m_grid_color_4_control);
 }
 
 /*!
@@ -2937,7 +2937,7 @@ void MainFrame::OnGridChooseColor4ButtonClick( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridLineWidth4SpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateGridLineWidth( 3, event.GetPosition());
+    this->UpdateGridLineWidth( 3, event.GetPosition());
 }
 
 /*!
@@ -2946,8 +2946,8 @@ void MainFrame::OnGridLineWidth4SpinctrlUpdated( wxSpinEvent& event )
 
 void MainFrame::OnGridLineWidth4SpinctrlTextUpdated( wxCommandEvent& /*event */)
 {
-  int value= atoi( this->m_grid_line_width_4_control->GetLabel().ToAscii());
-	this->UpdateGridLineWidth( 3, value);
+    int value= atoi( this->m_grid_line_width_4_control->GetLabel().ToAscii());
+    this->UpdateGridLineWidth( 3, value);
 }
 
 /*!
@@ -2956,9 +2956,9 @@ void MainFrame::OnGridLineWidth4SpinctrlTextUpdated( wxCommandEvent& /*event */)
 
 void MainFrame::OnGridLineType4ChoiceSelected( wxCommandEvent& /*event */)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_app_settings->m_grid_line_type[ 3]= ( AppSettings::GRID_LINE_TYPE)this->m_grid_line_type_4_control->GetSelection();
-	this->UpdateGrid( 3);
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_app_settings->m_grid_line_type[ 3]= ( AppSettings::GRID_LINE_TYPE)this->m_grid_line_type_4_control->GetSelection();
+    this->UpdateGrid( 3);
 }
 
 
@@ -2968,11 +2968,11 @@ void MainFrame::OnGridLineType4ChoiceSelected( wxCommandEvent& /*event */)
 
 //void MainFrame::OnExtClockChoiceSelected( wxCommandEvent& /*event*/ )
 //{
-//	int sel= this->m_ext_clock_control->GetSelection();
-//	if( sel>= sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0]))
-//		sel= sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0])- 1;
+//      int sel= this->m_ext_clock_control->GetSelection();
+//      if( sel>= sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0]))
+//              sel= sizeof( CVT_V1724_EXTCLOCK_KHZ)/sizeof( CVT_V1724_EXTCLOCK_KHZ[0])- 1;
 //
-//	this->UpdateClock( (double)CVT_V1724_EXTCLOCK_KHZ[ sel]* 0.001);
+//      this->UpdateClock( (double)CVT_V1724_EXTCLOCK_KHZ[ sel]* 0.001);
 //}
 
 
@@ -2984,13 +2984,13 @@ void MainFrame::OnGridLineType4ChoiceSelected( wxCommandEvent& /*event */)
 
 void MainFrame::OnRecordMaxBuffersCheckboxClick( wxCommandEvent& /*event*/ )
 {
-	this->m_record_max_buffers_control->Enable( this->m_record_max_buffers_check_box->GetValue());
+    this->m_record_max_buffers_control->Enable( this->m_record_max_buffers_check_box->GetValue());
 }
 
 void MainFrame::OnRecordEnd( wxCommandEvent& event )
 {
-	this->m_record_start_stop_control->SetValue( false);
-	this->OnRecordtogglebuttonClick( event);
+    this->m_record_start_stop_control->SetValue( false);
+    this->OnRecordtogglebuttonClick( event);
 }
 
 /*!
@@ -2999,8 +2999,8 @@ void MainFrame::OnRecordEnd( wxCommandEvent& event )
 
 void MainFrame::OnMainDacResetButtonClick( wxCommandEvent& /*event*/ )
 {
-	this->m_ch_DAC_control->SetValue( 0);
-	this->UpdateDAC();
+    this->m_ch_DAC_control->SetValue( 0);
+    this->UpdateDAC();
 }
 
 /*!
@@ -3009,13 +3009,13 @@ void MainFrame::OnMainDacResetButtonClick( wxCommandEvent& /*event*/ )
 
 void MainFrame::OnMainDacOffsetSpinbuttonUpdated( wxSpinEvent& /*event*/ )
 {
-	this->UpdateDAC();
+    this->UpdateDAC();
 }
 
 void MainFrame::UpdateDAC( void) {
-	PhysicalBoardChannel* board_channel= ( PhysicalBoardChannel*) ((GenericBoard*)this->m_app_settings->m_board_array[0])->m_channel_array[0];
+    PhysicalBoardChannel* board_channel= ( PhysicalBoardChannel*) ((GenericBoard*)this->m_app_settings->m_board_array[0])->m_channel_array[0];
 
-	board_channel->m_DAC_offset_bit= this->m_ch_DAC_control->GetValue( );
-	board_channel->WriteDACOffset( );
+    board_channel->m_DAC_offset_bit= this->m_ch_DAC_control->GetValue( );
+    board_channel->WriteDACOffset( );
 }
 

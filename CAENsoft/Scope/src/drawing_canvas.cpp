@@ -39,7 +39,7 @@
 
 /*!
  * DrawingCanvas type definition
-	 */
+ */
 
 IMPLEMENT_DYNAMIC_CLASS( DrawingCanvas, wxPanel )
 
@@ -50,9 +50,9 @@ IMPLEMENT_DYNAMIC_CLASS( DrawingCanvas, wxPanel )
 BEGIN_EVENT_TABLE( DrawingCanvas, wxPanel )
 
 ////@begin DrawingCanvas event table entries
-    EVT_SIZE( DrawingCanvas::OnSize )
-    EVT_PAINT( DrawingCanvas::OnPaint )
-    EVT_ERASE_BACKGROUND( DrawingCanvas::OnEraseBackground )
+EVT_SIZE( DrawingCanvas::OnSize )
+EVT_PAINT( DrawingCanvas::OnPaint )
+EVT_ERASE_BACKGROUND( DrawingCanvas::OnEraseBackground )
 
 ////@end DrawingCanvas event table entries
 
@@ -62,23 +62,23 @@ END_EVENT_TABLE()
  * DrawingCanvas constructors
  */
 
- DrawingCanvas::DrawingCanvas( ): m_parent( NULL), m_first_time(true), m_scope_index( 0)
+DrawingCanvas::DrawingCanvas( ): m_parent( NULL), m_first_time(true), m_scope_index( 0)
 {
-	this->m_p_back_bitmap= new wxBitmap( 1, 1);
-	this->m_p_buffer_bitmap= new wxBitmap( 1, 1);
+    this->m_p_back_bitmap= new wxBitmap( 1, 1);
+    this->m_p_buffer_bitmap= new wxBitmap( 1, 1);
 }
 
 DrawingCanvas::DrawingCanvas( int scope_index, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ): m_parent( (DrawingPanel*)parent), m_first_time(true)
 {
-	this->m_scope_index= scope_index;
-	this->m_p_back_bitmap= new wxBitmap( 1, 1);
-	this->m_p_buffer_bitmap= new wxBitmap( 1, 1);
+    this->m_scope_index= scope_index;
+    this->m_p_back_bitmap= new wxBitmap( 1, 1);
+    this->m_p_buffer_bitmap= new wxBitmap( 1, 1);
     Create(parent, id, pos, size, style);
 }
 DrawingCanvas::~DrawingCanvas()
 {
-	delete this->m_p_back_bitmap; 
-	delete this->m_p_buffer_bitmap;
+    delete this->m_p_back_bitmap; 
+    delete this->m_p_buffer_bitmap;
 }
 
 /*!
@@ -119,7 +119,7 @@ void DrawingCanvas::CreateControls()
 
 void DrawingCanvas::OnSize( wxSizeEvent& event )
 {
-	this->RefreshBackBitmap();
+    this->RefreshBackBitmap();
     event.Skip();
 }
 
@@ -129,70 +129,70 @@ void DrawingCanvas::OnSize( wxSizeEvent& event )
 
 void DrawingCanvas::OnPaint( wxPaintEvent& event )
 {
-	if( this->m_parent->IsFreezed())
-	{
-		event.Skip();
-		return;
-	}
+    if( this->m_parent->IsFreezed())
+    {
+        event.Skip();
+        return;
+    }
 
-	// wxMutexLocker lock( this->m_mutex);
-	if( this->m_parent->m_app_settings== NULL)
-		return;
+    // wxMutexLocker lock( this->m_mutex);
+    if( this->m_parent->m_app_settings== NULL)
+        return;
 
-	if( this->m_first_time)
-	{
-		this->RefreshBackBitmap();
-		this->m_first_time= false;
-	}
+    if( this->m_first_time)
+    {
+        this->RefreshBackBitmap();
+        this->m_first_time= false;
+    }
 
-	wxBufferedPaintDC dc( this, *this->m_p_buffer_bitmap /*, wxBUFFER_VIRTUAL_AREA*/);
-	// Print samples directly
-	dc.DrawBitmap( *this->m_p_back_bitmap, 0, 0, false);
-	// draw directly to dc... wxBufferedPaintDC implementation provides buffer 
-	this->DrawSamples( dc);
+    wxBufferedPaintDC dc( this, *this->m_p_buffer_bitmap /*, wxBUFFER_VIRTUAL_AREA*/);
+    // Print samples directly
+    dc.DrawBitmap( *this->m_p_back_bitmap, 0, 0, false);
+    // draw directly to dc... wxBufferedPaintDC implementation provides buffer 
+    this->DrawSamples( dc);
 }
 void DrawingCanvas::DrawGrid( wxDC &dc)
 {
-	wxMutexLocker lock( this->m_parent->m_app_settings->m_mutex);
+    wxMutexLocker lock( this->m_parent->m_app_settings->m_mutex);
 
-	if( this->m_parent->m_app_settings->m_grid_pen[ this->m_scope_index]== NULL)
-		return;
-	dc.SetPen( *this->m_parent->m_app_settings->m_grid_pen[ this->m_scope_index]);
-	// vertical lines
-	int num_lines= NUM_DIV_PER_SCREEN;
-	float step= (float)this->GetRect().width/ (float)num_lines;
-	int i;
-	for( i= 1; i< ( num_lines>> 1); i++)
-	{
-		dc.DrawLine( (int)((float)i* step), 0, (int)((float)i* step), this->GetRect().height);
-	}
-	for( i= ( num_lines>> 1)+ 1; i< num_lines; i++)
-	{
-		dc.DrawLine( (int)((float)i* step), 0, (int)((float)i* step), this->GetRect().height);
-	}
+    if( this->m_parent->m_app_settings->m_grid_pen[ this->m_scope_index]== NULL)
+        return;
+    dc.SetPen( *this->m_parent->m_app_settings->m_grid_pen[ this->m_scope_index]);
+    // vertical lines
+    int num_lines= NUM_DIV_PER_SCREEN;
+    float step= (float)this->GetRect().width/ (float)num_lines;
+    int i;
+    for( i= 1; i< ( num_lines>> 1); i++)
+    {
+        dc.DrawLine( (int)((float)i* step), 0, (int)((float)i* step), this->GetRect().height);
+    }
+    for( i= ( num_lines>> 1)+ 1; i< num_lines; i++)
+    {
+        dc.DrawLine( (int)((float)i* step), 0, (int)((float)i* step), this->GetRect().height);
+    }
 
-	step= (float)this->GetRect().height/ (float)num_lines;
-	// horizontal lines
-	for( i= 1; i< ( num_lines>> 1); i++)
-	{
-		dc.DrawLine( 0, (int)((float)i* step), this->GetRect().width, (int)((float)i* step));
-	}
-	for( i= ( num_lines>> 1)+ 1; i< num_lines; i++)
-	{
-		dc.DrawLine( 0, (int)((float)i* step), this->GetRect().width, (int)((float)i* step));
-	}
-	dc.SetPen( wxNullPen);
-	// Middle lines
-	dc.SetPen( *this->m_parent->m_app_settings->m_mid_grid_pen[ this->m_scope_index]);
-	i= ( num_lines>> 1);
-	step= (float)this->GetRect().width/ (float)num_lines;
-	dc.DrawLine( (int)((float)i* step), 0, (int)((float)i* step), this->GetRect().height);
-	step= (float)this->GetRect().height/ (float)num_lines;
-	dc.DrawLine( 0, (int)((float)i* step), this->GetRect().width, (int)((float)i* step));
-	
-	// Restore original pen
-	dc.SetPen( wxNullPen);
-	
+    step= (float)this->GetRect().height/ (float)num_lines;
+    // horizontal lines
+    for( i= 1; i< ( num_lines>> 1); i++)
+    {
+        dc.DrawLine( 0, (int)((float)i* step), this->GetRect().width, (int)((float)i* step));
+    }
+    for( i= ( num_lines>> 1)+ 1; i< num_lines; i++)
+    {
+        dc.DrawLine( 0, (int)((float)i* step), this->GetRect().width, (int)((float)i* step));
+    }
+    dc.SetPen( wxNullPen);
+    // Middle lines
+    dc.SetPen( *this->m_parent->m_app_settings->m_mid_grid_pen[ this->m_scope_index]);
+    i= ( num_lines>> 1);
+    step= (float)this->GetRect().width/ (float)num_lines;
+    dc.DrawLine( (int)((float)i* step), 0, (int)((float)i* step), this->GetRect().height);
+    step= (float)this->GetRect().height/ (float)num_lines;
+    dc.DrawLine( 0, (int)((float)i* step), this->GetRect().width, (int)((float)i* step));
+        
+    // Restore original pen
+    dc.SetPen( wxNullPen);
+        
 }
 
 /*!
@@ -239,84 +239,84 @@ wxIcon DrawingCanvas::GetIconResource( const wxString& name )
 }
 void DrawingCanvas::DrawTrigger( wxDC &dc)
 {
-	//
-	// Loop boards
-	for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
-		board->DrawTrigger( this->m_scope_index, dc);
-	}
+    //
+    // Loop boards
+    for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
+        board->DrawTrigger( this->m_scope_index, dc);
+    }
 }
 void DrawingCanvas::DrawCursor( wxDC &dc)
 {
-	//
-	// Loop boards
-	for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
-		board->DrawCursor( this->m_scope_index, dc);
-	}
+    //
+    // Loop boards
+    for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
+        board->DrawCursor( this->m_scope_index, dc);
+    }
 }
 
 void DrawingCanvas::DrawSamples( wxDC &dc)
 {
-	//
-	// Loop boards
-	for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
-		board->DrawSamples( this->m_scope_index, dc);
-	}
+    //
+    // Loop boards
+    for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
+        board->DrawSamples( this->m_scope_index, dc);
+    }
 }
 void DrawingCanvas:: RefreshBackBitmap( void)
 {
-	if( this->m_parent->m_app_settings== NULL)
-		return;
-	if( this->m_parent->IsFreezed())
-	{
-		return;
-	}
-	if( ( this->m_pix_X!= this->GetRect().width)||( this->m_pix_Y!= this->GetRect().height))
-	{
-		this->m_pix_X= this->GetRect().width;
-		this->m_pix_Y= this->GetRect().height;
-		// Loop boards
-		for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
-		{
-			GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
-			board->SetDiv2Pix( this->m_scope_index, (double)this->m_pix_Y/ NUM_DIV_PER_SCREEN);
-			board->SetPix( this->m_scope_index, this->m_pix_X, this->m_pix_Y);
-		}
-		this->m_parent->m_app_settings->SetDiv2Pix( this->m_scope_index, (double)this->m_pix_X/ NUM_DIV_PER_SCREEN);
-	}
+    if( this->m_parent->m_app_settings== NULL)
+        return;
+    if( this->m_parent->IsFreezed())
+    {
+        return;
+    }
+    if( ( this->m_pix_X!= this->GetRect().width)||( this->m_pix_Y!= this->GetRect().height))
+    {
+        this->m_pix_X= this->GetRect().width;
+        this->m_pix_Y= this->GetRect().height;
+        // Loop boards
+        for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
+        {
+            GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
+            board->SetDiv2Pix( this->m_scope_index, (double)this->m_pix_Y/ NUM_DIV_PER_SCREEN);
+            board->SetPix( this->m_scope_index, this->m_pix_X, this->m_pix_Y);
+        }
+        this->m_parent->m_app_settings->SetDiv2Pix( this->m_scope_index, (double)this->m_pix_X/ NUM_DIV_PER_SCREEN);
+    }
 
-	if(( this->m_p_back_bitmap->GetWidth()!= this->m_pix_X)||
-		( this->m_p_back_bitmap->GetHeight()!= this->m_pix_Y))
-	{
-		delete this->m_p_back_bitmap;
-		this->m_p_back_bitmap= new wxBitmap( this->m_pix_X, this->m_pix_Y);
-		delete this->m_p_buffer_bitmap;
-		this->m_p_buffer_bitmap= new wxBitmap( this->m_pix_X, this->m_pix_Y);
-	}
+    if(( this->m_p_back_bitmap->GetWidth()!= this->m_pix_X)||
+       ( this->m_p_back_bitmap->GetHeight()!= this->m_pix_Y))
+    {
+        delete this->m_p_back_bitmap;
+        this->m_p_back_bitmap= new wxBitmap( this->m_pix_X, this->m_pix_Y);
+        delete this->m_p_buffer_bitmap;
+        this->m_p_buffer_bitmap= new wxBitmap( this->m_pix_X, this->m_pix_Y);
+    }
 
-	wxMemoryDC dc;
-	dc.SelectObject( *this->m_p_back_bitmap);
+    wxMemoryDC dc;
+    dc.SelectObject( *this->m_p_back_bitmap);
 
-	this->DrawBackground( dc);
-	this->DrawGrid( dc);
-	this->DrawCursor( dc);
-	this->DrawTrigger( dc);
-	dc.SelectObject( wxNullBitmap);
+    this->DrawBackground( dc);
+    this->DrawGrid( dc);
+    this->DrawCursor( dc);
+    this->DrawTrigger( dc);
+    dc.SelectObject( wxNullBitmap);
 
 }
 void DrawingCanvas::DrawBackground( wxDC &dc)
 {
-	wxMutexLocker lock( this->m_parent->m_app_settings->m_mutex);
+    wxMutexLocker lock( this->m_parent->m_app_settings->m_mutex);
 
-	if( this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]== NULL)
-		return;
-	dc.SetBackground( *this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]);
-	dc.Clear();
-	// Restore original brush
-	dc.SetBackground( *this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]);
+    if( this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]== NULL)
+        return;
+    dc.SetBackground( *this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]);
+    dc.Clear();
+    // Restore original brush
+    dc.SetBackground( *this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]);
 }

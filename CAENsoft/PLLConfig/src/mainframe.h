@@ -82,9 +82,9 @@ class wxBackgroundBitmap;
 #define ID_MAIN_STATUSBAR 10002
 ////@end control identifiers
 
-#define ID_SCOPE_VERT_TOP_SPLITTERWINDOW		20000
-#define ID_SCOPE_VERT_BOTTOM_SPLITTERWINDOW		20001
-#define ID_PLLSET_CLKIN_DBLSPINCTRL				20002
+#define ID_SCOPE_VERT_TOP_SPLITTERWINDOW                20000
+#define ID_SCOPE_VERT_BOTTOM_SPLITTERWINDOW             20001
+#define ID_PLLSET_CLKIN_DBLSPINCTRL                             20002
 
 /*!
  * Compatibility
@@ -101,21 +101,21 @@ class wxBackgroundBitmap;
 class MainFrame: public wxFrame
 {    
     DECLARE_CLASS( MainFrame )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
 
     /// Constructors
     MainFrame( );
     MainFrame( wxWindow* parent, wxWindowID id = SYMBOL_MAINFRAME_IDNAME, const wxString& caption = SYMBOL_MAINFRAME_TITLE, const wxPoint& pos = SYMBOL_MAINFRAME_POSITION, const wxSize& size = SYMBOL_MAINFRAME_SIZE, long style = SYMBOL_MAINFRAME_STYLE);
-	~MainFrame( );
+    ~MainFrame( );
 
     bool Create( wxWindow* parent, wxWindowID id = SYMBOL_MAINFRAME_IDNAME, const wxString& caption = SYMBOL_MAINFRAME_TITLE, const wxPoint& pos = SYMBOL_MAINFRAME_POSITION, const wxSize& size = SYMBOL_MAINFRAME_SIZE, long style = SYMBOL_MAINFRAME_STYLE);
 
     /// Creates the controls and sizers
     void CreateControls();
 
-	static wxString GetExecutablePath( void);
+    static wxString GetExecutablePath( void);
 
 ////@begin MainFrame event handler declarations
 
@@ -214,40 +214,40 @@ public:
     wxStatusBar* m_main_statusbar;
 ////@end MainFrame member variables
     wxSpinCtrlDbl* m_pllset_clkin_dblcontrol;
-	static bool SetStsBarText( const wxString& text, int pane_index);
+    static bool SetStsBarText( const wxString& text, int pane_index);
 protected:
-	AppSettings *m_app_settings;
-	bool UpdateControls( void);
-	static wxStatusBar *g_main_statusbar;
-	ConfigDoc *m_loaded_doc;
-	bool SetControls();
-	bool GetControls();
-	bool DoLoadConfig();
-	bool DoSaveConfig();
-	bool MakeDownloadFile();
-	bool DownloadFile();
-	void UpdateOutput();
-	void SetDirty( bool value);
+    AppSettings *m_app_settings;
+    bool UpdateControls( void);
+    static wxStatusBar *g_main_statusbar;
+    ConfigDoc *m_loaded_doc;
+    bool SetControls();
+    bool GetControls();
+    bool DoLoadConfig();
+    bool DoSaveConfig();
+    bool MakeDownloadFile();
+    bool DownloadFile();
+    void UpdateOutput();
+    void SetDirty( bool value);
 
-	bool m_updating;
+    bool m_updating;
 
-	void UpdateVCXOTypes( void);
-	static bool SelectByData( wxChoice* p_ctrl, int val);
+    void UpdateVCXOTypes( void);
+    static bool SelectByData( wxChoice* p_ctrl, int val);
 
 };
 
 class IntClientData: public wxClientData
 {    
 public:
-	IntClientData( int val) {
-		this->m_val= val;
-	}
-	int GetVal( void) const {
-		return this->m_val;
-	}
+    IntClientData( int val) {
+        this->m_val= val;
+    }
+    int GetVal( void) const {
+        return this->m_val;
+    }
 protected:
-	int m_val;
+    int m_val;
 };
 
 #endif
-    // _MAINFRAME_H_
+// _MAINFRAME_H_

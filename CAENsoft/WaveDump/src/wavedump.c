@@ -55,7 +55,7 @@
      .) CAENVME_FIFOMBLTReadCycle()
      .) CAENVME_IRQEnable()
      .) CAENVME_IRQWait()
-	 .) CAENVME_IRQCheck()
+         .) CAENVME_IRQCheck()
      .) CAENVME_IRQDisable()
      .) CAENVME_End()
 
@@ -126,7 +126,7 @@
     Description: define the gnuplot command path in the host system.
     Parameters : string with path string.
                  For instance, 
-				    "c:\programms\gnuplot\bin\"
+                                    "c:\programms\gnuplot\bin\"
 
   WRITE_REGISTER A D
     Description: write a register of the digitizer.
@@ -138,7 +138,7 @@
 
 ******************************************************************************/
 #ifndef _CRT_SECURE_NO_DEPRECATE
-  #define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE
 #endif
 
 #include <stdio.h>
@@ -160,31 +160,31 @@ const char SwRelease[4] = "1.9";
 int main(int argc, char *argv[])
 {
 
-  EVENT_INFO   event_info;
-	WAVE_CONFIG  wave_config = {256,0,0,0,0,0,0,0, 1, "", "", NULL}; 
-	BOARD_CONFIG board_config;
-	VME_ACCESS   vme;
+    EVENT_INFO   event_info;
+    WAVE_CONFIG  wave_config = {256,0,0,0,0,0,0,0, 1, "", "", NULL}; 
+    BOARD_CONFIG board_config;
+    VME_ACCESS   vme;
 
 
-  /* Print program header and current version */
-	WavePrintVersion(SwRelease);
+    /* Print program header and current version */
+    WavePrintVersion(SwRelease);
 
-  /* Initialize board and acquisition */
-	WaveInit(argc, argv, &vme, &wave_config);
+    /* Initialize board and acquisition */
+    WaveInit(argc, argv, &vme, &wave_config);
 
-  /* Read Board configuration after initialisation */
-	WaveReadBoardConfiguration(&vme, &board_config);
+    /* Read Board configuration after initialisation */
+    WaveReadBoardConfiguration(&vme, &board_config);
 
-	/* Start Acquisition and stores events in memory */
-	/* If dump to file is enabled, a copy of the     */
-  /* acquired waveform is saved to file            */
-  WaveRun(&vme, &event_info, &wave_config, &board_config);
+    /* Start Acquisition and stores events in memory */
+    /* If dump to file is enabled, a copy of the     */
+    /* acquired waveform is saved to file            */
+    WaveRun(&vme, &event_info, &wave_config, &board_config);
 
-	/* Close acquisition by deallocating open resources */
-	WaveClose(&vme, &wave_config, &event_info);
+    /* Close acquisition by deallocating open resources */
+    WaveClose(&vme, &wave_config, &event_info);
 
-  return 0;
-}	
+    return 0;
+}       
 
 
 

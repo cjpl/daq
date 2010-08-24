@@ -29,6 +29,13 @@
      - ~UINT16  m_am~
      - ~UINT16  m_data_size~
    + ~MCST_CBLT_board_pos~
+   + ~cvt_V1724_data~
+     - ~cvt_board_data   m_common_data~
+     - ~CVT_V17XX_TYPES  m_type~
+     - ~UINT32*  m_cache_sample_buffer~        -- Cache buffer
+     - ~UINT32   m_cache_sample_buffer_size~   -- Cache buffer size (BYTES)
+     - ~UINT32   m_cache_sample_buffer_read_bytes~  -- Number of samples stored (BYTES)
+     - ~BOOL     m_is_des_mode~
 
 ** How to initialize a V1724?
    1. Use ~CAENVME_Init()~ to get a ~vme_handle~ (*int32_t*).
@@ -57,8 +64,17 @@
 ** V1724 data structure in buffer?
    + Resident values
      - The VME handler: *int32_t*
-     - The board data:  *cvt_board_data*
-     - The buffer data: *
+     - The board data:  *cvt_V1724_data*
+     - The buffer data:
+       1) ~cvt_V1724_data.m_cache_sample_buffer~
+       2) ~cvt_V1724_data.m_cache_sample_buffer_size~
+       3) ~cvt_V1724_data.m_cache_sample_buffer_read_bytes~
+     - The refined data (after ~get_buffer_cache~)
+       1) ~UINT16* p_buff~
+       2) ~UINT32* p_buff_size~
+       3) ~UINT8*  p_board_id~
+       4) ~UINT32* p_trigger_time_tag~
+       5) ~UINT32* p_event_counter~
 
 ** V1724 parameters?
 *** Channel settings

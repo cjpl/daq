@@ -1,41 +1,41 @@
 /*
-	-----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-	               --- CAEN SpA - Computing Systems Division --- 
+  --- CAEN SpA - Computing Systems Division --- 
 
-	-----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-	Name		:	CONSOLE.H
+  Name          :       CONSOLE.H
 
-	Description :	Include file for 'Console.c'.
-					
-					Add '__LINUX' define to generate a Linux exe file.
+  Description : Include file for 'Console.c'.
+                                        
+  Add '__LINUX' define to generate a Linux exe file.
 
-					
-	Date		:	November 2004
-	Release		:	1.0
-	Author		:	C.Landi
+                                        
+  Date          :       November 2004
+  Release               :       1.0
+  Author                :       C.Landi
 
 
 
-	-----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-	This file contains the following procedures & functions declaration               
+  This file contains the following procedures & functions declaration               
                                                                           
-	con_init         initialize the console                                  
-	con_end          close the console                                       
-	write_log        write a message into the log file                       
-	con_getch        get a char from console without echoing                 
-	con_kbhit        read a char from console without stopping the program   
-	con_scanf        read formatted data from the console                    
-	con_printf       print formatted output to the standard output stream    
-	gotoxy           set the cursor position                                 
-	con_printf_xy    print formatted output on the X,Y screen position    
-	clrscr           clear the screen                                        
-	clear_line       clear a line                                            
-	delay            wait n milliseconds 
-	
-	-----------------------------------------------------------------------------
+  con_init         initialize the console                                  
+  con_end          close the console                                       
+  write_log        write a message into the log file                       
+  con_getch        get a char from console without echoing                 
+  con_kbhit        read a char from console without stopping the program   
+  con_scanf        read formatted data from the console                    
+  con_printf       print formatted output to the standard output stream    
+  gotoxy           set the cursor position                                 
+  con_printf_xy    print formatted output on the X,Y screen position    
+  clrscr           clear the screen                                        
+  clear_line       clear a line                                            
+  delay            wait n milliseconds 
+        
+  -----------------------------------------------------------------------------
 */
 
 

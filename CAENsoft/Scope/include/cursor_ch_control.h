@@ -69,9 +69,9 @@ class wxSpinButton;
 class CursorChControl: public wxPanel
 {    
     DECLARE_DYNAMIC_CLASS( CursorChControl )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     CursorChControl( );
     CursorChControl( wxWindow* parent, wxWindowID id = SYMBOL_CURSORCHCONTROL_IDNAME, const wxPoint& pos = SYMBOL_CURSORCHCONTROL_POSITION, const wxSize& size = SYMBOL_CURSORCHCONTROL_SIZE, long style = SYMBOL_CURSORCHCONTROL_STYLE );
@@ -120,21 +120,21 @@ public:
     wxStaticText* m_cursor_value_control;
     wxStaticText* m_mV_label;
 ////@end CursorChControl member variables
-	bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, int m_scope_index, bool is_virtual);
-	bool UpdateControls( void);
-	bool UpdateCursorPosition( int cursor_position);
-	void SetEnable( bool enable);
+    bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, int m_scope_index, bool is_virtual);
+    bool UpdateControls( void);
+    bool UpdateCursorPosition( int cursor_position);
+    void SetEnable( bool enable);
 private: 
-	int GetCursorMultipler( void);
-	// Generic Board pointer
-	GenericBoard* m_p_board;
-	GenericBoardChannel* m_p_board_channel;
-	int m_ch_index;
-	int m_ch_count;
-	int m_scope_index;
-	int m_last_cursor_pos;
-	bool m_is_virtual;
+    int GetCursorMultipler( void);
+    // Generic Board pointer
+    GenericBoard* m_p_board;
+    GenericBoardChannel* m_p_board_channel;
+    int m_ch_index;
+    int m_ch_count;
+    int m_scope_index;
+    int m_last_cursor_pos;
+    bool m_is_virtual;
 };
 
 #endif
-    // _CURSOR_CH_CONTROL_H_
+// _CURSOR_CH_CONTROL_H_

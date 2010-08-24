@@ -49,9 +49,9 @@ IMPLEMENT_DYNAMIC_CLASS( DrawingLeftCanvas, wxPanel )
 BEGIN_EVENT_TABLE( DrawingLeftCanvas, wxPanel )
 
 ////@begin DrawingLeftCanvas event table entries
-    EVT_SIZE( DrawingLeftCanvas::OnSize )
-    EVT_PAINT( DrawingLeftCanvas::OnPaint )
-    EVT_ERASE_BACKGROUND( DrawingLeftCanvas::OnEraseBackground )
+EVT_SIZE( DrawingLeftCanvas::OnSize )
+EVT_PAINT( DrawingLeftCanvas::OnPaint )
+EVT_ERASE_BACKGROUND( DrawingLeftCanvas::OnEraseBackground )
 
 ////@end DrawingLeftCanvas event table entries
 
@@ -63,18 +63,18 @@ END_EVENT_TABLE()
 
 DrawingLeftCanvas::DrawingLeftCanvas( ): m_parent( NULL), m_first_time(true), m_scope_index( 0)
 {
-	this->m_p_back_bitmap= new wxBitmap( 1, 1);
+    this->m_p_back_bitmap= new wxBitmap( 1, 1);
 }
 
 DrawingLeftCanvas::DrawingLeftCanvas( int scope_index, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ): m_parent( (DrawingPanel*)parent), m_first_time(true)
 {
-	this->m_scope_index= scope_index;
-	this->m_p_back_bitmap= new wxBitmap( 1, 1);
+    this->m_scope_index= scope_index;
+    this->m_p_back_bitmap= new wxBitmap( 1, 1);
     Create(parent, id, pos, size, style);
 }
 DrawingLeftCanvas::~DrawingLeftCanvas()
 {
-	delete this->m_p_back_bitmap; 
+    delete this->m_p_back_bitmap; 
 }
 
 /*!
@@ -149,7 +149,7 @@ wxIcon DrawingLeftCanvas::GetIconResource( const wxString& name )
 
 void DrawingLeftCanvas::OnSize( wxSizeEvent& event )
 {
-	this->RefreshBackBitmap();
+    this->RefreshBackBitmap();
     event.Skip();
 }
 
@@ -159,23 +159,23 @@ void DrawingLeftCanvas::OnSize( wxSizeEvent& event )
 
 void DrawingLeftCanvas::OnPaint( wxPaintEvent& event )
 {
-	if( this->m_parent->IsFreezed())
-	{
-		event.Skip();
-		return;
-	}
-	if( this->m_first_time )
-	{
-		this->RefreshBackBitmap();
-		this->m_first_time= false;
-	}
+    if( this->m_parent->IsFreezed())
+    {
+        event.Skip();
+        return;
+    }
+    if( this->m_first_time )
+    {
+        this->RefreshBackBitmap();
+        this->m_first_time= false;
+    }
 
-	// wxMutexLocker lock( this->m_mutex);
-	if( this->m_parent->m_app_settings== NULL)
-		return;
+    // wxMutexLocker lock( this->m_mutex);
+    if( this->m_parent->m_app_settings== NULL)
+        return;
 
     wxBufferedPaintDC dc( this /*, wxBUFFER_VIRTUAL_AREA*/);
-	dc.DrawBitmap( *this->m_p_back_bitmap, 0, 0, false);
+    dc.DrawBitmap( *this->m_p_back_bitmap, 0, 0, false);
 }
 
 /*!
@@ -188,58 +188,58 @@ void DrawingLeftCanvas::OnEraseBackground( wxEraseEvent& /* event*/ )
 
 void DrawingLeftCanvas::DrawPosition( wxDC &dc)
 {
-	//
-	// Loop boards
-	for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
-		board->DrawPosition( this->m_scope_index, dc);
-	}
+    //
+    // Loop boards
+    for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
+        board->DrawPosition( this->m_scope_index, dc);
+    }
 }
 void DrawingLeftCanvas:: RefreshBackBitmap( )
 {
-	if( this->m_parent->m_app_settings== NULL)
-		return;
-	if( this->m_parent->IsFreezed())
-	{
-		return;
-	}
-	this->m_pix_X= this->GetRect().width;
-	this->m_pix_Y= this->GetRect().height;
+    if( this->m_parent->m_app_settings== NULL)
+        return;
+    if( this->m_parent->IsFreezed())
+    {
+        return;
+    }
+    this->m_pix_X= this->GetRect().width;
+    this->m_pix_Y= this->GetRect().height;
 
-	// Loop boards
-	for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
-	{
-		GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
-		board->SetLeftDiv2Pix( this->m_scope_index, (double)this->m_pix_Y/ DrawingCanvas::NUM_DIV_PER_SCREEN);
-		board->SetLeftPix( this->m_scope_index, this->m_pix_X, this->m_pix_Y);
-	}
+    // Loop boards
+    for( size_t i= 0; i< this->m_parent->m_app_settings->m_board_array.GetCount(); i++)
+    {
+        GenericBoard *board= ( GenericBoard *)this->m_parent->m_app_settings->m_board_array[ i];
+        board->SetLeftDiv2Pix( this->m_scope_index, (double)this->m_pix_Y/ DrawingCanvas::NUM_DIV_PER_SCREEN);
+        board->SetLeftPix( this->m_scope_index, this->m_pix_X, this->m_pix_Y);
+    }
 
 
-	if(( this->m_p_back_bitmap->GetWidth()!= this->m_pix_X)||
-		( this->m_p_back_bitmap->GetHeight()!= this->m_pix_Y))
-	{
-		delete this->m_p_back_bitmap;
-		this->m_p_back_bitmap= new wxBitmap( this->m_pix_X, this->m_pix_Y);
-	}
+    if(( this->m_p_back_bitmap->GetWidth()!= this->m_pix_X)||
+       ( this->m_p_back_bitmap->GetHeight()!= this->m_pix_Y))
+    {
+        delete this->m_p_back_bitmap;
+        this->m_p_back_bitmap= new wxBitmap( this->m_pix_X, this->m_pix_Y);
+    }
 
-	wxMemoryDC dc;
-	dc.SelectObject( *this->m_p_back_bitmap);
+    wxMemoryDC dc;
+    dc.SelectObject( *this->m_p_back_bitmap);
 
-	this->DrawBackground( dc);
-	this->DrawPosition( dc);
-	dc.SelectObject( wxNullBitmap);
+    this->DrawBackground( dc);
+    this->DrawPosition( dc);
+    dc.SelectObject( wxNullBitmap);
 
 }
 void DrawingLeftCanvas::DrawBackground( wxDC &dc)
 {
-	wxMutexLocker lock( this->m_parent->m_app_settings->m_mutex);
+    wxMutexLocker lock( this->m_parent->m_app_settings->m_mutex);
 
-	if( this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]== NULL)
-		return;
-	dc.SetBackground( *this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]);
-	dc.Clear();
-	// Restore original brush
-	dc.SetBackground( *this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]);
+    if( this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]== NULL)
+        return;
+    dc.SetBackground( *this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]);
+    dc.Clear();
+    // Restore original brush
+    dc.SetBackground( *this->m_parent->m_app_settings->m_back_brush[ this->m_scope_index]);
 }
 

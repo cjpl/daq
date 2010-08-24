@@ -30,20 +30,20 @@
 #include "appsettings.h"
 
 V1720Board::V1720Board( int board_index, void (*scope_refresh)( int, bool), void (*update_samples_ready_led)( bool), wxMutex *p_data_mutex, AppSettings *p_app_settings, V17XXBoard::BOARD_VARIANT board_variant): 
-			V17XXBoard( board_index, scope_refresh, update_samples_ready_led, p_data_mutex, p_app_settings, board_variant)
+    V17XXBoard( board_index, scope_refresh, update_samples_ready_led, p_data_mutex, p_app_settings, board_variant)
 {
 }
 bool V1720Board::GetBoardMemory( UINT32 &num_ksamples_per_channel)
 {
-	UINT32 reg_value32= 0;
+    UINT32 reg_value32= 0;
 
-	// 
-	// read the board id
-	if( !cvt_read( this->m_p_data, CVT_V1724_BOARD_INFO_ADD, &reg_value32, CVT_V1724_BOARD_INFO_AM, CVT_V1724_BOARD_INFO_DATA_SIZE))
-	{
-		return false;
-	}
-	num_ksamples_per_channel= CVT_V1724_GET_BRDINF_BLOCK_SIZE_KW( reg_value32);
-	num_ksamples_per_channel*= 2;		// 12 bit data
-	return true;
+    // 
+    // read the board id
+    if( !cvt_read( this->m_p_data, CVT_V1724_BOARD_INFO_ADD, &reg_value32, CVT_V1724_BOARD_INFO_AM, CVT_V1724_BOARD_INFO_DATA_SIZE))
+    {
+        return false;
+    }
+    num_ksamples_per_channel= CVT_V1724_GET_BRDINF_BLOCK_SIZE_KW( reg_value32);
+    num_ksamples_per_channel*= 2;               // 12 bit data
+    return true;
 }

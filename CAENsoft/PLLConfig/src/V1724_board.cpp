@@ -29,7 +29,7 @@
 #include "appsettings.h"
 
 V1724Board::V1724Board( AppSettings *p_app_settings): 
-			GenericBoard( p_app_settings)
+    GenericBoard( p_app_settings)
 {
 }
 

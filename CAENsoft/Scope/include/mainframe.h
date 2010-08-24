@@ -149,8 +149,8 @@ class CursorChControl;
 #define ID_MAIN_STATUSBAR 10002
 ////@end control identifiers
 
-#define ID_SCOPE_VERT_TOP_SPLITTERWINDOW		20000
-#define ID_SCOPE_VERT_BOTTOM_SPLITTERWINDOW		20001
+#define ID_SCOPE_VERT_TOP_SPLITTERWINDOW                20000
+#define ID_SCOPE_VERT_BOTTOM_SPLITTERWINDOW             20001
 
 /*!
  * Compatibility
@@ -167,9 +167,9 @@ class CursorChControl;
 class MainFrame: public wxFrame
 {    
     DECLARE_CLASS( MainFrame )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
 
     /// Constructors
     MainFrame( );
@@ -351,10 +351,10 @@ public:
     void OnGridLineWidth2SpinctrlTextUpdated( wxCommandEvent& event );
     void OnOffsetSec2SpinctrlTextUpdated( wxCommandEvent& event );
     void OnGridLineWidth1SpinctrlTextUpdated( wxCommandEvent& event );
-	void OnOffsetSec1SpinctrlTextUpdated( wxCommandEvent& event );
+    void OnOffsetSec1SpinctrlTextUpdated( wxCommandEvent& event );
     void OnTriggerPostSpinctrlTextUpdated( wxCommandEvent& event );
-	void OnScopeVertTopSplitterwindowSashPosChanged ( wxSplitterEvent& event);
-	void OnScopeVertBottomSplitterwindowSashPosChanged( wxSplitterEvent& event);
+    void OnScopeVertTopSplitterwindowSashPosChanged ( wxSplitterEvent& event);
+    void OnScopeVertBottomSplitterwindowSashPosChanged( wxSplitterEvent& event);
     void OnRecordEnd( wxCommandEvent& event );
 
 ////@begin MainFrame member function declarations
@@ -457,48 +457,48 @@ public:
 ////@end MainFrame member variables
     wxSplitterWindow* m_scope_vert_splitter_top;
     wxSplitterWindow* m_scope_vert_splitter_bottom;
-	static void ScopeRefresh( int scope_index, bool erase_background);
-	static void UpdateSamplesReadyLed( bool is_on);
+    static void ScopeRefresh( int scope_index, bool erase_background);
+    static void UpdateSamplesReadyLed( bool is_on);
 
-	void UpdateSecPerDiv( int scope_index, int selection, wxSpinCtrl* offset_sec_control);
-	static bool SetStsBarText( const wxString& text, int pane_index);
+    void UpdateSecPerDiv( int scope_index, int selection, wxSpinCtrl* offset_sec_control);
+    static bool SetStsBarText( const wxString& text, int pane_index);
 protected:
-	static wxPanel* g_samples_ready_control;
+    static wxPanel* g_samples_ready_control;
 
-	AppSettings *m_app_settings;
-	bool CreateDynControls();
-	bool UpdateControls( void);
-	bool UpdateGrid( int scope_index);
-	enum SCOPE_POSITIONS
-	{
-		SCOPE_POS_TOP_LEFT= 0,
-		SCOPE_POS_TOP_RIGHT,
-		SCOPE_POS_BOTTOM_LEFT,
-		SCOPE_POS_BOTTOM_RIGHT,
-	};
-	DrawingPanel *m_scope_panel_array[ SCOPE_NUM_PANELS];
-	static DrawingPanel *g_scope_panel_array[ SCOPE_NUM_PANELS];
-	static wxStatusBar *g_main_statusbar;
-	void UpdateGridLineWidth( int scope_index, int value);
-	void UpdateTriggerPost( int value);
-	void UpdateOffsetSec( int scope_index, int value);
-	bool UpdateRecordFolder( void);
-	void UpdateClock( double value);
-	void UpdateTriggerEdge( void);
-	void AdjustTriggerPost( void);
-	void UpdateUseTTL( void);
-	void DoStartStopRunning( void);
-	void DoShowHideLeftPane( void);
-	void DoShowHideBottomPane( void);
-	void DoShowHideScopeLeftTopPane( bool do_check);
-	void DoShowHideScopeRightTopPane( bool do_check);
-	void DoShowHideScopeLeftBottomPane( bool do_check);
-	void DoShowHideScopeRightBottomPane( bool do_check);
-	void CheckScopeSplitters( void);
-	void DoGridChooseColor( int scope_index, wxPanel *grid_color_control);
-	void DoChooseColor( int scope_index, wxPanel *back_color_control);
-	void UpdateDAC( void);
+    AppSettings *m_app_settings;
+    bool CreateDynControls();
+    bool UpdateControls( void);
+    bool UpdateGrid( int scope_index);
+    enum SCOPE_POSITIONS
+    {
+        SCOPE_POS_TOP_LEFT= 0,
+        SCOPE_POS_TOP_RIGHT,
+        SCOPE_POS_BOTTOM_LEFT,
+        SCOPE_POS_BOTTOM_RIGHT,
+    };
+    DrawingPanel *m_scope_panel_array[ SCOPE_NUM_PANELS];
+    static DrawingPanel *g_scope_panel_array[ SCOPE_NUM_PANELS];
+    static wxStatusBar *g_main_statusbar;
+    void UpdateGridLineWidth( int scope_index, int value);
+    void UpdateTriggerPost( int value);
+    void UpdateOffsetSec( int scope_index, int value);
+    bool UpdateRecordFolder( void);
+    void UpdateClock( double value);
+    void UpdateTriggerEdge( void);
+    void AdjustTriggerPost( void);
+    void UpdateUseTTL( void);
+    void DoStartStopRunning( void);
+    void DoShowHideLeftPane( void);
+    void DoShowHideBottomPane( void);
+    void DoShowHideScopeLeftTopPane( bool do_check);
+    void DoShowHideScopeRightTopPane( bool do_check);
+    void DoShowHideScopeLeftBottomPane( bool do_check);
+    void DoShowHideScopeRightBottomPane( bool do_check);
+    void CheckScopeSplitters( void);
+    void DoGridChooseColor( int scope_index, wxPanel *grid_color_control);
+    void DoChooseColor( int scope_index, wxPanel *back_color_control);
+    void UpdateDAC( void);
 };
 
 #endif
-    // _MAINFRAME_H_
+// _MAINFRAME_H_

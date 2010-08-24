@@ -18,9 +18,9 @@
 
 #include <wx/thread.h>
 #include <wx/arrimpl.cpp> 
-#include <wx/config.h>			
-#include <wx/confbase.h>		
-#include <wx/fileconf.h>		
+#include <wx/config.h>                  
+#include <wx/confbase.h>                
+#include <wx/fileconf.h>                
 #include <wx/filename.h>
 #include <wx/dir.h>
 
@@ -31,27 +31,27 @@ class wxMutex;
 class AppSettings
 {
 public:
-	//
-	// Methods
-	AppSettings( void);
-	~AppSettings( void);
-	bool Load( void);
-	bool Save( void);
+    //
+    // Methods
+    AppSettings( void);
+    ~AppSettings( void);
+    bool Load( void);
+    bool Save( void);
 
-	//
-	// Common lock
-	wxMutex m_mutex;
+    //
+    // Common lock
+    wxMutex m_mutex;
 
-	//
-	// Properties
-	wxArrayPtrVoid m_board_array;				// Boards array
-	wxArrayString m_board_type_strings;			// Board type strings
-	wxString m_template_config_folder;			// The folder where to retrive template configuration files from
-	wxString m_root_dir;
+    //
+    // Properties
+    wxArrayPtrVoid m_board_array;                               // Boards array
+    wxArrayString m_board_type_strings;                 // Board type strings
+    wxString m_template_config_folder;                  // The folder where to retrive template configuration files from
+    wxString m_root_dir;
 
-	const wxString GetVMEBoardTypeString( ) const { return this->m_vme_board_type_string;}
-	int GetVMELink( ) const { return this->m_vme_link;}
-	int GetVMEBoardNum( ) const { return this->m_vme_board_num;}
+    const wxString GetVMEBoardTypeString( ) const { return this->m_vme_board_type_string;}
+    int GetVMELink( ) const { return this->m_vme_link;}
+    int GetVMEBoardNum( ) const { return this->m_vme_board_num;}
     int GetVMEBaseAddreess( ) const { return this->m_vme_base_address;}
     double GetVMEClkinFreq( ) const { return this->m_vme_clkin_freq;}
     void SetVMEClkinFreq(double val) {this->m_vme_clkin_freq = val;} 
@@ -59,11 +59,11 @@ public:
     static const wxString get_default_img_path();
 
 protected:
-	wxString m_vme_board_type_string;
+    wxString m_vme_board_type_string;
 
-	int m_vme_link;
-	int m_vme_base_address;
-	int m_vme_board_num;
+    int m_vme_link;
+    int m_vme_base_address;
+    int m_vme_board_num;
     double m_vme_clkin_freq;
 
 };

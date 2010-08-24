@@ -62,13 +62,13 @@ class DrawingPanel;
 class DrawingCanvas: public wxPanel
 {    
     DECLARE_DYNAMIC_CLASS( DrawingCanvas )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     DrawingCanvas( );
     DrawingCanvas( int scope_index, wxWindow* parent, wxWindowID id = SYMBOL_DRAWINGCANVAS_IDNAME, const wxPoint& pos = SYMBOL_DRAWINGCANVAS_POSITION, const wxSize& size = SYMBOL_DRAWINGCANVAS_SIZE, long style = SYMBOL_DRAWINGCANVAS_STYLE );
-	~DrawingCanvas( );
+    ~DrawingCanvas( );
     /// Creation
     bool Create( wxWindow* parent, wxWindowID id = SYMBOL_DRAWINGCANVAS_IDNAME, const wxPoint& pos = SYMBOL_DRAWINGCANVAS_POSITION, const wxSize& size = SYMBOL_DRAWINGCANVAS_SIZE, long style = SYMBOL_DRAWINGCANVAS_STYLE );
 
@@ -101,23 +101,23 @@ public:
 ////@begin DrawingCanvas member variables
 ////@end DrawingCanvas member variables
 public:
-	void RefreshBackBitmap( void);
-	void RefreshSampleBitmap( wxBitmap *p_sample_bitmap);
-	static const int NUM_DIV_PER_SCREEN= 10;
+    void RefreshBackBitmap( void);
+    void RefreshSampleBitmap( wxBitmap *p_sample_bitmap);
+    static const int NUM_DIV_PER_SCREEN= 10;
 protected:
-	void DrawGrid( wxDC &dc);
-	void DrawBackground( wxDC &dc);
-	void DrawCursor( wxDC &dc);
-	void DrawTrigger( wxDC &dc);
-	void DrawSamples( wxDC &dc);
+    void DrawGrid( wxDC &dc);
+    void DrawBackground( wxDC &dc);
+    void DrawCursor( wxDC &dc);
+    void DrawTrigger( wxDC &dc);
+    void DrawSamples( wxDC &dc);
 
-	wxBitmap *m_p_back_bitmap, *m_p_buffer_bitmap;
-	DrawingPanel *m_parent;
-	int m_pix_X, m_pix_Y;
-	bool m_first_time;
-	int m_scope_index;
+    wxBitmap *m_p_back_bitmap, *m_p_buffer_bitmap;
+    DrawingPanel *m_parent;
+    int m_pix_X, m_pix_Y;
+    bool m_first_time;
+    int m_scope_index;
 
 };
 
 #endif
-    // _DRAWING_CANVAS_H_
+// _DRAWING_CANVAS_H_

@@ -34,7 +34,7 @@
 #include "hyperlinkctrl.h"
 extern "C" 
 {
-	#include "cvt_board_commons.h"
+#include "cvt_board_commons.h"
 }
 
 ////@begin XPM images
@@ -53,11 +53,11 @@ IMPLEMENT_DYNAMIC_CLASS( InfoDialog, wxDialog )
 BEGIN_EVENT_TABLE( InfoDialog, wxDialog )
 
 ////@begin InfoDialog event table entries
-    EVT_BUTTON( ID_OK_BUTTON, InfoDialog::OnOkButtonClick )
+EVT_BUTTON( ID_OK_BUTTON, InfoDialog::OnOkButtonClick )
 
 ////@end InfoDialog event table entries
 
-    //EVT_LINK( ID_HYPERLINK, InfoDialog::OnHyperlink )
+//EVT_LINK( ID_HYPERLINK, InfoDialog::OnHyperlink )
 END_EVENT_TABLE()
 
 /*!
@@ -158,14 +158,14 @@ void InfoDialog::CreateControls()
     itemBoxSizer12->Add(itemButton13, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
 
 ////@end InfoDialog content construction
-	wxHyperlinkCtrl *hyper_link= new wxHyperlinkCtrl( m_left_panel, ID_HYPERLINK, _("www.caen.it"));
-	hyper_link->SetBackgroundColour(wxColour(255, 255, 255));
-	hyper_link->SetLinkCursor();
-	hyper_link->SetURL( _("http://www.caen.it"));
-	hyper_link->SetToolTip( wxT("Goto caen web site") );
-	hyper_link->AutoBrowse( true);
-	hyper_link->UpdateLink();
-	this->m_left_sizer->Add( hyper_link, 1, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
+    wxHyperlinkCtrl *hyper_link= new wxHyperlinkCtrl( m_left_panel, ID_HYPERLINK, _("www.caen.it"));
+    hyper_link->SetBackgroundColour(wxColour(255, 255, 255));
+    hyper_link->SetLinkCursor();
+    hyper_link->SetURL( _("http://www.caen.it"));
+    hyper_link->SetToolTip( wxT("Goto caen web site") );
+    hyper_link->AutoBrowse( true);
+    hyper_link->UpdateLink();
+    this->m_left_sizer->Add( hyper_link, 1, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
 
 }
 
@@ -189,7 +189,7 @@ wxBitmap InfoDialog::GetBitmapResource( const wxString& name )
     wxUnusedVar(name);
     if (name == _T("caen.png"))
     {
-      wxBitmap bitmap(AppSettings::get_default_img_path()+_T("caen.png"), wxBITMAP_TYPE_PNG);
+        wxBitmap bitmap(AppSettings::get_default_img_path()+_T("caen.png"), wxBITMAP_TYPE_PNG);
         return bitmap;
     }
     return wxNullBitmap;
@@ -207,7 +207,7 @@ wxIcon InfoDialog::GetIconResource( const wxString& name )
     wxUnusedVar(name);
     if (name == _T("app_icon.ico"))
     {
-      wxIcon icon(AppSettings::get_default_img_path()+_T("app_icon.ico"), wxBITMAP_TYPE_ICO);
+        wxIcon icon(AppSettings::get_default_img_path()+_T("app_icon.ico"), wxBITMAP_TYPE_ICO);
         return icon;
     }
     return wxNullIcon;
@@ -219,9 +219,9 @@ wxIcon InfoDialog::GetIconResource( const wxString& name )
 
 void InfoDialog::OnOkButtonClick( wxCommandEvent& /* event*/ )
 {
-	this->EndModal( wxID_OK);
+    this->EndModal( wxID_OK);
 }
 //void InfoDialog::OnHyperlink(wxCommandEvent & /* event*/)
 //{
-//	wxHyperlinkCtrl::GotoURL(wxT("http://www.caen.it"), "", false, false);
+//      wxHyperlinkCtrl::GotoURL(wxT("http://www.caen.it"), "", false, false);
 //}

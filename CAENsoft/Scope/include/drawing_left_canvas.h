@@ -60,13 +60,13 @@ class DrawingPanel;
 class DrawingLeftCanvas: public wxPanel
 {    
     DECLARE_DYNAMIC_CLASS( DrawingLeftCanvas )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     DrawingLeftCanvas( );
     DrawingLeftCanvas( int scope_index, wxWindow* parent, wxWindowID id = SYMBOL_DRAWINGLEFTCANVAS_IDNAME, const wxPoint& pos = SYMBOL_DRAWINGLEFTCANVAS_POSITION, const wxSize& size = SYMBOL_DRAWINGLEFTCANVAS_SIZE, long style = SYMBOL_DRAWINGLEFTCANVAS_STYLE );
-	~DrawingLeftCanvas();
+    ~DrawingLeftCanvas();
     /// Creation
     bool Create( wxWindow* parent, wxWindowID id = SYMBOL_DRAWINGLEFTCANVAS_IDNAME, const wxPoint& pos = SYMBOL_DRAWINGLEFTCANVAS_POSITION, const wxSize& size = SYMBOL_DRAWINGLEFTCANVAS_SIZE, long style = SYMBOL_DRAWINGLEFTCANVAS_STYLE );
 
@@ -102,17 +102,17 @@ public:
 ////@end DrawingLeftCanvas member variables
 
 public:
-	void RefreshBackBitmap( void);
+    void RefreshBackBitmap( void);
 protected:
-	void DrawBackground( wxDC &dc);
-	void DrawPosition( wxDC &dc);
+    void DrawBackground( wxDC &dc);
+    void DrawPosition( wxDC &dc);
 
-	wxBitmap *m_p_back_bitmap;
-	DrawingPanel *m_parent;
-	int m_pix_X, m_pix_Y;
-	bool m_first_time;
-	int m_scope_index;
+    wxBitmap *m_p_back_bitmap;
+    DrawingPanel *m_parent;
+    int m_pix_X, m_pix_Y;
+    bool m_first_time;
+    int m_scope_index;
 };
 
 #endif
-    // _DRAWING_LEFT_CANVAS_H_
+// _DRAWING_LEFT_CANVAS_H_

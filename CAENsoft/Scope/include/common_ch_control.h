@@ -71,9 +71,9 @@ class wxSpinButton;
 class CommonChControl: public CommonChControlBase
 {    
     DECLARE_DYNAMIC_CLASS( CommonChControl )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     CommonChControl( );
     CommonChControl( wxWindow* parent, bool show_dac= true, wxWindowID id = SYMBOL_COMMONCHCONTROL_IDNAME, const wxPoint& pos = SYMBOL_COMMONCHCONTROL_POSITION, const wxSize& size = SYMBOL_COMMONCHCONTROL_SIZE, long style = SYMBOL_COMMONCHCONTROL_STYLE );
@@ -119,22 +119,22 @@ public:
     wxStaticText* m_overload_control;
 ////@end CommonChControl member variables
 
-	bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count);
-	bool UpdateControls( );
-	void SetEnable( bool enable, bool disable_all);
-	void SetMediumLabel( double value);
-	void SetOverloadBackground( const wxColor& color);
+    bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count);
+    bool UpdateControls( );
+    void SetEnable( bool enable, bool disable_all);
+    void SetMediumLabel( double value);
+    void SetOverloadBackground( const wxColor& color);
 private: 
-	// Generic Board pointer
-	GenericBoard* m_p_board;
-	PhysicalBoardChannel* m_p_board_channel;
-	int m_ch_index;
-	int m_ch_count;
-	void UpdateDAC( void);
+    // Generic Board pointer
+    GenericBoard* m_p_board;
+    PhysicalBoardChannel* m_p_board_channel;
+    int m_ch_index;
+    int m_ch_count;
+    void UpdateDAC( void);
 protected:
-	bool m_show_dac;
+    bool m_show_dac;
 
 };
 
 #endif
-    // _COMMON_CH_CONTROL_H_
+// _COMMON_CH_CONTROL_H_

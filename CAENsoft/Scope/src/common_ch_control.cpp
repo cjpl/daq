@@ -47,11 +47,11 @@ IMPLEMENT_DYNAMIC_CLASS( CommonChControl, CommonChControlBase )
 BEGIN_EVENT_TABLE( CommonChControl, CommonChControlBase )
 
 ////@begin CommonChControl event table entries
-    EVT_TOGGLEBUTTON( ID_ENABLE_TOGGLEBUTTON, CommonChControl::OnEnableTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_ENABLE_TOGGLEBUTTON, CommonChControl::OnEnableTogglebuttonClick )
 
-    EVT_BUTTON( ID_BUTTON, CommonChControl::OnButtonClick )
+EVT_BUTTON( ID_BUTTON, CommonChControl::OnButtonClick )
 
-    EVT_SPIN( ID_SPINBUTTON, CommonChControl::OnSpinbuttonUpdated )
+EVT_SPIN( ID_SPINBUTTON, CommonChControl::OnSpinbuttonUpdated )
 
 ////@end CommonChControl event table entries
 
@@ -61,13 +61,13 @@ END_EVENT_TABLE()
  * CommonChControl constructors
  */
 
- CommonChControl::CommonChControl( ): 
-								m_p_board(NULL), m_p_board_channel(NULL), m_ch_index(0), m_ch_count(0)
+CommonChControl::CommonChControl( ): 
+m_p_board(NULL), m_p_board_channel(NULL), m_ch_index(0), m_ch_count(0)
 {
 }
 
 CommonChControl::CommonChControl( wxWindow* parent, bool show_dac, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ): 
-								m_p_board(NULL), m_p_board_channel(NULL), m_ch_index(0), m_ch_count(0), m_show_dac( show_dac)
+    m_p_board(NULL), m_p_board_channel(NULL), m_ch_index(0), m_ch_count(0), m_show_dac( show_dac)
 {
     Create(parent, id, pos, size, style);
 }
@@ -157,9 +157,9 @@ void CommonChControl::CreateControls()
     itemStaticBoxSizer2->Add(m_overload_control, 0, wxALIGN_CENTER_HORIZONTAL|wxLEFT|wxRIGHT|wxTOP|wxADJUST_MINSIZE, 5);
 
 ////@end CommonChControl content construction
-	this->m_ch_DAC_control->SetRange( -0x8000, 0x7fff);
+    this->m_ch_DAC_control->SetRange( -0x8000, 0x7fff);
 
-	this->m_DAC_sizer->Show( this->m_show_dac);
+    this->m_DAC_sizer->Show( this->m_show_dac);
 }
 
 /*!
@@ -198,27 +198,27 @@ wxIcon CommonChControl::GetIconResource( const wxString& name )
 }
 bool CommonChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_count)
 {
-	this->m_p_board= p_board;
-	this->m_ch_index= ch_index;
-	this->m_ch_count= ch_count;
-	if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
-		return false;
-	this->m_p_board_channel= (PhysicalBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
-	this->m_p_board_channel->m_p_common_ch_control= this;
+    this->m_p_board= p_board;
+    this->m_ch_index= ch_index;
+    this->m_ch_count= ch_count;
+    if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
+        return false;
+    this->m_p_board_channel= (PhysicalBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
+    this->m_p_board_channel->m_p_common_ch_control= this;
 
-	if( !this->UpdateControls())
-		return false;
-	return true;
+    if( !this->UpdateControls())
+        return false;
+    return true;
 }
 bool CommonChControl::UpdateControls( )
 {
-  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
-	this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_enabled);
-	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
-	this->m_ch_DAC_control->SetValue( (int)(double)( this->m_p_board_channel->m_DAC_offset_bit));
-	this->UpdateDAC();
+    this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
+    this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_enabled);
+    this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    this->m_ch_DAC_control->SetValue( (int)(double)( this->m_p_board_channel->m_DAC_offset_bit));
+    this->UpdateDAC();
 
-	return true;
+    return true;
 }
 
 /*!
@@ -227,20 +227,20 @@ bool CommonChControl::UpdateControls( )
 
 void CommonChControl::OnEnableTogglebuttonClick( wxCommandEvent& /* event*/ )
 {
-	this->m_p_board_channel->m_enabled= this->m_ch_enable_control->GetValue( )!= 0;
-	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
-	this->m_p_board->WriteTriggerMode( this->m_p_board->IsRunning());
-	this->m_p_board_channel->WriteChannelTrigger();
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		(this->m_p_board_channel->ScopeRefresh)( i, true);
-	}
+    this->m_p_board_channel->m_enabled= this->m_ch_enable_control->GetValue( )!= 0;
+    this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    this->m_p_board->WriteTriggerMode( this->m_p_board->IsRunning());
+    this->m_p_board_channel->WriteChannelTrigger();
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        (this->m_p_board_channel->ScopeRefresh)( i, true);
+    }
 }
 
 void CommonChControl::UpdateDAC( void)
 {
-	this->m_p_board_channel->m_DAC_offset_bit= this->m_ch_DAC_control->GetValue( );
-	this->m_p_board_channel->WriteDACOffset( );
+    this->m_p_board_channel->m_DAC_offset_bit= this->m_ch_DAC_control->GetValue( );
+    this->m_p_board_channel->WriteDACOffset( );
 }
 
 /*!
@@ -249,8 +249,8 @@ void CommonChControl::UpdateDAC( void)
 
 void CommonChControl::OnButtonClick( wxCommandEvent& /* event*/)
 {
-	this->m_ch_DAC_control->SetValue( 0);
-	this->UpdateDAC();
+    this->m_ch_DAC_control->SetValue( 0);
+    this->UpdateDAC();
 }
 
 /*!
@@ -259,31 +259,31 @@ void CommonChControl::OnButtonClick( wxCommandEvent& /* event*/)
 
 void CommonChControl::OnSpinbuttonUpdated( wxSpinEvent& /* event*/ )
 {
-	this->UpdateDAC();
+    this->UpdateDAC();
 }
 
 void CommonChControl::SetMediumLabel( double value)
 {
-  this->m_medium_value_control->SetLabel( wxString::Format(_("%.3f"), value));
+    this->m_medium_value_control->SetLabel( wxString::Format(_("%.3f"), value));
 }
 void CommonChControl::SetEnable( bool enable, bool disable_all)
 {
-	if( disable_all)
-	{
-		this->m_ch_enable_control->Enable( false);
-		this->m_ch_DAC_control->Enable( false);
-		this->m_ch_DAC_reset_control->Enable( false);
-	}
-	else
-	{
-		this->m_ch_enable_control->Enable( enable);
-		this->m_ch_DAC_control->Enable( true);
-		this->m_ch_DAC_reset_control->Enable( true);
-	}
+    if( disable_all)
+    {
+        this->m_ch_enable_control->Enable( false);
+        this->m_ch_DAC_control->Enable( false);
+        this->m_ch_DAC_reset_control->Enable( false);
+    }
+    else
+    {
+        this->m_ch_enable_control->Enable( enable);
+        this->m_ch_DAC_control->Enable( true);
+        this->m_ch_DAC_reset_control->Enable( true);
+    }
 }
 
 void CommonChControl::SetOverloadBackground( const wxColor& color)
 {
-	this->m_overload_control->SetBackgroundColour( color);
-	this->m_overload_control->Refresh();
+    this->m_overload_control->SetBackgroundColour( color);
+    this->m_overload_control->Refresh();
 }

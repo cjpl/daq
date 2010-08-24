@@ -8,38 +8,38 @@
 /////////////////////////////////////////////////////////////////////////////
 
 /*
-wxSpinCtrlDbl is a double valued wxSpinCtrl using non native (wxWidgets) widgets
+  wxSpinCtrlDbl is a double valued wxSpinCtrl using non native (wxWidgets) widgets
 
-It consists of a wxSpinButton and a wxTextCtrl on a wxControl and can be used
-as a drop in replacement for the wxSpinCtrl. It's been tested in GTK and MSW
-and should work with MAC, but you may need to fix the sizing perhaps. It
-will not work in Motif as there is no wxSpinButton in Motif.
+  It consists of a wxSpinButton and a wxTextCtrl on a wxControl and can be used
+  as a drop in replacement for the wxSpinCtrl. It's been tested in GTK and MSW
+  and should work with MAC, but you may need to fix the sizing perhaps. It
+  will not work in Motif as there is no wxSpinButton in Motif.
 
-Differences to wxSpinCtrl:
+  Differences to wxSpinCtrl:
 
-    It remembers the initial value as a default value, call SetDefaultValue,
-        or press <ESC> to return to it
+  It remembers the initial value as a default value, call SetDefaultValue,
+  or press <ESC> to return to it
 
-    Shift + Arrow = *2 increment value
-    Ctrl  + Arrow = *10 increment value
-    Alt   + Arrow = *100 increment value
-    combinations of Shift, Ctrl, Alt increment by the product of the factors
+  Shift + Arrow = *2 increment value
+  Ctrl  + Arrow = *10 increment value
+  Alt   + Arrow = *100 increment value
+  combinations of Shift, Ctrl, Alt increment by the product of the factors
 
-    PgUp & PgDn = *10 increment * the product of the Shift, Ctrl, Alt factors
+  PgUp & PgDn = *10 increment * the product of the Shift, Ctrl, Alt factors
 
-    <SPACE> sets the control's value to the it's last valid state
+  <SPACE> sets the control's value to the it's last valid state
 
-    SetDigits controls the format of the text, # decimal places
-        exponential uses the %.Xle format otherwise %.Xlf, where places = X
-        for arbitray formats subclass control and override SyncSpinToText()
-        for proper behavior when a user types in a value
+  SetDigits controls the format of the text, # decimal places
+  exponential uses the %.Xle format otherwise %.Xlf, where places = X
+  for arbitray formats subclass control and override SyncSpinToText()
+  for proper behavior when a user types in a value
 */
 
 #ifndef __wxSPINCTRLDBL_H__
 #define __wxSPINCTRLDBL_H__
 
 #if defined(__GNUG__) && !defined(NO_GCC_PRAGMA)
-    #pragma interface "spinctld.h"
+#pragma interface "spinctld.h"
 #endif
 
 #include "wx/spinbutt.h"
@@ -57,7 +57,7 @@ enum
 class WXDLLIMPEXP_THINGS wxSpinCtrlDbl: public wxControl
 {
 public:
-    wxSpinCtrlDbl() : wxControl() { Init(); }
+wxSpinCtrlDbl() : wxControl() { Init(); }
 
     // Native constructor - note &parent, this is to avoid ambiguity
     wxSpinCtrlDbl( wxWindow &parent, wxWindowID id,
@@ -116,7 +116,7 @@ public:
     virtual void SetValue( double value );
     void SetValue( double value, double min, double max, double increment,
                    int digits = wxSPINCTRLDBL_AUTODIGITS, formatType fmt = lg_fmt )
-        { SetRange(min, max); SetIncrement(increment); SetDigits(digits, fmt); SetValue(value); }
+    { SetRange(min, max); SetIncrement(increment); SetDigits(digits, fmt); SetValue(value); }
     // Set the value as text, if force then set text as is
     virtual void SetValue( const wxString& text, bool force );
     // Set the allowed range, if max_val < min_val then no range and all vals allowed.
@@ -124,7 +124,7 @@ public:
     // Set the increment to use when the spin button or arrow keys pressed.
     void SetIncrement( double increment );
     void SetIncrement( double increment, int digits, formatType fmt = lg_fmt )
-        { SetIncrement(increment); SetDigits(digits, fmt); }
+    { SetIncrement(increment); SetDigits(digits, fmt); }
     // Set the number of digits to show, use wxSPINCTRLDBL_AUTODIGITS
     //  or specify exact number to show i.e. %.[digits]lf
     //  The format type is used to create an appropriate format string.
@@ -166,10 +166,10 @@ public:
     // for setting... stuff
     wxTextCtrl *GetTextCtrl() { return (wxTextCtrl*)m_textCtrl; }
 
-	// NDA
-	void SetToolTip( const wxString& tip);
-	// NDA
-	virtual void SetHelpText( const wxString& helpText);
+    // NDA
+    void SetToolTip( const wxString& tip);
+    // NDA
+    virtual void SetHelpText( const wxString& helpText);
 
 protected:
     void OnSpinUp( wxSpinEvent &event );
@@ -208,7 +208,7 @@ private:
 
     void Init();
     DECLARE_DYNAMIC_CLASS(wxSpinCtrlDbl)
-    DECLARE_EVENT_TABLE()
-};
+        DECLARE_EVENT_TABLE()
+        };
 
 #endif  // __wxSPINCTRLDBL_H__

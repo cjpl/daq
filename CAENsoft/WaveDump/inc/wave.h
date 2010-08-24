@@ -9,27 +9,27 @@
 #ifdef WIN32
 
 
-    #include <time.h>
-    #include <sys/timeb.h>
-    #include <conio.h>
-    #include <process.h>
+#include <time.h>
+#include <sys/timeb.h>
+#include <conio.h>
+#include <process.h>
 
-    #define popen  _popen    /* redefine POSIX 'deprecated' popen as _popen */
-    #define pclose  _pclose  /* redefine POSIX 'deprecated' pclose as _pclose */
-	#define getch _getch     /* redefine POSIX 'deprecated' */
-	#define kbhit _kbhit     /* redefine POSIX 'deprecated' */
+#define popen  _popen    /* redefine POSIX 'deprecated' popen as _popen */
+#define pclose  _pclose  /* redefine POSIX 'deprecated' pclose as _pclose */
+#define getch _getch     /* redefine POSIX 'deprecated' */
+#define kbhit _kbhit     /* redefine POSIX 'deprecated' */
 
-    #define UINT64_T INT64
-    #define UINT32_T INT32
+#define UINT64_T INT64
+#define UINT32_T INT32
 
 #else
-    #include <unistd.h>
-    #include <stdint.h>   /* C99 compliant compilers: uint64_t */
-    #include <ctype.h>    /* toupper() */
-    #include <sys/time.h>
+#include <unistd.h>
+#include <stdint.h>   /* C99 compliant compilers: uint64_t */
+#include <ctype.h>    /* toupper() */
+#include <sys/time.h>
 
-    #define UINT64_T uint64_t
-    #define UINT32_T uint32_t
+#define UINT64_T uint64_t
+#define UINT32_T uint32_t
 
 #endif
 
@@ -43,9 +43,9 @@
    the pipe will not work.
 */
 #ifdef WIN32
-    #define GNUPLOT_COMMAND  "pgnuplot"
+#define GNUPLOT_COMMAND  "pgnuplot"
 #else
-    #define GNUPLOT_COMMAND  "gnuplot"
+#define GNUPLOT_COMMAND  "gnuplot"
 #endif
 
 #define MAX_GNUPLOT_CMD_LENGTH 200
@@ -105,33 +105,33 @@ typedef struct EVENT_INFO
 // BOARD Informations for VME access stucture.
 // Its field data types are specific to the CAENVMELib
 typedef struct VME_ACCESS {
-	HANDLE_TYPE  handle;
-	BOARD_TYPE   BType;
-	ADDR_TYPE    BaseAddress;
-	IRQMASK_TYPE IrqMask;
-	IRQMASK_TYPE IrqCheckMask;
-	LINK_TYPE    link;
-	BDNUM_TYPE   bdnum;
+    HANDLE_TYPE  handle;
+    BOARD_TYPE   BType;
+    ADDR_TYPE    BaseAddress;
+    IRQMASK_TYPE IrqMask;
+    IRQMASK_TYPE IrqCheckMask;
+    LINK_TYPE    link;
+    BDNUM_TYPE   bdnum;
     DATA32_TYPE  data;
-	ADDR32_TYPE  addr;
+    ADDR32_TYPE  addr;
     UINT32_T*    vbuf; /* VME buffer */
-	RETURN_TYPE  ret;
+    RETURN_TYPE  ret;
 } VME_ACCESS;
 
 typedef struct WAVE_CONFIG {
     int  BltSize;
     int  WriteToFile;
-	int  WriteOneEvent;
+    int  WriteOneEvent;
     int  AppendMode;
     int  OutputFormat;
-	int  ReadoutMode;
-	int  TriggerMode;
-	int  CheckMode;
-	int  UseGnuPlot;
-	char GnuPlotPath[200];
-	char GnuPlotExe[200];
-	FILE* gnuplot;	
-	FILE* ofile[8][8]; /* Files structures to hold saved channel data */
+    int  ReadoutMode;
+    int  TriggerMode;
+    int  CheckMode;
+    int  UseGnuPlot;
+    char GnuPlotPath[200];
+    char GnuPlotExe[200];
+    FILE* gnuplot;      
+    FILE* ofile[8][8]; /* Files structures to hold saved channel data */
 
 } WAVE_CONFIG;
 
@@ -142,20 +142,20 @@ typedef struct BOARD_CONFIG {
     int        Pack25;
     double     SamplesPackCoeff;    /* Number of samples per dword (32 bit) */
     UINT32_T   ChannelEnableMask;
-	UINT32_T   BlockOrg;
-	int        MemorySize;
-	int        EnableInt;
-	int        EnableOLIrq;
-	int        EnableVMEIrq;
-	int        EnableBerr;
-	int        EvAlign;
-	int        Align64;
-	int        DesMode;
-	int        posttrig;
+    UINT32_T   BlockOrg;
+    int        MemorySize;
+    int        EnableInt;
+    int        EnableOLIrq;
+    int        EnableVMEIrq;
+    int        EnableBerr;
+    int        EvAlign;
+    int        Align64;
+    int        DesMode;
+    int        posttrig;
     UINT32_T   EventSize;
-	UINT32_T   ExpectedEvSize;
-	UINT32_T   PartChannels;
-	UINT32_T   ChannelEventSize;
+    UINT32_T   ExpectedEvSize;
+    UINT32_T   PartChannels;
+    UINT32_T   ChannelEventSize;
 
 } BOARD_CONFIG;
 
@@ -163,7 +163,7 @@ typedef struct BOARD_CONFIG {
 /* Global variables                                                          */
 /* ##########################################################################*/
 
-   extern const char BoardTypeName[5][6];
+extern const char BoardTypeName[5][6];
 
 /* ###########################################################################
 // Functions

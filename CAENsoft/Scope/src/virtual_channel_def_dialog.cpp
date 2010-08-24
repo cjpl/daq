@@ -51,23 +51,23 @@ IMPLEMENT_DYNAMIC_CLASS( VirtualChannelDefDialog, wxDialog )
 BEGIN_EVENT_TABLE( VirtualChannelDefDialog, wxDialog )
 
 ////@begin VirtualChannelDefDialog event table entries
-    EVT_BUTTON( ID_VCH_DEF_ADD_CHANNEL_BUTTON, VirtualChannelDefDialog::OnVchDefAddChannelButtonClick )
+EVT_BUTTON( ID_VCH_DEF_ADD_CHANNEL_BUTTON, VirtualChannelDefDialog::OnVchDefAddChannelButtonClick )
 
-    EVT_BUTTON( ID_VCH_DEF_ADD_CONSTANT_BUTTON, VirtualChannelDefDialog::OnVchDefAddConstantButtonClick )
+EVT_BUTTON( ID_VCH_DEF_ADD_CONSTANT_BUTTON, VirtualChannelDefDialog::OnVchDefAddConstantButtonClick )
 
-    EVT_BUTTON( ID_VCH_DEF_ADD_OPERATOR_BUTTON, VirtualChannelDefDialog::OnVchDefAddOperatorButtonClick )
+EVT_BUTTON( ID_VCH_DEF_ADD_OPERATOR_BUTTON, VirtualChannelDefDialog::OnVchDefAddOperatorButtonClick )
 
-    EVT_BUTTON( ID_VCH_DEF_REMOVE_BUTTON, VirtualChannelDefDialog::OnVchDefRemoveButtonClick )
+EVT_BUTTON( ID_VCH_DEF_REMOVE_BUTTON, VirtualChannelDefDialog::OnVchDefRemoveButtonClick )
 
-    EVT_BUTTON( ID_VCH_MOVE_UP_BUTTON, VirtualChannelDefDialog::OnVchMoveUpButtonClick )
+EVT_BUTTON( ID_VCH_MOVE_UP_BUTTON, VirtualChannelDefDialog::OnVchMoveUpButtonClick )
 
-    EVT_BUTTON( ID_VCH_MOVE_DW_BUTTON, VirtualChannelDefDialog::OnVchMoveDwButtonClick )
+EVT_BUTTON( ID_VCH_MOVE_DW_BUTTON, VirtualChannelDefDialog::OnVchMoveDwButtonClick )
 
-    EVT_BUTTON( ID_VCH_DEF_OK_BUTTON, VirtualChannelDefDialog::OnVchDefOkButtonClick )
+EVT_BUTTON( ID_VCH_DEF_OK_BUTTON, VirtualChannelDefDialog::OnVchDefOkButtonClick )
 
-    EVT_BUTTON( ID_VCH_DEF_CANCEL_BUTTON, VirtualChannelDefDialog::OnVchDefCancelButtonClick )
+EVT_BUTTON( ID_VCH_DEF_CANCEL_BUTTON, VirtualChannelDefDialog::OnVchDefCancelButtonClick )
 
-    EVT_BUTTON( ID_VCH_DEF_TEST_BUTTON, VirtualChannelDefDialog::OnVchDefTestButtonClick )
+EVT_BUTTON( ID_VCH_DEF_TEST_BUTTON, VirtualChannelDefDialog::OnVchDefTestButtonClick )
 
 ////@end VirtualChannelDefDialog event table entries
 
@@ -79,21 +79,21 @@ END_EVENT_TABLE()
 
 VirtualChannelDefDialog::VirtualChannelDefDialog( )
 {
-	this->m_p_board_channel= NULL;
+    this->m_p_board_channel= NULL;
 }
 
 VirtualChannelDefDialog::VirtualChannelDefDialog( VirtualBoardChannel* board_channel, wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
 {
-	this->m_p_board_channel= board_channel;
+    this->m_p_board_channel= board_channel;
 
     Create(parent, id, caption, pos, size, style);
 
     wxStringTokenizer tokenizer( wxString::FromAscii(this->m_p_board_channel->GetExpressionDef()), _(","));
-	while ( tokenizer.HasMoreTokens() )
-	{
-		wxString token = tokenizer.GetNextToken();
-		this->m_definition_ctrl->Append( token);
-	}
+    while ( tokenizer.HasMoreTokens() )
+    {
+        wxString token = tokenizer.GetNextToken();
+        this->m_definition_ctrl->Append( token);
+    }
 }
 
 /*!
@@ -123,20 +123,20 @@ bool VirtualChannelDefDialog::Create( wxWindow* parent, wxWindowID id, const wxS
     Centre();
 ////@end VirtualChannelDefDialog creation
 
-	// Fill channel combo list
-	for( int i= 0; i< ( int)this->m_p_board_channel->GetParent()->m_channel_array.GetCount(); i++)
-	{
-	  this->m_channel_ctrl->Append( wxString::Format(_("CH%d"), i));
-	}
-	if( this->m_channel_ctrl->GetCount())
-		this->m_channel_ctrl->SetSelection( 0);
-	// Fill operator combo list
-	this->m_operator_ctrl->Append( _( "ADD"));
-	this->m_operator_ctrl->Append( _( "SUB"));
-	this->m_operator_ctrl->Append( _( "MUL"));
-	this->m_operator_ctrl->Append( _( "DIV"));
+    // Fill channel combo list
+    for( int i= 0; i< ( int)this->m_p_board_channel->GetParent()->m_channel_array.GetCount(); i++)
+    {
+        this->m_channel_ctrl->Append( wxString::Format(_("CH%d"), i));
+    }
+    if( this->m_channel_ctrl->GetCount())
+        this->m_channel_ctrl->SetSelection( 0);
+    // Fill operator combo list
+    this->m_operator_ctrl->Append( _( "ADD"));
+    this->m_operator_ctrl->Append( _( "SUB"));
+    this->m_operator_ctrl->Append( _( "MUL"));
+    this->m_operator_ctrl->Append( _( "DIV"));
 
-	this->m_operator_ctrl->SetSelection( 0);
+    this->m_operator_ctrl->SetSelection( 0);
 
     return true;
 }
@@ -297,18 +297,18 @@ void VirtualChannelDefDialog::CreateControls()
 
 void VirtualChannelDefDialog::OnVchDefAddConstantButtonClick( wxCommandEvent& /*event */)
 {
-  wxString value= wxString::Format(_("%d"), this->m_constant_ctrl->GetValue());
-	int target_sel_item= this->m_definition_ctrl->GetSelection();
-	if( target_sel_item== wxNOT_FOUND )
-	{
-		this->m_definition_ctrl->Append( value);
-		this->m_definition_ctrl->SetSelection( this->m_definition_ctrl->GetCount()- 1);
-	}
-	else
-	{
-		this->m_definition_ctrl->Insert( value, target_sel_item+ 1);
-		this->m_definition_ctrl->SetSelection( target_sel_item+ 1);
-	}
+    wxString value= wxString::Format(_("%d"), this->m_constant_ctrl->GetValue());
+    int target_sel_item= this->m_definition_ctrl->GetSelection();
+    if( target_sel_item== wxNOT_FOUND )
+    {
+        this->m_definition_ctrl->Append( value);
+        this->m_definition_ctrl->SetSelection( this->m_definition_ctrl->GetCount()- 1);
+    }
+    else
+    {
+        this->m_definition_ctrl->Insert( value, target_sel_item+ 1);
+        this->m_definition_ctrl->SetSelection( target_sel_item+ 1);
+    }
 }
 
 /*!
@@ -317,20 +317,20 @@ void VirtualChannelDefDialog::OnVchDefAddConstantButtonClick( wxCommandEvent& /*
 
 void VirtualChannelDefDialog::OnVchDefAddOperatorButtonClick( wxCommandEvent& /*event */)
 {
-	int sel_item= 0;
-	if( ( sel_item= this->m_operator_ctrl->GetSelection())== wxNOT_FOUND )
-		return;
-	int target_sel_item= this->m_definition_ctrl->GetSelection();
-	if( target_sel_item== wxNOT_FOUND )
-	{
-		this->m_definition_ctrl->Append( this->m_operator_ctrl->GetString( sel_item));
-		this->m_definition_ctrl->SetSelection( this->m_definition_ctrl->GetCount()- 1);
-	}
-	else
-	{
-		this->m_definition_ctrl->Insert( this->m_operator_ctrl->GetString( sel_item), target_sel_item+ 1);
-		this->m_definition_ctrl->SetSelection( target_sel_item+ 1);
-	}
+    int sel_item= 0;
+    if( ( sel_item= this->m_operator_ctrl->GetSelection())== wxNOT_FOUND )
+        return;
+    int target_sel_item= this->m_definition_ctrl->GetSelection();
+    if( target_sel_item== wxNOT_FOUND )
+    {
+        this->m_definition_ctrl->Append( this->m_operator_ctrl->GetString( sel_item));
+        this->m_definition_ctrl->SetSelection( this->m_definition_ctrl->GetCount()- 1);
+    }
+    else
+    {
+        this->m_definition_ctrl->Insert( this->m_operator_ctrl->GetString( sel_item), target_sel_item+ 1);
+        this->m_definition_ctrl->SetSelection( target_sel_item+ 1);
+    }
 }
 
 /*!
@@ -339,14 +339,14 @@ void VirtualChannelDefDialog::OnVchDefAddOperatorButtonClick( wxCommandEvent& /*
 
 void VirtualChannelDefDialog::OnVchDefRemoveButtonClick( wxCommandEvent& /*event*/ )
 {
-	int sel_item= 0;
-	if( ( sel_item= this->m_definition_ctrl->GetSelection())== wxNOT_FOUND )
-		return;
-	this->m_definition_ctrl->Delete( sel_item);	
-	if( this->m_definition_ctrl->GetCount())
-	{
-		this->m_definition_ctrl->SetSelection( sel_item >= this->m_definition_ctrl->GetCount()? this->m_definition_ctrl->GetCount()- 1: sel_item);
-	}
+    int sel_item= 0;
+    if( ( sel_item= this->m_definition_ctrl->GetSelection())== wxNOT_FOUND )
+        return;
+    this->m_definition_ctrl->Delete( sel_item); 
+    if( this->m_definition_ctrl->GetCount())
+    {
+        this->m_definition_ctrl->SetSelection( sel_item >= this->m_definition_ctrl->GetCount()? this->m_definition_ctrl->GetCount()- 1: sel_item);
+    }
 }
 
 /*!
@@ -355,22 +355,22 @@ void VirtualChannelDefDialog::OnVchDefRemoveButtonClick( wxCommandEvent& /*event
 
 void VirtualChannelDefDialog::OnVchDefOkButtonClick( wxCommandEvent& /*event */)
 {
-  RpnHandler* rpn_handler= new RpnHandler( NULL, this->MakeExpressionDef().ToAscii());
-	if( !rpn_handler->Test())
-	{
-		// Prompt User
-		if( wxMessageBox( wxT("RPN syntax has some errors!\nDo you want to save anyway ?"), wxT("Expression test"), wxOK| wxCANCEL | wxCENTRE | wxICON_ERROR  )!= wxOK)
-		{
-			delete rpn_handler;
-			return;
-		}
-	}
+    RpnHandler* rpn_handler= new RpnHandler( NULL, this->MakeExpressionDef().ToAscii());
+    if( !rpn_handler->Test())
+    {
+        // Prompt User
+        if( wxMessageBox( wxT("RPN syntax has some errors!\nDo you want to save anyway ?"), wxT("Expression test"), wxOK| wxCANCEL | wxCENTRE | wxICON_ERROR  )!= wxOK)
+        {
+            delete rpn_handler;
+            return;
+        }
+    }
 
-	this->m_p_board_channel->SetExpressionDef( rpn_handler->Format());
-	delete rpn_handler;
+    this->m_p_board_channel->SetExpressionDef( rpn_handler->Format());
+    delete rpn_handler;
 
-	this->Close();
-	this->SetReturnCode( wxOK);
+    this->Close();
+    this->SetReturnCode( wxOK);
 }
 
 /*!
@@ -379,8 +379,8 @@ void VirtualChannelDefDialog::OnVchDefOkButtonClick( wxCommandEvent& /*event */)
 
 void VirtualChannelDefDialog::OnVchDefCancelButtonClick( wxCommandEvent& /*event */)
 {
-	this->Close();
-	this->SetReturnCode( wxCANCEL);
+    this->Close();
+    this->SetReturnCode( wxCANCEL);
 }
 
 /*!
@@ -389,17 +389,17 @@ void VirtualChannelDefDialog::OnVchDefCancelButtonClick( wxCommandEvent& /*event
 
 void VirtualChannelDefDialog::OnVchDefTestButtonClick( wxCommandEvent& /*event*/ )
 {
-	// TODO : do test configuration here
-  RpnHandler* rpn_handler= new RpnHandler( NULL, this->MakeExpressionDef().ToAscii());
-	if( !rpn_handler->Test())
-	{
-		wxMessageBox( wxT("RPN syntax has some errors!"), wxT("Expression test"), wxOK | wxCENTRE | wxICON_ERROR  );
-	}
-	else
-	{
-		wxMessageBox( wxT("RPN syntax is Ok."), wxT("Expression test"), wxOK | wxCENTRE | wxICON_INFORMATION  );
-	}
-	delete rpn_handler;
+    // TODO : do test configuration here
+    RpnHandler* rpn_handler= new RpnHandler( NULL, this->MakeExpressionDef().ToAscii());
+    if( !rpn_handler->Test())
+    {
+        wxMessageBox( wxT("RPN syntax has some errors!"), wxT("Expression test"), wxOK | wxCENTRE | wxICON_ERROR  );
+    }
+    else
+    {
+        wxMessageBox( wxT("RPN syntax is Ok."), wxT("Expression test"), wxOK | wxCENTRE | wxICON_INFORMATION  );
+    }
+    delete rpn_handler;
 }
 
 /*!
@@ -442,20 +442,20 @@ wxIcon VirtualChannelDefDialog::GetIconResource( const wxString& name )
 
 void VirtualChannelDefDialog::OnVchDefAddChannelButtonClick( wxCommandEvent& /*event */)
 {
-	int sel_item= 0;
-	if( ( sel_item= this->m_channel_ctrl->GetSelection())== wxNOT_FOUND )
-		return;
-	int target_sel_item= this->m_definition_ctrl->GetSelection();
-	if( target_sel_item== wxNOT_FOUND )
-	{
-		this->m_definition_ctrl->Append( this->m_channel_ctrl->GetString( sel_item));
-		this->m_definition_ctrl->SetSelection( this->m_definition_ctrl->GetCount()- 1);
-	}
-	else
-	{
-		this->m_definition_ctrl->Insert( this->m_channel_ctrl->GetString( sel_item), target_sel_item+ 1);
-		this->m_definition_ctrl->SetSelection( target_sel_item+ 1);
-	}
+    int sel_item= 0;
+    if( ( sel_item= this->m_channel_ctrl->GetSelection())== wxNOT_FOUND )
+        return;
+    int target_sel_item= this->m_definition_ctrl->GetSelection();
+    if( target_sel_item== wxNOT_FOUND )
+    {
+        this->m_definition_ctrl->Append( this->m_channel_ctrl->GetString( sel_item));
+        this->m_definition_ctrl->SetSelection( this->m_definition_ctrl->GetCount()- 1);
+    }
+    else
+    {
+        this->m_definition_ctrl->Insert( this->m_channel_ctrl->GetString( sel_item), target_sel_item+ 1);
+        this->m_definition_ctrl->SetSelection( target_sel_item+ 1);
+    }
 }
 
 
@@ -465,15 +465,15 @@ void VirtualChannelDefDialog::OnVchDefAddChannelButtonClick( wxCommandEvent& /*e
 
 void VirtualChannelDefDialog::OnVchMoveUpButtonClick( wxCommandEvent& /*event */)
 {
-	int sel_item= 0;
-	if( ( sel_item= this->m_definition_ctrl->GetSelection())== wxNOT_FOUND )
-		return;
-	if( sel_item== 0)
-		return;
-	wxString item= this->m_definition_ctrl->GetString( sel_item);
-	this->m_definition_ctrl->Delete( sel_item);	
-	this->m_definition_ctrl->Insert( item, sel_item- 1);
-	this->m_definition_ctrl->SetSelection( sel_item- 1);
+    int sel_item= 0;
+    if( ( sel_item= this->m_definition_ctrl->GetSelection())== wxNOT_FOUND )
+        return;
+    if( sel_item== 0)
+        return;
+    wxString item= this->m_definition_ctrl->GetString( sel_item);
+    this->m_definition_ctrl->Delete( sel_item); 
+    this->m_definition_ctrl->Insert( item, sel_item- 1);
+    this->m_definition_ctrl->SetSelection( sel_item- 1);
 }
 
 /*!
@@ -482,25 +482,25 @@ void VirtualChannelDefDialog::OnVchMoveUpButtonClick( wxCommandEvent& /*event */
 
 void VirtualChannelDefDialog::OnVchMoveDwButtonClick( wxCommandEvent& /*event */)
 {
-	int sel_item= 0;
-	if( ( sel_item= this->m_definition_ctrl->GetSelection())== wxNOT_FOUND )
-		return;
-	if( sel_item== this->m_definition_ctrl->GetCount()- 1)
-		return;
-	wxString item= this->m_definition_ctrl->GetString( sel_item);
-	this->m_definition_ctrl->Delete( sel_item);	
-	this->m_definition_ctrl->Insert( item, sel_item+ 1);
-	this->m_definition_ctrl->SetSelection( sel_item+ 1);
+    int sel_item= 0;
+    if( ( sel_item= this->m_definition_ctrl->GetSelection())== wxNOT_FOUND )
+        return;
+    if( sel_item== this->m_definition_ctrl->GetCount()- 1)
+        return;
+    wxString item= this->m_definition_ctrl->GetString( sel_item);
+    this->m_definition_ctrl->Delete( sel_item); 
+    this->m_definition_ctrl->Insert( item, sel_item+ 1);
+    this->m_definition_ctrl->SetSelection( sel_item+ 1);
 }
 
 wxString VirtualChannelDefDialog::MakeExpressionDef( void)
 {
-	wxString expression_def;
-	for( int i= 0; i< this->m_definition_ctrl->GetCount(); i++)
-	{
-		expression_def.Append( this->m_definition_ctrl->GetString( i).c_str());
-		if( i!= this->m_definition_ctrl->GetCount()- 1)
-		  expression_def.Append(_(","));
-	}
-	return expression_def;
+    wxString expression_def;
+    for( int i= 0; i< this->m_definition_ctrl->GetCount(); i++)
+    {
+        expression_def.Append( this->m_definition_ctrl->GetString( i).c_str());
+        if( i!= this->m_definition_ctrl->GetCount()- 1)
+            expression_def.Append(_(","));
+    }
+    return expression_def;
 }

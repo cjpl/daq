@@ -66,9 +66,9 @@ class wxSpinCtrl;
 class TriggerChControl: public wxPanel
 {    
     DECLARE_DYNAMIC_CLASS( TriggerChControl )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     TriggerChControl( );
     TriggerChControl( wxWindow* parent, wxWindowID id = SYMBOL_TRIGGERCHCONTROL_IDNAME, const wxPoint& pos = SYMBOL_TRIGGERCHCONTROL_POSITION, const wxSize& size = SYMBOL_TRIGGERCHCONTROL_SIZE, long style = SYMBOL_TRIGGERCHCONTROL_STYLE );
@@ -109,17 +109,17 @@ public:
     wxSpinCtrl* m_thr_sample_control;
 ////@end TriggerChControl member variables
 
-	bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count);
-	bool UpdateControls( );
+    bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count);
+    bool UpdateControls( );
 private: 
-	// Generic Board pointer
-	GenericBoard* m_p_board;
-	PhysicalBoardChannel* m_p_board_channel;
-	int m_ch_index;
-	int m_ch_count;
-	void UpdateThreshold( int value);
-	void UpdateThrSamples( int value);
+    // Generic Board pointer
+    GenericBoard* m_p_board;
+    PhysicalBoardChannel* m_p_board_channel;
+    int m_ch_index;
+    int m_ch_count;
+    void UpdateThreshold( int value);
+    void UpdateThrSamples( int value);
 };
 
 #endif
-    // _TRIGGER_CH_CONTROL_H_
+// _TRIGGER_CH_CONTROL_H_

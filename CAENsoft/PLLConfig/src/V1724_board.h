@@ -22,29 +22,29 @@
 
 extern "C" 
 {
-	#include "cvt_V1724.h"
+#include "cvt_V1724.h"
 }
 #include "generic_board.h"
 
 class AppSettings;
 
-class V1724Board :	public GenericBoard
+class V1724Board :      public GenericBoard
 {
 public:
-	V1724Board( AppSettings* p_app_settings);
+    V1724Board( AppSettings* p_app_settings);
 
-	//
-	// Pure virtual implememtation
-	wxString GetTypeString() { return _("V1724");};
-	CVT_V17XX_TYPES GetType(){ return CVT_V1724;};
-	double GetClockMHz() const { return CVT_V17XX_BOARD_CLOCK_KHZ[ CVT_V1724_BOARD_CLOCK_INDEX]*0.001;};
-	int GetSampleBit() const { return 14;} 
-	double GetVolt2Bit() const { return ((double)( 1<< 16)) / 2.25;};
-	UINT8 GetChEnableMsk() const { return 0xff;} ;
-	double GetFPGADivider() const { return 1;}
+    //
+    // Pure virtual implememtation
+    wxString GetTypeString() { return _("V1724");};
+    CVT_V17XX_TYPES GetType(){ return CVT_V1724;};
+    double GetClockMHz() const { return CVT_V17XX_BOARD_CLOCK_KHZ[ CVT_V1724_BOARD_CLOCK_INDEX]*0.001;};
+    int GetSampleBit() const { return 14;} 
+    double GetVolt2Bit() const { return ((double)( 1<< 16)) / 2.25;};
+    UINT8 GetChEnableMsk() const { return 0xff;} ;
+    double GetFPGADivider() const { return 1;}
 
 };
 
 
-#endif	// _V1724_board_H_
+#endif  // _V1724_board_H_
 

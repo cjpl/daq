@@ -69,9 +69,9 @@ class wxSpinCtrl;
 class RecordChControl: public wxPanel
 {    
     DECLARE_DYNAMIC_CLASS( RecordChControl )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     RecordChControl( );
     RecordChControl( wxWindow* parent, wxWindowID id = SYMBOL_RECORDCHCONTROL_IDNAME, const wxPoint& pos = SYMBOL_RECORDCHCONTROL_POSITION, const wxSize& size = SYMBOL_RECORDCHCONTROL_SIZE, long style = SYMBOL_RECORDCHCONTROL_STYLE );
@@ -115,19 +115,19 @@ public:
     wxChoice* m_format_control;
 ////@end RecordChControl member variables
 
-	bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, bool is_virtual);
-	bool UpdateControls( void);
-	void UpdateRateDivider( int value);
-	void SetEnable( bool enable);
+    bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, bool is_virtual);
+    bool UpdateControls( void);
+    void UpdateRateDivider( int value);
+    void SetEnable( bool enable);
 private:
-	bool m_is_virtual;
-	// Generic Board pointer
-	GenericBoard* m_p_board;
-	GenericBoardChannel* m_p_board_channel;
-	int m_ch_index;
-	int m_ch_count;
+    bool m_is_virtual;
+    // Generic Board pointer
+    GenericBoard* m_p_board;
+    GenericBoardChannel* m_p_board_channel;
+    int m_ch_index;
+    int m_ch_count;
 
 };
 
 #endif
-    // _RECORD_CH_CONTROL_H_
+// _RECORD_CH_CONTROL_H_

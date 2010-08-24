@@ -1,4 +1,4 @@
-	/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // Name:        caenpllconfig.cpp
 // Purpose:     
 // Author:      NDA
@@ -102,7 +102,7 @@ bool CAENPLLConfigApp::OnInit()
  */
 int CAENPLLConfigApp::OnExit()
 {    
-	wxImage::CleanUpHandlers();
+    wxImage::CleanUpHandlers();
 ////@begin CAENPLLConfigApp cleanup
     return wxApp::OnExit();
 ////@end CAENPLLConfigApp cleanup

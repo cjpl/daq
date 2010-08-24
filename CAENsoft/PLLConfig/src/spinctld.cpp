@@ -7,37 +7,37 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #if defined(__GNUG__) && !defined(NO_GCC_PRAGMA)
-    #pragma implementation "spinctld.h"
+#pragma implementation "spinctld.h"
 #endif
 
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"
 
 #ifdef __BORLANDC__
-    #pragma hdrstop
+#pragma hdrstop
 #endif
 
 #ifndef WX_PRECOMP
-    #include "wx/valtext.h"     // for wxTextValidator
-    #include "wx/textctrl.h"
+#include "wx/valtext.h"     // for wxTextValidator
+#include "wx/textctrl.h"
 #endif // WX_PRECOMP
 
 #include "spinctld.h"
 #include <math.h>
 
 #if wxCHECK_VERSION(2,5,0)
-    #include "wx/math.h"
+#include "wx/math.h"
 #else
-    #if defined(__VISUALC__) || defined(__BORLANDC__) || defined(__WATCOMC__)
-        #include <float.h>
-        #define wxFinite(x) _finite(x)
-    #elif defined(__GNUG__)||defined(__GNUWIN32__)||defined(__DJGPP__)|| \
-          defined(__SGI_CC__)||defined(__SUNCC__)||defined(__XLC__)|| \
-          defined(__HPUX__)||defined(__MWERKS__)
-        #define wxFinite(x) finite(x)
-    #else
-        #define wxFinite(x) ((x) == (x))
-    #endif
+#if defined(__VISUALC__) || defined(__BORLANDC__) || defined(__WATCOMC__)
+#include <float.h>
+#define wxFinite(x) _finite(x)
+#elif defined(__GNUG__)||defined(__GNUWIN32__)||defined(__DJGPP__)||    \
+    defined(__SGI_CC__)||defined(__SUNCC__)||defined(__XLC__)||         \
+    defined(__HPUX__)||defined(__MWERKS__)
+#define wxFinite(x) finite(x)
+#else
+#define wxFinite(x) ((x) == (x))
+#endif
 #endif // wxCHECK_VERSION(2,5,0)
 
 // NOTES : if the textctrl is focused and the program is ending, a killfocus
@@ -62,10 +62,10 @@ public:
 
     // MSW sends extra kill focus event
     virtual ~wxSpinCtrlDblTextCtrl()
-    {
-        if (m_parent) m_parent->m_textCtrl = NULL;
-        m_parent = NULL;
-    }
+        {
+            if (m_parent) m_parent->m_textCtrl = NULL;
+            m_parent = NULL;
+        }
 
     wxSpinCtrlDbl *m_parent;
 
@@ -79,8 +79,8 @@ private:
 BEGIN_EVENT_TABLE(wxSpinCtrlDblTextCtrl,wxTextCtrl)
 //  EVT_TEXT_ENTER( wxID_ANY, wxSpinCtrlDblTextCtrl::OnTextEnter ) // get them from spinctrldbl
 //  EVT_TEXT( wxID_ANY, wxSpinCtrlDblTextCtrl::OnTextUpdate )      // get them from spinctrldbl
-    EVT_CHAR( wxSpinCtrlDblTextCtrl::OnChar )
-    EVT_KILL_FOCUS( wxSpinCtrlDblTextCtrl::OnKillFocus )
+EVT_CHAR( wxSpinCtrlDblTextCtrl::OnChar )
+EVT_KILL_FOCUS( wxSpinCtrlDblTextCtrl::OnKillFocus )
 END_EVENT_TABLE()
 
 wxSpinCtrlDblTextCtrl::wxSpinCtrlDblTextCtrl( wxWindow *parent, wxWindowID id,
@@ -89,8 +89,8 @@ wxSpinCtrlDblTextCtrl::wxSpinCtrlDblTextCtrl( wxWindow *parent, wxWindowID id,
                                               long style,
                                               const wxValidator& validator,
                                               const wxString &name)
-                       :wxTextCtrl( parent, id, value, pos, size, style,
-                                    validator, name)
+:wxTextCtrl( parent, id, value, pos, size, style,
+             validator, name)
 {
     m_parent = (wxSpinCtrlDbl*)parent;
 }
@@ -113,12 +113,12 @@ void wxSpinCtrlDblTextCtrl::OnKillFocus( wxFocusEvent &event )
 IMPLEMENT_DYNAMIC_CLASS( wxSpinCtrlDbl, wxControl )
 
 BEGIN_EVENT_TABLE(wxSpinCtrlDbl,wxControl)
-    EVT_SPIN_UP   ( wxID_ANY, wxSpinCtrlDbl::OnSpinUp    )
-    EVT_SPIN_DOWN ( wxID_ANY, wxSpinCtrlDbl::OnSpinDown  )
-    EVT_TEXT_ENTER( wxID_ANY, wxSpinCtrlDbl::OnTextEnter )
-    //EVT_TEXT      ( wxID_ANY, wxSpinCtrlDbl::OnText      )
-    EVT_SET_FOCUS ( wxSpinCtrlDbl::OnFocus     )
-    EVT_KILL_FOCUS( wxSpinCtrlDbl::OnKillFocus )
+EVT_SPIN_UP   ( wxID_ANY, wxSpinCtrlDbl::OnSpinUp    )
+EVT_SPIN_DOWN ( wxID_ANY, wxSpinCtrlDbl::OnSpinDown  )
+EVT_TEXT_ENTER( wxID_ANY, wxSpinCtrlDbl::OnTextEnter )
+//EVT_TEXT      ( wxID_ANY, wxSpinCtrlDbl::OnText      )
+EVT_SET_FOCUS ( wxSpinCtrlDbl::OnFocus     )
+EVT_KILL_FOCUS( wxSpinCtrlDbl::OnKillFocus )
 END_EVENT_TABLE()
 
 void wxSpinCtrlDbl::Init()
@@ -183,9 +183,9 @@ bool wxSpinCtrlDbl::Create( wxWindow *parent, wxWindowID id,
     m_spinButton = new wxSpinButton( this, id, wxPoint(0,0), wxSize(-1, height),
                                      wxSP_ARROW_KEYS|wxSP_VERTICAL|wxSP_WRAP);
     m_textCtrl = new wxSpinCtrlDblTextCtrl( this, id, value,
-                      wxPoint(0,0),
-                      wxSize(width-m_spinButton->GetSize().GetWidth(), height),
-                      wxTE_NOHIDESEL|wxTE_PROCESS_ENTER, validator);
+                                            wxPoint(0,0),
+                                            wxSize(width-m_spinButton->GetSize().GetWidth(), height),
+                                            wxTE_NOHIDESEL|wxTE_PROCESS_ENTER, validator);
 
     DoSetSize( pos.x, pos.y, width, height );
     SetBestSize(wxSize(width, height));
@@ -240,7 +240,7 @@ void wxSpinCtrlDbl::DoSetSize(int x, int y, int width, int height, int sizeFlags
         m_spinButton->GetSize( &spinwidth, &spinheight );
 
 //NDA
-	if (m_textCtrl)   m_textCtrl->SetSize( 0, 0, width - spinwidth- 1, height );
+    if (m_textCtrl)   m_textCtrl->SetSize( 0, 0, width - spinwidth- 1, height );
     if (m_spinButton) m_spinButton->SetSize( width-spinwidth, 0, -1, height );
 //
 //#ifdef __WIN95__   // humm... these used to be different
@@ -327,58 +327,58 @@ void wxSpinCtrlDbl::OnChar( wxKeyEvent &event )
 
     switch ( event.GetKeyCode() )
     {
-        case WXK_UP :
-        {
-            if (m_textCtrl && m_textCtrl->IsModified()) SyncSpinToText(false);
-            SetValue( m_value + m_increment * modifier );
-            DoSendEvent();
-            break;
-        }
-        case WXK_DOWN :
-        {
-            if (m_textCtrl && m_textCtrl->IsModified()) SyncSpinToText(false);
-            SetValue( m_value - m_increment * modifier );
-            DoSendEvent();
-            break;
-        }
-        case WXK_PRIOR :  // pg-up
-        {
-            if (m_textCtrl && m_textCtrl->IsModified()) SyncSpinToText(false);
-            SetValue( m_value + m_increment * 10.0 * modifier );
-            DoSendEvent();
-            break;
-        }
-        case WXK_NEXT :  // pg-down
-        {
-            if (m_textCtrl && m_textCtrl->IsModified()) SyncSpinToText(false);
-            SetValue( m_value - m_increment * 10.0 * modifier );
-            DoSendEvent();
-            break;
-        }
-        case WXK_SPACE :
-        {
-            SetValue(m_value);
-            event.Skip(false);
-            break;
-        }
-        case WXK_ESCAPE :
-        {
-            SetDefaultValue();
-            DoSendEvent();
-            break;
-        }
-        case WXK_TAB :
-        {
-            wxNavigationKeyEvent new_event;
-            new_event.SetEventObject( GetParent() );
-            new_event.SetDirection( !event.ShiftDown() );
-            // CTRL-TAB changes the (parent) window, i.e. switch notebook page
-            new_event.SetWindowChange( event.ControlDown() );
-            new_event.SetCurrentFocus( this );
-            GetParent()->GetEventHandler()->ProcessEvent( new_event );
-            break;
-        }
-        default : event.Skip(); break;
+    case WXK_UP :
+    {
+        if (m_textCtrl && m_textCtrl->IsModified()) SyncSpinToText(false);
+        SetValue( m_value + m_increment * modifier );
+        DoSendEvent();
+        break;
+    }
+    case WXK_DOWN :
+    {
+        if (m_textCtrl && m_textCtrl->IsModified()) SyncSpinToText(false);
+        SetValue( m_value - m_increment * modifier );
+        DoSendEvent();
+        break;
+    }
+    case WXK_PRIOR :  // pg-up
+    {
+        if (m_textCtrl && m_textCtrl->IsModified()) SyncSpinToText(false);
+        SetValue( m_value + m_increment * 10.0 * modifier );
+        DoSendEvent();
+        break;
+    }
+    case WXK_NEXT :  // pg-down
+    {
+        if (m_textCtrl && m_textCtrl->IsModified()) SyncSpinToText(false);
+        SetValue( m_value - m_increment * 10.0 * modifier );
+        DoSendEvent();
+        break;
+    }
+    case WXK_SPACE :
+    {
+        SetValue(m_value);
+        event.Skip(false);
+        break;
+    }
+    case WXK_ESCAPE :
+    {
+        SetDefaultValue();
+        DoSendEvent();
+        break;
+    }
+    case WXK_TAB :
+    {
+        wxNavigationKeyEvent new_event;
+        new_event.SetEventObject( GetParent() );
+        new_event.SetDirection( !event.ShiftDown() );
+        // CTRL-TAB changes the (parent) window, i.e. switch notebook page
+        new_event.SetWindowChange( event.ControlDown() );
+        new_event.SetCurrentFocus( this );
+        GetParent()->GetEventHandler()->ProcessEvent( new_event );
+        break;
+    }
+    default : event.Skip(); break;
     }
 }
 
@@ -480,9 +480,9 @@ void wxSpinCtrlDbl::SetDigits( int digits, formatType fmt )
                 m_digits = extra_digits + i-decimalplace;
                 switch (fmt)
                 {
-                    case le_fmt : m_textFormat.Printf(wxT("%%.%dle"), m_digits ); break;
-                    case lf_fmt :
-                    default     : m_textFormat.Printf(wxT("%%.%dlg"), m_digits ); break;
+                case le_fmt : m_textFormat.Printf(wxT("%%.%dle"), m_digits ); break;
+                case lf_fmt :
+                default     : m_textFormat.Printf(wxT("%%.%dlg"), m_digits ); break;
                 }
 
                 SetValue(m_value);
@@ -497,17 +497,17 @@ void wxSpinCtrlDbl::SetDigits( int digits, formatType fmt )
 
     switch (fmt)
     {
-        case le_fmt : m_textFormat.Printf(wxT("%%.%dle"), m_digits ); break;
-        case lg_fmt :
-        {
-            if (m_digits == -1)
-                m_textFormat.Printf(wxT("%%lg") );
-            else
-                m_textFormat.Printf(wxT("%%.%dlg"), m_digits );
-            break;
-        }
-        case lf_fmt :
-        default     : m_textFormat.Printf(wxT("%%.%dlf"), m_digits ); break;
+    case le_fmt : m_textFormat.Printf(wxT("%%.%dle"), m_digits ); break;
+    case lg_fmt :
+    {
+        if (m_digits == -1)
+            m_textFormat.Printf(wxT("%%lg") );
+        else
+            m_textFormat.Printf(wxT("%%.%dlg"), m_digits );
+        break;
+    }
+    case lf_fmt :
+    default     : m_textFormat.Printf(wxT("%%.%dlf"), m_digits ); break;
     }
 
     SetValue(m_value);
@@ -627,14 +627,14 @@ wxColour wxSpinCtrlDbl::GetForegroundColour() const
 // NDA
 void wxSpinCtrlDbl::SetToolTip( const wxString& tip)
 {
-	wxControl::SetToolTip( tip);
-	this->m_spinButton->SetToolTip( tip);
-	this->m_textCtrl->SetToolTip( tip);
+    wxControl::SetToolTip( tip);
+    this->m_spinButton->SetToolTip( tip);
+    this->m_textCtrl->SetToolTip( tip);
 }
 // NDA
 void wxSpinCtrlDbl::SetHelpText( const wxString& helpText)
 {
-	wxControl::SetHelpText( helpText);
-	this->m_spinButton->SetHelpText( helpText);
-	this->m_textCtrl->SetHelpText( helpText);
+    wxControl::SetHelpText( helpText);
+    this->m_spinButton->SetHelpText( helpText);
+    this->m_textCtrl->SetHelpText( helpText);
 }

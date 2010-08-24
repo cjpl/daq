@@ -48,7 +48,7 @@ class wxBoxSizer;
 #define ID_PANEL1 10041
 #define ID_OK_BUTTON 10042
 ////@end control identifiers
-#define ID_HYPERLINK	11000
+#define ID_HYPERLINK    11000
 
 /*!
  * Compatibility
@@ -65,9 +65,9 @@ class wxBoxSizer;
 class InfoDialog: public wxDialog
 {    
     DECLARE_DYNAMIC_CLASS( InfoDialog )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     InfoDialog( );
     InfoDialog( wxWindow* parent, wxWindowID id = SYMBOL_INFODIALOG_IDNAME, const wxString& caption = SYMBOL_INFODIALOG_TITLE, const wxPoint& pos = SYMBOL_INFODIALOG_POSITION, const wxSize& size = SYMBOL_INFODIALOG_SIZE, long style = SYMBOL_INFODIALOG_STYLE );
@@ -84,7 +84,7 @@ public:
     void OnOkButtonClick( wxCommandEvent& event );
 
 ////@end InfoDialog event handler declarations
-	void OnHyperlink(wxCommandEvent &event);
+    void OnHyperlink(wxCommandEvent &event);
 
 ////@begin InfoDialog member function declarations
 
@@ -105,4 +105,4 @@ public:
 };
 
 #endif
-    // _INFODIALOG_H_
+// _INFODIALOG_H_

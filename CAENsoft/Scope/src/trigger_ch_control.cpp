@@ -47,13 +47,13 @@ IMPLEMENT_DYNAMIC_CLASS( TriggerChControl, wxPanel )
 BEGIN_EVENT_TABLE( TriggerChControl, wxPanel )
 
 ////@begin TriggerChControl event table entries
-    EVT_SPINCTRL( ID_THRESHOLD_SPINCTRL, TriggerChControl::OnThresholdSpinctrlUpdated )
+EVT_SPINCTRL( ID_THRESHOLD_SPINCTRL, TriggerChControl::OnThresholdSpinctrlUpdated )
 
-    EVT_SPINCTRL( ID_THR_SAMPLES_SPINCTRL, TriggerChControl::OnThrSamplesSpinctrlUpdated )
+EVT_SPINCTRL( ID_THR_SAMPLES_SPINCTRL, TriggerChControl::OnThrSamplesSpinctrlUpdated )
 
 ////@end TriggerChControl event table entries
-    EVT_TEXT_ENTER( ID_THRESHOLD_SPINCTRL, TriggerChControl::OnThresholdSpinctrlTextUpdated )
-    EVT_TEXT_ENTER( ID_THR_SAMPLES_SPINCTRL, TriggerChControl::OnThrSamplesSpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_THRESHOLD_SPINCTRL, TriggerChControl::OnThresholdSpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_THR_SAMPLES_SPINCTRL, TriggerChControl::OnThrSamplesSpinctrlTextUpdated )
 
 END_EVENT_TABLE()
 
@@ -168,7 +168,7 @@ wxIcon TriggerChControl::GetIconResource( const wxString& name )
 
 void TriggerChControl::OnThresholdSpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateThreshold( event.GetPosition());
+    this->UpdateThreshold( event.GetPosition());
 }
 
 
@@ -178,31 +178,31 @@ void TriggerChControl::OnThresholdSpinctrlUpdated( wxSpinEvent& event )
 
 void TriggerChControl::OnThrSamplesSpinctrlUpdated( wxSpinEvent& event )
 {
-	this->UpdateThrSamples( event.GetPosition());
+    this->UpdateThrSamples( event.GetPosition());
 }
 
 bool TriggerChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_count)
 {
-	this->m_p_board= p_board;
-	this->m_ch_index= ch_index;
-	this->m_ch_count= ch_count;
-	if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
-		return false;
-	this->m_p_board_channel= (PhysicalBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
-	
-	if( !this->UpdateControls())
-		return false;
-	return true;
+    this->m_p_board= p_board;
+    this->m_ch_index= ch_index;
+    this->m_ch_count= ch_count;
+    if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
+        return false;
+    this->m_p_board_channel= (PhysicalBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
+        
+    if( !this->UpdateControls())
+        return false;
+    return true;
 }
 bool TriggerChControl::UpdateControls( )
 {
-  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
-	this->m_ch_threshold_control->SetValue( (int)(double)(this->m_p_board_channel->m_trigger_threshold_volt* 1000.0));
-	this->m_thr_sample_control->SetValue( this->m_p_board_channel->m_trigger_thr_sample);
+    this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
+    this->m_ch_threshold_control->SetValue( (int)(double)(this->m_p_board_channel->m_trigger_threshold_volt* 1000.0));
+    this->m_thr_sample_control->SetValue( this->m_p_board_channel->m_trigger_thr_sample);
 
-	this->m_p_board_channel->WriteChannelTrigger();
+    this->m_p_board_channel->WriteChannelTrigger();
 
-	return true;
+    return true;
 }
 
 /*!
@@ -211,8 +211,8 @@ bool TriggerChControl::UpdateControls( )
 
 void TriggerChControl::OnThresholdSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-  int value= atoi( this->m_ch_threshold_control->GetLabel().ToAscii());
-	this->UpdateThreshold( value);
+    int value= atoi( this->m_ch_threshold_control->GetLabel().ToAscii());
+    this->UpdateThreshold( value);
 }
 
 /*!
@@ -221,26 +221,26 @@ void TriggerChControl::OnThresholdSpinctrlTextUpdated( wxCommandEvent& /* event*
 
 void TriggerChControl::OnThrSamplesSpinctrlTextUpdated( wxCommandEvent& /* event*/ )
 {
-  int value= atoi( this->m_thr_sample_control->GetLabel().ToAscii());
-	this->UpdateThrSamples( value);
+    int value= atoi( this->m_thr_sample_control->GetLabel().ToAscii());
+    this->UpdateThrSamples( value);
 }
 
 void TriggerChControl::UpdateThreshold( int value)
 {
-	this->m_p_board_channel->m_trigger_threshold_volt= (double)value/ 1000.0;
-	this->m_p_board_channel->WriteChannelTrigger();
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		(this->m_p_board_channel->ScopeRefresh)( i, true);
-	}
+    this->m_p_board_channel->m_trigger_threshold_volt= (double)value/ 1000.0;
+    this->m_p_board_channel->WriteChannelTrigger();
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        (this->m_p_board_channel->ScopeRefresh)( i, true);
+    }
 }
 
 void TriggerChControl::UpdateThrSamples( int value)
 {
-	this->m_p_board_channel->m_trigger_thr_sample= value;
-	this->m_p_board_channel->WriteChannelTrigger();
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		(this->m_p_board_channel->ScopeRefresh)( i, true);
-	}
+    this->m_p_board_channel->m_trigger_thr_sample= value;
+    this->m_p_board_channel->WriteChannelTrigger();
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        (this->m_p_board_channel->ScopeRefresh)( i, true);
+    }
 }

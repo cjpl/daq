@@ -47,14 +47,14 @@ IMPLEMENT_DYNAMIC_CLASS( RecordChControl, wxPanel )
 BEGIN_EVENT_TABLE( RecordChControl, wxPanel )
 
 ////@begin RecordChControl event table entries
-    EVT_TOGGLEBUTTON( ID_TOGGLEBUTTON, RecordChControl::OnTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_TOGGLEBUTTON, RecordChControl::OnTogglebuttonClick )
 
-    EVT_SPINCTRL( ID_RATE_DIVIDER_SPINCTRL, RecordChControl::OnRateDividerSpinctrlUpdated )
+EVT_SPINCTRL( ID_RATE_DIVIDER_SPINCTRL, RecordChControl::OnRateDividerSpinctrlUpdated )
 
-    EVT_CHOICE( ID_FORMAT_CHOICE, RecordChControl::OnFormatChoiceSelected )
+EVT_CHOICE( ID_FORMAT_CHOICE, RecordChControl::OnFormatChoiceSelected )
 
 ////@end RecordChControl event table entries
-    EVT_TEXT_ENTER( ID_RATE_DIVIDER_SPINCTRL, RecordChControl::OnRateDividerSpinctrlTextUpdated )
+EVT_TEXT_ENTER( ID_RATE_DIVIDER_SPINCTRL, RecordChControl::OnRateDividerSpinctrlTextUpdated )
 
 END_EVENT_TABLE()
 
@@ -137,9 +137,9 @@ void RecordChControl::CreateControls()
 
 ////@end RecordChControl content construction
 
-	this->m_format_control->Append( _("HEX"));
-	this->m_format_control->Append( _("ASCII DEC"));
-	this->m_format_control->Append( _("ASCII HEX"));
+    this->m_format_control->Append( _("HEX"));
+    this->m_format_control->Append( _("ASCII DEC"));
+    this->m_format_control->Append( _("ASCII HEX"));
 
 }
 
@@ -149,8 +149,8 @@ void RecordChControl::CreateControls()
 
 void RecordChControl::OnTogglebuttonClick( wxCommandEvent& /*event*/ )
 {
-	this->m_p_board_channel->m_record_enabled= this->m_ch_enable_control->GetValue( )!= 0;
-	this->m_ch_enable_control->SetLabel( this->m_p_board_channel->m_record_enabled? _("Disable"): _("Enable"));
+    this->m_p_board_channel->m_record_enabled= this->m_ch_enable_control->GetValue( )!= 0;
+    this->m_ch_enable_control->SetLabel( this->m_p_board_channel->m_record_enabled? _("Disable"): _("Enable"));
 }
 
 /*!
@@ -159,7 +159,7 @@ void RecordChControl::OnTogglebuttonClick( wxCommandEvent& /*event*/ )
 
 void RecordChControl::OnRateDividerSpinctrlUpdated( wxSpinEvent& event)
 {
-	this->UpdateRateDivider( event.GetPosition());
+    this->UpdateRateDivider( event.GetPosition());
 }
 
 /*!
@@ -168,8 +168,8 @@ void RecordChControl::OnRateDividerSpinctrlUpdated( wxSpinEvent& event)
 
 void RecordChControl::OnRateDividerSpinctrlTextUpdated( wxCommandEvent& /*event*/)
 {
-  int value= atoi( this->m_ch_rate_divider_control->GetLabel().ToAscii());
-	this->UpdateRateDivider( value);
+    int value= atoi( this->m_ch_rate_divider_control->GetLabel().ToAscii());
+    this->UpdateRateDivider( value);
 }
 
 /*!
@@ -209,48 +209,48 @@ wxIcon RecordChControl::GetIconResource( const wxString& name )
 
 bool RecordChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, bool is_virtual)
 {
-	this->m_is_virtual= is_virtual;
-	this->m_p_board= p_board;
-	this->m_ch_index= ch_index;
-	this->m_ch_count= ch_count;
-	if( this->m_is_virtual)
-	{
-		if( ( size_t)this->m_ch_index>= this->m_p_board->m_virtual_channel_array.GetCount())
-			return false;
-		this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_virtual_channel_array[ this->m_ch_index];
-	}
-	else
-	{
-		if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
-			return false;
-		this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
-	}
-	this->m_p_board_channel->m_p_record_ch_control= this;
-	
-	if( !this->UpdateControls())
-		return false;
-	return true;
+    this->m_is_virtual= is_virtual;
+    this->m_p_board= p_board;
+    this->m_ch_index= ch_index;
+    this->m_ch_count= ch_count;
+    if( this->m_is_virtual)
+    {
+        if( ( size_t)this->m_ch_index>= this->m_p_board->m_virtual_channel_array.GetCount())
+            return false;
+        this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_virtual_channel_array[ this->m_ch_index];
+    }
+    else
+    {
+        if( ( size_t)this->m_ch_index>= this->m_p_board->m_channel_array.GetCount())
+            return false;
+        this->m_p_board_channel= (GenericBoardChannel*)this->m_p_board->m_channel_array[ this->m_ch_index];
+    }
+    this->m_p_board_channel->m_p_record_ch_control= this;
+        
+    if( !this->UpdateControls())
+        return false;
+    return true;
 }
 bool RecordChControl::UpdateControls( void)
 {
-	if( this->m_is_virtual)
-	{
-	  this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
-	}
-	else
-	{
-	  this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
-	}
-	this->m_ch_rate_divider_control->SetValue( this->m_p_board_channel->m_record_rate_divider);
-	this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_record_enabled);
-	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
-	this->m_format_control->SetSelection( this->m_p_board_channel->m_record_format_type);
+    if( this->m_is_virtual)
+    {
+        this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
+    }
+    else
+    {
+        this->m_main_sizer_text->SetLabel( wxString::Format(_("%d"), this->m_ch_count));
+    }
+    this->m_ch_rate_divider_control->SetValue( this->m_p_board_channel->m_record_rate_divider);
+    this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_record_enabled);
+    this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    this->m_format_control->SetSelection( this->m_p_board_channel->m_record_format_type);
 
-	return true;
+    return true;
 }
 void RecordChControl::UpdateRateDivider( int value)
 {
-	this->m_p_board_channel->m_record_rate_divider= value;
+    this->m_p_board_channel->m_record_rate_divider= value;
 }
 /*!
  * wxEVT_COMMAND_CHOICE_SELECTED event handler for ID_FORMAT_CHOICE
@@ -258,7 +258,7 @@ void RecordChControl::UpdateRateDivider( int value)
 
 void RecordChControl::OnFormatChoiceSelected( wxCommandEvent& /*event*/ )
 {
-	this->m_p_board_channel->m_record_format_type= ( GenericBoardChannel::RECORD_FORMAT_TYPE)this->m_format_control->GetSelection();
+    this->m_p_board_channel->m_record_format_type= ( GenericBoardChannel::RECORD_FORMAT_TYPE)this->m_format_control->GetSelection();
 }
 
 void RecordChControl::SetEnable( bool enable)

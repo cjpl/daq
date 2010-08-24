@@ -75,9 +75,9 @@ class wxSpinButton;
 class ViewChControl: public wxPanel
 {    
     DECLARE_DYNAMIC_CLASS( ViewChControl )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     ViewChControl( );
     ViewChControl( wxWindow* parent, wxWindowID id = SYMBOL_VIEWCHCONTROL_IDNAME, const wxPoint& pos = SYMBOL_VIEWCHCONTROL_POSITION, const wxSize& size = SYMBOL_VIEWCHCONTROL_SIZE, long style = SYMBOL_VIEWCHCONTROL_STYLE );
@@ -135,22 +135,22 @@ public:
     wxSpinCtrl* m_ch_volt_per_div_control;
 ////@end ViewChControl member variables
 
-	bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, int m_scope_index, bool is_virtual);
-	bool UpdateControls( );
+    bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count, int m_scope_index, bool is_virtual);
+    bool UpdateControls( );
 private: 
-	// Generic Board pointer
-	GenericBoard* m_p_board;
-	GenericBoardChannel* m_p_board_channel;
-	int m_ch_index;
-	int m_ch_count;
-	int m_scope_index;
-	bool m_is_virtual;
+    // Generic Board pointer
+    GenericBoard* m_p_board;
+    GenericBoardChannel* m_p_board_channel;
+    int m_ch_index;
+    int m_ch_count;
+    int m_scope_index;
+    bool m_is_virtual;
 protected:
-	void UpdateLinePen( void);
-	void UpdateLineWidth( int value);
-	void UpdateOffset( void);
-	void UpdateVoltPerDiv( int value);
+    void UpdateLinePen( void);
+    void UpdateLineWidth( int value);
+    void UpdateOffset( void);
+    void UpdateVoltPerDiv( int value);
 };
 
 #endif
-    // _VIEW_CH_CONTROL_H_
+// _VIEW_CH_CONTROL_H_

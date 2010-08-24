@@ -33,8 +33,8 @@
 #include "hyperlinkctrl.h"
 extern "C" 
 {
-	#include "cvt_board_commons.h"
-	#include "cvt_V1724.h"
+#include "cvt_board_commons.h"
+#include "cvt_V1724.h"
 }
 
 ////@begin XPM images
@@ -53,11 +53,11 @@ IMPLEMENT_DYNAMIC_CLASS( InfoDialog, wxDialog )
 BEGIN_EVENT_TABLE( InfoDialog, wxDialog )
 
 ////@begin InfoDialog event table entries
-    EVT_BUTTON( ID_OK_BUTTON, InfoDialog::OnOkButtonClick )
+EVT_BUTTON( ID_OK_BUTTON, InfoDialog::OnOkButtonClick )
 
 ////@end InfoDialog event table entries
 
-    //EVT_LINK( ID_HYPERLINK, InfoDialog::OnHyperlink )
+//EVT_LINK( ID_HYPERLINK, InfoDialog::OnHyperlink )
 END_EVENT_TABLE()
 
 /*!
@@ -163,17 +163,17 @@ void InfoDialog::CreateControls()
     itemBoxSizer13->Add(itemButton14, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
 
 ////@end InfoDialog content construction
-	wxHyperlinkCtrl *hyper_link= new wxHyperlinkCtrl( m_left_panel, ID_HYPERLINK, _("www.caen.it"));
-	hyper_link->SetBackgroundColour(wxColour(255, 255, 255));
-	hyper_link->SetLinkCursor();
-	hyper_link->SetURL( _("http://www.caen.it"));
-	hyper_link->SetToolTip( wxT("Goto caen web site") );
-	hyper_link->AutoBrowse( true);
-	hyper_link->UpdateLink();
-	this->m_left_sizer->Add( hyper_link, 1, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
+    wxHyperlinkCtrl *hyper_link= new wxHyperlinkCtrl( m_left_panel, ID_HYPERLINK, _("www.caen.it"));
+    hyper_link->SetBackgroundColour(wxColour(255, 255, 255));
+    hyper_link->SetLinkCursor();
+    hyper_link->SetURL( _("http://www.caen.it"));
+    hyper_link->SetToolTip( wxT("Goto caen web site") );
+    hyper_link->AutoBrowse( true);
+    hyper_link->UpdateLink();
+    this->m_left_sizer->Add( hyper_link, 1, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
 
-	// CAENVMETool revision
-	this->m_caenvmetool_rev->SetLabel( wxString::FromAscii(cvt_V1724_SW_rev()) );
+    // CAENVMETool revision
+    this->m_caenvmetool_rev->SetLabel( wxString::FromAscii(cvt_V1724_SW_rev()) );
 
 }
 
@@ -212,7 +212,7 @@ wxIcon InfoDialog::GetIconResource( const wxString& name )
 {
 #include "../img/scope2.xpm"
     if (name == _T("scope2.png"))
-		return wxIcon( scope2_xpm);
+        return wxIcon( scope2_xpm);
     return wxNullIcon;
 //    // Icon retrieval
 //////@begin InfoDialog icon retrieval
@@ -231,9 +231,9 @@ wxIcon InfoDialog::GetIconResource( const wxString& name )
 
 void InfoDialog::OnOkButtonClick( wxCommandEvent& /* event*/ )
 {
-	this->EndModal( wxID_OK);
+    this->EndModal( wxID_OK);
 }
 //void InfoDialog::OnHyperlink(wxCommandEvent & /* event*/)
 //{
-//	wxHyperlinkCtrl::GotoURL(wxT("http://www.caen.it"), "", false, false);
+//      wxHyperlinkCtrl::GotoURL(wxT("http://www.caen.it"), "", false, false);
 //}

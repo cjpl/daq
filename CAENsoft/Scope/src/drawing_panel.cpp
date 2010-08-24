@@ -48,9 +48,9 @@ IMPLEMENT_DYNAMIC_CLASS( DrawingPanel, wxPanel )
 BEGIN_EVENT_TABLE( DrawingPanel, wxPanel )
 
 ////@begin DrawingPanel event table entries
-    EVT_SIZE( DrawingPanel::OnSize )
-    EVT_PAINT( DrawingPanel::OnPaint )
-    EVT_ERASE_BACKGROUND( DrawingPanel::OnEraseBackground )
+EVT_SIZE( DrawingPanel::OnSize )
+EVT_PAINT( DrawingPanel::OnPaint )
+EVT_ERASE_BACKGROUND( DrawingPanel::OnEraseBackground )
 
 ////@end DrawingPanel event table entries
 
@@ -65,15 +65,15 @@ DrawingPanel::DrawingPanel( ): m_app_settings( NULL), m_freezed(false), m_mutex(
 }
 
 DrawingPanel::DrawingPanel( int scope_index, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ): 
-							m_app_settings( NULL), m_freezed(false), m_mutex( wxMUTEX_RECURSIVE)
+    m_app_settings( NULL), m_freezed(false), m_mutex( wxMUTEX_RECURSIVE)
 {
-	this->m_scope_index= scope_index;
+    this->m_scope_index= scope_index;
     Create( parent, id, pos, size, style);
 }
 
- DrawingPanel::~DrawingPanel( )
- {
- }
+DrawingPanel::~DrawingPanel( )
+{
+}
 /*!
  * DrawingPanel creator
  */
@@ -114,7 +114,7 @@ void DrawingPanel::CreateControls()
     itemPanel1->SetSizer(itemBoxSizer2);
 
 ////@end DrawingPanel content construction
-	m_draw_left_canvas = new DrawingLeftCanvas( this->m_scope_index, itemPanel1, ID_LEFT_PANEL, wxDefaultPosition, wxSize(20, -1), wxSTATIC_BORDER|wxTAB_TRAVERSAL );
+    m_draw_left_canvas = new DrawingLeftCanvas( this->m_scope_index, itemPanel1, ID_LEFT_PANEL, wxDefaultPosition, wxSize(20, -1), wxSTATIC_BORDER|wxTAB_TRAVERSAL );
     itemBoxSizer2->Add(m_draw_left_canvas, 0, wxGROW|wxLEFT|wxTOP|wxBOTTOM, 2);
 
     m_draw_canvas = new DrawingCanvas( this->m_scope_index, itemPanel1, ID_DRAW_PANEL, wxDefaultPosition, wxDefaultSize, wxSTATIC_BORDER|wxTAB_TRAVERSAL );
@@ -162,7 +162,7 @@ wxIcon DrawingPanel::GetIconResource( const wxString& name )
 
 void DrawingPanel::OnPaint( wxPaintEvent& event)
 {
-	event.Skip();
+    event.Skip();
 }
 /*!
  * wxEVT_ERASE_BACKGROUND event handler for ID_DRAW_CANVAS_PANEL
@@ -170,7 +170,7 @@ void DrawingPanel::OnPaint( wxPaintEvent& event)
 
 void DrawingPanel::OnEraseBackground( wxEraseEvent& event )
 {
-	event.Skip();
+    event.Skip();
 }
 
 /*!
@@ -183,16 +183,16 @@ void DrawingPanel::OnSize( wxSizeEvent& event )
 }
 void DrawingPanel:: Freeze( void)
 {
-	wxMutexLocker lock( this->m_app_settings->m_mutex);
-	this->m_freezed= true;
+    wxMutexLocker lock( this->m_app_settings->m_mutex);
+    this->m_freezed= true;
 
 }
 void DrawingPanel:: RefreshBackBitmap( void)
 {
-	this->m_draw_canvas->RefreshBackBitmap();
+    this->m_draw_canvas->RefreshBackBitmap();
 }
 
 void DrawingPanel:: RefreshLeftBackBitmap( void)
 {
-	this->m_draw_left_canvas->RefreshBackBitmap();
+    this->m_draw_left_canvas->RefreshBackBitmap();
 }

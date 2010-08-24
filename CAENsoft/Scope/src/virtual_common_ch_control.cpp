@@ -48,9 +48,9 @@ IMPLEMENT_DYNAMIC_CLASS( VirtualCommonChControl, CommonChControlBase )
 BEGIN_EVENT_TABLE( VirtualCommonChControl, CommonChControlBase )
 
 ////@begin VirtualCommonChControl event table entries
-    EVT_TOGGLEBUTTON( ID_VIRTUAL_ENABLE_TOGGLEBUTTON, VirtualCommonChControl::OnVirtualEnableTogglebuttonClick )
+EVT_TOGGLEBUTTON( ID_VIRTUAL_ENABLE_TOGGLEBUTTON, VirtualCommonChControl::OnVirtualEnableTogglebuttonClick )
 
-    EVT_BUTTON( ID_VIRTUAL_BUTTON, VirtualCommonChControl::OnVirtualButtonClick )
+EVT_BUTTON( ID_VIRTUAL_BUTTON, VirtualCommonChControl::OnVirtualButtonClick )
 
 ////@end VirtualCommonChControl event table entries
 
@@ -141,12 +141,12 @@ void VirtualCommonChControl::CreateControls()
 
 void VirtualCommonChControl::OnVirtualEnableTogglebuttonClick( wxCommandEvent& /*event */)
 {
-	this->m_p_board_channel->m_enabled= this->m_ch_enable_control->GetValue( )!= 0;
-	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
-	for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-	{
-		(this->m_p_board_channel->ScopeRefresh)( i, true);
-	}
+    this->m_p_board_channel->m_enabled= this->m_ch_enable_control->GetValue( )!= 0;
+    this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+    {
+        (this->m_p_board_channel->ScopeRefresh)( i, true);
+    }
 }
 
 /*!
@@ -189,45 +189,45 @@ wxIcon VirtualCommonChControl::GetIconResource( const wxString& name )
 
 void VirtualCommonChControl::OnVirtualButtonClick( wxCommandEvent& /*event*/ )
 {
-	VirtualChannelDefDialog dlg( this->m_p_board_channel, this);
-	if( dlg.ShowModal()== wxOK)
-	{
-		for( int i= 0; i< SCOPE_NUM_PANELS; i++)
-		{
-			(this->m_p_board_channel->ScopeRefresh)( i, false);
-		}
-	}
+    VirtualChannelDefDialog dlg( this->m_p_board_channel, this);
+    if( dlg.ShowModal()== wxOK)
+    {
+        for( int i= 0; i< SCOPE_NUM_PANELS; i++)
+        {
+            (this->m_p_board_channel->ScopeRefresh)( i, false);
+        }
+    }
 }
 
 
 bool VirtualCommonChControl::SetupBoard( GenericBoard* p_board, int ch_index, int ch_count)
 {
-	this->m_p_board= p_board;
-	this->m_ch_index= ch_index;
-	this->m_ch_count= ch_count;
-	if( ( size_t)this->m_ch_index>= this->m_p_board->m_virtual_channel_array.GetCount())
-		return false;
-	this->m_p_board_channel= (VirtualBoardChannel*)this->m_p_board->m_virtual_channel_array[ this->m_ch_index];
-	this->m_p_board_channel->m_p_common_ch_control= this;
+    this->m_p_board= p_board;
+    this->m_ch_index= ch_index;
+    this->m_ch_count= ch_count;
+    if( ( size_t)this->m_ch_index>= this->m_p_board->m_virtual_channel_array.GetCount())
+        return false;
+    this->m_p_board_channel= (VirtualBoardChannel*)this->m_p_board->m_virtual_channel_array[ this->m_ch_index];
+    this->m_p_board_channel->m_p_common_ch_control= this;
 
-	if( !this->UpdateControls())
-		return false;
-	return true;
+    if( !this->UpdateControls())
+        return false;
+    return true;
 }
 bool VirtualCommonChControl::UpdateControls( )
 {
-  this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
-	this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_enabled);
-	this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
+    this->m_main_sizer_text->SetLabel( wxString::Format(_("VIRT %d"), this->m_ch_count));
+    this->m_ch_enable_control->SetValue( this->m_p_board_channel->m_enabled);
+    this->m_ch_enable_control->SetLabel( this->m_ch_enable_control->GetValue( )? _("Disable"): _("Enable"));
 
-	return true;
+    return true;
 }
 void VirtualCommonChControl::SetMediumLabel( double value)
 {
-  this->m_medium_value_control->SetLabel( wxString::Format(_("%.3f"), value));
+    this->m_medium_value_control->SetLabel( wxString::Format(_("%.3f"), value));
 }
 void VirtualCommonChControl::SetOverloadBackground( const wxColor& /*color*/)
 {
-	//this->m_overload_control->SetBackgroundColour( color);
-	//this->m_overload_control->Refresh();
+    //this->m_overload_control->SetBackgroundColour( color);
+    //this->m_overload_control->Refresh();
 }

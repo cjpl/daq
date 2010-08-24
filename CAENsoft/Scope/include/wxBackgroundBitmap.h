@@ -21,7 +21,7 @@
 class wxBackgroundBitmap : public wxEvtHandler {
     typedef wxEvtHandler Inherited;
 public:
-    wxBackgroundBitmap(const wxBitmap &B, const wxWindow *parent) : m_bitmap( B), m_p_parent( parent), wxEvtHandler() { }
+wxBackgroundBitmap(const wxBitmap &B, const wxWindow *parent) : m_bitmap( B), m_p_parent( parent), wxEvtHandler() { }
     virtual bool        ProcessEvent(wxEvent &Event);
 protected:
     wxBitmap m_bitmap;

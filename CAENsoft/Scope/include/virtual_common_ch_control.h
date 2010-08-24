@@ -68,12 +68,12 @@ class wxToggleButton;
 class VirtualCommonChControl: public CommonChControlBase
 {    
     DECLARE_DYNAMIC_CLASS( VirtualCommonChControl )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     VirtualCommonChControl( );
-	VirtualCommonChControl( wxWindow* parent, wxWindowID id = SYMBOL_VIRTUALCOMMONCHCONTROL_IDNAME, const wxPoint& pos = SYMBOL_VIRTUALCOMMONCHCONTROL_POSITION, const wxSize& size = SYMBOL_VIRTUALCOMMONCHCONTROL_SIZE, long style = SYMBOL_VIRTUALCOMMONCHCONTROL_STYLE );
+    VirtualCommonChControl( wxWindow* parent, wxWindowID id = SYMBOL_VIRTUALCOMMONCHCONTROL_IDNAME, const wxPoint& pos = SYMBOL_VIRTUALCOMMONCHCONTROL_POSITION, const wxSize& size = SYMBOL_VIRTUALCOMMONCHCONTROL_SIZE, long style = SYMBOL_VIRTUALCOMMONCHCONTROL_STYLE );
 
     /// Creation
     bool Create( wxWindow* parent, wxWindowID id = SYMBOL_VIRTUALCOMMONCHCONTROL_IDNAME, const wxPoint& pos = SYMBOL_VIRTUALCOMMONCHCONTROL_POSITION, const wxSize& size = SYMBOL_VIRTUALCOMMONCHCONTROL_SIZE, long style = SYMBOL_VIRTUALCOMMONCHCONTROL_STYLE );
@@ -109,18 +109,18 @@ public:
     wxStaticText* m_medium_value_control;
 ////@end VirtualCommonChControl member variables
 
-	bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count);
-	bool UpdateControls( );
-	void SetMediumLabel( double value);
-	void SetOverloadBackground( const wxColor& color);
+    bool SetupBoard( GenericBoard* p_board, int ch_index, int ch_count);
+    bool UpdateControls( );
+    void SetMediumLabel( double value);
+    void SetOverloadBackground( const wxColor& color);
 
 private: 
-	// Generic Board pointer
-	GenericBoard* m_p_board;
-	VirtualBoardChannel* m_p_board_channel;
-	int m_ch_index;
-	int m_ch_count;
+    // Generic Board pointer
+    GenericBoard* m_p_board;
+    VirtualBoardChannel* m_p_board_channel;
+    int m_ch_index;
+    int m_ch_count;
 };
 
 #endif
-    // _VIRTUAL_COMMON_CH_CONTROL_H_
+// _VIRTUAL_COMMON_CH_CONTROL_H_

@@ -1,30 +1,30 @@
 /*
-    -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-                   --- CAEN SpA - Computing Systems Division --- 
+  --- CAEN SpA - Computing Systems Division --- 
 
-    -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-    Name		:	CAENVMEDemoMain.c
+  Name          :       CAENVMEDemoMain.c
 
-    Project		:	CaenVmeDemo
+  Project               :       CaenVmeDemo
 
-    Description :	Example program for V1718 & V2718 control.
+  Description : Example program for V1718 & V2718 control.
 
-    Date		:	November 2004
-    Release		:	1.0
-    Author		:	C.Landi
+  Date          :       November 2004
+  Release               :       1.0
+  Author                :       C.Landi
 
-    Date		:	August 2006
-    Release		:	1.1
-    Author		:	NDA
-    Description :	64 bit porting (CAENVMElib rev >= 2.5)
-
-
-    -----------------------------------------------------------------------------
+  Date          :       August 2006
+  Release               :       1.1
+  Author                :       NDA
+  Description : 64 bit porting (CAENVMElib rev >= 2.5)
 
 
-    -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+
+
+  -----------------------------------------------------------------------------
 */
 
 
@@ -46,67 +46,67 @@ extern  void CaenVmeManual(long, short) ;
 
 
 /*
-    -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 
-      Main program
+  Main program
 
-    -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
 */
 
 
 int main(int argc, void *argv[]) 
 
 {
-CVBoardTypes  VMEBoard;
-short         Link;
-short         Device;
-int32_t       BHandle;
+    CVBoardTypes  VMEBoard;
+    short         Link;
+    short         Device;
+    int32_t       BHandle;
 
 
 
-if( (argc != 3) && (argc != 4) )
+    if( (argc != 3) && (argc != 4) )
     {
-    printf("Usage: CAENVMEDemo V1718 <VMEDevice>\n");
-    printf("       CAENVMEDemo V2718 <VMEDevice> <VMELink>\n");
-    exit(1);
+        printf("Usage: CAENVMEDemo V1718 <VMEDevice>\n");
+        printf("       CAENVMEDemo V2718 <VMEDevice> <VMELink>\n");
+        exit(1);
     }
-else 
+    else 
     {
-    if( strcmp((char*)argv[1], "V1718") == 0 )
+        if( strcmp((char*)argv[1], "V1718") == 0 )
         {
-        if( argc == 3 )
+            if( argc == 3 )
             {
-            VMEBoard = cvV1718;
-            Device = atoi((const char*)argv[2]);
-            Link = 0;
+                VMEBoard = cvV1718;
+                Device = atoi((const char*)argv[2]);
+                Link = 0;
             }
-        else
+            else
             {
-            printf("       CAENVMEDemo V1718 <VMEDevice>\n");
-            exit(1);
+                printf("       CAENVMEDemo V1718 <VMEDevice>\n");
+                exit(1);
             }
         }
-    else 
+        else 
         {
-        if( strcmp((char*)argv[1], "V2718") == 0 )
+            if( strcmp((char*)argv[1], "V2718") == 0 )
             {
-            if( argc == 4 )
+                if( argc == 4 )
                 {
-                Device = atoi((const char*) argv[2]);
-                Link = atoi((const char*) argv[3]);
-                VMEBoard = cvV2718;	
+                    Device = atoi((const char*) argv[2]);
+                    Link = atoi((const char*) argv[3]);
+                    VMEBoard = cvV2718; 
                 }
-            else
+                else
                 {
-                printf("       CAENVMEDemo V2718 <VMEDevice> <VMELink>\n");
-                exit(1);
+                    printf("       CAENVMEDemo V2718 <VMEDevice> <VMELink>\n");
+                    exit(1);
                 }
             }
-        else
+            else
             {
-            printf("Usage: CAENVMEDemo V1718 <VMEDevice>\n");
-            printf("       CAENVMEDemo V2718 <VMEDevice> <VMELink>\n");
-            exit(1);
+                printf("Usage: CAENVMEDemo V1718 <VMEDevice>\n");
+                printf("       CAENVMEDemo V2718 <VMEDevice> <VMELink>\n");
+                exit(1);
             }
         }
 
@@ -114,21 +114,21 @@ else
 
 // Initialize the Board
 
-if( CAENVME_Init(VMEBoard, Device, Link, &BHandle) != cvSuccess ) 
+    if( CAENVME_Init(VMEBoard, Device, Link, &BHandle) != cvSuccess ) 
     {
-    printf("\n\n Error opening the device\n");
-    exit(1);
+        printf("\n\n Error opening the device\n");
+        exit(1);
     }
 
 
-con_init() ;
+    con_init() ;
 
 // CAENVME_SetFIFOMode(BHandle,1) ;
-	
-CaenVmeManual(BHandle,1) ;
+        
+    CaenVmeManual(BHandle,1) ;
 
-con_end() ;
+    con_end() ;
 
-CAENVME_End(BHandle);
+    CAENVME_End(BHandle);
 }
 

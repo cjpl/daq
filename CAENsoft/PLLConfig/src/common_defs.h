@@ -14,17 +14,17 @@
 
 extern "C" 
 {
-	#include "cvt_common_defs.h"
-	#include "cvt_V1724.h"
+#include "cvt_common_defs.h"
+#include "cvt_V1724.h"
 }
 
 //
 // Status bar pane indexes
-#define STS_BAR_PANE_TOOLBAR	0
-#define STS_BAR_PANE_FILENAME	1
+#define STS_BAR_PANE_TOOLBAR    0
+#define STS_BAR_PANE_FILENAME   1
 
-#define STS_BAR_NUM_PANES		2
+#define STS_BAR_NUM_PANES               2
 
- const char* BinFormat( unsigned char value, char ret_buff[9]);
+const char* BinFormat( unsigned char value, char ret_buff[9]);
 
-#endif	// _COMMON_DEFS_H_
+#endif  // _COMMON_DEFS_H_

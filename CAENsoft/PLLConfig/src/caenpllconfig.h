@@ -46,9 +46,9 @@
 class CAENPLLConfigApp: public wxApp
 {    
     DECLARE_CLASS( CAENPLLConfigApp )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructor
     CAENPLLConfigApp();
 
@@ -77,4 +77,4 @@ DECLARE_APP(CAENPLLConfigApp)
 ////@end declare app
 
 #endif
-    // _CAENPLLCONFIG_H_
+// _CAENPLLCONFIG_H_

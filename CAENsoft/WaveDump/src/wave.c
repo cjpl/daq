@@ -1,14 +1,14 @@
 #include "wave.h"
 
 /* ###########################################################################
-*  Functions
-*  ###########################################################################
-*/
+ *  Functions
+ *  ###########################################################################
+ */
 
 /* get time in milliseconds */
 static long get_time()
 {
-long time_ms;
+    long time_ms;
 
 #ifdef WIN32
     struct _timeb timebuffer;
@@ -39,10 +39,10 @@ static void PrintChannelHeaderInfo(int ChannelGroup, int Channel, WAVE_CONFIG* w
 }
 
 /*
-* Multiplicity: calculate the number of channels that partecipate to one event
-* Input = Channel Mask
-* Return: number of channels 
-*/
+ * Multiplicity: calculate the number of channels that partecipate to one event
+ * Input = Channel Mask
+ * Return: number of channels 
+ */
 
 static int Multiplicity(int mask)
 {
@@ -60,9 +60,9 @@ static void Plot(FILE *gnuplot) {
     FILE *f_pltcmd; /* GNUPLOT script file*/
 
     if ((f_pltcmd = fopen("plot.plt", "r"))) {
-      fprintf(gnuplot,"load 'plot.plt'\n"); /* launch Gnuplot script from file */
-      fflush(gnuplot);
-      fclose(f_pltcmd);
+        fprintf(gnuplot,"load 'plot.plt'\n"); /* launch Gnuplot script from file */
+        fflush(gnuplot);
+        fclose(f_pltcmd);
     }
     else {
         printf("Plot Info: cannot open Gnuplot script file plot.plt in current directory!\n");
@@ -83,9 +83,9 @@ static int V1720UnpackEvent(int size, UINT32_T *datain, UINT32_T *dataout) {
     while (rpnt < size) {
 
         /*
-        * Map 10 samples (four packed event words) into 10 consecutive longword locations
-        * 1 longword = right-ailgned 12-bit sample
-        */        
+         * Map 10 samples (four packed event words) into 10 consecutive longword locations
+         * 1 longword = right-ailgned 12-bit sample
+         */        
         dataout[wpnt]    = datain[rpnt] & 0x00000FFF;             /* S0[11:0] */
         dataout[++wpnt]  = ((datain[rpnt] & 0x00FFF000) >> 12);   /* S1[11:0] */
         dataout[++wpnt]  = ((datain[rpnt] & 0x3F000000) >> 24);   /* S2[ 5:0] (low) */
@@ -98,17 +98,17 @@ static int V1720UnpackEvent(int size, UINT32_T *datain, UINT32_T *dataout) {
 
         ++rpnt;
 
- //       dataout[++wpnt]  = ((datain[rpnt] & 0x00000FFF)) ;        /* S5[11:0] */
- //       dataout[++wpnt]  = ((datain[rpnt] & 0x00FFF000) >> 12);   /* S6[11:0] */
- //       dataout[++wpnt]  = ((datain[rpnt] & 0x3F000000) >> 24) ;  /* S7[ 5:0] (low) */
- //       ++rpnt;
+        //       dataout[++wpnt]  = ((datain[rpnt] & 0x00000FFF)) ;        /* S5[11:0] */
+        //       dataout[++wpnt]  = ((datain[rpnt] & 0x00FFF000) >> 12);   /* S6[11:0] */
+        //       dataout[++wpnt]  = ((datain[rpnt] & 0x3F000000) >> 24) ;  /* S7[ 5:0] (low) */
+        //       ++rpnt;
         
- //       dataout[wpnt]   |= ((datain[rpnt] & 0x0000003F) << 6);    /* S7[11:6] (high) */
+        //       dataout[wpnt]   |= ((datain[rpnt] & 0x0000003F) << 6);    /* S7[11:6] (high) */
 
- //       dataout[++wpnt]  = ((datain[rpnt] & 0x0003FFC0) >> 6) ;   /* S8[11:0] */
- //       dataout[++wpnt]  = ((datain[rpnt] & 0x3FFC0000) >> 18);   /* S9[11:0] */
+        //       dataout[++wpnt]  = ((datain[rpnt] & 0x0003FFC0) >> 6) ;   /* S8[11:0] */
+        //       dataout[++wpnt]  = ((datain[rpnt] & 0x3FFC0000) >> 18);   /* S9[11:0] */
 
- //       ++rpnt;
+        //       ++rpnt;
         ++wpnt;
     }
 
@@ -132,20 +132,20 @@ static int WaveUncompress(BOARD_CONFIG *board_config, UINT32_T *datain, UINT32_T
         nw = datain[rpnt] & 0x7FFFFFFF;
         if (datain[rpnt++] & 0x80000000) {   /* Good Samples */
             if (board_config->Pack25) {
-              wpnt += V1720UnpackEvent( nw, datain+rpnt, dataout+wpnt);
-              rpnt += nw;
+                wpnt += V1720UnpackEvent( nw, datain+rpnt, dataout+wpnt);
+                rpnt += nw;
             } else {
-              memcpy(dataout+wpnt, datain+rpnt, nw*sizeof(UINT32_T));
-              rpnt += nw;
-              wpnt += nw;
+                memcpy(dataout+wpnt, datain+rpnt, nw*sizeof(UINT32_T));
+                rpnt += nw;
+                wpnt += nw;
             }
         } else {                             /* Suppressed Samples */
             if (board_config->Pack25) {
-              memset(dataout+wpnt, 0, nw*2.5*sizeof(UINT32_T));
-              wpnt += nw*2.5;
+                memset(dataout+wpnt, 0, nw*2.5*sizeof(UINT32_T));
+                wpnt += nw*2.5;
             } else {
-              memset(dataout+wpnt, 0, nw*sizeof(UINT32_T));
-              wpnt += nw;
+                memset(dataout+wpnt, 0, nw*sizeof(UINT32_T));
+                wpnt += nw;
             }
         }
     }
@@ -167,72 +167,72 @@ static int V1740UnpackEvent(int size, UINT32_T *datain, UINT32_T *dataout) {
     samples = ((long) (size * 2.6667)) / 8; 
 
     for(i = 0; i < 8; i++) {
-      channel[i] = &dataout[i*samples];
+        channel[i] = &dataout[i*samples];
     }
 
     while (rpnt < size) {
 
         switch (rpnt % 9) {
-            case 0 :
-              channel[0][wpnt]    = datain[rpnt] & 0x00000FFF;             /* S0[11:0] - CH0 */
-              channel[0][wpnt+1]  = (datain[rpnt] & 0x00FFF000) >> 12;     /* S1[11:0] - CH0 */
-              channel[0][wpnt+2]  = (datain[rpnt] & 0xFF000000) >> 24;     /* S2[ 7:0] - CH0 */
-              break;
-          case 1 :
-              channel[0][wpnt+2] |= (datain[rpnt] & 0x0000000F) << 8;      /* S2[11:8] - CH0 */
-              channel[1][wpnt]    = (datain[rpnt] & 0x0000FFF0) >> 4;      /* S0[11:0] - CH1 */
-              channel[1][wpnt+1]  = (datain[rpnt] & 0x0FFF0000) >> 16;     /* S1[11:0] - CH1 */
-              channel[1][wpnt+2]  = (datain[rpnt] & 0xF0000000) >> 28;     /* S2[ 3:0] - CH1 */
-              break;
-          case 2 :
-              channel[1][wpnt+2] |= (datain[rpnt] & 0x000000FF) << 4;      /* S2[11:4] - CH1 */
-              channel[2][wpnt]    = (datain[rpnt] & 0x000FFF00) >> 8;      /* S0[11:0] - CH2 */
-              channel[2][wpnt+1]  = (datain[rpnt] & 0xFFF00000) >> 20;     /* S1[11:0] - CH2 */
-              break;
-          case 3 :
-              channel[2][wpnt+2]  = (datain[rpnt] & 0x00000FFF) ;          /* S2[11:0] - CH2 */
-              channel[3][wpnt]    = (datain[rpnt] & 0x00FFF000) >> 12;     /* S0[11:0] - CH3 */
-              channel[3][wpnt+1]  = (datain[rpnt] & 0xFF000000) >> 24;     /* S1[ 7:0] - CH3 */
-              break;
-          case 4 :
-              channel[3][wpnt+1] |= (datain[rpnt] & 0x0000000F) << 8;      /* S1[11:8] - CH3 */
-              channel[3][wpnt+2]  = (datain[rpnt] & 0x0000FFF0) >> 4;      /* S2[11:0] - CH3 */
-              channel[4][wpnt]    = (datain[rpnt] & 0x0FFF0000) >> 16;     /* S0[11:0] - CH4 */
-              channel[4][wpnt+1]  = (datain[rpnt] & 0xF0000000) >> 28;     /* S1[ 3:0] - CH4 */
-              break;
-          case 5 :
-              channel[4][wpnt+1] |= (datain[rpnt] & 0x000000FF) << 4;      /* S1[11:4] - CH4 */
-              channel[4][wpnt+2]  = (datain[rpnt] & 0x000FFF00) >> 8;      /* S2[11:0] - CH4 */
-              channel[5][wpnt]    = (datain[rpnt] & 0xFFF00000) >> 20;     /* S0[11:0] - CH5 */
-              break;
-          case 6 :
-              channel[5][wpnt+1]  = (datain[rpnt] & 0x00000FFF) ;          /* S1[11:0] - CH5 */
-              channel[5][wpnt+2]  = (datain[rpnt] & 0x00FFF000) >> 12;     /* S2[11:0] - CH5 */
-              channel[6][wpnt]    = (datain[rpnt] & 0xFF000000) >> 24 ;    /* S0[ 7:0] - CH6 */
-              break;
-          case 7 :
-              channel[6][wpnt]   |= (datain[rpnt] & 0x0000000F) << 8 ;     /* S0[11:8] - CH6 */
-              channel[6][wpnt+1]  = (datain[rpnt] & 0x0000FFF0) >> 4 ;     /* S1[11:0] - CH6 */
-              channel[6][wpnt+2]  = (datain[rpnt] & 0x0FFF0000) >> 16 ;    /* S2[11:0] - CH6 */
-              channel[7][wpnt]    = (datain[rpnt] & 0xF0000000) >> 28 ;    /* S0[ 3:0] - CH7 */
-              break;
-          case 8 :
-              channel[7][wpnt]   |= (datain[rpnt] & 0x000000FF) << 4 ;     /* S0[11:4] - CH7 */
-              channel[7][wpnt+1]  = (datain[rpnt] & 0x000FFF00) >> 8 ;     /* S1[11:0] - CH7 */
-              channel[7][wpnt+2]  = (datain[rpnt] & 0xFFF00000) >> 20 ;    /* S2[11:0] - CH7 */
-              wpnt+=3;
-              break;
+        case 0 :
+            channel[0][wpnt]    = datain[rpnt] & 0x00000FFF;             /* S0[11:0] - CH0 */
+            channel[0][wpnt+1]  = (datain[rpnt] & 0x00FFF000) >> 12;     /* S1[11:0] - CH0 */
+            channel[0][wpnt+2]  = (datain[rpnt] & 0xFF000000) >> 24;     /* S2[ 7:0] - CH0 */
+            break;
+        case 1 :
+            channel[0][wpnt+2] |= (datain[rpnt] & 0x0000000F) << 8;      /* S2[11:8] - CH0 */
+            channel[1][wpnt]    = (datain[rpnt] & 0x0000FFF0) >> 4;      /* S0[11:0] - CH1 */
+            channel[1][wpnt+1]  = (datain[rpnt] & 0x0FFF0000) >> 16;     /* S1[11:0] - CH1 */
+            channel[1][wpnt+2]  = (datain[rpnt] & 0xF0000000) >> 28;     /* S2[ 3:0] - CH1 */
+            break;
+        case 2 :
+            channel[1][wpnt+2] |= (datain[rpnt] & 0x000000FF) << 4;      /* S2[11:4] - CH1 */
+            channel[2][wpnt]    = (datain[rpnt] & 0x000FFF00) >> 8;      /* S0[11:0] - CH2 */
+            channel[2][wpnt+1]  = (datain[rpnt] & 0xFFF00000) >> 20;     /* S1[11:0] - CH2 */
+            break;
+        case 3 :
+            channel[2][wpnt+2]  = (datain[rpnt] & 0x00000FFF) ;          /* S2[11:0] - CH2 */
+            channel[3][wpnt]    = (datain[rpnt] & 0x00FFF000) >> 12;     /* S0[11:0] - CH3 */
+            channel[3][wpnt+1]  = (datain[rpnt] & 0xFF000000) >> 24;     /* S1[ 7:0] - CH3 */
+            break;
+        case 4 :
+            channel[3][wpnt+1] |= (datain[rpnt] & 0x0000000F) << 8;      /* S1[11:8] - CH3 */
+            channel[3][wpnt+2]  = (datain[rpnt] & 0x0000FFF0) >> 4;      /* S2[11:0] - CH3 */
+            channel[4][wpnt]    = (datain[rpnt] & 0x0FFF0000) >> 16;     /* S0[11:0] - CH4 */
+            channel[4][wpnt+1]  = (datain[rpnt] & 0xF0000000) >> 28;     /* S1[ 3:0] - CH4 */
+            break;
+        case 5 :
+            channel[4][wpnt+1] |= (datain[rpnt] & 0x000000FF) << 4;      /* S1[11:4] - CH4 */
+            channel[4][wpnt+2]  = (datain[rpnt] & 0x000FFF00) >> 8;      /* S2[11:0] - CH4 */
+            channel[5][wpnt]    = (datain[rpnt] & 0xFFF00000) >> 20;     /* S0[11:0] - CH5 */
+            break;
+        case 6 :
+            channel[5][wpnt+1]  = (datain[rpnt] & 0x00000FFF) ;          /* S1[11:0] - CH5 */
+            channel[5][wpnt+2]  = (datain[rpnt] & 0x00FFF000) >> 12;     /* S2[11:0] - CH5 */
+            channel[6][wpnt]    = (datain[rpnt] & 0xFF000000) >> 24 ;    /* S0[ 7:0] - CH6 */
+            break;
+        case 7 :
+            channel[6][wpnt]   |= (datain[rpnt] & 0x0000000F) << 8 ;     /* S0[11:8] - CH6 */
+            channel[6][wpnt+1]  = (datain[rpnt] & 0x0000FFF0) >> 4 ;     /* S1[11:0] - CH6 */
+            channel[6][wpnt+2]  = (datain[rpnt] & 0x0FFF0000) >> 16 ;    /* S2[11:0] - CH6 */
+            channel[7][wpnt]    = (datain[rpnt] & 0xF0000000) >> 28 ;    /* S0[ 3:0] - CH7 */
+            break;
+        case 8 :
+            channel[7][wpnt]   |= (datain[rpnt] & 0x000000FF) << 4 ;     /* S0[11:4] - CH7 */
+            channel[7][wpnt+1]  = (datain[rpnt] & 0x000FFF00) >> 8 ;     /* S1[11:0] - CH7 */
+            channel[7][wpnt+2]  = (datain[rpnt] & 0xFFF00000) >> 20 ;    /* S2[11:0] - CH7 */
+            wpnt+=3;
+            break;
         }
-          rpnt++;
-   }
+        rpnt++;
+    }
  
-  return wpnt;
+    return wpnt;
 }
 
 /*
-*  Unpack event data if needed.
-*  Returns the number of DWORDS the dataout is made of.
-*/
+ *  Unpack event data if needed.
+ *  Returns the number of DWORDS the dataout is made of.
+ */
 static int WaveBuild(BOARD_CONFIG *board_config, EVENT_INFO *event_info, UINT32_T *datain, UINT32_T *dataout) {
 
     int nw;
@@ -241,25 +241,25 @@ static int WaveBuild(BOARD_CONFIG *board_config, EVENT_INFO *event_info, UINT32_
     nw=(int)(event_info->EventSize-4)/Multiplicity(event_info->PartChannelMask);  /* Number of words (per channel) */
 
     switch(board_config->BoardType) {
-      case V1724 :
-      case V1721 :
-      case V1731 :  
-                    memcpy(dataout, datain, nw*sizeof(UINT32_T));
-                    break;
+    case V1724 :
+    case V1721 :
+    case V1731 :  
+        memcpy(dataout, datain, nw*sizeof(UINT32_T));
+        break;
 
-      case V1740 :
-                    V1740UnpackEvent(nw, datain, dataout);  
-                    break;
+    case V1740 :
+        V1740UnpackEvent(nw, datain, dataout);  
+        break;
 
-      case V1720 :  
-                    if (board_config->Pack25) 
-                      nw=V1720UnpackEvent(nw, datain, dataout);    /* HACK DBG: verificare l'uso di nw  */                  
-                    else 
-                      memcpy(dataout, datain, nw*sizeof(UINT32_T));
+    case V1720 :  
+        if (board_config->Pack25) 
+            nw=V1720UnpackEvent(nw, datain, dataout);    /* HACK DBG: verificare l'uso di nw  */                  
+        else 
+            memcpy(dataout, datain, nw*sizeof(UINT32_T));
 
-                    break;
+        break;
 
-      default    : ; 
+    default    : ; 
     }
 
     return nw;
@@ -268,25 +268,25 @@ static int WaveBuild(BOARD_CONFIG *board_config, EVENT_INFO *event_info, UINT32_
 static void WaveSetPackCoeff(BOARD_CONFIG* board_config) {
 
     switch(board_config->BoardType) {
-      case V1724 :
-      case V1721 :
-      case V1731 :  
-                    board_config->SamplesPackCoeff = 2.0; /* Two samples per dword */
-                    break;
+    case V1724 :
+    case V1721 :
+    case V1731 :  
+        board_config->SamplesPackCoeff = 2.0; /* Two samples per dword */
+        break;
 
-      case V1740 :
-                    board_config->SamplesPackCoeff = 8.0/3.0; /* 8 samples ogni 3 dword */
-                    break;
+    case V1740 :
+        board_config->SamplesPackCoeff = 8.0/3.0; /* 8 samples ogni 3 dword */
+        break;
 
-        case V1720 :  
-                    if (board_config->Pack25) 
-                      board_config->SamplesPackCoeff = 2.5;  // 5 samples ogni 2 parole                   
-                    else 
-                     board_config->SamplesPackCoeff = 2.0;  // 2 samples ogni 1 parola
-                    break;
+    case V1720 :  
+        if (board_config->Pack25) 
+            board_config->SamplesPackCoeff = 2.5;  // 5 samples ogni 2 parole                   
+        else 
+            board_config->SamplesPackCoeff = 2.0;  // 2 samples ogni 1 parola
+        break;
 
-      default    : 
-                    ; 
+    default    : 
+        ; 
     
     }
 }
@@ -297,21 +297,21 @@ static UINT32_T GetChannelSamples(BoardModel model, UINT32_T memsize) {
     UINT32_T GroupSamples;
 
     switch(model) {
-      case V1724 :
-      case V1721 :
-      case V1731 :  
-                    GroupSamples = memsize; /* HACK TBC */
-                    break;
+    case V1724 :
+    case V1721 :
+    case V1731 :  
+        GroupSamples = memsize; /* HACK TBC */
+        break;
 
-      case V1740 :
-                    GroupSamples = ((memsize/8) * 12) / 2;  /* HACK TBC */
-                    break;
+    case V1740 :
+        GroupSamples = ((memsize/8) * 12) / 2;  /* HACK TBC */
+        break;
 
-      case V1720 :  
-                    GroupSamples = memsize; /* HACK TBC */
-                    break;
+    case V1720 :  
+        GroupSamples = memsize; /* HACK TBC */
+        break;
 
-      default    : ; 
+    default    : ; 
     }
 
     return GroupSamples;
@@ -324,8 +324,8 @@ static void WaveMalloc(VME_ACCESS* vme, BOARD_CONFIG* board_config, EVENT_INFO* 
 
     /* Allocate memory Buffers for VME readout */
     for( i= 0, board_config->PartChannels = 0; i< 8; i++) {
-       if( ( board_config->ChannelEnableMask & ( 1<< i)))
-         board_config->PartChannels++;
+        if( ( board_config->ChannelEnableMask & ( 1<< i)))
+            board_config->PartChannels++;
     }
 
     /* Set maximum buffer size for event readout based on current configuration */
@@ -340,16 +340,16 @@ static void WaveMalloc(VME_ACCESS* vme, BOARD_CONFIG* board_config, EVENT_INFO* 
 
     event_info->ChSamples = board_config->ChannelEventSize; /* HACK DBG : duplicato? */
 
-  /*
-  ** Allocating buffers for eight signal groups 
-  ** (8 physical channels = 1 group in V1740; 1 physical channel = 1 group for other boards)
-  ** One 32-bit word for every sample.
-  **/  
+    /*
+    ** Allocating buffers for eight signal groups 
+    ** (8 physical channels = 1 group in V1740; 1 physical channel = 1 group for other boards)
+    ** One 32-bit word for every sample.
+    **/  
     for(i=0; i < 8; i++) 
-    if ( (event_info->chbuf[i] = (UINT32_T *)malloc(event_info->ChSamples *sizeof(UINT32_T))) == NULL) { 
-        printf("Can't allocate channel memory buffer of %d KB\n", board_config->ChannelEventSize/1024);
-        exit(-4);
-    }
+        if ( (event_info->chbuf[i] = (UINT32_T *)malloc(event_info->ChSamples *sizeof(UINT32_T))) == NULL) { 
+            printf("Can't allocate channel memory buffer of %d KB\n", board_config->ChannelEventSize/1024);
+            exit(-4);
+        }
 
 }
 
@@ -358,10 +358,10 @@ static void WaveMalloc(VME_ACCESS* vme, BOARD_CONFIG* board_config, EVENT_INFO* 
 /******************/
 
 /*! \fn      void WavePrintVersion(const char *SwRelease);
-*   \brief   WaveDump Information print. 
-*            
-*   \param   SwRelease    Software release.
-*/
+ *   \brief   WaveDump Information print. 
+ *            
+ *   \param   SwRelease    Software release.
+ */
 void WavePrintVersion(const char *SwRelease) {
     printf("\n");
     printf("**************************************************************\n");
@@ -370,13 +370,13 @@ void WavePrintVersion(const char *SwRelease) {
 }
 
 /*! \fn      void WaveInit(int argc, char *argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config);
-*   \brief   WaveDump Initialization. 
-*            
-*   \param   argc         Number of command line parameters.
-*   \param   argv         pointer to array of command line parameters.
-*   \param   vme          Pointer to VME access configuration.
-*   \param   wave_config  Pointer to wave configuration.
-*/
+ *   \brief   WaveDump Initialization. 
+ *            
+ *   \param   argc         Number of command line parameters.
+ *   \param   argv         pointer to array of command line parameters.
+ *   \param   vme          Pointer to VME access configuration.
+ *   \param   wave_config  Pointer to wave configuration.
+ */
 void WaveInit(int argc, char *argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config) {
 
     char ConfigFileName[100] = "/etc/wavedump/WaveDumpConfig.txt";
@@ -384,11 +384,11 @@ void WaveInit(int argc, char *argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config)
 
     FILE *f_ini;
 
-        /* 
-    ************************************************************************
-    ** Read configuration file
-    ************************************************************************
-    */
+    /* 
+************************************************************************
+** Read configuration file
+************************************************************************
+*/
     if (argc > 1)
         strcpy(ConfigFileName, argv[1]);
 
@@ -407,7 +407,7 @@ void WaveInit(int argc, char *argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config)
         if (str[0] == '#')
             fgets(str, 1000, f_ini);
         else
-            {
+        {
             // LINK: Open VME master
             if (strstr(str, "LINK")!=NULL) {
                 fscanf(f_ini, "%s", tmp);
@@ -490,12 +490,12 @@ void WaveInit(int argc, char *argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config)
 }
 
 /*! \fn      int WaveUserInput(VME_ACCESS* vme, WAVE_CONFIG* wave_config);
-*   \brief   WaveDump read of current board configuration. 
-*            
-*   \param   vme          Pointer to VME access configuration.
-*   \param   wave_config  Pointer to wave configuration.
-*   \return  Return 1 if user's request to exit from program. 0 otherwise.
-*/
+ *   \brief   WaveDump read of current board configuration. 
+ *            
+ *   \param   vme          Pointer to VME access configuration.
+ *   \param   wave_config  Pointer to wave configuration.
+ *   \return  Return 1 if user's request to exit from program. 0 otherwise.
+ */
 int WaveUserInput(VME_ACCESS* vme, WAVE_CONFIG* wave_config) {
 
     char c;
@@ -513,79 +513,79 @@ int WaveUserInput(VME_ACCESS* vme, WAVE_CONFIG* wave_config) {
 
 
 /* Check keyboard commands */
-        c = 0;
-        if(kbhit())
-            c = getch();
+    c = 0;
+    if(kbhit())
+        c = getch();
 
-        /* open gnuplot for the fisrt time */
-        if((toupper(c) == 'P') && (wave_config->gnuplot == NULL)) {
+    /* open gnuplot for the fisrt time */
+    if((toupper(c) == 'P') && (wave_config->gnuplot == NULL)) {
 
-            if (wave_config->UseGnuPlot) {
-                sprintf(wave_config->GnuPlotExe, "%s%s", wave_config->GnuPlotPath, GNUPLOT_COMMAND);
+        if (wave_config->UseGnuPlot) {
+            sprintf(wave_config->GnuPlotExe, "%s%s", wave_config->GnuPlotPath, GNUPLOT_COMMAND);
                
-                // open the pipe
-                wave_config->gnuplot = popen(wave_config->GnuPlotExe, "w"); 
+            // open the pipe
+            wave_config->gnuplot = popen(wave_config->GnuPlotExe, "w"); 
 
-                if ((f_wcfg = fopen("init.plt", "r")) == NULL )
-                    ; // No action if initial GNUPlot config file is not present
-                else {
-                  fclose(f_wcfg);
-                  fprintf(wave_config->gnuplot,"load 'init.plt'\n");
-                  fflush(wave_config->gnuplot);
-                }
-
-                Plot(wave_config->gnuplot);
+            if ((f_wcfg = fopen("init.plt", "r")) == NULL )
+                ; // No action if initial GNUPlot config file is not present
+            else {
+                fclose(f_wcfg);
+                fprintf(wave_config->gnuplot,"load 'init.plt'\n");
+                fflush(wave_config->gnuplot);
             }
-            else
-                printf("GNUPlot path not set in Configuration file. Cannot plot!\n");
+
+            Plot(wave_config->gnuplot);
         }
+        else
+            printf("GNUPlot path not set in Configuration file. Cannot plot!\n");
+    }
 
-        switch(c) {
-                case 'q' :
-                     ret = 1;
-                     break;
+    switch(c) {
+    case 'q' :
+        ret = 1;
+        break;
     
-                case 't' :
-                     VME_WRITE32(vme->handle, vme->BaseAddress + SoftTriggerReg, &data);
-                     break;
+    case 't' :
+        VME_WRITE32(vme->handle, vme->BaseAddress + SoftTriggerReg, &data);
+        break;
     
-                case 'T' :
-                     wave_config->TriggerMode = (wave_config->TriggerMode == 0);
-                     break;
+    case 'T' :
+        wave_config->TriggerMode = (wave_config->TriggerMode == 0);
+        break;
     
-                case 'w' :
-                     wave_config->WriteOneEvent = 1;
-                     break;
+    case 'w' :
+        wave_config->WriteOneEvent = 1;
+        break;
     
-                case 'W' :
-                    wave_config->WriteToFile = continous_write ? wave_config->WriteToFile & ~(0x2) : wave_config->WriteToFile | 0x2;
-                    continous_write    =  (wave_config->WriteToFile & 0x2);
-                    printf("Toggling event write to file: Continous write %s\n", continous_write ? cont_write_enabled : cont_write_disabled);
-                     break;
+    case 'W' :
+        wave_config->WriteToFile = continous_write ? wave_config->WriteToFile & ~(0x2) : wave_config->WriteToFile | 0x2;
+        continous_write    =  (wave_config->WriteToFile & 0x2);
+        printf("Toggling event write to file: Continous write %s\n", continous_write ? cont_write_enabled : cont_write_disabled);
+        break;
 
-                case 'p' :
-                    Plot(wave_config->gnuplot);
-                    break;
+    case 'p' :
+        Plot(wave_config->gnuplot);
+        break;
 
-                case 'P' :
-                    continous_plot = ~continous_plot;
-                    break;
+    case 'P' :
+        continous_plot = ~continous_plot;
+        break;
 
-                default : break;
-        }
+    default : break;
+    }
 
-        if (continous_plot)
-           Plot(wave_config->gnuplot);
+    if (continous_plot)
+        Plot(wave_config->gnuplot);
 
-        return ret;
+    return ret;
 }
 
 /*! \fn      void WaveReadBoardConfiguration(VME_ACCESS* vme, BOARD_CONFIG* board_config);
-*   \brief   WaveDump read of current board configuration. 
-*            
-*   \param   vme          Pointer to VME access configuration.
-*   \param   board_config Pointer to board configuration.
-*/
+ *   \brief   WaveDump read of current board configuration. 
+ *            
+ *   \param   vme          Pointer to VME access configuration.
+ *   \param   board_config Pointer to board configuration.
+ */
 void WaveReadBoardConfiguration(VME_ACCESS* vme, BOARD_CONFIG* board_config) {
 
 
@@ -614,7 +614,7 @@ void WaveReadBoardConfiguration(VME_ACCESS* vme, BOARD_CONFIG* board_config) {
     board_config->ExpectedEvSize   = (UINT32_T)( ( ((board_config->ChannelEventSize / board_config->SamplesPackCoeff) * 4)* Multiplicity(board_config->ChannelEnableMask) + 16) / 4); // Expected Event Size in Words (including Header)
 
     if ( (board_config->BoardType == V1731) && (board_config->DesMode == 1) )
-      board_config->ExpectedEvSize *= 2;
+        board_config->ExpectedEvSize *= 2;
 
 
     /* Read VME control Register */
@@ -627,10 +627,10 @@ void WaveReadBoardConfiguration(VME_ACCESS* vme, BOARD_CONFIG* board_config) {
     board_config->EnableInt    =  board_config->EnableVMEIrq | board_config->EnableOLIrq;
 
     if (board_config->EnableOLIrq)
-      printf("OLINK Interrupt enabled.\n");
+        printf("OLINK Interrupt enabled.\n");
 
     if (board_config->EnableVMEIrq)
-      printf("VME Interrupt %d enabled.\n", board_config->EnableVMEIrq);
+        printf("VME Interrupt %d enabled.\n", board_config->EnableVMEIrq);
 
     // Read BLT Event Number Register
     VME_READ32(vme->handle, vme->BaseAddress + BltEvNumReg, &vme->data);
@@ -656,13 +656,13 @@ void WaveReadBoardConfiguration(VME_ACCESS* vme, BOARD_CONFIG* board_config) {
 
 
 /*! \fn      void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, BOARD_CONFIG* board_config);
-*   \brief   WaveDump run main loop. 
-*            
-*   \param   vme          Pointer to VME access configuration.
-*   \param   event_info   Pointer to event informations.
-*   \param   wave_config  Pointer to waveform configuration.
-*   \param   board_config Pointer to board configuration.
-*/
+ *   \brief   WaveDump run main loop. 
+ *            
+ *   \param   vme          Pointer to VME access configuration.
+ *   \param   event_info   Pointer to event informations.
+ *   \param   wave_config  Pointer to waveform configuration.
+ *   \param   board_config Pointer to board configuration.
+ */
 void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, BOARD_CONFIG* board_config) {
 
     long CurrentTime, PreviousTime, ElapsedTime;
@@ -677,13 +677,13 @@ void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, 
     char OutFileName[100];
 
     /* Memory allocation for Vme transfers and event buffers */
-      WaveMalloc(vme, board_config, event_info, wave_config);
+    WaveMalloc(vme, board_config, event_info, wave_config);
 
 
     
-      /*************************************************************************
-    ** Readout
-    *************************************************************************/
+    /*************************************************************************
+     ** Readout
+     *************************************************************************/
     /* Acquisition Start */
     VME_READ32(vme->handle, vme->BaseAddress + AcquisitionControlReg, &vme->data);
     vme->data |= 0x4;
@@ -722,7 +722,7 @@ void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, 
             else
                 vme->IrqMask = 0xFF; /* All VME Interrupt Enabled */
 
-      VME_IRQENABLE(vme->handle, vme->IrqMask); /* Enable IRQs */
+            VME_IRQENABLE(vme->handle, vme->IrqMask); /* Enable IRQs */
             vme->ret = VME_IRQWAIT(vme->handle, vme->IrqMask, 1000); /* Wait for IRQ (max 1sec) */
             if(vme->ret)
                 continue;
@@ -738,8 +738,8 @@ void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, 
             if (vme->vbuf[0] != FILLER) {
                 nb = NUM_WORD(vme->vbuf[0]) * 4;
                 if (nb > board_config->BufferSize) {
-                   printf("BUFFER_SIZE too small! Please increase it and run again.. \nPress any key to continue..\n");
-                   continue; /* exit while loop */
+                    printf("BUFFER_SIZE too small! Please increase it and run again.. \nPress any key to continue..\n");
+                    continue; /* exit while loop */
                 }
                 for(i=1; i < (nb/4); i++)
                     VME_READ32(vme->handle, vme->BaseAddress, (vme->vbuf)+i);
@@ -758,24 +758,24 @@ void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, 
                 do {
 
                     switch(wave_config->ReadoutMode) {
-                        case 1 : vme->ret = VME_FIFOBLTREAD(vme->handle, vme->BaseAddress, ((unsigned char*)vme->vbuf)+blt_bytes, wave_config->BltSize, &nb);
-                                 break;
-                        case 2 : vme->ret = VME_FIFOMBLTREAD(vme->handle, vme->BaseAddress, ((unsigned char*)vme->vbuf)+blt_bytes, wave_config->BltSize, &nb);
-                                 break;
-                        default: break;
+                    case 1 : vme->ret = VME_FIFOBLTREAD(vme->handle, vme->BaseAddress, ((unsigned char*)vme->vbuf)+blt_bytes, wave_config->BltSize, &nb);
+                        break;
+                    case 2 : vme->ret = VME_FIFOMBLTREAD(vme->handle, vme->BaseAddress, ((unsigned char*)vme->vbuf)+blt_bytes, wave_config->BltSize, &nb);
+                        break;
+                    default: break;
                     }
 
-                  if ((vme->ret != SUCCESS) && (vme->ret != BUSERROR)) {
+                    if ((vme->ret != SUCCESS) && (vme->ret != BUSERROR)) {
                         printf("VME_FIFOBLTREAD Error = %d\n", vme->ret);
                         continue; /* exit while loop */
-                  }
-                  blt_bytes += nb;
-                  if (blt_bytes > board_config->BufferSize) {
-                    printf("BUFFER_SIZE too small! Please increase it and run again.. \nPress any key to continue..\n");
-                    continue; /* exit while loop */
-                  }
+                    }
+                    blt_bytes += nb;
+                    if (blt_bytes > board_config->BufferSize) {
+                        printf("BUFFER_SIZE too small! Please increase it and run again.. \nPress any key to continue..\n");
+                        continue; /* exit while loop */
+                    }
 
-                  totnb     += nb; /* Total number of bytes tranferred */
+                    totnb     += nb; /* Total number of bytes tranferred */
                 }
                 while (vme->ret != BUSERROR);
                 nb = blt_bytes;
@@ -786,29 +786,29 @@ void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, 
 
                 // If a MBLT transfer with an odd number of long words, one more lword must be requested
                 switch(wave_config->ReadoutMode) {
-                   case 1 : board_config->EventSize = (vme->data * 4);
-                            break;
-                   case 2 : board_config->EventSize = (vme->data % 2) ? (vme->data+1)*4 : (vme->data * 4);
-                            break;
-                   default:break;
+                case 1 : board_config->EventSize = (vme->data * 4);
+                    break;
+                case 2 : board_config->EventSize = (vme->data % 2) ? (vme->data+1)*4 : (vme->data * 4);
+                    break;
+                default:break;
                 }
                 if (board_config->EventSize > board_config->BufferSize) {
-                   printf("BUFFER_SIZE too small! Please increase it and run again.. \nPress any key to continue..\n");
-                   continue; /* exit while loop */
+                    printf("BUFFER_SIZE too small! Please increase it and run again.. \nPress any key to continue..\n");
+                    continue; /* exit while loop */
                 }
 
                 // Read data until data read is >= EventSize
                 do {
                     switch(wave_config->ReadoutMode) {
-                        case 1 : vme->ret=VME_FIFOBLTREAD(vme->handle, vme->BaseAddress, ((unsigned char*)vme->vbuf)+blt_bytes, wave_config->BltSize, &nb);
-                                 break;
-                        case 2 : vme->ret=VME_FIFOMBLTREAD(vme->handle, vme->BaseAddress, ((unsigned char*)vme->vbuf)+blt_bytes, wave_config->BltSize, &nb);
-                                 break;
-                        default: break;
+                    case 1 : vme->ret=VME_FIFOBLTREAD(vme->handle, vme->BaseAddress, ((unsigned char*)vme->vbuf)+blt_bytes, wave_config->BltSize, &nb);
+                        break;
+                    case 2 : vme->ret=VME_FIFOMBLTREAD(vme->handle, vme->BaseAddress, ((unsigned char*)vme->vbuf)+blt_bytes, wave_config->BltSize, &nb);
+                        break;
+                    default: break;
                     }
 
-                  blt_bytes += nb;
-                  totnb     += nb; // Total number of bytes tranferred
+                    blt_bytes += nb;
+                    totnb     += nb; // Total number of bytes tranferred
                 }
                 while (blt_bytes < board_config->EventSize);
                 nb = blt_bytes;
@@ -934,30 +934,30 @@ void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, 
                             for(i=0; i<nw; i++) {
                                 fprintf(wave_config->ofile[ch][0], "%d\n", event_info->chbuf[ch][i] & 0xFFF);
                                 if (board_config->Pack25 == 0) 
-                                  fprintf(wave_config->ofile[ch][0], "%d\n", (event_info->chbuf[ch][i]>>16)  & 0xFFF);
+                                    fprintf(wave_config->ofile[ch][0], "%d\n", (event_info->chbuf[ch][i]>>16)  & 0xFFF);
                             }
                         }
                         else if (board_config->BoardType == V1740) { 
                             for(j=0; j < 8; j++)
                                 for(i=0; i<(event_info->ChSamples/8); i++)  
                                     fprintf(wave_config->ofile[ch][j], "%d\n", event_info->chbuf[ch][(j*(event_info->ChSamples/8))+i] & 0xFFF);
-                            }
                         }
-                    else
-                            /* Channel group is enabled but has been suppressed */
-                            if (((board_config->ChannelEnableMask >> ch) & 1) && (wave_config->WriteToFile == 1)) 
-                                printf("[NOTE]Empty event from channel %d\n", ch);
-
-                        /* Close files opened for current channel loop */
-                        if ((event_info->PartChannelMask >> ch) & 1)  {
-                            if (board_config->BoardType == V1740)  
-                                for(i=0; i<8;i++)
-                                  fclose(wave_config->ofile[ch][i]);
-                            else
-                                  fclose(wave_config->ofile[ch][0]);
-                                                }
-
                     }
+                    else
+                        /* Channel group is enabled but has been suppressed */
+                        if (((board_config->ChannelEnableMask >> ch) & 1) && (wave_config->WriteToFile == 1)) 
+                            printf("[NOTE]Empty event from channel %d\n", ch);
+
+                    /* Close files opened for current channel loop */
+                    if ((event_info->PartChannelMask >> ch) & 1)  {
+                        if (board_config->BoardType == V1740)  
+                            for(i=0; i<8;i++)
+                                fclose(wave_config->ofile[ch][i]);
+                        else
+                            fclose(wave_config->ofile[ch][0]);
+                    }
+
+                }
             }       
             else {  
                 pnt += (event_info->EventSize-4);  /* Move pointer (skip all waveform data) */
@@ -967,12 +967,12 @@ void WaveRun(VME_ACCESS* vme, EVENT_INFO* event_info, WAVE_CONFIG* wave_config, 
 }
 
 /*! \fn      void WaveClose(VME_ACCESS* vme, WAVE_CONFIG* wave_config, EVENT_INFO* event_info);
-*   \brief   WaveDump closing and resource unallocation. 
-*            
-*   \param   vme         Pointer to VME access configuration.
-*   \param   wave_config Pointer to waveform configuration.
-*   \param   event_info  Pointer to event informations.
-*/
+ *   \brief   WaveDump closing and resource unallocation. 
+ *            
+ *   \param   vme         Pointer to VME access configuration.
+ *   \param   wave_config Pointer to waveform configuration.
+ *   \param   event_info  Pointer to event informations.
+ */
 void WaveClose(VME_ACCESS* vme, WAVE_CONFIG* wave_config, EVENT_INFO* event_info) {
 
     int i;
@@ -990,7 +990,7 @@ void WaveClose(VME_ACCESS* vme, WAVE_CONFIG* wave_config, EVENT_INFO* event_info
     if(!(vme->vbuf))             free(vme->vbuf);
 
     for(i=0; i < 8; i++) 
-      if(!event_info->chbuf[i]) free(event_info->chbuf);
+        if(!event_info->chbuf[i]) free(event_info->chbuf);
 
     /* Free VME board_info.handle */
     if (vme->handle != -1)

@@ -30,7 +30,7 @@
  * CommonChControlBase type definition
  */
 
- IMPLEMENT_DYNAMIC_CLASS( CommonChControlBase, wxPanel )
+IMPLEMENT_DYNAMIC_CLASS( CommonChControlBase, wxPanel )
 
 /*!
  * CommonChControlBase event table definition

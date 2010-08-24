@@ -27,14 +27,14 @@
 //          WXDLLIMPEXP_DATA_HTTPENGINE(int) myGlobalIntVar;
 //
 #ifdef WXMAKINGDLL_HTTPENGINE
-    #define WXDLLIMPEXP_HTTPENGINE                  WXEXPORT
-    #define WXDLLIMPEXP_DATA_HTTPENGINE(type)       WXEXPORT type
+#define WXDLLIMPEXP_HTTPENGINE                  WXEXPORT
+#define WXDLLIMPEXP_DATA_HTTPENGINE(type)       WXEXPORT type
 #elif defined(WXUSINGDLL)
-    #define WXDLLIMPEXP_HTTPENGINE                  WXIMPORT
-    #define WXDLLIMPEXP_DATA_HTTPENGINE(type)       WXIMPORT type
+#define WXDLLIMPEXP_HTTPENGINE                  WXIMPORT
+#define WXDLLIMPEXP_DATA_HTTPENGINE(type)       WXIMPORT type
 #else // not making nor using DLL
-    #define WXDLLIMPEXP_HTTPENGINE
-    #define WXDLLIMPEXP_DATA_HTTPENGINE(type)	    type
+#define WXDLLIMPEXP_HTTPENGINE
+#define WXDLLIMPEXP_DATA_HTTPENGINE(type)           type
 #endif
 
 #endif // _WX_HTTPENGINE_DEFS_H_

@@ -69,9 +69,9 @@
 class Trash: public wxDialog
 {    
     DECLARE_DYNAMIC_CLASS( Trash )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     Trash( );
     Trash( wxWindow* parent, wxWindowID id = SYMBOL_TRASH_IDNAME, const wxString& caption = SYMBOL_TRASH_TITLE, const wxPoint& pos = SYMBOL_TRASH_POSITION, const wxSize& size = SYMBOL_TRASH_SIZE, long style = SYMBOL_TRASH_STYLE );
@@ -104,4 +104,4 @@ public:
 };
 
 #endif
-    // _TRASH_H_
+// _TRASH_H_

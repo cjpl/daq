@@ -29,6 +29,6 @@
 #include "appsettings.h"
 
 V1740Board::V1740Board( AppSettings *p_app_settings): 
-			GenericBoard( p_app_settings)
+    GenericBoard( p_app_settings)
 {
 }

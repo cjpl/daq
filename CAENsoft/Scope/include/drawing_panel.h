@@ -69,13 +69,13 @@ class AppSettings;
 class DrawingPanel: public wxPanel
 {    
     DECLARE_DYNAMIC_CLASS( DrawingPanel )
-    DECLARE_EVENT_TABLE()
+        DECLARE_EVENT_TABLE()
 
-public:
+        public:
     /// Constructors
     DrawingPanel( );
     DrawingPanel( int scope_index, wxWindow* parent, wxWindowID id = SYMBOL_DRAWINGPANEL_IDNAME, const wxPoint& pos = SYMBOL_DRAWINGPANEL_POSITION, const wxSize& size = SYMBOL_DRAWINGPANEL_SIZE, long style = SYMBOL_DRAWINGPANEL_STYLE );
-	~DrawingPanel( );
+    ~DrawingPanel( );
  
     /// Creation
     bool Create( wxWindow* parent, wxWindowID id = SYMBOL_DRAWINGPANEL_IDNAME, const wxPoint& pos = SYMBOL_DRAWINGPANEL_POSITION, const wxSize& size = SYMBOL_DRAWINGPANEL_SIZE, long style = SYMBOL_DRAWINGPANEL_STYLE );
@@ -113,18 +113,18 @@ public:
 
     DrawingLeftCanvas* m_draw_left_canvas;
     DrawingCanvas* m_draw_canvas;
-	AppSettings *m_app_settings;
-	void Freeze( void);
-	bool IsFreezed( void){ return this->m_freezed;}
-	void RefreshBackBitmap( void);
-	void RefreshLeftBackBitmap( void);
+    AppSettings *m_app_settings;
+    void Freeze( void);
+    bool IsFreezed( void){ return this->m_freezed;}
+    void RefreshBackBitmap( void);
+    void RefreshLeftBackBitmap( void);
 protected:
-	bool m_freezed;
-	int m_scope_index;
+    bool m_freezed;
+    int m_scope_index;
 
-	wxMutex m_mutex;
+    wxMutex m_mutex;
 
 };
 
 #endif
-    // _DRAWING_PANEL_H_
+// _DRAWING_PANEL_H_

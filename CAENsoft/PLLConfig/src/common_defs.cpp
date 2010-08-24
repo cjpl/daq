@@ -14,15 +14,15 @@
 
 const char* BinFormat( unsigned char value, char ret_buff[9])
 {
-	const int N_CHARS= 8;
-	int i;
+    const int N_CHARS= 8;
+    int i;
 
-	ret_buff[ N_CHARS]= '\0';
-	memset( ret_buff, '0', N_CHARS);
-	for( i= N_CHARS- 1; value&& ( i>= 0); --i, value>>= 1)
-	{
-		if( value& 0x01)
-			ret_buff[ i]= '1';
-	}
-	return (const char*)&ret_buff[0];
+    ret_buff[ N_CHARS]= '\0';
+    memset( ret_buff, '0', N_CHARS);
+    for( i= N_CHARS- 1; value&& ( i>= 0); --i, value>>= 1)
+    {
+        if( value& 0x01)
+            ret_buff[ i]= '1';
+    }
+    return (const char*)&ret_buff[0];
 }

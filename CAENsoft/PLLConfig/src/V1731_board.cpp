@@ -29,7 +29,7 @@
 #include "appsettings.h"
 
 V1731Board::V1731Board( AppSettings *p_app_settings, bool is_des_mode): 
-			GenericBoard( p_app_settings), m_is_des_mode( is_des_mode)
+    GenericBoard( p_app_settings), m_is_des_mode( is_des_mode)
 {
 }
 
