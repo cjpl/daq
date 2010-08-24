@@ -29,15 +29,14 @@
  *            Provides an entry for each board type
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724= 0,                                               /*!< \brief The board is V1724 */
-    CVT_V1721,                                                  /*!< \brief The board is V1721 */
-    CVT_V1731,                                                  /*!< \brief The board is V1731 */
-    CVT_V1720,                                                  /*!< \brief The board is V1720 */
-    CVT_V1740,                                                  /*!< \brief The board is V1740 */
-    CVT_V1751,                                                  /*!< \brief The board is V1751 */
-  } CVT_V17XX_TYPES;
+typedef enum  {
+  CVT_V1724= 0,                                               /*!< \brief The board is V1724 */
+  CVT_V1721,                                                  /*!< \brief The board is V1721 */
+  CVT_V1731,                                                  /*!< \brief The board is V1731 */
+  CVT_V1720,                                                  /*!< \brief The board is V1720 */
+  CVT_V1740,                                                  /*!< \brief The board is V1740 */
+  CVT_V1751,                                                  /*!< \brief The board is V1751 */
+} CVT_V17XX_TYPES;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \struct  cvt_V1724_data
@@ -47,8 +46,7 @@ typedef enum
  *            It must be passed to each V1724's API 
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef struct
-{
+typedef struct {
   cvt_board_data    m_common_data;           /*!< Boards common data structure: always let at offset 0 */
   //
   // Board specific data
@@ -660,207 +658,206 @@ typedef struct
  *            Provides an entry for each register: This is the index into the CVT_V1724_REG_TABLE board table
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    //
-    // Readout Buffer
-    CVT_V1724_OUT_BUFFER_INDEX,                         /*!< \brief Output buffer data buffer index */
+typedef enum {
+  //
+  // Readout Buffer
+  CVT_V1724_OUT_BUFFER_INDEX,                         /*!< \brief Output buffer data buffer index */
 
-    //
-    // Channel broadcast registers
-    CVT_V1724_BROAD_CH_CTRL_INDEX,                      /*!< \brief Control channel broadcast register index */
-    CVT_V1724_BROAD_CH_SET_CTRL_INDEX,                  /*!< \brief Set control channel broadcast register index */
-    CVT_V1724_BROAD_CH_CLEAR_CTRL_INDEX,                /*!< \brief Clear control channel broadcast register index */
-    CVT_V1724_BROAD_NUM_BLOCK_INDEX,                    /*!< \brief Number of blocks broadcast register index */
-    CVT_V1724_BROAD_CH_BUFF_FLUSH_INDEX,                /*!< \brief Number of buffers to be removed channel broadcast register index */
-    CVT_V1724_BROAD_CH_RND_ACC_INDEX,                   /*!< \brief Parameters to Random access  channel broadcast register index */
-    CVT_V1724_BROAD_CH_CUSSIZE_INDEX,                   /*!< \brief Custom Size threshold channel broadcast register index*/
-    CVT_V1724_BROAD_CH_ZSTH_INDEX,                      /*!< \brief Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_BROAD_ADC_CONF_INDEX,                     /*!< \brief ADC configuration broadcast register register index (Write only)*/
-    //
-    // VME registers
-    CVT_V1724_ACQ_CONTROL_INDEX,                        /*!< \brief Acquisiton Control register index */
-    CVT_V1724_ACQ_STATUS_INDEX,                         /*!< \brief Acquisiton Status register index */
-    CVT_V1724_SW_TRIGGER_INDEX,                         /*!< \brief Software trigger register index */
-    CVT_V1724_TRIGGER_SRC_ENABLE_INDEX,                 /*!< \brief Trigger source enable register index */
-    CVT_V1724_FP_TRIGGER_OUT_ENABLE_INDEX,              /*!< \brief Front panel trigger out enable mask register index */
-    CVT_V1724_POST_TRIG_INDEX,                          /*!< \brief Post trigger register index */
-    CVT_V1724_FRONT_PANEL_IO_INDEX,                     /*!< \brief Front panel IO register index */
-    CVT_V1724_FRONT_PANEL_IO_CTRL_INDEX,                /*!< \brief Front panel IO Control register index */
-    CVT_V1724_CH_ENABLE_INDEX,                          /*!< \brief Channel enable mask register index */
-    CVT_V1724_FW_REV_INDEX,                             /*!< \brief Firmware Revision register index */
-    CVT_V1724_DOWNSAMPLE_FACT_INDEX,                    /*!< \brief DownSample factor register index */
-    CVT_V1724_EVENT_STORED_INDEX,                       /*!< \brief Event stored register index */
-    CVT_V1724_MON_SET_INDEX,                            /*!< \brief Monitor output set register index*/
-    CVT_V1724_SW_SYNC_INDEX,                            /*!< \brief Sw sync register index */
-    CVT_V1724_BOARD_INFO_INDEX,                         /*!< \brief Board's information register index */
-    CVT_V1724_MON_MODE_INDEX,                           /*!< \brief Monitor output mode register index*/
-    CVT_V1724_TEST_IO_INDEX,                            /*!< \brief Test Register for IO verification index */
+  //
+  // Channel broadcast registers
+  CVT_V1724_BROAD_CH_CTRL_INDEX,                      /*!< \brief Control channel broadcast register index */
+  CVT_V1724_BROAD_CH_SET_CTRL_INDEX,                  /*!< \brief Set control channel broadcast register index */
+  CVT_V1724_BROAD_CH_CLEAR_CTRL_INDEX,                /*!< \brief Clear control channel broadcast register index */
+  CVT_V1724_BROAD_NUM_BLOCK_INDEX,                    /*!< \brief Number of blocks broadcast register index */
+  CVT_V1724_BROAD_CH_BUFF_FLUSH_INDEX,                /*!< \brief Number of buffers to be removed channel broadcast register index */
+  CVT_V1724_BROAD_CH_RND_ACC_INDEX,                   /*!< \brief Parameters to Random access  channel broadcast register index */
+  CVT_V1724_BROAD_CH_CUSSIZE_INDEX,                   /*!< \brief Custom Size threshold channel broadcast register index*/
+  CVT_V1724_BROAD_CH_ZSTH_INDEX,                      /*!< \brief Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_BROAD_ADC_CONF_INDEX,                     /*!< \brief ADC configuration broadcast register register index (Write only)*/
+  //
+  // VME registers
+  CVT_V1724_ACQ_CONTROL_INDEX,                        /*!< \brief Acquisiton Control register index */
+  CVT_V1724_ACQ_STATUS_INDEX,                         /*!< \brief Acquisiton Status register index */
+  CVT_V1724_SW_TRIGGER_INDEX,                         /*!< \brief Software trigger register index */
+  CVT_V1724_TRIGGER_SRC_ENABLE_INDEX,                 /*!< \brief Trigger source enable register index */
+  CVT_V1724_FP_TRIGGER_OUT_ENABLE_INDEX,              /*!< \brief Front panel trigger out enable mask register index */
+  CVT_V1724_POST_TRIG_INDEX,                          /*!< \brief Post trigger register index */
+  CVT_V1724_FRONT_PANEL_IO_INDEX,                     /*!< \brief Front panel IO register index */
+  CVT_V1724_FRONT_PANEL_IO_CTRL_INDEX,                /*!< \brief Front panel IO Control register index */
+  CVT_V1724_CH_ENABLE_INDEX,                          /*!< \brief Channel enable mask register index */
+  CVT_V1724_FW_REV_INDEX,                             /*!< \brief Firmware Revision register index */
+  CVT_V1724_DOWNSAMPLE_FACT_INDEX,                    /*!< \brief DownSample factor register index */
+  CVT_V1724_EVENT_STORED_INDEX,                       /*!< \brief Event stored register index */
+  CVT_V1724_MON_SET_INDEX,                            /*!< \brief Monitor output set register index*/
+  CVT_V1724_SW_SYNC_INDEX,                            /*!< \brief Sw sync register index */
+  CVT_V1724_BOARD_INFO_INDEX,                         /*!< \brief Board's information register index */
+  CVT_V1724_MON_MODE_INDEX,                           /*!< \brief Monitor output mode register index*/
+  CVT_V1724_TEST_IO_INDEX,                            /*!< \brief Test Register for IO verification index */
 
-    CVT_V1724_VME_CONTROL_INDEX,                        /*!< \brief VME Control register index */
-    CVT_V1724_VME_STATUS_INDEX,                         /*!< \brief VME Status register index */
-    CVT_V1724_BOARD_ID_INDEX,                           /*!< \brief Geo Address register index */
-    CVT_V1724_MCST_CBLT_ADD_CTRL_INDEX,                 /*!< \brief MCST/CBLT Address and control register index */
-    CVT_V1724_RELOCATION_ADDRESS_INDEX,                 /*!< \brief Relocation address register index */
-    CVT_V1724_INT_STATUS_ID_INDEX,                      /*!< \brief Interrupt status id register index */
-    CVT_V1724_INT_EVENT_NUM_INDEX,                      /*!< \brief Interrupt event number register index */
-    CVT_V1724_BLT_EVENT_NUM_INDEX,                      /*!< \brief BLT event number register index */
-    CVT_V1724_SCRATCH_INDEX,                            /*!< \brief Scratch register index */
-    CVT_V1724_SW_RESET_INDEX,                           /*!< \brief Software reset register index */
-    CVT_V1724_SW_CLEAR_INDEX,                           /*!< \brief Software clear register index */
-    CVT_V1724_FLASH_EN_INDEX,                           /*!< \brief Flash enable index */
-    CVT_V1724_FLASH_DATA_INDEX,                         /*!< \brief Flash data index */
-    CVT_V1724_RELOAD_CONFIG_INDEX,                      /*!< \brief Configuration Reload index */
-    CVT_V1724_BASE_ADDRESS_INDEX,                       /*!< \brief Base Address index */
-    CVT_V1724_ROM_CHKSUM_INDEX,                         /*!< \brief Configuration ROM checksum index */
-    CVT_V1724_ROM_CHKSUM_LEN_2_INDEX,                   /*!< \brief Configuration ROM checksum length (MSB) index */
-    CVT_V1724_ROM_CHKSUM_LEN_1_INDEX,                   /*!< \brief Configuration ROM checksum length index */
-    CVT_V1724_ROM_CHKSUM_LEN_0_INDEX,                   /*!< \brief Configuration ROM checksum length (LSB) index */
-    CVT_V1724_ROM_CONST_2_INDEX,                        /*!< \brief Configuration ROM constant (MSB) index */
-    CVT_V1724_ROM_CONST_1_INDEX,                        /*!< \brief Configuration ROM constant index */
-    CVT_V1724_ROM_CONST_0_INDEX,                        /*!< \brief Configuration ROM constant (LSB) index */
-    CVT_V1724_ROM_C_CODE_INDEX,                         /*!< \brief Configuration ROM c_code index */
-    CVT_V1724_ROM_R_CODE_INDEX,                         /*!< \brief Configuration ROM r_code index */
-    CVT_V1724_ROM_OUI_2_INDEX,                          /*!< \brief Configuration ROM Manufacturer identifier (IEEE OUI) (MSB) index */
-    CVT_V1724_ROM_OUI_1_INDEX,                          /*!< \brief Configuration ROM Manufacturer identifier (IEEE OUI) index */
-    CVT_V1724_ROM_OUI_0_INDEX,                          /*!< \brief Configuration ROM Manufacturer identifier (IEEE OUI) (LSB) index */
-    CVT_V1724_ROM_VERSION_INDEX,                        /*!< \brief Configuration ROM Purchased version of the Mod.V1724 index */
-    CVT_V1724_ROM_BOARD_ID_2_INDEX,                     /*!< \brief Configuration ROM Board identifier (MSB) index */
-    CVT_V1724_ROM_BOARD_ID_1_INDEX,                     /*!< \brief Configuration ROM Board identifier index */
-    CVT_V1724_ROM_BOARD_ID_0_INDEX,                     /*!< \brief Configuration ROM Board identifier (LSB) index */
-    CVT_V1724_ROM_REVISION_3_INDEX,                     /*!< \brief Configuration ROM Hardware revision identifier index */
-    CVT_V1724_ROM_REVISION_2_INDEX,                     /*!< \brief Configuration ROM Hardware revision identifier index */
-    CVT_V1724_ROM_REVISION_1_INDEX,                     /*!< \brief Configuration ROM Hardware revision identifier index */
-    CVT_V1724_ROM_REVISION_0_INDEX,                     /*!< \brief Configuration ROM Hardware revision identifier index */
-    CVT_V1724_ROM_SERIAL_1_INDEX,                       /*!< \brief Configuration ROM Serial number (MSB) index */
-    CVT_V1724_ROM_SERIAL_0_INDEX,                       /*!< \brief Configuration ROM Serial number (LSB) index */
-    CVT_V1724_ROM_VCXO_TYPE_INDEX,                      /*!< \brief Configuration ROM VCXO type index */
+  CVT_V1724_VME_CONTROL_INDEX,                        /*!< \brief VME Control register index */
+  CVT_V1724_VME_STATUS_INDEX,                         /*!< \brief VME Status register index */
+  CVT_V1724_BOARD_ID_INDEX,                           /*!< \brief Geo Address register index */
+  CVT_V1724_MCST_CBLT_ADD_CTRL_INDEX,                 /*!< \brief MCST/CBLT Address and control register index */
+  CVT_V1724_RELOCATION_ADDRESS_INDEX,                 /*!< \brief Relocation address register index */
+  CVT_V1724_INT_STATUS_ID_INDEX,                      /*!< \brief Interrupt status id register index */
+  CVT_V1724_INT_EVENT_NUM_INDEX,                      /*!< \brief Interrupt event number register index */
+  CVT_V1724_BLT_EVENT_NUM_INDEX,                      /*!< \brief BLT event number register index */
+  CVT_V1724_SCRATCH_INDEX,                            /*!< \brief Scratch register index */
+  CVT_V1724_SW_RESET_INDEX,                           /*!< \brief Software reset register index */
+  CVT_V1724_SW_CLEAR_INDEX,                           /*!< \brief Software clear register index */
+  CVT_V1724_FLASH_EN_INDEX,                           /*!< \brief Flash enable index */
+  CVT_V1724_FLASH_DATA_INDEX,                         /*!< \brief Flash data index */
+  CVT_V1724_RELOAD_CONFIG_INDEX,                      /*!< \brief Configuration Reload index */
+  CVT_V1724_BASE_ADDRESS_INDEX,                       /*!< \brief Base Address index */
+  CVT_V1724_ROM_CHKSUM_INDEX,                         /*!< \brief Configuration ROM checksum index */
+  CVT_V1724_ROM_CHKSUM_LEN_2_INDEX,                   /*!< \brief Configuration ROM checksum length (MSB) index */
+  CVT_V1724_ROM_CHKSUM_LEN_1_INDEX,                   /*!< \brief Configuration ROM checksum length index */
+  CVT_V1724_ROM_CHKSUM_LEN_0_INDEX,                   /*!< \brief Configuration ROM checksum length (LSB) index */
+  CVT_V1724_ROM_CONST_2_INDEX,                        /*!< \brief Configuration ROM constant (MSB) index */
+  CVT_V1724_ROM_CONST_1_INDEX,                        /*!< \brief Configuration ROM constant index */
+  CVT_V1724_ROM_CONST_0_INDEX,                        /*!< \brief Configuration ROM constant (LSB) index */
+  CVT_V1724_ROM_C_CODE_INDEX,                         /*!< \brief Configuration ROM c_code index */
+  CVT_V1724_ROM_R_CODE_INDEX,                         /*!< \brief Configuration ROM r_code index */
+  CVT_V1724_ROM_OUI_2_INDEX,                          /*!< \brief Configuration ROM Manufacturer identifier (IEEE OUI) (MSB) index */
+  CVT_V1724_ROM_OUI_1_INDEX,                          /*!< \brief Configuration ROM Manufacturer identifier (IEEE OUI) index */
+  CVT_V1724_ROM_OUI_0_INDEX,                          /*!< \brief Configuration ROM Manufacturer identifier (IEEE OUI) (LSB) index */
+  CVT_V1724_ROM_VERSION_INDEX,                        /*!< \brief Configuration ROM Purchased version of the Mod.V1724 index */
+  CVT_V1724_ROM_BOARD_ID_2_INDEX,                     /*!< \brief Configuration ROM Board identifier (MSB) index */
+  CVT_V1724_ROM_BOARD_ID_1_INDEX,                     /*!< \brief Configuration ROM Board identifier index */
+  CVT_V1724_ROM_BOARD_ID_0_INDEX,                     /*!< \brief Configuration ROM Board identifier (LSB) index */
+  CVT_V1724_ROM_REVISION_3_INDEX,                     /*!< \brief Configuration ROM Hardware revision identifier index */
+  CVT_V1724_ROM_REVISION_2_INDEX,                     /*!< \brief Configuration ROM Hardware revision identifier index */
+  CVT_V1724_ROM_REVISION_1_INDEX,                     /*!< \brief Configuration ROM Hardware revision identifier index */
+  CVT_V1724_ROM_REVISION_0_INDEX,                     /*!< \brief Configuration ROM Hardware revision identifier index */
+  CVT_V1724_ROM_SERIAL_1_INDEX,                       /*!< \brief Configuration ROM Serial number (MSB) index */
+  CVT_V1724_ROM_SERIAL_0_INDEX,                       /*!< \brief Configuration ROM Serial number (LSB) index */
+  CVT_V1724_ROM_VCXO_TYPE_INDEX,                      /*!< \brief Configuration ROM VCXO type index */
 
-    //
-    // CH 0
-    CVT_V1724_CH0_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 0 Read Block channel broadcast reserved register index */
-    CVT_V1724_CH0_ZSTH_INDEX,                           /*!< \brief CH 0 Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_CH0_THRESHOLD_INDEX,                      /*!< \brief CH 0 Threshold register index */
-    CVT_V1724_CH0_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 0 Over/Under Threshold Samples register index */
-    CVT_V1724_CH0_STATUS_INDEX,                         /*!< \brief CH 0 status register index */
-    CVT_V1724_CH0_FW_REV_INDEX,                         /*!< \brief CH 0 firmware revision register index */
-    CVT_V1724_CH0_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 0 Number of Buffers Filled register index */
-    CVT_V1724_CH0_DAC_CONF_INDEX,                       /*!< \brief CH 0 DAC Data Configuration register index */
-    CVT_V1724_CH0_ADC_CONF_INDEX,                       /*!< \brief CH 0 Configuration register index */
-    CVT_V1724_CH0_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 0 ADC Debug Reserved register index */
-    CVT_V1724_CH0_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 0 Memory test data Reserved register index */
-    CVT_V1724_CH0_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 0 Memory test address Reserved register index */
+  //
+  // CH 0
+  CVT_V1724_CH0_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 0 Read Block channel broadcast reserved register index */
+  CVT_V1724_CH0_ZSTH_INDEX,                           /*!< \brief CH 0 Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_CH0_THRESHOLD_INDEX,                      /*!< \brief CH 0 Threshold register index */
+  CVT_V1724_CH0_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 0 Over/Under Threshold Samples register index */
+  CVT_V1724_CH0_STATUS_INDEX,                         /*!< \brief CH 0 status register index */
+  CVT_V1724_CH0_FW_REV_INDEX,                         /*!< \brief CH 0 firmware revision register index */
+  CVT_V1724_CH0_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 0 Number of Buffers Filled register index */
+  CVT_V1724_CH0_DAC_CONF_INDEX,                       /*!< \brief CH 0 DAC Data Configuration register index */
+  CVT_V1724_CH0_ADC_CONF_INDEX,                       /*!< \brief CH 0 Configuration register index */
+  CVT_V1724_CH0_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 0 ADC Debug Reserved register index */
+  CVT_V1724_CH0_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 0 Memory test data Reserved register index */
+  CVT_V1724_CH0_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 0 Memory test address Reserved register index */
 
-    //
-    // CH 1
-    CVT_V1724_CH1_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 1 Read Block channel broadcast reserved register index */
-    CVT_V1724_CH1_ZSTH_INDEX,                           /*!< \brief CH 1 Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_CH1_THRESHOLD_INDEX,                      /*!< \brief CH 1 Threshold register index */
-    CVT_V1724_CH1_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 1 Over/Under Threshold Samples register index */
-    CVT_V1724_CH1_STATUS_INDEX,                         /*!< \brief CH 1 status register index */
-    CVT_V1724_CH1_FW_REV_INDEX,                         /*!< \brief CH 1 firmware revision register index */
-    CVT_V1724_CH1_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 1 Number of Buffers Filled register index */
-    CVT_V1724_CH1_DAC_CONF_INDEX,                       /*!< \brief CH 1 DAC Data Configuration register index */
-    CVT_V1724_CH1_ADC_CONF_INDEX,                       /*!< \brief CH 1 Configuration register index */
-    CVT_V1724_CH1_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 1 ADC Debug Reserved register index */
-    CVT_V1724_CH1_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 1 Memory test data Reserved register index */
-    CVT_V1724_CH1_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 1 Memory test address Reserved register index */
+  //
+  // CH 1
+  CVT_V1724_CH1_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 1 Read Block channel broadcast reserved register index */
+  CVT_V1724_CH1_ZSTH_INDEX,                           /*!< \brief CH 1 Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_CH1_THRESHOLD_INDEX,                      /*!< \brief CH 1 Threshold register index */
+  CVT_V1724_CH1_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 1 Over/Under Threshold Samples register index */
+  CVT_V1724_CH1_STATUS_INDEX,                         /*!< \brief CH 1 status register index */
+  CVT_V1724_CH1_FW_REV_INDEX,                         /*!< \brief CH 1 firmware revision register index */
+  CVT_V1724_CH1_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 1 Number of Buffers Filled register index */
+  CVT_V1724_CH1_DAC_CONF_INDEX,                       /*!< \brief CH 1 DAC Data Configuration register index */
+  CVT_V1724_CH1_ADC_CONF_INDEX,                       /*!< \brief CH 1 Configuration register index */
+  CVT_V1724_CH1_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 1 ADC Debug Reserved register index */
+  CVT_V1724_CH1_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 1 Memory test data Reserved register index */
+  CVT_V1724_CH1_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 1 Memory test address Reserved register index */
 
-    //
-    // CH 2
-    CVT_V1724_CH2_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 2 Read Block channel broadcast reserved register index */
-    CVT_V1724_CH2_ZSTH_INDEX,                           /*!< \brief CH 2 Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_CH2_THRESHOLD_INDEX,                      /*!< \brief CH 2 Threshold register index */
-    CVT_V1724_CH2_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 2 Over/Under Threshold Samples register index */
-    CVT_V1724_CH2_STATUS_INDEX,                         /*!< \brief CH 2 status register index */
-    CVT_V1724_CH2_FW_REV_INDEX,                         /*!< \brief CH 2 firmware revision register index */
-    CVT_V1724_CH2_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 2 Number of Buffers Filled register index */
-    CVT_V1724_CH2_DAC_CONF_INDEX,                       /*!< \brief CH 2 DAC Data Configuration register index */
-    CVT_V1724_CH2_ADC_CONF_INDEX,                       /*!< \brief CH 2 Configuration register index */
-    CVT_V1724_CH2_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 2 ADC Debug Reserved register index */
-    CVT_V1724_CH2_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 2 Memory test data Reserved register index */
-    CVT_V1724_CH2_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 2 Memory test address Reserved register index */
+  //
+  // CH 2
+  CVT_V1724_CH2_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 2 Read Block channel broadcast reserved register index */
+  CVT_V1724_CH2_ZSTH_INDEX,                           /*!< \brief CH 2 Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_CH2_THRESHOLD_INDEX,                      /*!< \brief CH 2 Threshold register index */
+  CVT_V1724_CH2_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 2 Over/Under Threshold Samples register index */
+  CVT_V1724_CH2_STATUS_INDEX,                         /*!< \brief CH 2 status register index */
+  CVT_V1724_CH2_FW_REV_INDEX,                         /*!< \brief CH 2 firmware revision register index */
+  CVT_V1724_CH2_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 2 Number of Buffers Filled register index */
+  CVT_V1724_CH2_DAC_CONF_INDEX,                       /*!< \brief CH 2 DAC Data Configuration register index */
+  CVT_V1724_CH2_ADC_CONF_INDEX,                       /*!< \brief CH 2 Configuration register index */
+  CVT_V1724_CH2_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 2 ADC Debug Reserved register index */
+  CVT_V1724_CH2_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 2 Memory test data Reserved register index */
+  CVT_V1724_CH2_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 2 Memory test address Reserved register index */
 
-    //
-    // CH 3
-    CVT_V1724_CH3_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 3 Read Block channel broadcast reserved register index */
-    CVT_V1724_CH3_ZSTH_INDEX,                           /*!< \brief CH 3 Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_CH3_THRESHOLD_INDEX,                      /*!< \brief CH 3 Threshold register index */
-    CVT_V1724_CH3_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 3 Over/Under Threshold Samples register index */
-    CVT_V1724_CH3_STATUS_INDEX,                         /*!< \brief CH 3 status register index */
-    CVT_V1724_CH3_FW_REV_INDEX,                         /*!< \brief CH 3 firmware revision register index */
-    CVT_V1724_CH3_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 3 Number of Buffers Filled register index */
-    CVT_V1724_CH3_DAC_CONF_INDEX,                       /*!< \brief CH 3 DAC Data Configuration register index */
-    CVT_V1724_CH3_ADC_CONF_INDEX,                       /*!< \brief CH 3 Configuration register index */
-    CVT_V1724_CH3_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 3 ADC Debug Reserved register index */
-    CVT_V1724_CH3_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 3 Memory test data Reserved register index */
-    CVT_V1724_CH3_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 3 Memory test address Reserved register index */
+  //
+  // CH 3
+  CVT_V1724_CH3_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 3 Read Block channel broadcast reserved register index */
+  CVT_V1724_CH3_ZSTH_INDEX,                           /*!< \brief CH 3 Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_CH3_THRESHOLD_INDEX,                      /*!< \brief CH 3 Threshold register index */
+  CVT_V1724_CH3_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 3 Over/Under Threshold Samples register index */
+  CVT_V1724_CH3_STATUS_INDEX,                         /*!< \brief CH 3 status register index */
+  CVT_V1724_CH3_FW_REV_INDEX,                         /*!< \brief CH 3 firmware revision register index */
+  CVT_V1724_CH3_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 3 Number of Buffers Filled register index */
+  CVT_V1724_CH3_DAC_CONF_INDEX,                       /*!< \brief CH 3 DAC Data Configuration register index */
+  CVT_V1724_CH3_ADC_CONF_INDEX,                       /*!< \brief CH 3 Configuration register index */
+  CVT_V1724_CH3_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 3 ADC Debug Reserved register index */
+  CVT_V1724_CH3_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 3 Memory test data Reserved register index */
+  CVT_V1724_CH3_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 3 Memory test address Reserved register index */
 
-    //
-    // CH 4
-    CVT_V1724_CH4_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 4 Read Block channel broadcast reserved register index */
-    CVT_V1724_CH4_ZSTH_INDEX,                           /*!< \brief CH 4 Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_CH4_THRESHOLD_INDEX,                      /*!< \brief CH 4 Threshold register index */
-    CVT_V1724_CH4_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 4 Over/Under Threshold Samples register index */
-    CVT_V1724_CH4_STATUS_INDEX,                         /*!< \brief CH 4 status register index */
-    CVT_V1724_CH4_FW_REV_INDEX,                         /*!< \brief CH 4 firmware revision register index */
-    CVT_V1724_CH4_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 4 Number of Buffers Filled register index */
-    CVT_V1724_CH4_DAC_CONF_INDEX,                       /*!< \brief CH 4 DAC Data Configuration register index */
-    CVT_V1724_CH4_ADC_CONF_INDEX,                       /*!< \brief CH 4 Configuration register index */
-    CVT_V1724_CH4_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 4 ADC Debug Reserved register index */
-    CVT_V1724_CH4_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 4 Memory test data Reserved register index */
-    CVT_V1724_CH4_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 4 Memory test address Reserved register index */
+  //
+  // CH 4
+  CVT_V1724_CH4_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 4 Read Block channel broadcast reserved register index */
+  CVT_V1724_CH4_ZSTH_INDEX,                           /*!< \brief CH 4 Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_CH4_THRESHOLD_INDEX,                      /*!< \brief CH 4 Threshold register index */
+  CVT_V1724_CH4_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 4 Over/Under Threshold Samples register index */
+  CVT_V1724_CH4_STATUS_INDEX,                         /*!< \brief CH 4 status register index */
+  CVT_V1724_CH4_FW_REV_INDEX,                         /*!< \brief CH 4 firmware revision register index */
+  CVT_V1724_CH4_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 4 Number of Buffers Filled register index */
+  CVT_V1724_CH4_DAC_CONF_INDEX,                       /*!< \brief CH 4 DAC Data Configuration register index */
+  CVT_V1724_CH4_ADC_CONF_INDEX,                       /*!< \brief CH 4 Configuration register index */
+  CVT_V1724_CH4_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 4 ADC Debug Reserved register index */
+  CVT_V1724_CH4_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 4 Memory test data Reserved register index */
+  CVT_V1724_CH4_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 4 Memory test address Reserved register index */
 
-    //
-    // CH 5
-    CVT_V1724_CH5_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 5 Read Block channel broadcast reserved register index */
-    CVT_V1724_CH5_ZSTH_INDEX,                           /*!< \brief CH 5 Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_CH5_THRESHOLD_INDEX,                      /*!< \brief CH 5 Threshold register index */
-    CVT_V1724_CH5_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 5 Over/Under Threshold Samples register index */
-    CVT_V1724_CH5_STATUS_INDEX,                         /*!< \brief CH 5 status register index */
-    CVT_V1724_CH5_FW_REV_INDEX,                         /*!< \brief CH 5 firmware revision register index */
-    CVT_V1724_CH5_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 5 Number of Buffers Filled register index */
-    CVT_V1724_CH5_DAC_CONF_INDEX,                       /*!< \brief CH 5 DAC Data Configuration register index */
-    CVT_V1724_CH5_ADC_CONF_INDEX,                       /*!< \brief CH 5 Configuration register index */
-    CVT_V1724_CH5_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 5 ADC Debug Reserved register index */
-    CVT_V1724_CH5_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 5 Memory test data Reserved register index */
-    CVT_V1724_CH5_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 5 Memory test address Reserved register index */
+  //
+  // CH 5
+  CVT_V1724_CH5_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 5 Read Block channel broadcast reserved register index */
+  CVT_V1724_CH5_ZSTH_INDEX,                           /*!< \brief CH 5 Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_CH5_THRESHOLD_INDEX,                      /*!< \brief CH 5 Threshold register index */
+  CVT_V1724_CH5_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 5 Over/Under Threshold Samples register index */
+  CVT_V1724_CH5_STATUS_INDEX,                         /*!< \brief CH 5 status register index */
+  CVT_V1724_CH5_FW_REV_INDEX,                         /*!< \brief CH 5 firmware revision register index */
+  CVT_V1724_CH5_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 5 Number of Buffers Filled register index */
+  CVT_V1724_CH5_DAC_CONF_INDEX,                       /*!< \brief CH 5 DAC Data Configuration register index */
+  CVT_V1724_CH5_ADC_CONF_INDEX,                       /*!< \brief CH 5 Configuration register index */
+  CVT_V1724_CH5_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 5 ADC Debug Reserved register index */
+  CVT_V1724_CH5_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 5 Memory test data Reserved register index */
+  CVT_V1724_CH5_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 5 Memory test address Reserved register index */
 
-    //
-    // CH 6
-    CVT_V1724_CH6_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 6 Read Block channel broadcast reserved register index */
-    CVT_V1724_CH6_ZSTH_INDEX,                           /*!< \brief CH 6 Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_CH6_THRESHOLD_INDEX,                      /*!< \brief CH 6 Threshold register index */
-    CVT_V1724_CH6_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 6 Over/Under Threshold Samples register index */
-    CVT_V1724_CH6_STATUS_INDEX,                         /*!< \brief CH 6 status register index */
-    CVT_V1724_CH6_FW_REV_INDEX,                         /*!< \brief CH 6 firmware revision register index */
-    CVT_V1724_CH6_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 6 Number of Buffers Filled register index */
-    CVT_V1724_CH6_DAC_CONF_INDEX,                       /*!< \brief CH 6 DAC Data Configuration register index */
-    CVT_V1724_CH6_ADC_CONF_INDEX,                       /*!< \brief CH 6 Configuration register index */
-    CVT_V1724_CH6_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 6 ADC Debug Reserved register index */
-    CVT_V1724_CH6_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 6 Memory test data Reserved register index */
-    CVT_V1724_CH6_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 6 Memory test address Reserved register index */
+  //
+  // CH 6
+  CVT_V1724_CH6_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 6 Read Block channel broadcast reserved register index */
+  CVT_V1724_CH6_ZSTH_INDEX,                           /*!< \brief CH 6 Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_CH6_THRESHOLD_INDEX,                      /*!< \brief CH 6 Threshold register index */
+  CVT_V1724_CH6_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 6 Over/Under Threshold Samples register index */
+  CVT_V1724_CH6_STATUS_INDEX,                         /*!< \brief CH 6 status register index */
+  CVT_V1724_CH6_FW_REV_INDEX,                         /*!< \brief CH 6 firmware revision register index */
+  CVT_V1724_CH6_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 6 Number of Buffers Filled register index */
+  CVT_V1724_CH6_DAC_CONF_INDEX,                       /*!< \brief CH 6 DAC Data Configuration register index */
+  CVT_V1724_CH6_ADC_CONF_INDEX,                       /*!< \brief CH 6 Configuration register index */
+  CVT_V1724_CH6_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 6 ADC Debug Reserved register index */
+  CVT_V1724_CH6_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 6 Memory test data Reserved register index */
+  CVT_V1724_CH6_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 6 Memory test address Reserved register index */
 
-    //
-    // CH 7
-    CVT_V1724_CH7_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 7 Read Block channel broadcast reserved register index */
-    CVT_V1724_CH7_ZSTH_INDEX,                           /*!< \brief CH 7 Zero suppression threshold channel broadcast register index*/
-    CVT_V1724_CH7_THRESHOLD_INDEX,                      /*!< \brief CH 7 Threshold register index */
-    CVT_V1724_CH7_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 7 Over/Under Threshold Samples register index */
-    CVT_V1724_CH7_STATUS_INDEX,                         /*!< \brief CH 7 status register index */
-    CVT_V1724_CH7_FW_REV_INDEX,                         /*!< \brief CH 7 firmware revision register index */
-    CVT_V1724_CH7_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 7 Number of Buffers Filled register index */
-    CVT_V1724_CH7_DAC_CONF_INDEX,                       /*!< \brief CH 7 DAC Data Configuration register index */
-    CVT_V1724_CH7_ADC_CONF_INDEX,                       /*!< \brief CH 7 Configuration register index */
-    CVT_V1724_CH7_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 7 ADC Debug Reserved register index */
-    CVT_V1724_CH7_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 7 Memory test data Reserved register index */
-    CVT_V1724_CH7_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 7 Memory test address Reserved register index */
+  //
+  // CH 7
+  CVT_V1724_CH7_RESERVED_RND_ACC_INDEX,               /*!< \brief CH 7 Read Block channel broadcast reserved register index */
+  CVT_V1724_CH7_ZSTH_INDEX,                           /*!< \brief CH 7 Zero suppression threshold channel broadcast register index*/
+  CVT_V1724_CH7_THRESHOLD_INDEX,                      /*!< \brief CH 7 Threshold register index */
+  CVT_V1724_CH7_TIME_OVER_UNDER_THR_INDEX,            /*!< \brief CH 7 Over/Under Threshold Samples register index */
+  CVT_V1724_CH7_STATUS_INDEX,                         /*!< \brief CH 7 status register index */
+  CVT_V1724_CH7_FW_REV_INDEX,                         /*!< \brief CH 7 firmware revision register index */
+  CVT_V1724_CH7_BUFF_OCCUPANCY_INDEX,                 /*!< \brief CH 7 Number of Buffers Filled register index */
+  CVT_V1724_CH7_DAC_CONF_INDEX,                       /*!< \brief CH 7 DAC Data Configuration register index */
+  CVT_V1724_CH7_ADC_CONF_INDEX,                       /*!< \brief CH 7 Configuration register index */
+  CVT_V1724_CH7_RESERVED_ADC_DEBUG_INDEX,             /*!< \brief CH 7 ADC Debug Reserved register index */
+  CVT_V1724_CH7_RESERVED_MEM_DATA_INDEX,              /*!< \brief CH 7 Memory test data Reserved register index */
+  CVT_V1724_CH7_RESERVED_MEM_ADDRESS_INDEX,           /*!< \brief CH 7 Memory test address Reserved register index */
 
-    //
-    //
-    CVT_V1724_LAST_INDEX,                               /*!< \brief Tag : just to get table index size */
+  //
+  //
+  CVT_V1724_LAST_INDEX,                               /*!< \brief Tag : just to get table index size */
 
-  } CVT_V1724_REG_INDEX;
+} CVT_V1724_REG_INDEX;
                                                                                                 
 #define CVT_V1724_MAX_CHANNEL                   8       /*!< \brief The number of channels */
 
@@ -869,16 +866,19 @@ typedef enum
  *   \brief   Control register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_VME_CTRL_INT_LEVEL_MSK            = 0x0007,               /*!< Interrupt level bit masks */
-    CVT_V1724_VME_CTRL_BERR_ENABLE_MSK          = 0x0010,               /*!< Bus error enable bit */
-    CVT_V1724_VME_CTRL_ALIGN64_MSK              = 0x0020,               /*!< Align 64 enable bit */
-    CVT_V1724_VME_CTRL_RELOC_MSK                = 0x0040,               /*!< Reloc bit */
-  } CVT_V1724_VME_CONTROL_MSK;
+typedef enum  {
+  CVT_V1724_VME_CTRL_INT_LEVEL_MSK            = 0x0007,               /*!< Interrupt level bit masks */
+  CVT_V1724_VME_CTRL_BERR_ENABLE_MSK          = 0x0010,               /*!< Bus error enable bit */
+  CVT_V1724_VME_CTRL_ALIGN64_MSK              = 0x0020,               /*!< Align 64 enable bit */
+  CVT_V1724_VME_CTRL_RELOC_MSK                = 0x0040,               /*!< Reloc bit */
+} CVT_V1724_VME_CONTROL_MSK;
 
-#define CVT_V1724_GET_INT_LEVEL( reg)           (((UINT32)reg)& CVT_V1724_VME_CTRL_INT_LEVEL_MSK)         /*!< \brief Extract the interrupt level from UINT32 value */
-#define CVT_V1724_SET_INT_LEVEL( reg, value)    reg= (((UINT32)reg)& ~CVT_V1724_VME_CTRL_INT_LEVEL_MSK)| ((UINT32)value& CVT_V1724_VME_CTRL_INT_LEVEL_MSK)  /*!< \brief Sets the interrupt level value into UINT32 value */
+#define CVT_V1724_GET_INT_LEVEL( reg)			\
+  (((UINT32)reg)& CVT_V1724_VME_CTRL_INT_LEVEL_MSK)
+/*!< \brief Extract the interrupt level from UINT32 value */
+#define CVT_V1724_SET_INT_LEVEL( reg, value)				\
+  reg= (((UINT32)reg)& ~CVT_V1724_VME_CTRL_INT_LEVEL_MSK)| ((UINT32)value& CVT_V1724_VME_CTRL_INT_LEVEL_MSK)
+/*!< \brief Sets the interrupt level value into UINT32 value */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_VME_STATUS_MSK
@@ -886,220 +886,240 @@ typedef enum
  *   \todo    To be defined
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_VME_STS_DATA_READY_MSK            = 0x0001,               /*!< Data ready bit */
-    CVT_V1724_VME_STS_FULL_MSK                  = 0x0002,               /*!< Full bit */
-    CVT_V1724_VME_STS_BERR_FLAG_MSK             = 0x0004,               /*!< Berr flag bit */
-    CVT_V1724_VME_STS_PURGED_MSK                = 0x0008,               /*!< Purged bit */
-  } CVT_V1724_VME_STATUS_MSK;
+typedef enum  {
+CVT_V1724_VME_STS_DATA_READY_MSK            = 0x0001,               /*!< Data ready bit */
+CVT_V1724_VME_STS_FULL_MSK                  = 0x0002,               /*!< Full bit */
+CVT_V1724_VME_STS_BERR_FLAG_MSK             = 0x0004,               /*!< Berr flag bit */
+CVT_V1724_VME_STS_PURGED_MSK                = 0x0008,               /*!< Purged bit */
+} CVT_V1724_VME_STATUS_MSK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_TRIGGER_SRC_ENABLE_MSK
  *   \brief   Trigger enable bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_TRGEN_CH0_MSK                     = 0x00000001,           /*!< Enable CH 0 trigger bit */
-    CVT_V1724_TRGEN_CH1_MSK                     = 0x00000002,           /*!< Enable CH 1 trigger bit */
-    CVT_V1724_TRGEN_CH2_MSK                     = 0x00000004,           /*!< Enable CH 2 trigger bit */
-    CVT_V1724_TRGEN_CH3_MSK                     = 0x00000008,           /*!< Enable CH 3 trigger bit */
-    CVT_V1724_TRGEN_CH4_MSK                     = 0x00000010,           /*!< Enable CH 4 trigger bit */
-    CVT_V1724_TRGEN_CH5_MSK                     = 0x00000020,           /*!< Enable CH 5 trigger bit */
-    CVT_V1724_TRGEN_CH6_MSK                     = 0x00000040,           /*!< Enable CH 6 trigger bit */
-    CVT_V1724_TRGEN_CH7_MSK                     = 0x00000080,           /*!< Enable CH 7 trigger bit */
-    CVT_V1724_TRGEN_EXT_MSK                     = 0x40000000,           /*!< External trigger enable bit */
-    CVT_V1724_TRGEN_SW_MSK                      = 0x80000000,           /*!< Software trigger enable bit */
-  } CVT_V1724_TRIGGER_SRC_ENABLE_MSK;
+typedef enum  {
+  CVT_V1724_TRGEN_CH0_MSK                     = 0x00000001,           /*!< Enable CH 0 trigger bit */
+  CVT_V1724_TRGEN_CH1_MSK                     = 0x00000002,           /*!< Enable CH 1 trigger bit */
+  CVT_V1724_TRGEN_CH2_MSK                     = 0x00000004,           /*!< Enable CH 2 trigger bit */
+  CVT_V1724_TRGEN_CH3_MSK                     = 0x00000008,           /*!< Enable CH 3 trigger bit */
+  CVT_V1724_TRGEN_CH4_MSK                     = 0x00000010,           /*!< Enable CH 4 trigger bit */
+  CVT_V1724_TRGEN_CH5_MSK                     = 0x00000020,           /*!< Enable CH 5 trigger bit */
+  CVT_V1724_TRGEN_CH6_MSK                     = 0x00000040,           /*!< Enable CH 6 trigger bit */
+  CVT_V1724_TRGEN_CH7_MSK                     = 0x00000080,           /*!< Enable CH 7 trigger bit */
+  CVT_V1724_TRGEN_EXT_MSK                     = 0x40000000,           /*!< External trigger enable bit */
+  CVT_V1724_TRGEN_SW_MSK                      = 0x80000000,           /*!< Software trigger enable bit */
+} CVT_V1724_TRIGGER_SRC_ENABLE_MSK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_FP_TRIGGER_OUT_ENABLE_MSK
  *   \brief   Front Panel Trigger Out enable bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_FPTRGEN_CH0_MSK                   = 0x00000001,           /*!< Enable CH 0 trigger bit */
-    CVT_V1724_FPTRGEN_CH1_MSK                   = 0x00000002,           /*!< Enable CH 1 trigger bit */
-    CVT_V1724_FPTRGEN_CH2_MSK                   = 0x00000004,           /*!< Enable CH 2 trigger bit */
-    CVT_V1724_FPTRGEN_CH3_MSK                   = 0x00000008,           /*!< Enable CH 3 trigger bit */
-    CVT_V1724_FPTRGEN_CH4_MSK                   = 0x00000010,           /*!< Enable CH 4 trigger bit */
-    CVT_V1724_FPTRGEN_CH5_MSK                   = 0x00000020,           /*!< Enable CH 5 trigger bit */
-    CVT_V1724_FPTRGEN_CH6_MSK                   = 0x00000040,           /*!< Enable CH 6 trigger bit */
-    CVT_V1724_FPTRGEN_CH7_MSK                   = 0x00000080,           /*!< Enable CH 7 trigger bit */
-    CVT_V1724_FPTRGEN_EXT_MSK                   = 0x40000000,           /*!< External trigger enable bit */
-    CVT_V1724_FPTRGEN_SW_MSK                    = 0x80000000,           /*!< Software trigger enable bit */
-  } CVT_V1724_FP_TRIGGER_OUT_ENABLE_MSK;
+typedef enum  {
+  CVT_V1724_FPTRGEN_CH0_MSK                   = 0x00000001,           /*!< Enable CH 0 trigger bit */
+  CVT_V1724_FPTRGEN_CH1_MSK                   = 0x00000002,           /*!< Enable CH 1 trigger bit */
+  CVT_V1724_FPTRGEN_CH2_MSK                   = 0x00000004,           /*!< Enable CH 2 trigger bit */
+  CVT_V1724_FPTRGEN_CH3_MSK                   = 0x00000008,           /*!< Enable CH 3 trigger bit */
+  CVT_V1724_FPTRGEN_CH4_MSK                   = 0x00000010,           /*!< Enable CH 4 trigger bit */
+  CVT_V1724_FPTRGEN_CH5_MSK                   = 0x00000020,           /*!< Enable CH 5 trigger bit */
+  CVT_V1724_FPTRGEN_CH6_MSK                   = 0x00000040,           /*!< Enable CH 6 trigger bit */
+  CVT_V1724_FPTRGEN_CH7_MSK                   = 0x00000080,           /*!< Enable CH 7 trigger bit */
+  CVT_V1724_FPTRGEN_EXT_MSK                   = 0x40000000,           /*!< External trigger enable bit */
+  CVT_V1724_FPTRGEN_SW_MSK                    = 0x80000000,           /*!< Software trigger enable bit */
+} CVT_V1724_FP_TRIGGER_OUT_ENABLE_MSK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_BROAD_CH_CONTROL_MSK
  *   \brief   CVT_V1724_BROAD_CH_CTRL: Control register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_BROAD_CHCTRL_GATE_MODE_MSK                = 0x00000001,   /*!< Gate mode bit ( 0 --> Window mode, 1 --> Single mode ) */
-    CVT_V1724_BROAD_CHCTRL_TRG_OVERLAP_MSK              = 0x00000002,   /*!< Trigger Overlapping enable bit */
-    CVT_V1724_BROAD_CHCTRL_MEM_TEST_ENABLE_MSK          = 0x00000008,   /*!< Memory test enabled bit */
-    CVT_V1724_BROAD_CHCTRL_MEM_ACC_MODE_MSK             = 0x00000010,   /*!< Memory Access mode bit ( 0 --> random access mode, 1--> sequential access mode) */
-    CVT_V1724_BROAD_CHCTRL_TRG_OUT_THR_MSK              = 0x00000040,   /*!< Trigger Output Threshold mode bit ( 0 --> Over, 1 --> Under) */
-    CVT_V1724_BROAD_CHCTRL_DES_MODE_MSK                 = 0x00001000,   /*!< Switch to des mode (4 channel mode) ( 0 --> Normal mode , 1 --> Des mode) (V1731 only) */
-  } CVT_V1724_BROAD_CH_CONTROL_MSK;
+typedef enum  {
+  CVT_V1724_BROAD_CHCTRL_GATE_MODE_MSK                = 0x00000001,   /*!< Gate mode bit ( 0 --> Window mode, 1 --> Single mode ) */
+  CVT_V1724_BROAD_CHCTRL_TRG_OVERLAP_MSK              = 0x00000002,   /*!< Trigger Overlapping enable bit */
+  CVT_V1724_BROAD_CHCTRL_MEM_TEST_ENABLE_MSK          = 0x00000008,   /*!< Memory test enabled bit */
+  CVT_V1724_BROAD_CHCTRL_MEM_ACC_MODE_MSK             = 0x00000010,   /*!< Memory Access mode bit ( 0 --> random access mode, 1--> sequential access mode) */
+  CVT_V1724_BROAD_CHCTRL_TRG_OUT_THR_MSK              = 0x00000040,   /*!< Trigger Output Threshold mode bit ( 0 --> Over, 1 --> Under) */
+  CVT_V1724_BROAD_CHCTRL_DES_MODE_MSK                 = 0x00001000,   /*!< Switch to des mode (4 channel mode) ( 0 --> Normal mode , 1 --> Des mode) (V1731 only) */
+} CVT_V1724_BROAD_CH_CONTROL_MSK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_BROAD_CH_RND_ACC_MSK
  *   \brief   CVT_V1724_BROAD_CH_RND_ACC register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_BROAD_CHRNDACC_BLOCK_ADD_MSK              = 0x000003FF,   /*!< Address of Block to be read bits */
-    CVT_V1724_BROAD_CHRNDACC_SAMPLE_NUM_MSK             = 0x003FFC00,   /*!< Number of samples to be read bits */
-    CVT_V1724_BROAD_CHRNDACC_OFFSET_MSK                 = 0xFFC00000,   /*!< Offset of Address Data to be read bits */
-  } CVT_V1724_BROAD_CH_RND_ACC_MSK;
+typedef enum  {
+  CVT_V1724_BROAD_CHRNDACC_BLOCK_ADD_MSK              = 0x000003FF,   /*!< Address of Block to be read bits */
+  CVT_V1724_BROAD_CHRNDACC_SAMPLE_NUM_MSK             = 0x003FFC00,   /*!< Number of samples to be read bits */
+  CVT_V1724_BROAD_CHRNDACC_OFFSET_MSK                 = 0xFFC00000,   /*!< Offset of Address Data to be read bits */
+} CVT_V1724_BROAD_CH_RND_ACC_MSK;
 
-#define CVT_V1724_GET_CH_RND_ACC_BLOCK_ADD( reg)        (((UINT32)reg)& CVT_V1724_BROAD_CHRNDACC_BLOCK_ADD_MSK)                                                                                                                                                         /*!< \brief Extract the Address of Block to be read from UINT32 value */
-#define CVT_V1724_SET_CH_RND_ACC_BLOCK_ADD( reg, value) reg= (((UINT32)reg)& ~CVT_V1724_BROAD_CHRNDACC_BLOCK_ADD_MSK)| ((UINT32)value& CVT_V1724_BROAD_CHRNDACC_BLOCK_ADD_MSK)                          /*!< \brief Sets the Address of Block to be read into UINT32 value */
+#define CVT_V1724_GET_CH_RND_ACC_BLOCK_ADD( reg)		\
+  (((UINT32)reg)& CVT_V1724_BROAD_CHRNDACC_BLOCK_ADD_MSK)
+/*!< \brief Extract the Address of Block to be read from UINT32 value */
+#define CVT_V1724_SET_CH_RND_ACC_BLOCK_ADD( reg, value)			\
+  reg= (((UINT32)reg)& ~CVT_V1724_BROAD_CHRNDACC_BLOCK_ADD_MSK)| ((UINT32)value& CVT_V1724_BROAD_CHRNDACC_BLOCK_ADD_MSK)
+/*!< \brief Sets the Address of Block to be read into UINT32 value */
 
-#define CVT_V1724_GET_CH_RND_ACC_SAMPLE_NUM( reg)       ((((UINT32)reg)& CVT_V1724_BROAD_CHRNDACC_SAMPLE_NUM_MSK)>> 10)                                                                                                                                         /*!< \brief Extract the Number of samples to be read from UINT32 value */
-#define CVT_V1724_SET_CH_RND_ACC_SAMPLE_NUM( reg, value) reg= (((UINT32)reg)& ~CVT_V1724_BROAD_CHRNDACC_SAMPLE_NUM_MSK)| ((((UINT32)value)<< 10)& CVT_V1724_BROAD_CHRNDACC_SAMPLE_NUM_MSK)       /*!< \brief Sets the Number of samples to be read into UINT32 value */
+#define CVT_V1724_GET_CH_RND_ACC_SAMPLE_NUM( reg)			\
+  ((((UINT32)reg)& CVT_V1724_BROAD_CHRNDACC_SAMPLE_NUM_MSK)>> 10)
+/*!< \brief Extract the Number of samples to be read from UINT32 value */
+#define CVT_V1724_SET_CH_RND_ACC_SAMPLE_NUM( reg, value)		\
+  reg= (((UINT32)reg)& ~CVT_V1724_BROAD_CHRNDACC_SAMPLE_NUM_MSK)| ((((UINT32)value)<< 10)& CVT_V1724_BROAD_CHRNDACC_SAMPLE_NUM_MSK)
+/*!< \brief Sets the Number of samples to be read into UINT32 value */
 
-#define CVT_V1724_GET_CH_RND_ACC_OFFSET( reg)           ((((UINT32)reg)& CVT_V1724_BROAD_CHRNDACC_OFFSET_MSK)>> 22)                                                                                                                                                     /*!< \brief Extract the Offset of Address Data  from UINT32 value */
-#define CVT_V1724_SET_CH_RND_ACC_OFFSET( reg, value)     reg= (((UINT32)reg)& ~CVT_V1724_BROAD_CHRNDACC_OFFSET_MSK)| ((((UINT32)value)<< 22)& CVT_V1724_BROAD_CHRNDACC_OFFSET_MSK)                       /*!< \brief Sets the Offset of Address Data into UINT32 value */
+#define CVT_V1724_GET_CH_RND_ACC_OFFSET( reg)			\
+  ((((UINT32)reg)& CVT_V1724_BROAD_CHRNDACC_OFFSET_MSK)>> 22)	     
+/*!< \brief Extract the Offset of Address Data  from UINT32 value */
+#define CVT_V1724_SET_CH_RND_ACC_OFFSET( reg, value)			\
+  reg= (((UINT32)reg)& ~CVT_V1724_BROAD_CHRNDACC_OFFSET_MSK)| ((((UINT32)value)<< 22)& CVT_V1724_BROAD_CHRNDACC_OFFSET_MSK)  
+/*!< \brief Sets the Offset of Address Data into UINT32 value */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_BOARD_INFO_MSK
  *   \brief   CVT_V1724_BOARD_INFO register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_BRDINF_ID_MSK                     = 0x000000ff,   /*!< Board info ID bits \ref CVT_V17XX_TYPES */
-    CVT_V1724_BRDINF_CH_BLOCK_SIZE_MUL_MSK      = 0x0000ff00,   /*!< Channel block size multiplier bits (as multiple of 256K WORD 32)*/
-  } CVT_V1724_BOARD_INFO_MSK;
+typedef enum  {
+CVT_V1724_BRDINF_ID_MSK                     = 0x000000ff,   /*!< Board info ID bits \ref CVT_V17XX_TYPES */
+CVT_V1724_BRDINF_CH_BLOCK_SIZE_MUL_MSK      = 0x0000ff00,   /*!< Channel block size multiplier bits (as multiple of 256K WORD 32)*/
+} CVT_V1724_BOARD_INFO_MSK;
 
-#define CVT_V1724_GET_BRDINF_ID( reg)                                   (((UINT32)reg)& CVT_V1724_BRDINF_ID_MSK)                                                                                                                        /*!< \brief Extract the Board info ID from UINT32 value */
-#define CVT_V1724_GET_BRDINF_BLOCK_SIZE_MUL( reg)                       ((((UINT32)reg)& CVT_V1724_BRDINF_CH_BLOCK_SIZE_MUL_MSK)>> 8)                                                                           /*!< \brief Extract the channel block size multiplier from UINT32 value */
-#define CVT_V1724_GET_BRDINF_BLOCK_SIZE_KW( reg)                        (((UINT32)reg)& CVT_V1724_BRDINF_CH_BLOCK_SIZE_MUL_MSK)                                                                                         /*!< \brief Extract the channel block size (as number of KWORD 32) from UINT32 value */
+#define CVT_V1724_GET_BRDINF_ID( reg)		\
+  (((UINT32)reg)& CVT_V1724_BRDINF_ID_MSK)
+/*!< \brief Extract the Board info ID from UINT32 value */
+#define CVT_V1724_GET_BRDINF_BLOCK_SIZE_MUL( reg)		\
+  ((((UINT32)reg)& CVT_V1724_BRDINF_CH_BLOCK_SIZE_MUL_MSK)>> 8)
+/*!< \brief Extract the channel block size multiplier from UINT32 value */
+#define CVT_V1724_GET_BRDINF_BLOCK_SIZE_KW( reg)		\
+  (((UINT32)reg)& CVT_V1724_BRDINF_CH_BLOCK_SIZE_MUL_MSK)
+/*!< \brief Extract the channel block size (as number of KWORD 32) from UINT32 value */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_ACQ_CONTROL_MSK
  *   \brief   CVT_V1724_ACQ_CONTROL register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_ACQCTRL_ACQ_MODE_MSK              = 0x00000003,   /*!< Acqisition mode msk */
-    CVT_V1724_ACQCTRL_START_MSK                 = 0x00000004,   /*!< 0--> Stop acquisition 1--> Start acquisition */
-    CVT_V1724_ACQCTRL_EVENT_COUNTER_ALL_MSK     = 0x00000008,   /*!< 0--> Event counter counts only generated and accepted triggers 1--> Event counter counts all generated triggers */
-    CVT_V1724_ACQCTRL_DOWNSAMPLE_MSK            = 0x00000010,   /*!< Downsample enable bit */
+typedef enum  {
+CVT_V1724_ACQCTRL_ACQ_MODE_MSK              = 0x00000003,   /*!< Acqisition mode msk */
+  CVT_V1724_ACQCTRL_START_MSK                 = 0x00000004,   /*!< 0--> Stop acquisition 1--> Start acquisition */
+  CVT_V1724_ACQCTRL_EVENT_COUNTER_ALL_MSK     = 0x00000008,   /*!< 0--> Event counter counts only generated and accepted triggers 1--> Event counter counts all generated triggers */
+  CVT_V1724_ACQCTRL_DOWNSAMPLE_MSK            = 0x00000010,   /*!< Downsample enable bit */
   } CVT_V1724_ACQ_CONTROL_MSK;
 
-#define CVT_V1724_GET_ACQCTRL_ACQ_MODE( reg)                    (((UINT32)reg)& CVT_V1724_ACQCTRL_ACQ_MODE_MSK)                                                                                                                                         /*!< \brief Extract the acquisition mode value from UINT32 value */
-#define CVT_V1724_SET_ACQCTRL_ACQ_MODE( reg, value)             reg= (((UINT32)reg)& ~CVT_V1724_ACQCTRL_ACQ_MODE_MSK)| ((UINT32)value& CVT_V1724_ACQCTRL_ACQ_MODE_MSK)                          /*!< \brief Sets the acquisition mode value into UINT32 value */
+#define CVT_V1724_GET_ACQCTRL_ACQ_MODE( reg)		\
+  (((UINT32)reg)& CVT_V1724_ACQCTRL_ACQ_MODE_MSK)
+/*!< \brief Extract the acquisition mode value from UINT32 value */
+#define CVT_V1724_SET_ACQCTRL_ACQ_MODE( reg, value)	\
+  reg= (((UINT32)reg)& ~CVT_V1724_ACQCTRL_ACQ_MODE_MSK)| ((UINT32)value& CVT_V1724_ACQCTRL_ACQ_MODE_MSK)
+/*!< \brief Sets the acquisition mode value into UINT32 value */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_ACQ_CONTROL_ACQ_MODES
  *   \brief   CVT_V1724_ACQ_CONTROL_MSK acquisition modes
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_ACQCTRL_ACQ_MODE_REGISTER_CTRL    = 0,    /*!< Register controlled acquisition mode */
-    CVT_V1724_ACQCTRL_ACQ_MODE_S_IN_CTRL        = 1,    /*!< S-IN controlled acquisition mode */
-    CVT_V1724_ACQCTRL_ACQ_MODE_S_IN_GATE        = 2,    /*!< S-IN gate acquisition mode */
-    CVT_V1724_ACQCTRL_ACQ_MODE_MULTIBOARD_SYNC  = 3,    /*!< Multiboard sync acquisition mode */
-  } CVT_V1724_ACQ_CONTROL_ACQ_MODES;
+typedef enum  {
+CVT_V1724_ACQCTRL_ACQ_MODE_REGISTER_CTRL    = 0,    /*!< Register controlled acquisition mode */
+CVT_V1724_ACQCTRL_ACQ_MODE_S_IN_CTRL        = 1,    /*!< S-IN controlled acquisition mode */
+CVT_V1724_ACQCTRL_ACQ_MODE_S_IN_GATE        = 2,    /*!< S-IN gate acquisition mode */
+CVT_V1724_ACQCTRL_ACQ_MODE_MULTIBOARD_SYNC  = 3,    /*!< Multiboard sync acquisition mode */
+} CVT_V1724_ACQ_CONTROL_ACQ_MODES;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_ACQ_STATUS_MSK
  *   \brief   CVT_V1724_ACQ_STATUS register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_ACQSTS_MEB_NOT_EMPTY_MSK          = 0x00000001,   /*!< MEB not empty bit */
-    CVT_V1724_ACQSTS_MEB_FULL_MSK               = 0x00000002,   /*!< MEB full bit */
-    CVT_V1724_ACQSTS_RUN_MSK                    = 0x00000004,   /*!< Run status bit */
-    CVT_V1724_ACQSTS_EVENT_RDY_MSK              = 0x00000008,   /*!< Event ready bit */
-    CVT_V1724_ACQSTS_EVENT_FULL_MSK             = 0x00000010,   /*!< Event full bit */
-    CVT_V1724_ACQSTS_CLKEXT_MSK                 = 0x00000020,   /*!< External clock bit */
-    CVT_V1724_ACQSTS_PLL_BYPASS_MSK             = 0x00000040,   /*!< PLL Bypass bit */
-    CVT_V1724_ACQSTS_PLL_STATUS_MSK             = 0x00000080,   /*!< PLL Status bit */
-    CVT_V1724_ACQSTS_S_IN_MSK                   = 0x00008000,   /*!< S-IN status bit */
-  } CVT_V1724_ACQ_STATUS_MSK;
+typedef enum  {
+  CVT_V1724_ACQSTS_MEB_NOT_EMPTY_MSK          = 0x00000001,   /*!< MEB not empty bit */
+  CVT_V1724_ACQSTS_MEB_FULL_MSK               = 0x00000002,   /*!< MEB full bit */
+  CVT_V1724_ACQSTS_RUN_MSK                    = 0x00000004,   /*!< Run status bit */
+  CVT_V1724_ACQSTS_EVENT_RDY_MSK              = 0x00000008,   /*!< Event ready bit */
+  CVT_V1724_ACQSTS_EVENT_FULL_MSK             = 0x00000010,   /*!< Event full bit */
+  CVT_V1724_ACQSTS_CLKEXT_MSK                 = 0x00000020,   /*!< External clock bit */
+  CVT_V1724_ACQSTS_PLL_BYPASS_MSK             = 0x00000040,   /*!< PLL Bypass bit */
+  CVT_V1724_ACQSTS_PLL_STATUS_MSK             = 0x00000080,   /*!< PLL Status bit */
+  CVT_V1724_ACQSTS_S_IN_MSK                   = 0x00008000,   /*!< S-IN status bit */
+} CVT_V1724_ACQ_STATUS_MSK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_CH_ENABLE_MSK
  *   \brief   CVT_V1724_CH_ENABLE register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_CHEN_CH0_MSK                      = 0x0001,        /*!< Enable CH 0 bit */
-    CVT_V1724_CHEN_CH1_MSK                      = 0x0002,        /*!< Enable CH 1 bit */
-    CVT_V1724_CHEN_CH2_MSK                      = 0x0004,        /*!< Enable CH 2 bit */
-    CVT_V1724_CHEN_CH3_MSK                      = 0x0008,        /*!< Enable CH 3 bit */
-    CVT_V1724_CHEN_CH4_MSK                      = 0x0010,        /*!< Enable CH 4 bit */
-    CVT_V1724_CHEN_CH5_MSK                      = 0x0020,        /*!< Enable CH 5 bit */
-    CVT_V1724_CHEN_CH6_MSK                      = 0x0040,        /*!< Enable CH 6 bit */
-    CVT_V1724_CHEN_CH7_MSK                      = 0x0080,        /*!< Enable CH 7 bit */
-  } CVT_V1724_CH_ENABLE_MSK;
+typedef enum  {
+  CVT_V1724_CHEN_CH0_MSK                      = 0x0001,        /*!< Enable CH 0 bit */
+  CVT_V1724_CHEN_CH1_MSK                      = 0x0002,        /*!< Enable CH 1 bit */
+  CVT_V1724_CHEN_CH2_MSK                      = 0x0004,        /*!< Enable CH 2 bit */
+  CVT_V1724_CHEN_CH3_MSK                      = 0x0008,        /*!< Enable CH 3 bit */
+  CVT_V1724_CHEN_CH4_MSK                      = 0x0010,        /*!< Enable CH 4 bit */
+  CVT_V1724_CHEN_CH5_MSK                      = 0x0020,        /*!< Enable CH 5 bit */
+  CVT_V1724_CHEN_CH6_MSK                      = 0x0040,        /*!< Enable CH 6 bit */
+  CVT_V1724_CHEN_CH7_MSK                      = 0x0080,        /*!< Enable CH 7 bit */
+} CVT_V1724_CH_ENABLE_MSK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_CH_ADC_CONF_MSK
  *   \brief   ADC CH Configuration register bitmasks for V1724/V1720 only
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_CHADCCONF_DITHER_MSK              = 0x00000001,   /*!< CH ADC Dither bit */
-    CVT_V1724_CHADCCONF_CLK_DUTY_STAB_MSK       = 0x00000002,   /*!< CH ADC Clock Duty cycle stabilizer bit */
-    CVT_V1724_CHADCCONF_RND_MSK                 = 0x00000004,   /*!< CH ADC Output Randomize bit */
-  } CVT_V1724_CH_ADC_CONF_MSK;
+typedef enum  {
+  CVT_V1724_CHADCCONF_DITHER_MSK              = 0x00000001,   /*!< CH ADC Dither bit */
+  CVT_V1724_CHADCCONF_CLK_DUTY_STAB_MSK       = 0x00000002,   /*!< CH ADC Clock Duty cycle stabilizer bit */
+  CVT_V1724_CHADCCONF_RND_MSK                 = 0x00000004,   /*!< CH ADC Output Randomize bit */
+} CVT_V1724_CH_ADC_CONF_MSK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_CH_ADC_CONF_MSK_2
  *   \brief   ADC CH Configuration register bitmasks for V1731/V1721 only
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_CHADCCONF_CAL_MSK_2               = 0x00000002,   /*!< CH ADC calibration bit */
-  } CVT_V1724_CH_ADC_CONF_MSK_2;
+typedef enum  {
+  CVT_V1724_CHADCCONF_CAL_MSK_2               = 0x00000002,   /*!< CH ADC calibration bit */
+} CVT_V1724_CH_ADC_CONF_MSK_2;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_FRONT_PANEL_IO_MSK
  *   \brief   Front Panel IO data register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_FPIO_MSK                  = 0x0000FFFF,                   /*!< IO data value */
-  } CVT_V1724_FRONT_PANEL_IO_MSK;
+typedef enum  {
+  CVT_V1724_FPIO_MSK                  = 0x0000FFFF,                   /*!< IO data value */
+} CVT_V1724_FRONT_PANEL_IO_MSK;
 
-#define CVT_V1724_GET_FRONT_PANEL_IO( reg)              (((UINT32)reg)& CVT_V1724_FPIO_MSK)                                                     /*!< \brief Extract front panel data from UINT32 value */
-#define CVT_V1724_SET_FRONT_PANEL_IO( reg, value)       reg= (((UINT32)reg)& ~CVT_V1724_FPIO_MSK)| ((UINT32)value& CVT_V1724_FPIO_MSK)          /*!< \brief Sets front panel data into UINT32 value */
+#define CVT_V1724_GET_FRONT_PANEL_IO( reg)         \
+  (((UINT32)reg)& CVT_V1724_FPIO_MSK)
+/*!< \brief Extract front panel data from UINT32 value */
+#define CVT_V1724_SET_FRONT_PANEL_IO( reg, value)  \
+  reg= (((UINT32)reg)& ~CVT_V1724_FPIO_MSK)| ((UINT32)value& CVT_V1724_FPIO_MSK)
+/*!< \brief Sets front panel data into UINT32 value */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_FRONT_PANEL_IO_CTRL_MSK
  *   \brief   Front Panel IO control register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_FPIO_CTRL_TTL_MSK                 = 0x00000001,   /*!< TTL/NIM external signal bit */
-    CVT_V1724_FPIO_CTRL_OUT_DIS_MSK             = 0x00000002,   /*!< Output disable bit */
-    CVT_V1724_FPIO_CTRL_DIR_MSK                 = 0x0000003C,   /*!< Direction msk  */
-    CVT_V1724_FPIO_CTRL_MODE_MSK                = 0x000000C0,   /*!< Mode msk ( bit 0x00000100 is don't care ) */
-  } CVT_V1724_FRONT_PANEL_IO_CTRL_MSK;
+typedef enum  {
+CVT_V1724_FPIO_CTRL_TTL_MSK                 = 0x00000001,   /*!< TTL/NIM external signal bit */
+CVT_V1724_FPIO_CTRL_OUT_DIS_MSK             = 0x00000002,   /*!< Output disable bit */
+CVT_V1724_FPIO_CTRL_DIR_MSK                 = 0x0000003C,   /*!< Direction msk  */
+CVT_V1724_FPIO_CTRL_MODE_MSK                = 0x000000C0,   /*!< Mode msk ( bit 0x00000100 is don't care ) */
+} CVT_V1724_FRONT_PANEL_IO_CTRL_MSK;
 
-#define CVT_V1724_GET_FPIO_CTRL_DIR( reg)       ((((UINT32)reg)& CVT_V1724_FPIO_CTRL_DIR_MSK)>> 2)                                                                      /*!< \brief Extract the Front panel IO direction from UINT32 value */
-#define CVT_V1724_SET_FPIO_CTRL_DIR( reg, value)        reg= (((UINT32)reg)& ~CVT_V1724_FPIO_CTRL_DIR_MSK)| ((((UINT32)value)<< 2)& CVT_V1724_FPIO_CTRL_DIR_MSK)        /*!< \brief Sets the Front panel IO direction into UINT32 value */
+#define CVT_V1724_GET_FPIO_CTRL_DIR( reg)		\
+  ((((UINT32)reg)& CVT_V1724_FPIO_CTRL_DIR_MSK)>> 2)
+/*!< \brief Extract the Front panel IO direction from UINT32 value */
+#define CVT_V1724_SET_FPIO_CTRL_DIR( reg, value)			\
+  reg= (((UINT32)reg)& ~CVT_V1724_FPIO_CTRL_DIR_MSK)| ((((UINT32)value)<< 2)& CVT_V1724_FPIO_CTRL_DIR_MSK)
+/*!< \brief Sets the Front panel IO direction into UINT32 value */
 
-#define CVT_V1724_GET_FPIO_CTRL_MODE( reg)      ((((UINT32)reg)& CVT_V1724_FPIO_CTRL_MODE_MSK)>> 6)                                                                     /*!< \brief Extract the Front panel IO mode from UINT32 value */
-#define CVT_V1724_SET_FPIO_CTRL_MODE( reg, value)       reg= (((UINT32)reg)& ~CVT_V1724_FPIO_CTRL_MODE_MSK)| ((((UINT32)value)<< 6)& CVT_V1724_FPIO_CTRL_MODE_MSK)      /*!< \brief Sets the Front panel IO mode into UINT32 value */
+#define CVT_V1724_GET_FPIO_CTRL_MODE( reg)		\
+  ((((UINT32)reg)& CVT_V1724_FPIO_CTRL_MODE_MSK)>> 6)
+/*!< \brief Extract the Front panel IO mode from UINT32 value */
+#define CVT_V1724_SET_FPIO_CTRL_MODE( reg, value)			\
+  reg= (((UINT32)reg)& ~CVT_V1724_FPIO_CTRL_MODE_MSK)| ((((UINT32)value)<< 6)& CVT_V1724_FPIO_CTRL_MODE_MSK)
+/*!< \brief Sets the Front panel IO mode into UINT32 value */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_FRONT_PANEL_IO_MODES
@@ -1108,9 +1128,9 @@ typedef enum
 ////////////////////////////////////////////////////////////////////////////////////////////////
 typedef enum
   {
-    CVT_V1724_FPIO_MODES_GPIO                   = 0,                    /*!< General purpose IO */
-    CVT_V1724_FPIO_MODES_PROGIO                 = 1,                    /*!< Programmed IO */
-    CVT_V1724_FPIO_MODES_PATTERN                = 2,                    /*!< Pattern mode */
+CVT_V1724_FPIO_MODES_GPIO                   = 0,           /*!< General purpose IO */
+CVT_V1724_FPIO_MODES_PROGIO                 = 1,           /*!< Programmed IO */
+CVT_V1724_FPIO_MODES_PATTERN                = 2,           /*!< Pattern mode */
   } CVT_V1724_FRONT_PANEL_IO_MODES;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1126,70 +1146,70 @@ typedef enum
     CVT_V1724_CHDAC_SET_B_MSK                   = 0x00240000,   /*!< Set data for DAC B */
   } CVT_V1724_DAC_CONF_MSK;
 
-#define CVT_V1724_GET_CH_DAC_CONF( reg)         (((UINT32)reg)& CVT_V1724_CHDAC_DATA_MSK)                                                               /*!< \brief Extract DAC's data from UINT32 value */
-#define CVT_V1724_SET_CH_DAC_CONF( reg, value)  reg= (((UINT32)reg)& ~CVT_V1724_CHDAC_DATA_MSK)| ((UINT32)value& CVT_V1724_CHDAC_DATA_MSK)              /*!< \brief Sets DAC's data into UINT32 value */
+#define CVT_V1724_GET_CH_DAC_CONF( reg)		\
+  (((UINT32)reg)& CVT_V1724_CHDAC_DATA_MSK)
+/*!< \brief Extract DAC's data from UINT32 value */
+#define CVT_V1724_SET_CH_DAC_CONF( reg, value)				\
+  reg= (((UINT32)reg)& ~CVT_V1724_CHDAC_DATA_MSK)| ((UINT32)value& CVT_V1724_CHDAC_DATA_MSK)
+/*!< \brief Sets DAC's data into UINT32 value */
   
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_CH_STATUS_MSK
  *   \brief   CH status register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_CHSTS_FIFO_FULL_MSK       = 0x00000001,   /*!< CH Descriptor FIFO full Status bit */
-    CVT_V1724_CHSTS_FIFO_EMPTY_MSK      = 0x00000002,   /*!< CH Descriptor FIFO empty Status bit */
-    CVT_V1724_CHSTS_DAC_BUSY_MSK        = 0x00000004,   /*!< CH DAC Busy Status bit */
-    CVT_V1724_CHSTS_BIST_END_MSK        = 0x00000008,   /*!< CH BIST end Status bit */
-    CVT_V1724_CHSTS_BIST_OK_MSK         = 0x00000010,   /*!< CH BIST result bit */
-    CVT_V1724_CHSTS_BLOCK_REM_OK_MSK    = 0x00000020,   /*!< CH Block Remove result bit */
-    CVT_V1724_CHSTS_CAL_RUN_MSK         = 0x00000040,   /*!< CH calibration run bit ( 1 = calibration completed ) (V1731/V1721 only) */
-  } CVT_V1724_CH_STATUS_MSK;
+typedef enum  {
+CVT_V1724_CHSTS_FIFO_FULL_MSK       = 0x00000001,   /*!< CH Descriptor FIFO full Status bit */
+CVT_V1724_CHSTS_FIFO_EMPTY_MSK      = 0x00000002,   /*!< CH Descriptor FIFO empty Status bit */
+CVT_V1724_CHSTS_DAC_BUSY_MSK        = 0x00000004,   /*!< CH DAC Busy Status bit */
+CVT_V1724_CHSTS_BIST_END_MSK        = 0x00000008,   /*!< CH BIST end Status bit */
+CVT_V1724_CHSTS_BIST_OK_MSK         = 0x00000010,   /*!< CH BIST result bit */
+CVT_V1724_CHSTS_BLOCK_REM_OK_MSK    = 0x00000020,   /*!< CH Block Remove result bit */
+CVT_V1724_CHSTS_CAL_RUN_MSK         = 0x00000040,   /*!< CH calibration run bit ( 1 = calibration completed ) (V1731/V1721 only) */
+} CVT_V1724_CH_STATUS_MSK;
   
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_NUM_BLOCKS
  *   \brief   The number for blocks 
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_NBLK_1= 0,                        /*!<    1 block  */
-    CVT_V1724_NBLK_2,                           /*!<    2 blocks */
-    CVT_V1724_NBLK_4,                           /*!<    4 blocks */
-    CVT_V1724_NBLK_8,                           /*!<    8 blocks */
-    CVT_V1724_NBLK_16,                          /*!<   16 blocks */
-    CVT_V1724_NBLK_32,                          /*!<   32 blocks */
-    CVT_V1724_NBLK_64,                          /*!<   64 blocks */
-    CVT_V1724_NBLK_128,                         /*!<  128 blocks */
-    CVT_V1724_NBLK_256,                         /*!<  256 blocks */
-    CVT_V1724_NBLK_512,                         /*!<  512 blocks */
-    CVT_V1724_NBLK_1024,                        /*!< 1024 blocks */
-  } CVT_V1724_NUM_BLOCKS;
+typedef enum  {
+  CVT_V1724_NBLK_1= 0,                        /*!<    1 block  */
+  CVT_V1724_NBLK_2,                           /*!<    2 blocks */
+  CVT_V1724_NBLK_4,                           /*!<    4 blocks */
+  CVT_V1724_NBLK_8,                           /*!<    8 blocks */
+  CVT_V1724_NBLK_16,                          /*!<   16 blocks */
+  CVT_V1724_NBLK_32,                          /*!<   32 blocks */
+  CVT_V1724_NBLK_64,                          /*!<   64 blocks */
+  CVT_V1724_NBLK_128,                         /*!<  128 blocks */
+  CVT_V1724_NBLK_256,                         /*!<  256 blocks */
+  CVT_V1724_NBLK_512,                         /*!<  512 blocks */
+  CVT_V1724_NBLK_1024,                        /*!< 1024 blocks */
+} CVT_V1724_NUM_BLOCKS;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_EXTCLOCK
  *   \brief   External clock allowed values
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_EXTCLK_10000KHz= 0,               /*!< 10   MHz */
-    CVT_V1724_EXTCLK_40000KHz,                  /*!< 40   MHz */
-    CVT_V1724_EXTCLK_50000KHz,                  /*!< 50   MHz */
-    CVT_V1724_EXTCLK_62500KHz,                  /*!< 62.5 MHz */
-  } CVT_V1724_EXTCLOCK;
+typedef enum  {
+  CVT_V1724_EXTCLK_10000KHz= 0,               /*!< 10   MHz */
+  CVT_V1724_EXTCLK_40000KHz,                  /*!< 40   MHz */
+  CVT_V1724_EXTCLK_50000KHz,                  /*!< 50   MHz */
+  CVT_V1724_EXTCLK_62500KHz,                  /*!< 62.5 MHz */
+} CVT_V1724_EXTCLOCK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*!          CVT_V1724_EXTCLOCK_KHZ
  *   \brief   External clock allowed values (KHz)
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-static const UINT32 CVT_V1724_EXTCLOCK_KHZ[]=
-  {
-    10000,                                                      /*!< 10   MHz */
-    40000,                                                      /*!< 40   MHz */
-    50000,                                                      /*!< 50   MHz */
-    62500,                                                      /*!< 62.5 MHz */
-  };
+static const UINT32 CVT_V1724_EXTCLOCK_KHZ[]=  {
+  10000,                                    /*!< 10   MHz */
+  40000,                                    /*!< 40   MHz */
+  50000,                                    /*!< 50   MHz */
+  62500,                                    /*!< 62.5 MHz */
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V17XX_BOARD_CLOCK_INDEX
@@ -1197,17 +1217,16 @@ static const UINT32 CVT_V1724_EXTCLOCK_KHZ[]=
  *   \sa      CVT_V17XX_BOARD_CLOCK_KHZ[]
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_BOARD_CLOCK_INDEX= 0,     /*!< V1724          : 100   MHz */
-    CVT_V1721_BOARD_CLOCK_INDEX,        /*!< V1721          : 500   MHz */
-    CVT_V1731_BOARD_CLOCK_INDEX,        /*!< V1731          : 500   MHz */
-    CVT_V1731_DES_BOARD_CLOCK_INDEX,    /*!< V1731 Des mode :1000   MHz */
-    CVT_V1720_BOARD_CLOCK_INDEX,        /*!< V1720          : 250   MHz */
-    CVT_V1740_BOARD_CLOCK_INDEX,        /*!< V1740          :  62.5 MHz */
-    CVT_V1751_BOARD_CLOCK_INDEX,        /*!< V1751          : 1000  MHz */
-    CVT_V1751_DES_BOARD_CLOCK_INDEX,    /*!< V1751 Des mode : 2000  MHz */
-  } CVT_V17XX_BOARD_CLOCK_INDEX;
+typedef enum  {
+  CVT_V1724_BOARD_CLOCK_INDEX= 0,     /*!< V1724          : 100   MHz */
+  CVT_V1721_BOARD_CLOCK_INDEX,        /*!< V1721          : 500   MHz */
+  CVT_V1731_BOARD_CLOCK_INDEX,        /*!< V1731          : 500   MHz */
+  CVT_V1731_DES_BOARD_CLOCK_INDEX,    /*!< V1731 Des mode :1000   MHz */
+  CVT_V1720_BOARD_CLOCK_INDEX,        /*!< V1720          : 250   MHz */
+  CVT_V1740_BOARD_CLOCK_INDEX,        /*!< V1740          :  62.5 MHz */
+  CVT_V1751_BOARD_CLOCK_INDEX,        /*!< V1751          : 1000  MHz */
+  CVT_V1751_DES_BOARD_CLOCK_INDEX,    /*!< V1751 Des mode : 2000  MHz */
+} CVT_V17XX_BOARD_CLOCK_INDEX;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*!          CVT_V17XX_BOARD_CLOCK_KHZ
@@ -1215,17 +1234,16 @@ typedef enum
  *   \sa      CVT_V17XX_BOARD_CLOCK_INDEX
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-static const UINT32 CVT_V17XX_BOARD_CLOCK_KHZ[]=
-  {
-    100000,                             /*!< V1724          : 100   MHz */
-    500000,                             /*!< V1721          : 500   MHz */
-    500000,                             /*!< V1731          : 500   MHz */
-    1000000,                            /*!< V1731 Des mode :1000   MHz */
-    250000,                             /*!< V1720          : 250   MHz */
-    62500,                              /*!< V1740          :  62.5 MHz */
-    1000000,                            /*!< V1751          :1000   MHz */
-    2000000,                            /*!< V1751 Des mode :2000   MHz */
-  };
+static const UINT32 CVT_V17XX_BOARD_CLOCK_KHZ[]=  {
+  100000,                             /*!< V1724          : 100   MHz */
+  500000,                             /*!< V1721          : 500   MHz */
+  500000,                             /*!< V1731          : 500   MHz */
+  1000000,                            /*!< V1731 Des mode :1000   MHz */
+  250000,                             /*!< V1720          : 250   MHz */
+  62500,                              /*!< V1740          :  62.5 MHz */
+  1000000,                            /*!< V1751          :1000   MHz */
+  2000000,                            /*!< V1751 Des mode :2000   MHz */
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_MCST_CBLT_ADD_CTRL_MSK
@@ -1233,17 +1251,24 @@ static const UINT32 CVT_V17XX_BOARD_CLOCK_KHZ[]=
  *            
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_MCST_CBLT_ADD_MSK         = 0x000000FF,           /*!< Address bits mask */
-    CVT_V1724_MCST_CBLT_CTRL_MSK        = 0x00000300,           /*!< Control bits mask */
-  } CVT_V1724_MCST_CBLT_ADD_CTRL_MSK;
+typedef enum  {
+  CVT_V1724_MCST_CBLT_ADD_MSK         = 0x000000FF,           /*!< Address bits mask */
+  CVT_V1724_MCST_CBLT_CTRL_MSK        = 0x00000300,           /*!< Control bits mask */
+} CVT_V1724_MCST_CBLT_ADD_CTRL_MSK;
 
-#define CVT_V1724_GET_MCST_CBLT_ADD( reg)               (((UINT32)reg)& CVT_V1724_MCST_CBLT_ADD_MSK)                                                                                                                                            /*!< \brief Extract the Base Address of from UINT32 value */
-#define CVT_V1724_SET_MCST_CBLT_ADD( reg, value)        reg= (((UINT32)reg)& ~CVT_V1724_MCST_CBLT_ADD_MSK)| ((UINT32)value& CVT_V1724_MCST_CBLT_ADD_MSK)             /*!< \brief Sets the Base Address into UINT32 value */
+#define CVT_V1724_GET_MCST_CBLT_ADD( reg)	\
+  (((UINT32)reg)& CVT_V1724_MCST_CBLT_ADD_MSK)
+/*!< \brief Extract the Base Address of from UINT32 value */
+#define CVT_V1724_SET_MCST_CBLT_ADD( reg, value)			\
+  reg= (((UINT32)reg)& ~CVT_V1724_MCST_CBLT_ADD_MSK)| ((UINT32)value& CVT_V1724_MCST_CBLT_ADD_MSK)
+/*!< \brief Sets the Base Address into UINT32 value */
 
-#define CVT_V1724_GET_MCST_CBLT_CTRL( reg)                      ((((UINT32)reg)& CVT_V1724_MCST_CBLT_CTRL_MSK)>> 8)                                                                                                                                     /*!< \brief Extract the MCST-CBLT Control from UINT32 value */
-#define CVT_V1724_SET_MCST_CBLT_CTRL( reg, value)       reg= (((UINT32)reg)& ~CVT_V1724_MCST_CBLT_CTRL_MSK)| ((((UINT32)value)<< 8)& CVT_V1724_MCST_CBLT_CTRL_MSK)   /*!< \brief Sets MCST-CBLT Control into UINT32 value */
+#define CVT_V1724_GET_MCST_CBLT_CTRL( reg)		\
+  ((((UINT32)reg)& CVT_V1724_MCST_CBLT_CTRL_MSK)>> 8)
+/*!< \brief Extract the MCST-CBLT Control from UINT32 value */
+#define CVT_V1724_SET_MCST_CBLT_CTRL( reg, value)			\
+  reg= (((UINT32)reg)& ~CVT_V1724_MCST_CBLT_CTRL_MSK)| ((((UINT32)value)<< 8)& CVT_V1724_MCST_CBLT_CTRL_MSK)
+/*!< \brief Sets MCST-CBLT Control into UINT32 value */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_MCST_CBLT_CTRL_BOARDS
@@ -1251,13 +1276,12 @@ typedef enum
  *            
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_MCST_CBLT_CTRL_DISABLED_BOARD       = 0,            /*!< Disabled Board */
-    CVT_V1724_MCST_CBLT_CTRL_LAST_BOARD           = 1,            /*!< Last Board */
-    CVT_V1724_MCST_CBLT_CTRL_FIRST_BOARD          = 2,            /*!< First Board */
-    CVT_V1724_MCST_CBLT_CTRL_MID_BOARD            = 3,            /*!< Middle Board */
-  } CVT_V1724_MCST_CBLT_CTRL_BOARDS;
+typedef enum  {
+CVT_V1724_MCST_CBLT_CTRL_DISABLED_BOARD       = 0,            /*!< Disabled Board */
+CVT_V1724_MCST_CBLT_CTRL_LAST_BOARD           = 1,            /*!< Last Board */
+CVT_V1724_MCST_CBLT_CTRL_FIRST_BOARD          = 2,            /*!< First Board */
+CVT_V1724_MCST_CBLT_CTRL_MID_BOARD            = 3,            /*!< Middle Board */
+} CVT_V1724_MCST_CBLT_CTRL_BOARDS;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*!          V1724 Flash programming
@@ -1272,12 +1296,11 @@ typedef enum
  *            
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_FOP_PAGE_ERASE                      = 0x0081,               /*!< V1724 flash page erase */
-    CVT_V1724_FOP_PAGE_PROG_TH_BUF1               = 0x0082,               /*!< V1724 flash page write */
-    CVT_V1724_FOP_PAGE_READ                       = 0x00D2,               /*!< V1724 flash page read  */
-  } CVT_V1724_FLASH_OPCODES;
+typedef enum  {
+  CVT_V1724_FOP_PAGE_ERASE                      = 0x0081,               /*!< V1724 flash page erase */
+  CVT_V1724_FOP_PAGE_PROG_TH_BUF1               = 0x0082,               /*!< V1724 flash page write */
+  CVT_V1724_FOP_PAGE_READ                       = 0x00D2,               /*!< V1724 flash page read  */
+} CVT_V1724_FLASH_OPCODES;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_FLASH_BANK
@@ -1285,23 +1308,21 @@ typedef enum
  *            
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_ROM_FLASH_PAGE                      = 0,                    /*!< V1724 ROM flash bank */
-    CVT_V1724_PLL_FLASH_PAGE                      = 1,                    /*!< V1724 PLL flash bank */
-    CVT_V1724_FB_STANDARD                         = 48,                   /*!< V1724 firmware standard flash bank */
-    CVT_V1724_FB_BACKUP                           = 2072,                 /*!< V1724 firmware backup flash bank   */
-  } CVT_V1724_FLASH_BANK;
+typedef enum  {
+  CVT_V1724_ROM_FLASH_PAGE                      = 0,                    /*!< V1724 ROM flash bank */
+  CVT_V1724_PLL_FLASH_PAGE                      = 1,                    /*!< V1724 PLL flash bank */
+  CVT_V1724_FB_STANDARD                         = 48,                   /*!< V1724 firmware standard flash bank */
+  CVT_V1724_FB_BACKUP                           = 2072,                 /*!< V1724 firmware backup flash bank   */
+} CVT_V1724_FLASH_BANK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_FLASH_EN_MSK
  *   \brief   Flash enable register bitmasks
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_FLEN_EN_MSK                         = 0x00000001,   /*!< Flash enable bit */
-  } CVT_V1724_FLASH_EN_MSK;
+typedef enum  {
+  CVT_V1724_FLEN_EN_MSK                         = 0x00000001,   /*!< Flash enable bit */
+} CVT_V1724_FLASH_EN_MSK;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V1724_MON_MODES
@@ -1309,14 +1330,13 @@ typedef enum
  *            
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V1724_MONMODE_TRIGGER_MAJ                 = 0,                    /*!< V1724 channel trigger majority mode */
-    CVT_V1724_MONMODE_TEST                        = 1,                    /*!< V1724 channel test mode */
-    CVT_V1724_MONMODE_MONITOR                     = 2,                    /*!< V1724 channel ADC monitor mode */
-    CVT_V1724_MONMODE_OCCUPANCY                   = 3,                    /*!< V1724 channel buffer occupancy mode */
-    CVT_V1724_MONMODE_SW_CTRL                     = 4,                    /*!< V1724 channel direct software monitor control mode */
-  } CVT_V1724_MON_MODES;
+typedef enum  {
+  CVT_V1724_MONMODE_TRIGGER_MAJ                 = 0,                    /*!< V1724 channel trigger majority mode */
+  CVT_V1724_MONMODE_TEST                        = 1,                    /*!< V1724 channel test mode */
+  CVT_V1724_MONMODE_MONITOR                     = 2,                    /*!< V1724 channel ADC monitor mode */
+  CVT_V1724_MONMODE_OCCUPANCY                   = 3,                    /*!< V1724 channel buffer occupancy mode */
+  CVT_V1724_MONMODE_SW_CTRL                     = 4,                    /*!< V1724 channel direct software monitor control mode */
+} CVT_V1724_MON_MODES;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \struct  CVT_V1724_ROM_CONFIG
@@ -1325,8 +1345,7 @@ typedef enum
  *            This structure stores the ROM configuration values
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef struct
-{
+typedef struct {
   UINT8  m_chksum;                 /*!< \brief Configuration ROM checksum */
   UINT32 m_chksum_len;             /*!< \brief Configuration ROM checksum length */
   UINT32 m_const;                  /*!< \brief Configuration ROM constant */
@@ -1346,32 +1365,30 @@ typedef struct
  *   \brief   Configurazion ROM VCXO types
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V17XX_RCFG_VCXO_500  = 1,            //  VCXO  500 MHz
-    CVT_V17XX_RCFG_VCXO_1000 = 0,            //  VCXO 1000 MHz
-  } CVT_V17XX_ROM_CFG_VCXO_TYPE;
+typedef enum  {
+  CVT_V17XX_RCFG_VCXO_500  = 1,            //  VCXO  500 MHz
+  CVT_V17XX_RCFG_VCXO_1000 = 0,            //  VCXO 1000 MHz
+} CVT_V17XX_ROM_CFG_VCXO_TYPE;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /*! \enum    CVT_V17XX_ROM_CFG_BOARD_ID
  *   \brief   Configurazion ROM board IDs
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-  {
-    CVT_V17XX_RCFG_BOARD_ID_V1724       = 0x00000000| 1724,             //  V1724
-    CVT_V17XX_RCFG_BOARD_ID_VX1724      = 0x00010000| 1724,             // VX1724
-    CVT_V17XX_RCFG_BOARD_ID_V1721       = 0x00000000| 1721,             //  V1721
-    CVT_V17XX_RCFG_BOARD_ID_VX1721      = 0x00010000| 1721,             // VX1721
-    CVT_V17XX_RCFG_BOARD_ID_V1731       = 0x00000000| 1731,             //  V1731
-    CVT_V17XX_RCFG_BOARD_ID_VX1731      = 0x00010000| 1731,             // VX1731
-    CVT_V17XX_RCFG_BOARD_ID_V1720       = 0x00000000| 1720,             //  V1720
-    CVT_V17XX_RCFG_BOARD_ID_VX1720      = 0x00010000| 1720,             // VX1720
-    CVT_V17XX_RCFG_BOARD_ID_V1740       = 0x00000000| 1740,             //  V1740
-    CVT_V17XX_RCFG_BOARD_ID_VX1740      = 0x00010000| 1740,             // VX1740
-    CVT_V17XX_RCFG_BOARD_ID_V1751       = 0x00000000| 1751,             //  V1751
-    CVT_V17XX_RCFG_BOARD_ID_VX1751      = 0x00010000| 1751,             // VX1751
-  } CVT_V17XX_ROM_CFG_BOARD_ID;
+typedef enum  {
+  CVT_V17XX_RCFG_BOARD_ID_V1724       = 0x00000000| 1724,             //  V1724
+  CVT_V17XX_RCFG_BOARD_ID_VX1724      = 0x00010000| 1724,             // VX1724
+  CVT_V17XX_RCFG_BOARD_ID_V1721       = 0x00000000| 1721,             //  V1721
+  CVT_V17XX_RCFG_BOARD_ID_VX1721      = 0x00010000| 1721,             // VX1721
+  CVT_V17XX_RCFG_BOARD_ID_V1731       = 0x00000000| 1731,             //  V1731
+  CVT_V17XX_RCFG_BOARD_ID_VX1731      = 0x00010000| 1731,             // VX1731
+  CVT_V17XX_RCFG_BOARD_ID_V1720       = 0x00000000| 1720,             //  V1720
+  CVT_V17XX_RCFG_BOARD_ID_VX1720      = 0x00010000| 1720,             // VX1720
+  CVT_V17XX_RCFG_BOARD_ID_V1740       = 0x00000000| 1740,             //  V1740
+  CVT_V17XX_RCFG_BOARD_ID_VX1740      = 0x00010000| 1740,             // VX1740
+  CVT_V17XX_RCFG_BOARD_ID_V1751       = 0x00000000| 1751,             //  V1751
+  CVT_V17XX_RCFG_BOARD_ID_VX1751      = 0x00010000| 1751,             // VX1751
+} CVT_V17XX_ROM_CFG_BOARD_ID;
 
 // HACK V1740 TBC
 
