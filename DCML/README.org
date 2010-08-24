@@ -9,6 +9,8 @@
 #+SEQ_TODO: | CANCELED FAILED TIMEOUT
 #+OPTIONS: toc:2
 
+DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
+
 * Files
   + includes
     - "dcml.h"  -- common header for all
@@ -16,6 +18,9 @@
   + sources
     - "dcmlfe.c"    -- FE code
     - "dcmlana.cpp" -- online analyzer
+  + others
+    - "Makefile"
+    - "README.org"  -- this file
 
 * Questions about using DigitizerSDK
 ** Common data structures
@@ -69,7 +74,7 @@
        1) ~cvt_V1724_data.m_cache_sample_buffer~
        2) ~cvt_V1724_data.m_cache_sample_buffer_size~
        3) ~cvt_V1724_data.m_cache_sample_buffer_read_bytes~
-     - The refined data (after ~get_buffer_cache~)
+     - The reformated data (after ~get_buffer_cache~)
        1) ~UINT16* p_buff~
        2) ~UINT32* p_buff_size~
        3) ~UINT8*  p_board_id~

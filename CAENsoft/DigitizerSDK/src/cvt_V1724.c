@@ -428,9 +428,9 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 
     // Parse the buffer for validity
     {
-        UINT32 offset= 0;
-        UINT8 ch_msk;
-        int num_channels;
+        UINT32 offset = 0;
+        UINT8  ch_msk;
+        int    num_channels;
         UINT32 samples;
 
         while( offset< (p_data->m_cache_sample_buffer_read_bytes-4))
