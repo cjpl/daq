@@ -53,22 +53,29 @@ DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
 ** V1724 data readout
    1. Use ~cvt_V1724_read_data(...)~ to read data from the board's channels and
       store to internal buffer: ~p_data {m_cache_sample_*}~
-      + Data stored structure
-	- ~cvt_V1724_data* p_data~
-	- ~UINT32* p_ch_max_samples~
-	- ~UINT32* p_num_events~
-      + Data are: one channel, multi samples?
+      + Given parameters: ~cvt_V1724_data* p_data~, all read data are also
+        stored in its internal buffer.
+      + Returned data
+	- ~cvt_V1724_data* p_data~  : internal buffer contains data
+	- ~UINT32* p_ch_max_samples~: the maximum number of samples per
+          channel read for each event
+	- ~UINT32* p_num_events~: the number of events read
+      + Data readout using ~cvt_FIFO_BLT_read()~ (limit buffer size to 16 MB due
+        to Linux driver limits), which function invokes
+        ~CAENVME_FIFOBLTReadCycle()~.
+      + Data are: samples of all enabled channels are stored together.
    2. Call ~cvt_V1724_get_buffer_cache(..)~ to get cached data.
-      + Data stored structure
+      + Given parameters:
 	+ ~cvt_V1724_data* p_data~ -- pointer to board data
 	+ ~UINT16  event_index~    -- The event index from which retrive data
-	+ ~UINT8   ch_index~       -- The channel index
+	+ ~UINT8   ch_index~       -- The channel index, which data
+      + Returned data
 	+ ~UINT16* p_buff~         -- The target buffer: caller allocated
 	+ ~UINT32* p_buff_size~    -- The buffer size (16-bit word).
 	+ ~UINT8*  p_board_id~     -- The board id stored into event
 	+ ~UINT32* p_trigger_time_tag~ -- The trigger time tag stored into event
 	+ ~UINT32* p_event_counter~    -- The counter stored into event
-      + Data are:
+      + Data are: samples from certain channel of certain event
 
 ** V1724 data structure in buffer?
    + Resident values

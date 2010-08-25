@@ -17,14 +17,16 @@
 /*-- Globals ----------------------------------------------------*/
 
 /* frontend name */
-char *frontend_name      = "FE with CAENVMElib";
+char *frontend_name      = "DCML frontend";
 char *frontend_file_name = __FILE__;
 BOOL  frontend_call_loop = FALSE;
 
-INT display_period       = 3000; /* micro-seconds, = 3 s */
-INT max_event_size       = 10000;
-INT max_event_size_frag  = 0x10 * 1024 * 1024; /* EQ_FRAGMENTED */
-INT event_buffer_size    = 10 * 10000;
+INT display_period       = 3000;  /* micro-seconds, = 3 s */
+
+/**/
+INT max_event_size       = 0x4 * 1024 * 1024; /* 40k */
+INT max_event_size_frag  = 0x4 * 1024 * 1024; /* EQ_FRAGMENTED: 8 MB */
+INT event_buffer_size    = 0x8 * 1024 * 1024; /* 8 MB */
 
 /* VME crate handle */
 MVME_INTERFACE *pvme;
