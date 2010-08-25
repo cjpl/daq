@@ -155,11 +155,19 @@ DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
       |----------+-------+--------------------+-------+-----------------------------|
 
 ** Fist Implementation
-   1. Channel mask: Which channel is in used
-   2. Threshold: all channels are the same
-   3. Trigger settings: all channels are the same
-   4. Clock settings
-   5. Readout and re-format
+   1. ODB path: */Equipment/Digitizer/Settings/*
+   2. Basic Settings
+      - ~Base Add : WORD~
+      - ~Channel Mask: BYTE~
+   3. Channel's settings ["CHi", i = 0~7]
+      - ~Threshold:FLOAT~ -- mV
+   4. Trigger settings: all channels are the same
+      - ~Type: BYTE~ -- 1(bit0):auto; 2(bit1):external; 4(bit2):force; 
+      - ~Post Trigger: INT~ 32-bit int
+      - ~Edge: BYTE~ 8-bit, 0:"No Trig"; 1:"Rising"; 2:"Falling"
+   5. Clock settings
+      - ~PLL File: STRING~ -- Load PLL from file
+   6. Readout and re-format
       * each sample of each channel is a bank, the length is fixed.
       * Bank : { string:name, word:type, word:data\_size }
       * Bank list : { char*9 :name, word:type, dword:size, char**:init_str,
