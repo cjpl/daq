@@ -1,11 +1,13 @@
 /**********************************************************************\
  * $Name$ - $Id$
  * Name:       dcmlfe.c
- * Created by: Exaos Lee, 2010-08-18
+ * Created by: Exaos Lee
  * Contents:   Frontend code for using V1724 with CAENVMElib
  * Hardware:
        1. CAEN V2718 VME Bus controller
        2. CAEN V1724 100 MS/s Digitizer
+ * History
+   <2010-08-13> First created
 \**********************************************************************/
 
 #include <fcntl.h>
@@ -50,7 +52,22 @@ INT frontend_loop();
 INT read_trigger_event(char *pevent, INT off);
 
 /*---  Bank definitions --------------------------------------------*/
-BANK_LIST trigger_bank_list[] = {
+/* WARNING: must use "bk_init32(void*)" before "bk_create()" */
+BANK_LIST digitizer_bank_list[] = {
+  {"STTT", TID_DWORD, 1, NULL}, /* Trigger Time Tag (TTT) of sample */
+  {"BDID", TID_BYTE,  1, NULL}, /* Board ID */
+  {"ECNT", TID_DWORD, 1, NULL}, /* Event counter */
+
+  {"CH0S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
+  {"CH1S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
+  {"CH2S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
+  {"CH3S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
+  {"CH4S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
+  {"CH5S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
+  {"CH6S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
+  {"CH7S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
+
+  /* NULL end */
   {""},
 };
 
@@ -59,18 +76,18 @@ BANK_LIST trigger_bank_list[] = {
 /* not use interrupt mode */
 #undef USE_INT
 EQUIPMENT equipment[] = {
-  { "Digitizer",          // Equipment name
+  { "Digitizer",        // Equipment name
 
-    { 1, 0,             // Event ID, Trigger mask
+    { 5, 0,             // Event ID, Trigger mask
 
       "SYSTEM",         // Event buffer
 
       EQ_POLLED,
 
       0,                // Event source
-      "ROOT",          // format
+      "ROOT",           // Format: MIDAS | ROOT
       TRUE,             // Enabled
-      RO_RUNNING 
+      RO_RUNNING
       | RO_ODB,         // Read only when running and update ODB
       1,                // poll for 1ms
       0,                // Stop run after this event limit
@@ -79,11 +96,11 @@ EQUIPMENT equipment[] = {
 
       "", "", "", },
 
-    read_trigger_event, // readout routine
+    read_digitizer_event, // readout routine
 
     NULL, NULL,
 
-    trigger_bank_list,  // Bank list
+    digitizer_bank_list,  // Bank list
   },
 
   {""}
@@ -92,7 +109,7 @@ EQUIPMENT equipment[] = {
 /*---- sequencer callback info --------------------------*/
 void seq_callback(INT hDB, INT hseq, void *info)
 {
-  printf("odb ... trigger settings touched\n");
+  printf("odb ... digitizer settings touched\n");
 }
 
 /*---- Frontend Initialize ------------------------------*/
@@ -128,7 +145,7 @@ INT resume_run( INT rnum, char *error) { return SUCCESS; }
 /*---- Frontend Loop ---------------------------------*/
 INT frontend_loop() {  return SUCCESS; }
 
-/*---- Trigger event routines ------------------------*/
+/*---- Digitizer event routines ------------------------*/
 INT poll_event( INT source, INT count, BOOL test)
 {
 
@@ -142,7 +159,7 @@ INT interrupt_configure( INT cmd, INT source, POINTER_T adr)
 }
 
 /*---- Event Readout -------------------------------*/
-INT read_trigger_event( char *pevent, INT off)
+INT read_digitizer_event( char *pevent, INT off)
 {
 
   return bk_size(pevent); /* return bank size ... */
