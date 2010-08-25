@@ -77,25 +77,25 @@
 
 * Data type redefined
   + Data types
-    |--------+--------------------+-----------------------+----------------------|
-    | Type   | Origin             | C99 convention        | MIDAS                |
-    |--------+--------------------+-----------------------+----------------------|
-    | BOOL   | int                | bool in <stdbool.h>   | DWORD (unsigned int) |
-    | TRUE   | -1                 | 1 (true)              | TRUE  (1)            |
-    | FALSE  | 0                  | 0 (false)             | FALSE (0)            |
-    |--------+--------------------+-----------------------+----------------------|
-    | UINT8  | unsigned char      | uint8_t in <stdint.h> | BYTE                 |
-    | UINT16 | unsigned short     | uint16_t              | WORD                 |
-    | UINT32 | unsigned int       | uint32_t              | DWORD                |
-    | UINT64 | unsigned long long | uint64_t              |                      |
-    | INT8   | signed char        | int8_t                |                      |
-    | INT16  | short              | int16_t               |                      |
-    | INT32  | int                | int32_t               |                      |
-    | INT64  | long long          | int64_t               |                      |
-    |        | long int           |                       | INT, POINTER_T       |
-    |--------+--------------------+-----------------------+----------------------|
-    | PCSTD  | const char*        |                       |                      |
-    |--------+--------------------+-----------------------+----------------------|
+    |--------+--------------------+-----------------------+-----------------------|
+    | Type   | Origin             | C99 convention        | MIDAS                 |
+    |--------+--------------------+-----------------------+-----------------------|
+    | BOOL   | int                | bool in <stdbool.h>   | DWORD (unsigned int)  |
+    | TRUE   | -1                 | 1 (true)              | TRUE  (1)             |
+    | FALSE  | 0                  | 0 (false)             | FALSE (0)             |
+    |--------+--------------------+-----------------------+-----------------------|
+    | UINT8  | unsigned char      | uint8_t in <stdint.h> | BYTE                  |
+    | UINT16 | unsigned short     | uint16_t              | WORD                  |
+    | UINT32 | unsigned int       | uint32_t              | DWORD                 |
+    | UINT64 | unsigned long long | uint64_t              |                       |
+    | INT8   | signed char        | int8_t                |                       |
+    | INT16  | short              | int16_t               |                       |
+    | INT32  | int                | int32_t               |                       |
+    | INT64  | long long          | int64_t               |                       |
+    |        | long int           |                       | INT, POINTER_T, HNDLE |
+    |--------+--------------------+-----------------------+-----------------------|
+    | PCSTD  | const char*        |                       |                       |
+    |--------+--------------------+-----------------------+-----------------------|
   + *Warnings*
     - The definitions of *TRUE* are different in "SDK" and "MIDAS".
     - Pay more attention to pointer length, cause it may cause segfault.

@@ -17,9 +17,7 @@
 * DELEGATED <2010-08-10 Tue 15:10> A2818 硬件故障
    + 症状：
       1) CAENVMEDemo 无响应
-	 #+BEGIN_EXAMPLE
-	 Communication Error !!!
-	 #+END_EXAMPLE
+	 : Communication Error !!!
       2) 加电后所有灯亮
       3) 内核错误信息
 	 #+BEGIN_EXAMPLE
@@ -61,9 +59,7 @@
    - <2010-08-20 Fri 22:21>
 *** WaveDump Config 读取
     + WaveInit: 读文件，存入 ~WAVE_CONFIG~ 结构
-      #+BEGIN_SRC C
-      void WaveInit(int argc, char* argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config)
-      #+END_SRC
+      : void WaveInit(int argc, char* argv[], VME_ACCESS* vme, WAVE_CONFIG* wave_config)
 *** WaveDump 采集的流程：VME 的操作
     + WaveRun
     + WaveUserInput

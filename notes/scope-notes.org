@@ -7,15 +7,11 @@
 * 源码研究
 
 ** 加载配置
-   #+BEGIN_SRC cpp
-   bool AppSettings::Load(void);
-   #+END_SRC
+   : bool AppSettings::Load(void);
 
 ** 关键类
    + Class and headers
-     #+BEGIN_SRC cpp
-     #include <V1724_board.h>
-     #+END_SRC
+     : #include <V1724_board.h>
    + Class: V1724Board ==> V17XXBoard ==> GenericBoard
      - V1724Board
        * ~CVT_V17XX_TYPES GetType()~

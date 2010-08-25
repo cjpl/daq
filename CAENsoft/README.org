@@ -13,42 +13,31 @@
     install~. This can be fixed by creating directory manually. You can first
     create dirs needed manually.
     #+BEGIN_EXAMPLE
-    sudo mkdir -p /etc/CAENPLLConfig /etc/CAENScope /etc/wavedump /etc/cvUpgrade
-    sudo chown das  /etc/CAENPLLConfig /etc/CAENScope /etc/wavedump /etc/cvUpgrade
+    sudo mkdir -p  /etc/CAENPLLConfig /etc/CAENScope /etc/wavedump /etc/cvUpgrade
+    sudo chown das /etc/CAENPLLConfig /etc/CAENScope /etc/wavedump /etc/cvUpgrade
     #+END_EXAMPLE
 
 ** CAENVMElib
    1. Install libCAENVME.so.* to your desired directory, (e.g. /opt/DAQ/lib)
-      #+BEGIN_EXAMPLE
-      ./inst-dynlib.sh /opt/DAQ/lib
-      #+END_EXAMPLE
+      : ./inst-dynlib.sh /opt/DAQ/lib
    2. Copy headers to your DAQ directory (e.g. /opt/DAQ/include)
-      #+BEGIN_EXAMPLE
-      cp -vp CAEN*.h /opt/DAQ/include/
-      #+END_EXAMPLE
+      : cp -vp CAEN*.h /opt/DAQ/include/
    3. (Optional) Use libCAENVME.so with MIDAS/PSI *mvmestd.h*,
       1) Build and install *inbmvme\_v2718/1718.{a,so}*. Default install dir is
          */opt/DAQ/*.
-	 #+BEGIN_EXAMPLE
-	 make
-	 make install
-	 #+END_EXAMPLE
+	 : make && make install
       2) When you link your MIDAS FE codes with *libmvme\_a2818*, you should add
          extra link option *-lmvme\_a2818* to your makefile.
 
 ** DigitizerSDK
    In order to install the SDK to our default DAQ dir (*/opt/DAQ*), the
    *Makefile* in ~DigitizerSDK/src~ has been modified. Installation is simple as
-   #+BEGIN_EXAMPLE
-   make && make install
-   #+END_EXAMPLE
+   : make && make install
 
 ** PLLConfig
 
    1. Package needed in Debian lenny: *libwxgtk2.8-dev*
-      #+BEGIN_EXAMPLE
-      sudo aptitude install libwxgtk2.8-dev
-      #+END_EXAMPLE
+      : sudo aptitude install libwxgtk2.8-dev
    2. Configuration
       #+BEGIN_EXAMPLE
       ./configure --prefix=/opt/DAQ  \
@@ -59,16 +48,12 @@
    3. Make and install
    4. After installation, the ~src/images~ dir should be copied to
       ~/etc/CAENPLLConfig/~:
-      #+BEGIN_EXAMPLE
-      cp -rvp src/images /etc/CAENPLLConfig/
-      #+END_EXAMPLE
+      : cp -rvp src/images /etc/CAENPLLConfig/
 
 ** CAENCOMMLIBRARY
    + http://www.caen.it/nuclear/swproduct.php?mod=CAENCOMMLIBRARY
    + Use the ~inst-dynlib.sh~ script to install:
-     #+BEGIN_EXAMPLE
-     ./inst-dynlib.sh /opt/DAQ
-     #+END_EXAMPLE
+     : ./inst-dynlib.sh /opt/DAQ
 
 ** Optional packages
 
@@ -86,9 +71,7 @@
                   CPPFLAGS="-I/opt/DAQ/include" LDFLAGS="-L/opt/DAQ/lib"
        #+END_EXAMPLE
     2. Make and make install
-       #+BEGIN_EXAMPLE
-       make && make install
-       #+END_EXAMPLE
+       : make && make install
 
 *** cvUpgrade
     It needs *CAENComm* installed. Other steps are similar with *Scope* and
