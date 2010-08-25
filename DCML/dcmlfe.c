@@ -12,7 +12,7 @@
 #include <sys/ioctl.h>
 
 #include "dcml.h"
-#include "vme_wrapper.h"
+#include "cvt_V1724.h"
 
 /*-- Globals ----------------------------------------------------*/
 
@@ -37,8 +37,6 @@ extern HNDLE      hDB;
 TRIGGER_SETTINGS  trig_set; /* Trigger Settings */
 
 /* VME hardware address: Using TRIGGER_SETTINGS */
-BOOL  isAdcEnabled = FALSE;
-BOOL  isTdcEnabled = FALSE;
 
 /*-- Function declarations -----------------------------------------*/
 INT frontend_init();
@@ -53,7 +51,6 @@ INT read_trigger_event(char *pevent, INT off);
 
 /*---  Bank definitions --------------------------------------------*/
 BANK_LIST trigger_bank_list[] = {
-  /* {"TDC1", TID_DWORD, N_TDC, NULL}, */
   {""},
 };
 
@@ -75,7 +72,7 @@ EQUIPMENT equipment[] = {
 #endif
 
       0,                // Event source
-      "MIDAS",          // format
+      "ROOT",          // format
       TRUE,             // Enabled
       RO_RUNNING 
       | RO_ODB,         // Read only when running and update ODB
