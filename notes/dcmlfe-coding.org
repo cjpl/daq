@@ -160,7 +160,8 @@ DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
       - ~Base Add : WORD~
       - ~Channel Mask: BYTE~
    3. Channel's settings ["CHi", i = 0~7]
-      - ~Threshold:FLOAT~ -- mV
+      - ~Threshold: FLOAT~  -- mV
+      - ~DAC offset: FLOAT~ -- mV
    4. Trigger settings: all channels are the same
       - ~Type: BYTE~ -- 1(bit0):auto; 2(bit1):external; 4(bit2):force; 
       - ~Post Trigger: INT~ 32-bit int

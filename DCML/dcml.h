@@ -10,6 +10,7 @@
 #include "experim.h"
 
 #define V1724_MAX_CH_SAMPLES  0x80000 /* 512k = 512*1024 = 524288 */
+#define FE_ERROR     -256
 
 #endif /* __DCMLFE_H__ */
 

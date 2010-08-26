@@ -17,7 +17,7 @@
                 tation which can be used in the db_create_record function
                 to setup an ODB structure which matches the C structure.
 
-  Created on:   Wed Aug 25 21:20:50 2010
+  Created on:   Thu Aug 26 11:28:43 2010
 
 \********************************************************************/
 
@@ -35,38 +35,8 @@ typedef struct {
     BYTE      edge;
   } trig;
   WORD      buffer_size;
-  struct {
-    float     threshold;
-    float     dac_offset;
-  } ch0;
-  struct {
-    float     threshold;
-    float     dac_offset;
-  } ch1;
-  struct {
-    float     threshold;
-    float     dac_offset;
-  } ch2;
-  struct {
-    float     threshold;
-    float     dac_offset;
-  } ch3;
-  struct {
-    float     threshold;
-    float     dac_offset;
-  } ch4;
-  struct {
-    float     threshold;
-    float     dac_offset;
-  } ch5;
-  struct {
-    float     threshold;
-    float     dac_offset;
-  } ch6;
-  struct {
-    float     threshold;
-    float     dac_offset;
-  } ch7;
+  float     threshold[8];
+  float     das_offset[8];
 } DIGITIZER_SETTINGS;
 
 #define DIGITIZER_SETTINGS_STR(_name) const char *_name[] = {\
@@ -82,38 +52,24 @@ typedef struct {
 "",\
 "[.]",\
 "Buffer Size = WORD : 0",\
-"",\
-"[CH0]",\
-"Threshold = FLOAT : 0",\
-"DAC Offset = FLOAT : 0",\
-"",\
-"[CH1]",\
-"Threshold = FLOAT : 0",\
-"DAC Offset = FLOAT : 0",\
-"",\
-"[CH2]",\
-"Threshold = FLOAT : 0",\
-"DAC Offset = FLOAT : 0",\
-"",\
-"[CH3]",\
-"Threshold = FLOAT : 0",\
-"DAC Offset = FLOAT : 0",\
-"",\
-"[CH4]",\
-"Threshold = FLOAT : 0",\
-"DAC Offset = FLOAT : 0",\
-"",\
-"[CH5]",\
-"Threshold = FLOAT : 0",\
-"DAC Offset = FLOAT : 0",\
-"",\
-"[CH6]",\
-"Threshold = FLOAT : 0",\
-"DAC Offset = FLOAT : 0",\
-"",\
-"[CH7]",\
-"Threshold = FLOAT : 0",\
-"DAC Offset = FLOAT : 0",\
+"Threshold = FLOAT[8] :",\
+"[0] 0",\
+"[1] 0",\
+"[2] 0",\
+"[3] 0",\
+"[4] 0",\
+"[5] 0",\
+"[6] 0",\
+"[7] 0",\
+"DAS Offset = FLOAT[8] :",\
+"[0] 0",\
+"[1] 0",\
+"[2] 0",\
+"[3] 0",\
+"[4] 0",\
+"[5] 0",\
+"[6] 0",\
+"[7] 0",\
 "",\
 NULL }
 
