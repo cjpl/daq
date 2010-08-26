@@ -8,4 +8,8 @@
        2. CAEN V1724 100 MS/s Digitizer
 \**********************************************************************/
 
+// include pure C headers
+extern "C" {
 #include "dcml.h"
+}
+
