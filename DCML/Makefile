@@ -26,13 +26,13 @@ CAEN_LDFLAGS:=  -L${MIDASSYS}/lib -lCAENVME -lCAENdigitizerSDK
 #-------- linux flags
 ifeq ($(OSTYPE), linux)
 	M_CFLAGS = -DOS_LINUX -Dextname -I$(MIDASSYS)/include/midas
-	M_LIBS   = -lm -lz -lutil -lnsl -lpthread -L$(MIDASSYS)/lib -lmidas
+	M_LIBS   = -lm -lz -lrt -lutil -lnsl -lpthread -L$(MIDASSYS)/lib -lmidas
 endif
 M_OBJDIR := $(MIDASSYS)/lib/midas
 
 #------- List of analyzer modules
 ANAMODS   =
-ANALYZERS = dcmlana
+#ANALYZERS = dcmlana
 
 #------- Frontend code
 UFES = dcmlfe
@@ -44,10 +44,7 @@ CFLAGS   += -g -O2 -Wall $(M_CFLAGS) $(CAEN_CFLAGS)
 CXXFLAGS += -g -O2 -Wall $(M_CFLAGS) $(ROOTCFLAGS)
 LDFLAGS  += $(M_LIBS) $(CAEN_LDFLAGS)
 
-all: test $(UFES) $(ANALYZERS)
-
-test:
-	@echo $(OSTYPE) $(ROOTCFG) $(ROOTSYS)
+all: $(UFES) $(ANALYZERS)
 
 .PHONY: clean
 
