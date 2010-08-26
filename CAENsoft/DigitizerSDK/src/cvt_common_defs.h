@@ -23,8 +23,8 @@
 
 //
 // Data tyes
-#if !defined BOOL
-typedef int BOOL;                                               //!< Boolean type
+#if !defined _BOOL
+typedef int _BOOL;                                               //!< Boolean type
 #endif
 #if !defined _TRUE
 #define         _TRUE   -1                                      //!< Boolean _TRUE value

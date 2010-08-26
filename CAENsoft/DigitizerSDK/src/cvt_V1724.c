@@ -249,7 +249,7 @@ static const cvt_reg_table CVT_V1724_REG_TABLE[ CVT_V1724_LAST_INDEX]=
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, long vme_handle, CVT_V17XX_TYPES type)
+_BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, long vme_handle, CVT_V17XX_TYPES type)
 {
     UINT32 reg_value32= 0;
     UINT32 num_kwords= 0;
@@ -275,7 +275,7 @@ BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, long vme_handl
     // board specific data initialization
     // TODO: verify type matches BOARD_INFO BOARD_ID value
     p_data->m_type= type;
-    p_data->m_common_data.set_MCST_CBLT= ( BOOL (*)( void*, UINT8, MCST_CBLT_board_pos))cvt_V1724_set_MCST_CBLT;
+    p_data->m_common_data.set_MCST_CBLT= ( _BOOL (*)( void*, UINT8, MCST_CBLT_board_pos))cvt_V1724_set_MCST_CBLT;
 
     // preallocate a suitable memory chunck for sample cache storage
 
@@ -356,7 +356,7 @@ BOOL cvt_V1724_open( cvt_V1724_data* p_data, UINT16 base_address, long vme_handl
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_close( cvt_V1724_data* p_data)
+_BOOL cvt_V1724_close( cvt_V1724_data* p_data)
 {
     if( p_data->m_cache_sample_buffer)
     {
@@ -392,11 +392,11 @@ BOOL cvt_V1724_close( cvt_V1724_data* p_data)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT32* p_num_events)
+_BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT32* p_num_events)
 {
     UINT32 BLT_event_number= 0;
     CVT_V1724_HEADER* p_header;
-    BOOL is_berr= _FALSE;
+    _BOOL is_berr= _FALSE;
 
     *p_ch_max_samples= 0;
     *p_num_events= 0;
@@ -493,7 +493,7 @@ BOOL cvt_V1724_read_data( cvt_V1724_data* p_data, UINT32* p_ch_max_samples, UINT
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UINT8 ch_index, UINT16* p_buff, UINT32* p_buff_size, UINT8 *p_board_id, UINT32* p_trigger_time_tag, UINT32* p_event_counter)
+_BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UINT8 ch_index, UINT16* p_buff, UINT32* p_buff_size, UINT8 *p_board_id, UINT32* p_trigger_time_tag, UINT32* p_event_counter)
 {
     CVT_V1724_HEADER *p_header;
     UINT32 offset= 0;
@@ -724,7 +724,7 @@ BOOL cvt_V1724_get_buffer_cache( cvt_V1724_data* p_data, UINT16 event_index, UIN
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL falling_edge_enable, BOOL ext_trigger_enable, BOOL sw_trigger_enable, UINT8 ch_trigger_enable_msk, BOOL trigger_overlap_enable, UINT32 post_trigger)
+_BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, _BOOL falling_edge_enable, _BOOL ext_trigger_enable, _BOOL sw_trigger_enable, UINT8 ch_trigger_enable_msk, _BOOL trigger_overlap_enable, UINT32 post_trigger)
 {
     static const UINT32 CH_TRIGGER_MSK[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -838,7 +838,7 @@ BOOL cvt_V1724_set_trigger_mode( cvt_V1724_data* p_data, BOOL falling_edge_enabl
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_trigger_mode( cvt_V1724_data* p_data, BOOL *p_falling_edge_enable, BOOL *p_ext_trigger_enable, BOOL *p_sw_trigger_enable, UINT8 *p_ch_trigger_enable_msk, BOOL *p_trigger_overlap_enable, UINT32 *p_post_trigger)
+_BOOL cvt_V1724_get_trigger_mode( cvt_V1724_data* p_data, _BOOL *p_falling_edge_enable, _BOOL *p_ext_trigger_enable, _BOOL *p_sw_trigger_enable, UINT8 *p_ch_trigger_enable_msk, _BOOL *p_trigger_overlap_enable, UINT32 *p_post_trigger)
 {
     static const UINT32 CH_TRIGGER_MSK[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -907,7 +907,7 @@ BOOL cvt_V1724_get_trigger_mode( cvt_V1724_data* p_data, BOOL *p_falling_edge_en
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_start_acquisition( cvt_V1724_data* p_data, UINT8 ch_msk)
+_BOOL cvt_V1724_start_acquisition( cvt_V1724_data* p_data, UINT8 ch_msk)
 {
     UINT32 set_msk= 0;
     UINT32 reg_value32= 0;
@@ -966,7 +966,7 @@ BOOL cvt_V1724_start_acquisition( cvt_V1724_data* p_data, UINT8 ch_msk)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_stop_acquisition( cvt_V1724_data* p_data)
+_BOOL cvt_V1724_stop_acquisition( cvt_V1724_data* p_data)
 {
     UINT32 clear_msk= 0;
 
@@ -983,7 +983,7 @@ BOOL cvt_V1724_stop_acquisition( cvt_V1724_data* p_data)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable, CVT_V1724_NUM_BLOCKS block_size, CVT_V1724_ACQ_CONTROL_ACQ_MODES acquisition_mode, BOOL count_all_trigger, UINT32 downsample_factor)
+_BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, _BOOL sample_enable, CVT_V1724_NUM_BLOCKS block_size, CVT_V1724_ACQ_CONTROL_ACQ_MODES acquisition_mode, _BOOL count_all_trigger, UINT32 downsample_factor)
 {
     UINT32 set_msk= 0;
     UINT32 clear_msk= 0;
@@ -1089,7 +1089,7 @@ BOOL cvt_V1724_set_acquisition_mode( cvt_V1724_data* p_data, BOOL sample_enable,
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_acquisition_mode( cvt_V1724_data* p_data, BOOL *p_sample_enable, CVT_V1724_NUM_BLOCKS *p_block_size)
+_BOOL cvt_V1724_get_acquisition_mode( cvt_V1724_data* p_data, _BOOL *p_sample_enable, CVT_V1724_NUM_BLOCKS *p_block_size)
 {
     UINT32 reg_value32= 0;
 
@@ -1118,7 +1118,7 @@ BOOL cvt_V1724_get_acquisition_mode( cvt_V1724_data* p_data, BOOL *p_sample_enab
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_acquisition_status( cvt_V1724_data* p_data, BOOL *p_is_MEB_not_empty, BOOL *p_is_MEB_full, BOOL *p_is_running, BOOL *p_some_event_ready, BOOL *p_event_full, BOOL *p_s_in)
+_BOOL cvt_V1724_get_acquisition_status( cvt_V1724_data* p_data, _BOOL *p_is_MEB_not_empty, _BOOL *p_is_MEB_full, _BOOL *p_is_running, _BOOL *p_some_event_ready, _BOOL *p_event_full, _BOOL *p_s_in)
 {
     UINT32 reg_value32= 0;
 
@@ -1160,7 +1160,7 @@ BOOL cvt_V1724_get_acquisition_status( cvt_V1724_data* p_data, BOOL *p_is_MEB_no
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_buffer_samples( cvt_V1724_data* p_data, UINT16 *p_num_k_samples, CVT_V1724_NUM_BLOCKS *p_num_block_read)
+_BOOL cvt_V1724_get_buffer_samples( cvt_V1724_data* p_data, UINT16 *p_num_k_samples, CVT_V1724_NUM_BLOCKS *p_num_block_read)
 {
     UINT32 reg_value32;
     UINT32 num_kwords;
@@ -1225,7 +1225,7 @@ BOOL cvt_V1724_get_buffer_samples( cvt_V1724_data* p_data, UINT16 *p_num_k_sampl
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_buffer_samples( cvt_V1724_data* p_data, UINT16 num_k_samples, CVT_V1724_NUM_BLOCKS *p_num_block_written)
+_BOOL cvt_V1724_set_buffer_samples( cvt_V1724_data* p_data, UINT16 num_k_samples, CVT_V1724_NUM_BLOCKS *p_num_block_written)
 {
     UINT32 reg_value32;
     UINT32 num_kwords;
@@ -1303,7 +1303,7 @@ BOOL cvt_V1724_set_buffer_samples( cvt_V1724_data* p_data, UINT16 num_k_samples,
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_fp_trigger_out( cvt_V1724_data* p_data, BOOL ext_trigger_enable, BOOL sw_trigger_enable, UINT8 ch_trigger_enable_msk)
+_BOOL cvt_V1724_set_fp_trigger_out( cvt_V1724_data* p_data, _BOOL ext_trigger_enable, _BOOL sw_trigger_enable, UINT8 ch_trigger_enable_msk)
 {
     static const UINT32 CH_TRIGGER_MSK[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -1372,7 +1372,7 @@ BOOL cvt_V1724_set_fp_trigger_out( cvt_V1724_data* p_data, BOOL ext_trigger_enab
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_fp_trigger_out( cvt_V1724_data* p_data, BOOL *p_ext_trigger_enable, BOOL *p_sw_trigger_enable, UINT8 *p_ch_trigger_enable_msk)
+_BOOL cvt_V1724_get_fp_trigger_out( cvt_V1724_data* p_data, _BOOL *p_ext_trigger_enable, _BOOL *p_sw_trigger_enable, UINT8 *p_ch_trigger_enable_msk)
 {
     static const UINT32 CH_TRIGGER_MSK[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -1419,7 +1419,7 @@ BOOL cvt_V1724_get_fp_trigger_out( cvt_V1724_data* p_data, BOOL *p_ext_trigger_e
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_dither_enable( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dither_value)
+_BOOL cvt_V1724_set_dither_enable( cvt_V1724_data* p_data, UINT8 ch_msk, _BOOL dither_value)
 {
     static const UINT16 CH_CONF[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -1486,7 +1486,7 @@ BOOL cvt_V1724_set_dither_enable( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dit
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_dither_enable( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_dither_value)
+_BOOL cvt_V1724_get_dither_enable( cvt_V1724_data* p_data, UINT8 ch_index, _BOOL *p_dither_value)
 {
     static const UINT16 CH_CONF[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -1541,7 +1541,7 @@ BOOL cvt_V1724_get_dither_enable( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_adc_conf( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dither_value, BOOL clk_duty_stab_value, BOOL randomize_value)
+_BOOL cvt_V1724_set_adc_conf( cvt_V1724_data* p_data, UINT8 ch_msk, _BOOL dither_value, _BOOL clk_duty_stab_value, _BOOL randomize_value)
 {
     static const UINT16 CH_CONF[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -1624,7 +1624,7 @@ BOOL cvt_V1724_set_adc_conf( cvt_V1724_data* p_data, UINT8 ch_msk, BOOL dither_v
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_adc_conf( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_dither_value, BOOL *p_clk_duty_stab_value, BOOL *p_randomize_value)
+_BOOL cvt_V1724_get_adc_conf( cvt_V1724_data* p_data, UINT8 ch_index, _BOOL *p_dither_value, _BOOL *p_clk_duty_stab_value, _BOOL *p_randomize_value)
 {
     static const UINT16 CH_CONF[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -1685,7 +1685,7 @@ BOOL cvt_V1724_get_adc_conf( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_dit
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
+_BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 {
     static const UINT16 CH_CONF[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -1713,7 +1713,7 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
     UINT32 msk32= 0;
     int i;
     UINT8 act_ch_msk;
-    BOOL is_des_mode= _FALSE;
+    _BOOL is_des_mode= _FALSE;
 
     //
     // Board type verify
@@ -1833,7 +1833,7 @@ BOOL cvt_V1724_adc_calib( cvt_V1724_data* p_data, UINT8 ch_msk)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_adc_temp( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32* tempadc)
+_BOOL cvt_V1724_adc_temp( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32* tempadc)
 {
     UINT32 reg_value= 0;
     UINT32 msk32= 0;
@@ -1885,7 +1885,7 @@ BOOL cvt_V1724_adc_temp( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32* tempadc)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
+_BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, _BOOL is_des_mode)
 {
     UINT8 reg_value8;
     UINT32 reg_value;
@@ -1921,8 +1921,8 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
         UINT32 buff_size= DEF_BUFF_SIZE;
         double mid_scale_value; 
         double mid_scale_tolerance; 
-        BOOL ret_val= _TRUE;
-        BOOL running= _FALSE;
+        _BOOL ret_val= _TRUE;
+        _BOOL running= _FALSE;
 
         //
         // Board type verify
@@ -2166,7 +2166,7 @@ BOOL cvt_V1724_set_des_mode( cvt_V1724_data* p_data, BOOL is_des_mode)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_interrupt( cvt_V1724_data* p_data, UINT8 level, UINT32 status_id, UINT16 event_number)
+_BOOL cvt_V1724_set_interrupt( cvt_V1724_data* p_data, UINT8 level, UINT32 status_id, UINT16 event_number)
 {
     UINT32 reg_value;
     //
@@ -2217,7 +2217,7 @@ BOOL cvt_V1724_set_interrupt( cvt_V1724_data* p_data, UINT8 level, UINT32 status
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_interrupt( cvt_V1724_data* p_data, UINT8 *p_level, UINT32 *p_status_id, UINT16 *p_event_number)
+_BOOL cvt_V1724_get_interrupt( cvt_V1724_data* p_data, UINT8 *p_level, UINT32 *p_status_id, UINT16 *p_event_number)
 {
     UINT32 reg_value32;
     //
@@ -2257,7 +2257,7 @@ BOOL cvt_V1724_get_interrupt( cvt_V1724_data* p_data, UINT8 *p_level, UINT32 *p_
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_readout_mode( cvt_V1724_data* p_data, BOOL enable_bus_error, UINT32 BLT_event_number)
+_BOOL cvt_V1724_set_readout_mode( cvt_V1724_data* p_data, _BOOL enable_bus_error, UINT32 BLT_event_number)
 {
     UINT32 set_msk= 0;
     UINT32 clear_msk= 0;
@@ -2303,7 +2303,7 @@ BOOL cvt_V1724_set_readout_mode( cvt_V1724_data* p_data, BOOL enable_bus_error, 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_readout_mode( cvt_V1724_data* p_data, BOOL *p_enable_bus_error, UINT32 *p_BLT_event_number)
+_BOOL cvt_V1724_get_readout_mode( cvt_V1724_data* p_data, _BOOL *p_enable_bus_error, UINT32 *p_BLT_event_number)
 {
     UINT32 reg_value32= 0;
 
@@ -2332,7 +2332,7 @@ BOOL cvt_V1724_get_readout_mode( cvt_V1724_data* p_data, BOOL *p_enable_bus_erro
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_software_reset( cvt_V1724_data* p_data)
+_BOOL cvt_V1724_software_reset( cvt_V1724_data* p_data)
 {
     //
     // Write CVT_V1724_SW_RESET register
@@ -2348,7 +2348,7 @@ BOOL cvt_V1724_software_reset( cvt_V1724_data* p_data)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_data_clear( cvt_V1724_data* p_data)
+_BOOL cvt_V1724_data_clear( cvt_V1724_data* p_data)
 {
     //
     // Write CVT_V1724_SW_RESET register
@@ -2364,7 +2364,7 @@ BOOL cvt_V1724_data_clear( cvt_V1724_data* p_data)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_channel_offset( cvt_V1724_data* p_data, UINT8 ch_msk, UINT16 offset_value)
+_BOOL cvt_V1724_set_channel_offset( cvt_V1724_data* p_data, UINT8 ch_msk, UINT16 offset_value)
 {
     static const UINT16 CH_DAC_CONF[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -2414,8 +2414,8 @@ BOOL cvt_V1724_set_channel_offset( cvt_V1724_data* p_data, UINT8 ch_msk, UINT16 
             {
                 //
                 // Wait for DAC !busy
-                BOOL trash;
-                BOOL is_dac_busy= _TRUE;
+                _BOOL trash;
+                _BOOL is_dac_busy= _TRUE;
                 while( is_dac_busy)
                 {
                     // HACK insert timeout here
@@ -2440,7 +2440,7 @@ BOOL cvt_V1724_set_channel_offset( cvt_V1724_data* p_data, UINT8 ch_msk, UINT16 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 *p_offset_value)
+_BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 *p_offset_value)
 {
     static const UINT16 CH_DAC_CONF[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -2454,8 +2454,8 @@ BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_index, UINT1
             CVT_V1724_CH7_DAC_CONF_INDEX,               /*!< \brief CH 7 DAC Data Configuration register index */
         };
     UINT32 reg_value32= 0;
-    BOOL trash;
-    BOOL is_dac_busy= _TRUE;
+    _BOOL trash;
+    _BOOL is_dac_busy= _TRUE;
 
     //
     // input param check
@@ -2504,7 +2504,7 @@ BOOL cvt_V1724_get_channel_offset( cvt_V1724_data* p_data, UINT8 ch_index, UINT1
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32 trigger_threshold, UINT32 threshold_samples)
+_BOOL cvt_V1724_set_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32 trigger_threshold, UINT32 threshold_samples)
 {
     static const UINT16 CH_TRG_THR[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -2572,7 +2572,7 @@ BOOL cvt_V1724_set_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_msk, UINT32
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_index, UINT32 *p_trigger_threshold, UINT32 *p_threshold_samples)
+_BOOL cvt_V1724_get_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_index, UINT32 *p_trigger_threshold, UINT32 *p_threshold_samples)
 {
     static const UINT16 CH_TRG_THR[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -2628,7 +2628,7 @@ BOOL cvt_V1724_get_channel_trigger( cvt_V1724_data* p_data, UINT8 ch_index, UINT
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_front_panel_IO( cvt_V1724_data* p_data, BOOL use_TTL, BOOL out_en, UINT8 dir_msk, CVT_V1724_FRONT_PANEL_IO_MODES mode)
+_BOOL cvt_V1724_set_front_panel_IO( cvt_V1724_data* p_data, _BOOL use_TTL, _BOOL out_en, UINT8 dir_msk, CVT_V1724_FRONT_PANEL_IO_MODES mode)
 {
     UINT32 reg_value32= 0;
         
@@ -2672,7 +2672,7 @@ BOOL cvt_V1724_set_front_panel_IO( cvt_V1724_data* p_data, BOOL use_TTL, BOOL ou
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_front_panel_IO( cvt_V1724_data* p_data, BOOL *p_use_TTL, BOOL *p_is_out_en, UINT8 *p_dir_msk, CVT_V1724_FRONT_PANEL_IO_MODES *p_mode)
+_BOOL cvt_V1724_get_front_panel_IO( cvt_V1724_data* p_data, _BOOL *p_use_TTL, _BOOL *p_is_out_en, UINT8 *p_dir_msk, CVT_V1724_FRONT_PANEL_IO_MODES *p_mode)
 {
     UINT32 reg_value32= 0;
         
@@ -2706,7 +2706,7 @@ BOOL cvt_V1724_get_front_panel_IO( cvt_V1724_data* p_data, BOOL *p_use_TTL, BOOL
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_software_trigger( cvt_V1724_data* p_data)
+_BOOL cvt_V1724_software_trigger( cvt_V1724_data* p_data)
 {
     UINT32 reg_value;
     //
@@ -2724,7 +2724,7 @@ BOOL cvt_V1724_software_trigger( cvt_V1724_data* p_data)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_channel_status( cvt_V1724_data* p_data, UINT8 ch_index, BOOL *p_is_dac_busy, BOOL *p_is_fifo_full, BOOL *p_is_fifo_empty, BOOL *p_is_block_remove_ok)
+_BOOL cvt_V1724_get_channel_status( cvt_V1724_data* p_data, UINT8 ch_index, _BOOL *p_is_dac_busy, _BOOL *p_is_fifo_full, _BOOL *p_is_fifo_empty, _BOOL *p_is_block_remove_ok)
 {
     static const UINT16 CH_STATUS[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -2764,7 +2764,7 @@ BOOL cvt_V1724_get_channel_status( cvt_V1724_data* p_data, UINT8 ch_index, BOOL 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, CVT_V1724_ROM_CONFIG *p_rom_config, BOOL *p_is_board_type_correct, BOOL *p_is_firmware_rev_correct)
+_BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, CVT_V1724_ROM_CONFIG *p_rom_config, _BOOL *p_is_board_type_correct, _BOOL *p_is_firmware_rev_correct)
 {
     UINT32 reg_value= 0;
     *p_is_board_type_correct= _FALSE;
@@ -2992,7 +2992,7 @@ BOOL cvt_V1724_get_system_info( cvt_V1724_data* p_data, UINT16 *p_firmware_rev, 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_channel_info( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 *p_firmware_rev)
+_BOOL cvt_V1724_get_channel_info( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 *p_firmware_rev)
 {
     static const UINT16 CH_FW_REV[ CVT_V1724_MAX_CHANNEL]=
         {
@@ -3031,7 +3031,7 @@ BOOL cvt_V1724_get_channel_info( cvt_V1724_data* p_data, UINT8 ch_index, UINT16 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_set_MCST_CBLT( cvt_V1724_data* p_data, UINT8 address, MCST_CBLT_board_pos pos)
+_BOOL cvt_V1724_set_MCST_CBLT( cvt_V1724_data* p_data, UINT8 address, MCST_CBLT_board_pos pos)
 {
     UINT32 reg_value= 0;
     //
@@ -3070,7 +3070,7 @@ BOOL cvt_V1724_set_MCST_CBLT( cvt_V1724_data* p_data, UINT8 address, MCST_CBLT_b
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_get_MCST_CBLT( cvt_V1724_data* p_data, UINT8 *p_address, MCST_CBLT_board_pos *p_pos)
+_BOOL cvt_V1724_get_MCST_CBLT( cvt_V1724_data* p_data, UINT8 *p_address, MCST_CBLT_board_pos *p_pos)
 {
     UINT32 reg_value32;
     //
@@ -3106,12 +3106,12 @@ BOOL cvt_V1724_get_MCST_CBLT( cvt_V1724_data* p_data, UINT8 *p_address, MCST_CBL
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8* page_buff, UINT32 page_index)
+_BOOL cvt_V1724_write_flash_page( cvt_V1724_data* p_data, const UINT8* page_buff, UINT32 page_index)
 {
     int i;
     UINT32 reg_value;
     UINT32 flash_addr;
-    BOOL ret_val= _TRUE;
+    _BOOL ret_val= _TRUE;
 
     flash_addr= page_index << 9;
 
@@ -3183,12 +3183,12 @@ exit_point:
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32 page_index)
+_BOOL cvt_V1724_read_flash_page( cvt_V1724_data* p_data, UINT8* page_buff, UINT32 page_index)
 {
     int i;
     UINT32 reg_value;
     UINT32 flash_addr;
-    BOOL ret_val= _TRUE;
+    _BOOL ret_val= _TRUE;
 
     flash_addr= page_index<< 9;
 
@@ -3271,11 +3271,11 @@ exit_point:
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_erase_flash_page( cvt_V1724_data* p_data, UINT32 page_index)
+_BOOL cvt_V1724_erase_flash_page( cvt_V1724_data* p_data, UINT32 page_index)
 {
     UINT32 reg_value;
     UINT32 flash_addr;
-    BOOL ret_val= _TRUE;
+    _BOOL ret_val= _TRUE;
 
     flash_addr= page_index<< 9;
 
@@ -3332,7 +3332,7 @@ exit_point:
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_fw_upgrade( cvt_V1724_data* p_data, const UINT8* data_buff, UINT32 data_size, CVT_V1724_FLASH_BANK flash_bank, BOOL (* call_back)(UINT32 written_bytes))
+_BOOL cvt_V1724_fw_upgrade( cvt_V1724_data* p_data, const UINT8* data_buff, UINT32 data_size, CVT_V1724_FLASH_BANK flash_bank, _BOOL (* call_back)(UINT32 written_bytes))
 {
     // HACK to be rewritten with block trasfer mode
     UINT32 tot_bytes= 0;
@@ -3390,9 +3390,9 @@ BOOL cvt_V1724_fw_upgrade( cvt_V1724_data* p_data, const UINT8* data_buff, UINT3
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
+_BOOL cvt_V1724_pll_upgrade( cvt_V1724_data* p_data, const char* filename)
 {
-    BOOL ret= _TRUE;
+    _BOOL ret= _TRUE;
     UINT8 page[ V1724_FLASH_PAGE_SIZE];
     char file_line[300];
     // int org_line= 15;

@@ -85,7 +85,7 @@ void cvt_delay(int msec)
 
   -----------------------------------------------------------------------------
 */
-BOOL WINAPI DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
+_BOOL WINAPI DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
 {
     static int m_num_instances= 0;
 
@@ -145,7 +145,7 @@ void _fini( void )
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, long vme_handle, const cvt_reg_table *p_reg_table)
+_BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, long vme_handle, const cvt_reg_table *p_reg_table)
 {
     memset( p_data, 0, sizeof( cvt_board_data));
 
@@ -159,7 +159,7 @@ BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, long vme_handl
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_board_close( cvt_board_data* p_data)
+_BOOL cvt_board_close( cvt_board_data* p_data)
 {
     return _TRUE;
 }
@@ -173,7 +173,7 @@ BOOL cvt_board_close( cvt_board_data* p_data)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVAddressModifier am, CVDataWidth data_size)
+_BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVAddressModifier am, CVDataWidth data_size)
 {
     CVErrorCodes err_code;
     if( ( err_code= CAENVME_WriteCycle( p_data->m_vme_handle, (((UINT32)p_data->m_base_address)<< 16)| address, (void*)p_value, am, data_size))!= cvSuccess)
@@ -189,7 +189,7 @@ BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVA
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size)
+_BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size)
 {
     CVErrorCodes err_code;
     if( ( err_code= CAENVME_ReadCycle( p_data->m_vme_handle, (((UINT32)p_data->m_base_address)<< 16)| address, (void*)p_value, am, data_size))!= cvSuccess)
@@ -205,7 +205,7 @@ BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressM
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size)
+_BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size)
 {
     switch( data_size) 
     {
@@ -251,7 +251,7 @@ BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVA
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size)
+_BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size)
 {
     switch( data_size) 
     {
@@ -297,7 +297,7 @@ BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void* p_value, C
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, CVAddressModifier am, CVDataWidth data_size, BOOL *p_is_berr)
+_BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, CVAddressModifier am, CVDataWidth data_size, _BOOL *p_is_berr)
 {
     // Avoid CAENVMELib Linux Driver limits to 16 MB
     const UINT32 MAX_BLT_SIZE= 8*1024*1024;
@@ -333,7 +333,7 @@ BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const void* p_value)
+_BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const void* p_value)
 {
     return cvt_write( p_data, p_data->m_p_reg_table[ reg_index].m_address, p_value, p_data->m_p_reg_table[ reg_index].m_am, p_data->m_p_reg_table[ reg_index].m_data_size);
 }
@@ -341,7 +341,7 @@ BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const void* p_valu
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value)
+_BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value)
 {
     return cvt_read( p_data, p_data->m_p_reg_table[ reg_index].m_address, p_value, p_data->m_p_reg_table[ reg_index].m_am, p_data->m_p_reg_table[ reg_index].m_data_size);
 }
@@ -349,7 +349,7 @@ BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value)
+_BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value)
 {
     return cvt_set_bitmask( p_data, p_data->m_p_reg_table[ reg_index].m_address, p_value, p_data->m_p_reg_table[ reg_index].m_am, p_data->m_p_reg_table[ reg_index].m_data_size);
 }
@@ -357,7 +357,7 @@ BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_valu
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value)
+_BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value)
 {
     return cvt_clear_bitmask( p_data, p_data->m_p_reg_table[ reg_index].m_address, p_value, p_data->m_p_reg_table[ reg_index].m_am, p_data->m_p_reg_table[ reg_index].m_data_size);
 }
@@ -365,7 +365,7 @@ BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_va
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, BOOL *p_is_berr)
+_BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, _BOOL *p_is_berr)
 {
     return cvt_FIFO_BLT_read( p_data, p_data->m_p_reg_table[ reg_index].m_address, p_buffer, buffer_size, p_read_bytes, p_data->m_p_reg_table[ reg_index].m_am, p_data->m_p_reg_table[ reg_index].m_data_size, p_is_berr);
 }
@@ -379,7 +379,7 @@ BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_bu
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL cvt_set_MCST_CBLT( UINT8 address, cvt_board_data** board_array, UINT16 board_array_len)
+_BOOL cvt_set_MCST_CBLT( UINT8 address, cvt_board_data** board_array, UINT16 board_array_len)
 {
     MCST_CBLT_board_pos pos= MCST_CBLT_board_pos_last;
     while( board_array_len--)

@@ -19,10 +19,14 @@ ifdef ROOTSYS
 	ROOTLIBS   += -lThread
 endif
 
+#-------- CAEN DigitizerSDK flags
+CAEN_CFLAGS :=  -I${MIDASSYS}/include -DLINUX
+CAEN_LDFLAGS:=  -L${MIDASSYS}/lib -lCAENVME -lCAENdigitizerSDK
+
 #-------- linux flags
 ifeq ($(OSTYPE), linux)
-	M_CFLAGS = -DOS_LINUX -Dextname -I$(MIDASSYS)/include/midas -I${MIDASSYS}/include
-	M_LIBS   = -lm -lz -lutil -lnsl -lpthread -lodbc -L$(MIDASSYS)/lib -lmidas
+	M_CFLAGS = -DOS_LINUX -Dextname -I$(MIDASSYS)/include/midas
+	M_LIBS   = -lm -lz -lutil -lnsl -lpthread -L$(MIDASSYS)/lib -lmidas
 endif
 M_OBJDIR := $(MIDASSYS)/lib/midas
 
@@ -36,9 +40,9 @@ UFES = dcmlfe
 #-----------------------------------------------------------------------
 CC   = gcc
 CXX  = g++
-CFLAGS   += -g -O2 -Wall $(M_CFLAGS)
+CFLAGS   += -g -O2 -Wall $(M_CFLAGS) $(CAEN_CFLAGS)
 CXXFLAGS += -g -O2 -Wall $(M_CFLAGS) $(ROOTCFLAGS)
-LDFLAGS  += $(M_LIBS)
+LDFLAGS  += $(M_LIBS) $(CAEN_LDFLAGS)
 
 all: test $(UFES) $(ANALYZERS)
 

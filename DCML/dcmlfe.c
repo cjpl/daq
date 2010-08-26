@@ -32,8 +32,9 @@ INT event_buffer_size    = 0x10 * 1024 * 1024; /* 16 MB */
 
 /* VME Settings */
 #define VME_TYPE       cvV2718   /* Link: A2818 <--> V2718 <--> VME master bus */
+#define VME_BOARD_LINK 0
 #define VME_BOARD_NUM  0         /* VME board number in the chaisy chain */
-INT  *m_vhdl;  /* The VME handle: int32_t */
+int32_t  *m_vhdl;  /* The VME handle: int32_t */
 
 const CVT_V17XX_TYPES  digi_type = CVT_V1724;
 cvt_V1724_data  *m_p_v1724;     /* data handler of V1724: buffer, info, etc. */
@@ -53,7 +54,7 @@ INT     pause_run(INT rnum, char *error);
 INT    resume_run(INT rnum, char *error);
 INT frontend_loop();
 
-INT read_trigger_event(char *pevent, INT off);
+INT read_digitizer_event(char *pevent, INT off);
 
 /*---  Bank definitions --------------------------------------------*/
 /* WARNING: must use "bk_init32(void*)" before "bk_create()" */
@@ -119,7 +120,7 @@ void seq_callback(INT hDB, INT hseq, void *info)
 /*---- Frontend Initialize ------------------------------*/
 INT frontend_init()
 {
-  char  set_char[80];
+  char  set_str[80];
   INT   status, size;
 
   CVErrorCodes cv_error;
@@ -141,7 +142,7 @@ INT frontend_init()
   /* Read ODB settings */
   
   /* Initialize VME interface to get the handle: m_vhdl */
-  if( (cv_error = CAENVME_Init(VME_TYPE, VME_BOARD_NUM, m_vhdl)) != cvSuccess ) {
+  if( (cv_error = CAENVME_Init(VME_TYPE,VME_BOARD_LINK, VME_BOARD_NUM, m_vhdl)) != cvSuccess ) {
     cm_msg(MERROR, "FE", "Failed to open VME interface!");
     return FE_ERROR;
   }
@@ -161,7 +162,7 @@ INT frontend_exit()
 {
   CVErrorCodes cv_error;
 
-  if( (cv_error = CAENVME_End(m_vhdl)) != cvSuccess ) {
+  if( (cv_error = CAENVME_End(*m_vhdl)) != cvSuccess ) {
     return FE_ERROR;
   }
 
@@ -171,10 +172,10 @@ INT frontend_exit()
 /*---- Begin of Run ------------------------------------*/
 INT begin_of_run( INT rnum, char *error) 
 {
-  BOOL  isEdgeFalling = _FALSE;
-  BOOL  isExtTrig     = _FALSE;
-  BOOL  isSoftTrig    = _FALSE;
-  BOOL  isTrigOverlap = _TRUE;
+  _BOOL  isEdgeFalling = _FALSE;
+  _BOOL  isExtTrig     = _FALSE;
+  _BOOL  isSoftTrig    = _FALSE;
+  _BOOL  isTrigOverlap = _TRUE;
   INT   ch_threshold, dac_offset;
   int   i=0;
 
@@ -266,17 +267,17 @@ INT frontend_loop() { return SUCCESS; }
 INT poll_event( INT source, INT count, BOOL test)
 {
   /* Check V1724 status, if data avaliable, return OK */
-  BOOL isMEBnotEmpty = _FALSE;
-  BOOL isMEBfull = _FALSE;
-  BOOL isRunning = _TRUE;
-  BOOL isSomeEventReady = _FALSE;
-  BOOL isEventFull = _FALSE;
-  BOOL isP_S_IN = _FALSE;
+  _BOOL isMEBnotEmpty = _FALSE;
+  _BOOL isMEBfull = _FALSE;
+  _BOOL isRunning = _TRUE;
+  _BOOL isSomeEventReady = _FALSE;
+  _BOOL isEventFull = _FALSE;
+  _BOOL isP_S_IN = _FALSE;
 
   if( cvt_V1724_get_acquisition_status(m_p_v1724, &isMEBnotEmpty, &isMEBfull,
 				       &isRunning, &isSomeEventReady,
 				       &isEventFull, &isP_S_IN) == _TRUE ) {
-    if( isRunning && (isMEBfull || isSomeEventReady || isEventFull )
+    if( isRunning && (isMEBfull || isSomeEventReady || isEventFull ) )
 	return 1;
   }
 
@@ -292,8 +293,8 @@ INT interrupt_configure( INT cmd, INT source, POINTER_T adr)
 /*---- Event Readout -------------------------------*/
 INT read_digitizer_event( char *pevent, INT off)
 {
-  INT      ch_max_samples;
-  INT      num_events;
+  UINT32   ch_max_samples;
+  UINT32   num_events;
   UINT8   *p_board_id;
   UINT16  *p_buff[8];
   UINT32  *p_trig_tim_tag;

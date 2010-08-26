@@ -69,7 +69,7 @@ typedef struct
     UINT16      m_base_address;                                         //!< Base address
     long        m_vme_handle;                                           //!< VME handle
     const cvt_reg_table* m_p_reg_table;                 //!< Pointer to board specif register table
-    BOOL (*set_MCST_CBLT)( void* /*p_data*/, UINT8 /*address*/, MCST_CBLT_board_pos /*MCST_CBLT position*/ );           //!< Pointer to board specif set_MCST_CBLT method
+    _BOOL (*set_MCST_CBLT)( void* /*p_data*/, UINT8 /*address*/, MCST_CBLT_board_pos /*MCST_CBLT position*/ );           //!< Pointer to board specif set_MCST_CBLT method
 } cvt_board_data;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +117,7 @@ void cvt_delay(int msec);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, long vme_handle, const cvt_reg_table* p_reg_table);
+/*! \fn      _BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, long vme_handle, const cvt_reg_table* p_reg_table);
  *   \brief   Basic board open
  *            
  *            Provides basic handling for board opening, common to all the boards.
@@ -129,10 +129,10 @@ void cvt_delay(int msec);
  *   \note    This API if typically called by derived boards during open procedure.
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, long vme_handle, const cvt_reg_table* p_reg_table);
+CVT_DLL_API _BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, long vme_handle, const cvt_reg_table* p_reg_table);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_board_close( cvt_board_data* p_data);
+/*! \fn      _BOOL cvt_board_close( cvt_board_data* p_data);
  *   \brief   Basic board close
  *            
  *            Provides basic handling for board closing, common to all the boards.
@@ -141,7 +141,7 @@ CVT_DLL_API BOOL cvt_board_open( cvt_board_data* p_data, UINT16 base_address, lo
  *   \note    This API if typically called by derived boards during close procedure.
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_board_close( cvt_board_data* p_data);
+CVT_DLL_API _BOOL cvt_board_close( cvt_board_data* p_data);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -150,7 +150,7 @@ CVT_DLL_API BOOL cvt_board_close( cvt_board_data* p_data);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVAddressModifier am, CVDataWidth data_size);
+/*! \fn      _BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVAddressModifier am, CVDataWidth data_size);
  *   \brief   Writes a register onto VME board
  *            
  *            Writes a value at relative address, with specific address modifier and data size
@@ -162,10 +162,10 @@ CVT_DLL_API BOOL cvt_board_close( cvt_board_data* p_data);
  *   \return  _TRUE  write procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVAddressModifier am, CVDataWidth data_size);
+CVT_DLL_API _BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* p_value, CVAddressModifier am, CVDataWidth data_size);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size);
+/*! \fn      _BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size);
  *   \brief   Reads a register from VME board
  *            
  *            Reads a value at relative address, with specific address modifier and data size
@@ -177,10 +177,10 @@ CVT_DLL_API BOOL cvt_write( cvt_board_data* p_data, UINT16 address, const void* 
  *   \return  _TRUE  read procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size);
+CVT_DLL_API _BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value, CVAddressModifier am, CVDataWidth data_size);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
+/*! \fn      _BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
  *   \brief   Sets bitmask onto VME board register
  *            
  *            Reads the actual register value, ORs it with the bitmask and write back to the register.
@@ -192,10 +192,10 @@ CVT_DLL_API BOOL cvt_read( cvt_board_data* p_data, UINT16 address, void* p_value
  *   \return  _TRUE  write procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
+CVT_DLL_API _BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
+/*! \fn      _BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
  *   \brief   Clears bitmask onto VME board register
  *            
  *            Reads the actual register value, ANDs it with the complementary bitmask and write back to the register.
@@ -207,10 +207,10 @@ CVT_DLL_API BOOL cvt_set_bitmask( cvt_board_data* p_data, UINT16 address, void *
  *   \return  _TRUE  write procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
+CVT_DLL_API _BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void *p_value, CVAddressModifier am, CVDataWidth data_size);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, CVAddressModifier am, CVDataWidth data_size, BOOL *p_is_berr);
+/*! \fn      _BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, CVAddressModifier am, CVDataWidth data_size, _BOOL *p_is_berr);
  *   \brief   Performs a FIFO BLT read from VME board
  *            
  *            Reads a buffer of value at relative address, with specific address modifier and data size in FIFO BLT mode
@@ -225,10 +225,10 @@ CVT_DLL_API BOOL cvt_clear_bitmask( cvt_board_data* p_data, UINT16 address, void
  *   \return  _TRUE  read procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, CVAddressModifier am, CVDataWidth data_size, BOOL *p_is_berr);
+CVT_DLL_API _BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, CVAddressModifier am, CVDataWidth data_size, _BOOL *p_is_berr);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const void* p_value);
+/*! \fn      _BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const void* p_value);
  *   \brief   Writes a register onto VME board
  *            
  *            Writes a value to a register specified by register index. 
@@ -239,10 +239,10 @@ CVT_DLL_API BOOL cvt_FIFO_BLT_read( cvt_board_data* p_data, UINT16 address, void
  *   \return  _TRUE  write procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const void* p_value);
+CVT_DLL_API _BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const void* p_value);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value);
+/*! \fn      _BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value);
  *   \brief   Reads a register from VME board
  *            
  *            Reads a value a register specified by register index. 
@@ -253,10 +253,10 @@ CVT_DLL_API BOOL cvt_write_reg( cvt_board_data* p_data, UINT16 reg_index, const 
  *   \return  _TRUE  read procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value);
+CVT_DLL_API _BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_value);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
+/*! \fn      _BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
  *   \brief   Sets bitmask onto VME board register
  *            
  *            Reads the actual register value, ORs it with the bitmask and write back to the register.
@@ -267,10 +267,10 @@ CVT_DLL_API BOOL cvt_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p
  *   \return  _TRUE  write procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
+CVT_DLL_API _BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
+/*! \fn      _BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
  *   \brief   Clears bitmask onto VME board register
  *            
  *            Reads the actual register value, ANDs it with the complementary bitmask and write back to the register.
@@ -281,10 +281,10 @@ CVT_DLL_API BOOL cvt_set_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, 
  *   \return  _TRUE  write procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
+CVT_DLL_API _BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index, void *p_value);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, BOOL *p_is_berr);
+/*! \fn      _BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, _BOOL *p_is_berr);
  *   \brief   Performs a FIFO BLT read from VME board
  *            
  *            Reads a buffer of register values specified by register index.
@@ -298,7 +298,7 @@ CVT_DLL_API BOOL cvt_clear_bitmask_reg( cvt_board_data* p_data, UINT16 reg_index
  *   \return  _TRUE  read procedure ok
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, BOOL *p_is_berr);
+CVT_DLL_API _BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index, void* p_buffer, UINT32 buffer_size, UINT32 *p_read_bytes, _BOOL *p_is_berr);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -307,7 +307,7 @@ CVT_DLL_API BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*! \fn      BOOL cvt_set_MCST_CBLT( UINT8 address, cvt_board_data** board_array, UINT16 board_array_len);
+/*! \fn      _BOOL cvt_set_MCST_CBLT( UINT8 address, cvt_board_data** board_array, UINT16 board_array_len);
  *   \brief   Setups MCST/CBLT parameters for a group of boards.
  *            
  *            Setups the relevant parameters for MCST/CBLT usage for a collection of boards.
@@ -317,7 +317,7 @@ CVT_DLL_API BOOL cvt_FIFO_BLT_read_reg( cvt_board_data* p_data, UINT16 reg_index
  *   \return  _TRUE: Procedure successfully executed
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////
-CVT_DLL_API BOOL cvt_set_MCST_CBLT( UINT8 address, cvt_board_data** board_array, UINT16 board_array_len);
+CVT_DLL_API _BOOL cvt_set_MCST_CBLT( UINT8 address, cvt_board_data** board_array, UINT16 board_array_len);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
