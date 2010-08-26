@@ -21,7 +21,7 @@ endif
 
 #-------- linux flags
 ifeq ($(OSTYPE), linux)
-	M_CFLAGS = -DOS_LINUX -Dextname -I$(MIDASSYS)/include/midas
+	M_CFLAGS = -DOS_LINUX -Dextname -I$(MIDASSYS)/include/midas -I${MIDASSYS}/include
 	M_LIBS   = -lm -lz -lutil -lnsl -lpthread -lodbc -L$(MIDASSYS)/lib -lmidas
 endif
 M_OBJDIR := $(MIDASSYS)/lib/midas

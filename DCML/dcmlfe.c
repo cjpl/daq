@@ -175,13 +175,17 @@ INT begin_of_run( INT rnum, char *error)
   BOOL  isExtTrig     = _FALSE;
   BOOL  isSoftTrig    = _FALSE;
   BOOL  isTrigOverlap = _TRUE;
-  INT   ch_threshold;
+  INT   ch_threshold, dac_offset;
   int   i=0;
 
   /* Read ODB settings about V1724 and apply them */
 
   /* Clock: PLL settings */
-  if( digi_set.pll_file != NULL ) { }
+  /* if( (digi_set.pll_file != NULL) && */
+  /*     (cvt_V1724_pll_upgrade(m_p_v1724, digi_set.pll_file) != _TRUE)) { */
+  /*   cm_msg(MERROR, "FE", "Failed to load PLL settings from file %s!", digi_set.pll_file); */
+  /*   return FE_ERROR; */
+  /* } */
 
   /* Trigger type: digi_set.trig.type
        bit0: 1 -- auto
@@ -208,13 +212,19 @@ INT begin_of_run( INT rnum, char *error)
   }
 
   /* Settings for enabled channels: i=0..7
-     a. Threshold:  digi_set.threshold[i]
-     b. DAS offset: digi_set.das_offset[i]
+     a. Threshold:  digi_set.trig_threshold[i]
+     b. DAC offset: digi_set.dac_offset[i]
+     c. Sample threshold: digi_set.sample_thres[i]
   */
   for(i=0; i<8; i++) {
-    if( !(digi_set.channel_mask & (1<<i)) ) continue;
-    ch_threshold = (INT) (digi_set.threshold[i] * V1724_THRES_SCALE);
-    cvt_V1724_set_channel_trigger( m_p_v1724, 1<<i, ch_threshold, 0);
+    if( !(digi_set.channel_mask & (1<<i)) ) continue; /* Channel i not opened */
+
+    ch_threshold = (INT) (digi_set.trig_threshold[i] * V1724_THRES_SCALE);
+    cvt_V1724_set_channel_trigger( m_p_v1724, 1<<i, ch_threshold,
+				   digi_set.sample_thres[i] );
+
+    dac_offset = (INT)(digi_set.dac_offset[i] * V1724_DAC_FACTOR);
+    cvt_V1724_set_channel_offset( m_p_v1724, 1<<i, dac_offset );
   }
 
   /* Initialize V1724 and start acquisition */
@@ -256,6 +266,19 @@ INT frontend_loop() { return SUCCESS; }
 INT poll_event( INT source, INT count, BOOL test)
 {
   /* Check V1724 status, if data avaliable, return OK */
+  BOOL isMEBnotEmpty = _FALSE;
+  BOOL isMEBfull = _FALSE;
+  BOOL isRunning = _TRUE;
+  BOOL isSomeEventReady = _FALSE;
+  BOOL isEventFull = _FALSE;
+  BOOL isP_S_IN = _FALSE;
+
+  if( cvt_V1724_get_acquisition_status(m_p_v1724, &isMEBnotEmpty, &isMEBfull,
+				       &isRunning, &isSomeEventReady,
+				       &isEventFull, &isP_S_IN) == _TRUE ) {
+    if( isRunning && (isMEBfull || isSomeEventReady || isEventFull )
+	return 1;
+  }
 
   return 0;
 }
@@ -269,7 +292,25 @@ INT interrupt_configure( INT cmd, INT source, POINTER_T adr)
 /*---- Event Readout -------------------------------*/
 INT read_digitizer_event( char *pevent, INT off)
 {
-  /* Read and parse samples from V1724, reformat them into MIDAS banks */
+  INT      ch_max_samples;
+  INT      num_events;
+  UINT8   *p_board_id;
+  UINT16  *p_buff[8];
+  UINT32  *p_trig_tim_tag;
+  UINT32  *p_event_cnt;
+
+  WORD  *pdata;
+
+  int i=0;
+
+  /* Prepare big banks */
+  bk_init32(pevent);
+
+  /* First: read data to cache */
+  if( cvt_V1724_read_data(m_p_v1724, &ch_max_samples, &num_events) != _TRUE )
+    return 0;
+
+  /* Reformat cache data; create banks */
 
   return bk_size(pevent); /* return bank size ... */
 }

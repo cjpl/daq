@@ -17,7 +17,7 @@
                 tation which can be used in the db_create_record function
                 to setup an ODB structure which matches the C structure.
 
-  Created on:   Thu Aug 26 14:04:37 2010
+  Created on:   Thu Aug 26 14:10:42 2010
 
 \********************************************************************/
 
@@ -37,7 +37,7 @@ typedef struct {
   WORD      buffer_size;
   float     trig_threshold[8];
   float     dac_offset[8];
-  float     sample_thres[8];
+  INT       sample_thres[8];
 } DIGITIZER_SETTINGS;
 
 #define DIGITIZER_SETTINGS_STR(_name) const char *_name[] = {\
@@ -71,7 +71,7 @@ typedef struct {
 "[5] 0",\
 "[6] 0",\
 "[7] 0",\
-"Sample Thres = FLOAT[8] :",\
+"Sample Thres = INT[8] :",\
 "[0] 0",\
 "[1] 0",\
 "[2] 0",\

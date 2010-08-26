@@ -97,8 +97,9 @@ DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
     + Channel mask
     + Threshold
 *** Trigger settings
+    + Mode
 *** Clock settings
-*** Control settings
+    + PLL file
 
 ** V1724 Control?
    1. Write parameters
@@ -107,8 +108,21 @@ DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
       - Stop  -- ~cvt_V1724_stop_acquisition(p_data)~
       - Reset -- ~cvt_V1724_software_reset(p_data)~
    3. Check status
-      - ~cvt_V1724_get_acquisition_status()~
-      - ~cvt_V1724_get_channel_status()~
+      - ~BOOL cvt_V1724_get_acquisition_status()~
+	* ~cvt_V1724_data* p_data~
+	* ~BOOL *p_is_MEB_not_empty~  -- MEB empty?
+	* ~BOOL *p_is_MEB_full~       -- MEB full?
+	* ~BOOL *p_is_running~        -- Running?
+	* ~BOOL *p_some_event_ready~  -- Event ready?
+	* ~BOOL *p_event_full~        -- Event full?
+	* ~BOOL *p_s_in~              -- FP S-IN logical state
+      - ~BOOL cvt_V1724_get_channel_status()~
+	* ~cvt_V1724_data* p_data~
+	* ~UINT8 ch_index~
+	* ~BOOL *p_is_dac_busy~          -- DAC\_BUSY flag
+	* ~BOOL *p_is_fifo_full~         -- FIFO\_FULL flag
+	* ~BOOL *p_is_fifo_almost_full~  -- FIFO\_EMPTY flag
+	* ~BOOL *p_is_block_remove_ok~   -- Channel's BLOCK\_REM\_OK flag
    4. Readout (see above)
 
 ** How to organize V1724 data in MIDAS banks?
@@ -117,11 +131,9 @@ DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
 ** ODB basic settings
    + ~export MIDAS_DIR=`pwd`~
    + ~odbedit~
-     #+BEGIN_EXAMPLE
-     
-     #+END_EXAMPLE
 
 ** V1724 settings
+   See ~ODB:/Equipment/Digitizer/Settings/~.
 
 * Code
 
