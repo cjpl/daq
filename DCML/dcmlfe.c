@@ -171,20 +171,53 @@ INT frontend_exit()
 /*---- Begin of Run ------------------------------------*/
 INT begin_of_run( INT rnum, char *error) 
 {
+  BOOL  isEdgeFalling = _FALSE;
+  BOOL  isExtTrig     = _FALSE;
+  BOOL  isSoftTrig    = _FALSE;
+  BOOL  isTrigOverlap = _TRUE;
+  INT   ch_threshold;
+  int   i=0;
+
   /* Read ODB settings about V1724 and apply them */
+
   /* Clock: PLL settings */
-  if( digi_set.pll_file != NULL ) {
+  if( digi_set.pll_file != NULL ) { }
+
+  /* Trigger type: digi_set.trig.type
+       bit0: 1 -- auto
+       bit1: 1 -- external
+       bit2: 1 -- force
+       The value can be OR-ed.
+     Post trigger: digi_set.trig.post_trig = 0..2**32
+     Trigger edge: digi_set.trig.edge
+       = 0  --  No Trig
+       = 1  --  Rising
+       = 2  --  Falling
+  */
+  if( digi_set.trig.edge == 2 ) isEdgeFalling = _TRUE;
+  if( digi_set.trig.type & 0x2 ) isExtTrig = _TRUE;
+  if( digi_set.trig.type & 0x4 ) isSoftTrig = _TRUE;
+  
+  if( cvt_V1724_set_trigger_mode( m_p_v1724, isEdgeFalling, isExtTrig,
+				  isSoftTrig, /* <BOOL soft trig en> */
+				  digi_set.channel_mask & 0xFF, /* <UINT8 ch_trig_mask> */
+				  isTrigOverlap,
+				  digi_set.trig.post_trig ) != _TRUE ) {
+    cm_msg(MERROR, "FE", "Failed to set trigger mode for V1724!");
+    return FE_ERROR;
   }
 
-  /* Trigger type*/
-  /* Post trigger */
-  /* Trigger edge */
-
-  /* Settings for enabled channels */
+  /* Settings for enabled channels: i=0..7
+     a. Threshold:  digi_set.threshold[i]
+     b. DAS offset: digi_set.das_offset[i]
+  */
+  for(i=0; i<8; i++) {
+    if( !(digi_set.channel_mask & (1<<i)) ) continue;
+    ch_threshold = (INT) (digi_set.threshold[i] * V1724_THRES_SCALE);
+    cvt_V1724_set_channel_trigger( m_p_v1724, 1<<i, ch_threshold, 0);
+  }
 
   /* Initialize V1724 and start acquisition */
-
-  /* Start V1724 */
   cvt_V1724_start_acquisition(m_p_v1724, digi_set.channel_mask);
 
   return SUCCESS;
