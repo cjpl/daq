@@ -301,9 +301,15 @@ INT read_digitizer_event( char *pevent, INT off)
   UINT32  *p_trig_time_tag;
   UINT32  *p_event_cnt;
 
-  WORD  *pdata;
+  UINT8    tmp_bid;
+  UINT32   tmp_ttt, tmp_ecnt;
 
-  int i,j;
+  WORD  *pdata;
+  BYTE  *pbyte;
+  DWORD *pdword;
+  
+  char bname[5];
+  int  i,j;
 
   /* Prepare big banks */
   bk_init32(pevent);
@@ -314,11 +320,40 @@ INT read_digitizer_event( char *pevent, INT off)
 
   /* Reformat cache data; create banks */
   for(i=0; i<num_events; i++) { /* loop all events */
+    *p_board_id = 0;
+    tmp_ttt = tmp_ecnt = 0;
+    tmp_bid = 0;
+    bk_create(pevent, "CMSK", TID_BYTE, &pbyte);
+    *pbyte = digi_set.channel_mask;
+    bk_close(pevent, pbyte);
+
     for(j=0; j<8; j++) { /* loop channel mask */
       if( digi_set.channel_mask & (1<<j) ) {
 	cvt_V1724_get_buffer_cache(m_p_v1724, i, j, p_puff[j],
 				   p_board_id, p_trig_time_tag, p_event_cnt);
 	/* Create banks: BDID, CMSK, STTT, ECNT, CHiS */
+	if( (*p_board_id != 0) && (tmp_bid == 0) ) { /* Band "BDID": board id */
+	  bk_create(pevent, "BDID", TID_BYTE, &pbyte);
+	  *pbyte = (BYTE)*p_board_id;
+	  bk_close(pevent, pbyte);
+	}
+	if( (*p_trig_time_tag != 0) && (tmp_ttt == 0) ) {
+	  bk_create(pevent, "STTT", TID_DWORD, &pdword);
+	  *pdword = *p_trig_time_tag;
+	  bk_close(pevent, pdword);
+	}
+	if( (*p_event_cnt != 0) && (tmp_ecnt == 0) ) {
+	  bk_create(pevent, "ECNT", TID_DOWRD, &pdword);
+	  *pdword = *p_event_cnt;
+	  bk_close(pevent, pdword);
+	}
+
+	/* Copy samples data into MIDAS bank CHiS */
+	sprintf(bname, "CH%1dS", j);
+
+	bk_create(pevent, bname, TID_WORD, &pdata);
+	memcpy((WORD *)pdata, p_buff, ch_max_samples);
+	bk_close(pevent, pdata + ch_max_samples);
       }
     }
   }
