@@ -185,8 +185,14 @@ DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
       * Bank : { string:name, word:type, word:data\_size }
       * Bank list : { char*9 :name, word:type, dword:size, char**:init_str,
         bool:output_flag, void*:addr, dword:n\_data, HNDLE:def\_key }
-      * banks of channel 0
-	- {"CH0S", TID\_WORD, N_SAMPLES, NULL} -- samples
-	- {"CH0T", TID\_DWORD, 1, NULL} -- trigger time tag
-	- {"CH0C", TID\_DWORD, 1, NULL} -- buffer size
+      * Banks
+	- {"BDID", TID\_BYTE,  1, NULL}, /* Board ID */
+	- {"CMSK", TID\_BYTE,  1, NULL}, /* Channel mask */
+	- {"STTT", TID\_DWORD, 1, NULL}, /* Trigger Time Tag (TTT) of sample */
+	- {"ECNT", TID\_DWORD, 1, NULL}, /* Event counter */
+	- {"CHiS", TID\_WORD,  V1724\_MAX\_CH\_SAMPLES, NULL},  /* CH i samples */
+	  - i=0..7
+	  - ~TID_WORD~, 16-bit
+	  - ~V1724_MAX_CH_SAMPLES~, 512k = 0x80000 = 524288
+	  - Must use ~bk_init32()~ before creating banks.
 

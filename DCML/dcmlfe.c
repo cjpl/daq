@@ -59,8 +59,9 @@ INT read_digitizer_event(char *pevent, INT off);
 /*---  Bank definitions --------------------------------------------*/
 /* WARNING: must use "bk_init32(void*)" before "bk_create()" */
 BANK_LIST digitizer_bank_list[] = {
-  {"STTT", TID_DWORD, 1, NULL}, /* Trigger Time Tag (TTT) of sample */
+  {"CMSK", TID_BYTE,  1, NULL}, /* Channel mask */
   {"BDID", TID_BYTE,  1, NULL}, /* Board ID */
+  {"STTT", TID_DWORD, 1, NULL}, /* Trigger Time Tag (TTT) of sample */
   {"ECNT", TID_DWORD, 1, NULL}, /* Event counter */
 
   {"CH0S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
@@ -199,8 +200,8 @@ INT begin_of_run( INT rnum, char *error)
        = 1  --  Rising
        = 2  --  Falling
   */
-  if( digi_set.trig.edge == 2 ) isEdgeFalling = _TRUE;
-  if( digi_set.trig.type & 0x2 ) isExtTrig = _TRUE;
+  if( digi_set.trig.edge == 2 )  isEdgeFalling = _TRUE;
+  if( digi_set.trig.type & 0x2 ) isExtTrig  = _TRUE;
   if( digi_set.trig.type & 0x4 ) isSoftTrig = _TRUE;
   
   if( cvt_V1724_set_trigger_mode( m_p_v1724, isEdgeFalling, isExtTrig,
@@ -275,7 +276,7 @@ INT poll_event( INT source, INT count, BOOL test)
   _BOOL isP_S_IN = _FALSE;
 
   if( cvt_V1724_get_acquisition_status(m_p_v1724, &isMEBnotEmpty, &isMEBfull,
-				       &isRunning, &isSomeEventReady,
+				       &isRunning,   &isSomeEventReady,
 				       &isEventFull, &isP_S_IN) == _TRUE ) {
     if( isRunning && (isMEBfull || isSomeEventReady || isEventFull ) )
 	return 1;
@@ -297,12 +298,12 @@ INT read_digitizer_event( char *pevent, INT off)
   UINT32   num_events;
   UINT8   *p_board_id;
   UINT16  *p_buff[8];
-  UINT32  *p_trig_tim_tag;
+  UINT32  *p_trig_time_tag;
   UINT32  *p_event_cnt;
 
   WORD  *pdata;
 
-  int i=0;
+  int i,j;
 
   /* Prepare big banks */
   bk_init32(pevent);
@@ -312,6 +313,15 @@ INT read_digitizer_event( char *pevent, INT off)
     return 0;
 
   /* Reformat cache data; create banks */
+  for(i=0; i<num_events; i++) { /* loop all events */
+    for(j=0; j<8; j++) { /* loop channel mask */
+      if( digi_set.channel_mask & (1<<j) ) {
+	cvt_V1724_get_buffer_cache(m_p_v1724, i, j, p_puff[j],
+				   p_board_id, p_trig_time_tag, p_event_cnt);
+	/* Create banks: BDID, CMSK, STTT, ECNT, CHiS */
+      }
+    }
+  }
 
   return bk_size(pevent); /* return bank size ... */
 }
