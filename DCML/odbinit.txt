@@ -1,0 +1,29 @@
+
+mkdir "/Equipment/Digitizer/Settings/"
+cd "/Equipment/Digitizer/Settings/"
+create WORD   "Base Address"
+create BYTE   "Channel Mask"
+create STRING "PLL File[1][256]"
+
+mkdir "/Equipment/Digitizer/Settings/Trig/"
+cd "/Equipment/Digitizer/Settings/Trig/"
+create BYTE  "Type"
+create INT   "Post Trig"
+create BYTE  "Edge"
+
+cd "/Equipment/Digitizer/Settings/"
+create WORD  "Buffer Size"
+create FLOAT "Trig Threshold[8]"
+create FLOAT "DAC Offset[8]"
+create FLOAT "Sample Thres[8]"
+
+mkdir "/System"
+cd "/System"
+create STRING "Prompt[1][256]"
+set Prompt "[%h:%e:%s]%p> "
+
+mkdir "/Experiment/Buffer sizes/"
+cd "/Experiment/Buffer sizes/"
+create DWORD "SYSMSG"
+set SYSMSG 0x4000000
+

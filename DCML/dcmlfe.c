@@ -29,7 +29,7 @@ INT display_period       = 3000;  /* micro-seconds, = 3 s */
 /* MIDAS buffer settings */
 INT max_event_size       = 0x10 * 1024 * 1024; /* 16 MB */
 INT max_event_size_frag  = 0x10 * 1024 * 1024; /* EQ_FRAGMENTED: 16 MB */
-INT event_buffer_size    = 0x10 * 1024 * 1024; /* 16 MB */
+INT event_buffer_size    = 0x40 * 1024 * 1024; /* 64 MB */
 
 /* VME Settings */
 #define VME_TYPE       cvV2718   /* Link: A2818 <--> V2718 <--> VME master bus */
