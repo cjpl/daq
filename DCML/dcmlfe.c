@@ -19,32 +19,37 @@
 
 /*-- Globals ----------------------------------------------------*/
 
-/* frontend name */
+/* frontend name (client name) */
 char *frontend_name      = "DCML frontend";
+/* File name */
 char *frontend_file_name = __FILE__;
-BOOL  frontend_call_loop = FALSE;
-
-INT display_period       = 3000;  /* micro-seconds, = 3 s */
+/* frontend_loop is called periodically */
+BOOL  frontend_call_loop = TRUE;
+/* Refresh the FE status page: micro-seconds, = 1 s */
+INT display_period       = 1000;
 
 /* MIDAS buffer settings */
-INT max_event_size       =  0x1 * 1024 * 1024; /* 8 MB */
-INT max_event_size_frag  =  0x1 * 1024 * 1024; /* EQ_FRAGMENTED: 8 MB */
-INT event_buffer_size    =  0x2 * 1024 * 1024; /* 16 MB */
+INT max_event_size       =  0x1 * 1024 * 1024; /* 1 MB */
+INT max_event_size_frag  =  0x8 * 1024 * 1024; /* EQ_FRAGMENTED: 8 MB */
+INT event_buffer_size    =  0x2 * 1024 * 1024; /* 2 MB */
 
-/* VME Settings */
-#define VME_TYPE       cvV2718   /* Link: A2818 <--> V2718 <--> VME master bus */
+/*-- VME Settings ----------------------------------------------*/
+/* Link: A2818 <--> V2718 <--> VME master bus */
+#define VME_TYPE       cvV2718
 #define VME_BOARD_LINK 0
-#define VME_BOARD_NUM  0         /* VME board number in the chaisy chain */
-int32_t  m_vhdl;  /* The VME handle: int32_t */
+/* VME board number in the chaisy chain */
+#define VME_BOARD_NUM  0
+/* The VME handle: int32_t */
+int32_t  m_vhdl;
 
 const CVT_V17XX_TYPES  digi_type = CVT_V1724;
 cvt_V1724_data  *m_p_v1724;     /* data handler of V1724: buffer, info, etc. */
 
-/* for MIDAS ODB handle */
-HNDLE           hSet;
-extern INT      run_state;
-extern HNDLE    hDB;
-DIGITIZER_SETTINGS  digi_set; /* Digitizer settings in MIDAS ODB */
+/*-- MIDAS ODB handle ------------------------------------------*/
+HNDLE       hSet, hDB;
+extern INT  run_state;
+/* Digitizer settings in MIDAS ODB */
+DIGITIZER_SETTINGS  digi_set;
 
 /*-- Function declarations -----------------------------------------*/
 INT frontend_init();
@@ -59,6 +64,7 @@ INT read_digitizer_event(char *pevent, INT off);
 
 /*---  Bank definitions --------------------------------------------*/
 /* WARNING: must use "bk_init32(void*)" before "bk_create()" */
+
 /* BANK_LIST digitizer_bank_list[] = { */
 /*   {"CMSK", TID_BYTE,  1, NULL}, /\* Channel mask *\/ */
 /*   {"BDID", TID_BYTE,  1, NULL}, /\* Board ID *\/ */
@@ -84,29 +90,21 @@ INT read_digitizer_event(char *pevent, INT off);
 #undef USE_INT
 EQUIPMENT equipment[] = {
   { "Digitizer",        /* Equipment name */
-
     { 5, 0,             /* Event ID, Trigger mask */
-
       "SYSTEM",         /* Event buffer */
-
-      EQ_POLLED,        /* Use polling mode */
-
+      EQ_POLLED | EQ_FRAGMENTED,        /* Use polling mode */
       0,                /* Event source */
       "MIDAS",          /* Format: MIDAS */
       TRUE,             /* Enabled */
-      RO_RUNNING
-      | RO_ODB,         /* Read only when running and update ODB */
+      RO_RUNNING | RO_ODB,         /* Read only when running and update ODB */
       1,                /* poll for 1ms */
       0,                /* Stop run after this event limit */
       0,                /* Number of sub-events */
       0,                /* don't log history */
-
-      "", "", "", },
-
+      "", "", "",
+    },
     read_digitizer_event, /* readout routine */
-
     NULL, NULL,
-    
     /* digitizer_bank_list,  // Bank list */
     NULL
   },
@@ -138,7 +136,7 @@ INT frontend_init()
 
   /* Enable hot-link on settings of the equipment */
   size = sizeof(DIGITIZER_SETTINGS);
-  if(  (status = db_open_record(hDB, hSet, &digi_set, size, MODE_READ,
+  if( (status = db_open_record(hDB, hSet, &digi_set, size, MODE_READ,
 				seq_callback, NULL)) != DB_SUCCESS )
     return status;
   
@@ -146,6 +144,9 @@ INT frontend_init()
   if( (cv_error = CAENVME_Init(VME_TYPE, VME_BOARD_LINK, VME_BOARD_NUM, &m_vhdl)) != cvSuccess ) {
     cm_msg(MERROR, "FE", "Failed to open VME interface! handler=%d", m_vhdl);
     return FE_ERROR;
+  }
+  else { /* DEBUG */
+    cm_msg(MINFO, "FE", "Open V2718 successfully! handler=0x%d", m_vhdl);
   }
 
   /* open board */
@@ -228,6 +229,9 @@ INT begin_of_run( INT rnum, char *error)
     cm_msg(MERROR, "FE", "Failed to set buffer size for V1724: %dk!", num_k_samples);
     return FE_ERROR;
   }
+  /* DEBUG */
+  cm_msg(MINFO, "FE", "Set buffer size: 0x%x (%d)", num_k_samples, num_k_samples);
+  cm_msg(MINFO, "FE", "Num_blocks written: 0x%x (%d)", num_block_written, num_block_written);
 
   /* Settings for enabled channels: i=0..7
      a. Threshold:  digi_set.trig_threshold[i]
@@ -249,8 +253,6 @@ INT begin_of_run( INT rnum, char *error)
   cm_msg(MINFO, "FE", "Channel_mask: 0x%x", digi_set.channel_mask);
   cm_msg(MINFO, "FE", "Base address: 0x%x", digi_set.base_address);
   cm_msg(MINFO, "FE", "m_type: 0x%x", m_p_v1724->m_type);
-  cm_msg(MINFO, "FE", "num_k_samples: %i", num_k_samples);
-  cm_msg(MINFO, "FE", "num_block_written: %i", num_block_written);
 
   /* Initialize V1724 and start acquisition */
   if( cvt_V1724_start_acquisition(m_p_v1724, digi_set.channel_mask) != _TRUE ) {
@@ -294,20 +296,21 @@ INT frontend_loop() { return SUCCESS; }
 INT poll_event( INT source, INT count, BOOL test)
 {
   /* Check V1724 status, if data avaliable, return OK */
-  _BOOL isMEBnotEmpty = _FALSE;
-  _BOOL isMEBfull = _FALSE;
-  _BOOL isRunning = _TRUE;
+  _BOOL isMEBnotEmpty    = _FALSE;
+  _BOOL isMEBfull        = _FALSE;
+  _BOOL isRunning        = _TRUE;
   _BOOL isSomeEventReady = _FALSE;
-  _BOOL isEventFull = _FALSE;
-  _BOOL isP_S_IN = _FALSE;
+  _BOOL isEventFull      = _FALSE;
+  _BOOL isP_S_IN         = _FALSE;
 
-  if( cvt_V1724_get_acquisition_status(m_p_v1724, &isMEBnotEmpty, &isMEBfull,
-				       &isRunning,   &isSomeEventReady,
-				       &isEventFull, &isP_S_IN) == _TRUE ) {
-    if( !test && isRunning && (isMEBfull || isSomeEventReady || isEventFull ) )
+  if( cvt_V1724_get_acquisition_status( m_p_v1724, &isMEBnotEmpty, &isMEBfull,
+					&isRunning,   &isSomeEventReady,
+					&isEventFull, &isP_S_IN) == _TRUE ) {
+    if( !test && (isRunning==_TRUE) && (isMEBfull || isSomeEventReady || isEventFull ) )
 	return 1;
   }
-  if( !isRunning ) cm_msg(MINFO, "FE", "V1724 not running!");
+  if( isRunning!=_TRUE ) cm_msg(MINFO, "FE", "V1724 not running!");
+  cm_msg(MINFO, "FE", "Test: %d", test);
 
   return 0;
 }
