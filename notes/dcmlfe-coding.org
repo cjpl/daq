@@ -196,3 +196,9 @@ DCML = {D}ata acquisition with {C}aen {M}odules and {L}ibraries
 	  - ~V1724_MAX_CH_SAMPLES~, 512k = 0x80000 = 524288
 	  - Must use ~bk_init32()~ before creating banks.
 
+** Problems
+*** "Max event size exceeds max system event size"
+    1. Increase ~MAX_EVENT_SIZE~ definition in "midas.h" (default: 0x40,0000)
+    2. Recompile MIDAS
+    3. Recompile DCML
+

@@ -22,8 +22,7 @@ cd "/System"
 create STRING "Prompt[1][256]"
 set Prompt "[%h:%e:%s]%p> "
 
-mkdir "/Experiment/Buffer sizes/"
-cd "/Experiment/Buffer sizes/"
-create DWORD "SYSMSG"
-set SYSMSG 0x4000000
+mkdir "/Experiment/Buffer Sizes/"
+cd "/Experiment/Buffer Sizes/"
+create DWORD "SYSTEM"
 

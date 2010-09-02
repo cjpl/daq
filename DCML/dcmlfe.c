@@ -27,15 +27,15 @@ BOOL  frontend_call_loop = FALSE;
 INT display_period       = 3000;  /* micro-seconds, = 3 s */
 
 /* MIDAS buffer settings */
-INT max_event_size       = 0x10 * 1024 * 1024; /* 16 MB */
-INT max_event_size_frag  = 0x10 * 1024 * 1024; /* EQ_FRAGMENTED: 16 MB */
-INT event_buffer_size    = 0x40 * 1024 * 1024; /* 64 MB */
+INT max_event_size       =  0x1 * 1024 * 1024; /* 8 MB */
+INT max_event_size_frag  =  0x1 * 1024 * 1024; /* EQ_FRAGMENTED: 8 MB */
+INT event_buffer_size    =  0x2 * 1024 * 1024; /* 16 MB */
 
 /* VME Settings */
 #define VME_TYPE       cvV2718   /* Link: A2818 <--> V2718 <--> VME master bus */
 #define VME_BOARD_LINK 0
 #define VME_BOARD_NUM  0         /* VME board number in the chaisy chain */
-int32_t  *m_vhdl;  /* The VME handle: int32_t */
+int32_t  m_vhdl;  /* The VME handle: int32_t */
 
 const CVT_V17XX_TYPES  digi_type = CVT_V1724;
 cvt_V1724_data  *m_p_v1724;     /* data handler of V1724: buffer, info, etc. */
@@ -89,7 +89,7 @@ EQUIPMENT equipment[] = {
 
       "SYSTEM",         /* Event buffer */
 
-      EQ_POLLED,
+      EQ_POLLED,        /* Use polling mode */
 
       0,                /* Event source */
       "MIDAS",          /* Format: MIDAS */
@@ -141,21 +141,22 @@ INT frontend_init()
   if(  (status = db_open_record(hDB, hSet, &digi_set, size, MODE_READ,
 				seq_callback, NULL)) != DB_SUCCESS )
     return status;
-
-  /* Read ODB settings */
   
   /* Initialize VME interface to get the handle: m_vhdl */
-  if( (cv_error = CAENVME_Init(VME_TYPE,VME_BOARD_LINK, VME_BOARD_NUM, m_vhdl)) != cvSuccess ) {
-    cm_msg(MERROR, "FE", "Failed to open VME interface!");
+  if( (cv_error = CAENVME_Init(VME_TYPE, VME_BOARD_LINK, VME_BOARD_NUM, &m_vhdl)) != cvSuccess ) {
+    cm_msg(MERROR, "FE", "Failed to open VME interface! handler=%d", m_vhdl);
     return FE_ERROR;
   }
 
   /* open board */
-  if( cvt_V1724_open(m_p_v1724, digi_set.base_address, *m_vhdl, digi_type)
+  m_p_v1724 = (cvt_V1724_data*) malloc(sizeof(cvt_V1724_data));
+  if( cvt_V1724_open(m_p_v1724, digi_set.base_address, m_vhdl, digi_type)
       != _TRUE ) {
     cm_msg(MERROR, "FE", "Failed to open V1724 board!");
     return FE_ERROR;
   }
+  /* DEBUG */
+  cm_msg(MINFO, "FE", "cvt_V1724_data: 0x%x", m_p_v1724);
 
   return SUCCESS;
 }
@@ -165,22 +166,27 @@ INT frontend_exit()
 {
   CVErrorCodes cv_error;
 
-  if( (cv_error = CAENVME_End(*m_vhdl)) != cvSuccess ) {
+  if( (cv_error = CAENVME_End(m_vhdl)) != cvSuccess ) {
     return FE_ERROR;
   }
 
+  free(m_p_v1724);
   return SUCCESS;
 }
 
 /*---- Begin of Run ------------------------------------*/
 INT begin_of_run( INT rnum, char *error) 
 {
+  int  i=0;
+
   _BOOL  isEdgeFalling = _FALSE;
   _BOOL  isExtTrig     = _FALSE;
   _BOOL  isSoftTrig    = _FALSE;
   _BOOL  isTrigOverlap = _TRUE;
-  INT   ch_threshold, dac_offset;
-  int   i=0;
+  INT  ch_threshold, dac_offset;
+
+  CVT_V1724_NUM_BLOCKS num_block_written;
+  UINT16  num_k_samples = (UINT16)(digi_set.buffer_size);
 
   /* Read ODB settings about V1724 and apply them */
 
@@ -196,7 +202,9 @@ INT begin_of_run( INT rnum, char *error)
        bit1: 1 -- external
        bit2: 1 -- force
        The value can be OR-ed.
+
      Post trigger: digi_set.trig.post_trig = 0..2**32
+
      Trigger edge: digi_set.trig.edge
        = 0  --  No Trig
        = 1  --  Rising
@@ -212,6 +220,12 @@ INT begin_of_run( INT rnum, char *error)
 				  isTrigOverlap,
 				  digi_set.trig.post_trig ) != _TRUE ) {
     cm_msg(MERROR, "FE", "Failed to set trigger mode for V1724!");
+    return FE_ERROR;
+  }
+
+  /* Buffer Size: digi_set.buffer_size */
+  if( cvt_V1724_set_buffer_samples(m_p_v1724, num_k_samples, &num_block_written) != _TRUE ) {
+    cm_msg(MERROR, "FE", "Failed to set buffer size for V1724: %dk!", num_k_samples);
     return FE_ERROR;
   }
 
@@ -231,8 +245,18 @@ INT begin_of_run( INT rnum, char *error)
     cvt_V1724_set_channel_offset( m_p_v1724, 1<<i, dac_offset );
   }
 
+  /* DEBUG */
+  cm_msg(MINFO, "FE", "Channel_mask: 0x%x", digi_set.channel_mask);
+  cm_msg(MINFO, "FE", "Base address: 0x%x", digi_set.base_address);
+  cm_msg(MINFO, "FE", "m_type: 0x%x", m_p_v1724->m_type);
+  cm_msg(MINFO, "FE", "num_k_samples: %i", num_k_samples);
+  cm_msg(MINFO, "FE", "num_block_written: %i", num_block_written);
+
   /* Initialize V1724 and start acquisition */
-  cvt_V1724_start_acquisition(m_p_v1724, digi_set.channel_mask);
+  if( cvt_V1724_start_acquisition(m_p_v1724, digi_set.channel_mask) != _TRUE ) {
+    cm_msg(MERROR, "FE", "Failed to start V1724");
+    return FE_ERROR;
+  }
 
   return SUCCESS;
 }
@@ -280,9 +304,10 @@ INT poll_event( INT source, INT count, BOOL test)
   if( cvt_V1724_get_acquisition_status(m_p_v1724, &isMEBnotEmpty, &isMEBfull,
 				       &isRunning,   &isSomeEventReady,
 				       &isEventFull, &isP_S_IN) == _TRUE ) {
-    if( isRunning && (isMEBfull || isSomeEventReady || isEventFull ) )
+    if( !test && isRunning && (isMEBfull || isSomeEventReady || isEventFull ) )
 	return 1;
   }
+  if( !isRunning ) cm_msg(MINFO, "FE", "V1724 not running!");
 
   return 0;
 }
