@@ -12,6 +12,7 @@
 
 #include <fcntl.h>
 #include <sys/ioctl.h>
+#include <string.h>
 
 #include "dcml.h"
 #include "cvt_V1724.h"
@@ -58,55 +59,56 @@ INT read_digitizer_event(char *pevent, INT off);
 
 /*---  Bank definitions --------------------------------------------*/
 /* WARNING: must use "bk_init32(void*)" before "bk_create()" */
-BANK_LIST digitizer_bank_list[] = {
-  {"CMSK", TID_BYTE,  1, NULL}, /* Channel mask */
-  {"BDID", TID_BYTE,  1, NULL}, /* Board ID */
-  {"STTT", TID_DWORD, 1, NULL}, /* Trigger Time Tag (TTT) of sample */
-  {"ECNT", TID_DWORD, 1, NULL}, /* Event counter */
+/* BANK_LIST digitizer_bank_list[] = { */
+/*   {"CMSK", TID_BYTE,  1, NULL}, /\* Channel mask *\/ */
+/*   {"BDID", TID_BYTE,  1, NULL}, /\* Board ID *\/ */
+/*   {"STTT", TID_DWORD, 1, NULL}, /\* Trigger Time Tag (TTT) of sample *\/ */
+/*   {"ECNT", TID_DWORD, 1, NULL}, /\* Event counter *\/ */
 
-  {"CH0S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH0 sample */
-  {"CH1S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH1 sample */
-  {"CH2S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH2 sample */
-  {"CH3S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH3 sample */
-  {"CH4S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH4 sample */
-  {"CH5S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH5 sample */
-  {"CH6S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH6 sample */
-  {"CH7S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /* CH7 sample */
+/*   {"CH0S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /\* CH0 sample *\/ */
+/*   {"CH1S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /\* CH1 sample *\/ */
+/*   {"CH2S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /\* CH2 sample *\/ */
+/*   {"CH3S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /\* CH3 sample *\/ */
+/*   {"CH4S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /\* CH4 sample *\/ */
+/*   {"CH5S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /\* CH5 sample *\/ */
+/*   {"CH6S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /\* CH6 sample *\/ */
+/*   {"CH7S", TID_WORD,  V1724_MAX_CH_SAMPLES, NULL},  /\* CH7 sample *\/ */
 
-  /* NULL end */
-  {""},
-};
+/*   /\* NULL end *\/ */
+/*   {""}, */
+/* }; */
 
 /*-- Equipment list ------------------------------------------------*/
 
 /* not use interrupt mode */
 #undef USE_INT
 EQUIPMENT equipment[] = {
-  { "Digitizer",        // Equipment name
+  { "Digitizer",        /* Equipment name */
 
-    { 5, 0,             // Event ID, Trigger mask
+    { 5, 0,             /* Event ID, Trigger mask */
 
-      "SYSTEM",         // Event buffer
+      "SYSTEM",         /* Event buffer */
 
       EQ_POLLED,
 
-      0,                // Event source
-      "MIDAS",          // Format: MIDAS
-      TRUE,             // Enabled
+      0,                /* Event source */
+      "MIDAS",          /* Format: MIDAS */
+      TRUE,             /* Enabled */
       RO_RUNNING
-      | RO_ODB,         // Read only when running and update ODB
-      1,                // poll for 1ms
-      0,                // Stop run after this event limit
-      0,                // Number of sub-events
-      0,                // don't log history
+      | RO_ODB,         /* Read only when running and update ODB */
+      1,                /* poll for 1ms */
+      0,                /* Stop run after this event limit */
+      0,                /* Number of sub-events */
+      0,                /* don't log history */
 
       "", "", "", },
 
-    read_digitizer_event, // readout routine
+    read_digitizer_event, /* readout routine */
 
     NULL, NULL,
-
-    digitizer_bank_list,  // Bank list
+    
+    /* digitizer_bank_list,  // Bank list */
+    NULL
   },
 
   {""}
@@ -296,10 +298,11 @@ INT read_digitizer_event( char *pevent, INT off)
 {
   UINT32   ch_max_samples;
   UINT32   num_events;
-  UINT8   *p_board_id;
   UINT16  *p_buff[8];
-  UINT32  *p_trig_time_tag;
-  UINT32  *p_event_cnt;
+  UINT8    board_id;
+  UINT32   buff_size;
+  UINT32   trig_time_tag;
+  UINT32   event_cnt;
 
   UINT8    tmp_bid;
   UINT32   tmp_ttt, tmp_ecnt;
@@ -320,37 +323,42 @@ INT read_digitizer_event( char *pevent, INT off)
 
   /* Reformat cache data; create banks */
   for(i=0; i<num_events; i++) { /* loop all events */
-    *p_board_id = 0;
     tmp_ttt = tmp_ecnt = 0;
     tmp_bid = 0;
     bk_create(pevent, "CMSK", TID_BYTE, &pbyte);
-    *pbyte = digi_set.channel_mask;
     bk_close(pevent, pbyte);
 
     for(j=0; j<8; j++) { /* loop channel mask */
       if( digi_set.channel_mask & (1<<j) ) {
-	cvt_V1724_get_buffer_cache(m_p_v1724, i, j, p_puff[j],
-				   p_board_id, p_trig_time_tag, p_event_cnt);
+	cvt_V1724_get_buffer_cache(m_p_v1724, i, j, p_buff[j], &buff_size,
+				   &board_id, &trig_time_tag, &event_cnt);
 	/* Create banks: BDID, CMSK, STTT, ECNT, CHiS */
-	if( (*p_board_id != 0) && (tmp_bid == 0) ) { /* Band "BDID": board id */
+	if( (board_id != 0) && (tmp_bid == 0) ) { /* Band "BDID": board id */
 	  bk_create(pevent, "BDID", TID_BYTE, &pbyte);
-	  *pbyte = (BYTE)*p_board_id;
-	  bk_close(pevent, pbyte);
+	  *pbyte  = (BYTE)board_id;
+	  tmp_bid = board_id;
+	  bk_close(pevent, pbyte+1);
 	}
-	if( (*p_trig_time_tag != 0) && (tmp_ttt == 0) ) {
+	if( (trig_time_tag != 0) && (tmp_ttt == 0) ) {
 	  bk_create(pevent, "STTT", TID_DWORD, &pdword);
-	  *pdword = *p_trig_time_tag;
-	  bk_close(pevent, pdword);
+	  *pdword = trig_time_tag;
+	  tmp_ttt = trig_time_tag;
+	  bk_close(pevent, pdword+1);
 	}
-	if( (*p_event_cnt != 0) && (tmp_ecnt == 0) ) {
-	  bk_create(pevent, "ECNT", TID_DOWRD, &pdword);
-	  *pdword = *p_event_cnt;
-	  bk_close(pevent, pdword);
+	if( (event_cnt != 0) && (tmp_ecnt == 0) ) {
+	  bk_create(pevent, "ECNT", TID_DWORD, &pdword);
+	  *pdword  = event_cnt;
+	  tmp_ecnt = event_cnt;
+	  bk_close(pevent, pdword+1);
 	}
+	/* Create bank BSZi: the buffer size bank */
+	sprintf(bname, "BSZ%1d", j);
+	bk_create(pevent, bname, TID_DWORD, &pdword);
+	*pdword = buff_size;
+	bk_close(pevent, pdword+1);
 
 	/* Copy samples data into MIDAS bank CHiS */
 	sprintf(bname, "CH%1dS", j);
-
 	bk_create(pevent, bname, TID_WORD, &pdata);
 	memcpy((WORD *)pdata, p_buff, ch_max_samples);
 	bk_close(pevent, pdata + ch_max_samples);
