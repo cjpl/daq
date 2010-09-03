@@ -1,14 +1,13 @@
 -----------------------------------------------------------------------------
 
-                   --- CAEN SpA - Front End R&D Division ---
+                   --- CAEN SpA - Computing Division ---
 
                                 www.caen.it
 
   -----------------------------------------------------------------------------
 
   Program: WaveDump
-  Date:    30/01/2009
-  Author:  Luca Colombini
+
 
   -----------------------------------------------------------------------------
 
@@ -20,20 +19,19 @@
 
   WaveDump_ReleaseNotes.txt  :  Revision History and notes.
 
-   src         :  Source files
-   inc         :  Include files
+   src          :  Source files
+   inc          :  Include files
+   build		:  Windows Project files
+   bin			:  Executable files
+   doc			:  Documentation
+   gnuplot		:  Windows gnuplot executable folder 
 
 
   System Requirements
   -----------------------------------------------------------------------------
-  - CAEN A2818 PCI-CONET Board installed on your PC
-  - Windows 98/2000/XP or Linux kernel 2.4 or 2.6
+  - CAEN Digitizer Library
+  - Microsoft Windows XP/Vista/7 or Linux kernel 2.4 or 2.6
   - GNUplot 4.2 (www.gnuplot.org)
-
-  Note
-  -----------------------------------------------------------------------------
-  CAEN A2818 PCI-CONET Board Windows driver is based on PLX API libraries.
-  Copyright (c) 2003 PLX Technology, Inc.
 
 
   How to get support

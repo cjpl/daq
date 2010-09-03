@@ -48,7 +48,8 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(pkgdatadir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_wavedump_OBJECTS = wavedump.$(OBJEXT) wave.$(OBJEXT) keyb.$(OBJEXT)
+am_wavedump_OBJECTS = wavedump.$(OBJEXT) WDplot.$(OBJEXT) \
+	keyb.$(OBJEXT)
 wavedump_OBJECTS = $(am_wavedump_OBJECTS)
 wavedump_DEPENDENCIES =
 DEFAULT_INCLUDES = -I. -I$(srcdir)
@@ -143,8 +144,8 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-wavedump_SOURCES = wavedump.c wave.c keyb.c
-wavedump_LDADD = -lCAENVME -lm
+wavedump_SOURCES = wavedump.c WDplot.c keyb.c
+wavedump_LDADD = -lCAENDigitizer -lm
 INCLUDES = -I../inc
 AM_CFLAGS = -fPIC
 pkgdata_DATA = WaveDumpConfig.txt
@@ -214,8 +215,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WDplot.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/keyb.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wave.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wavedump.Po@am__quote@
 
 .c.o:

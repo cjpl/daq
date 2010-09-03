@@ -1,7 +1,7 @@
 
   -----------------------------------------------------------------------------
 
-                   --- CAEN SpA - Front End R&D Division ---
+                   --- CAEN SpA - Computing Division ---
 
   -----------------------------------------------------------------------------
 
@@ -9,6 +9,11 @@
 
   -----------------------------------------------------------------------------
 
+  Rel. 2.1 - Added interrupt support
+           - Added support for 8 bit data events
+           - Added support for binary file saving
+           - Added support for file saving with channel header (binary and ascii)
+  Rel. 2.0 - Code completely rewritten using the CAENDigitizer and CAENComm libraries
   Rel. 1.9 - Code clearup and refactoring. Added full support for V1740.
   Rel. 1.8 - March 2008 - First official Release
 
@@ -19,14 +24,14 @@
   -----------
 
   This file describes the revision history of WaveDump, a sample program for
-  the CAEN VME Digitisers boards (V1724/V1721/V1731/V1720).
+  the CAEN VME Digitisers boards.
   See the file WaveDump_README.txt for more informations.
 
   System Requirements
   -------------------
 
-  - CAEN A2818 PCI-CONET Board installed on your PC
-  - Windows 98/2000/XP or Linux kernel 2.4 or 2.6
+  - CAEN Digitizer library
+  - Linux kernel 2.4 or 2.6
   - GNUplot 4.2 (www.gnuplot.org)
 
 
