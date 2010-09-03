@@ -234,7 +234,7 @@ configuration-related scripts to be executed by `/bin/bash'.
 `configure' also accepts some other, not widely useful, options.  Run
 `configure --help' for more details.
 
-'install'
+Install WaveDump
 =====================
 
 to install WavedDump:
