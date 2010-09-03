@@ -1,0 +1,54 @@
+  -----------------------------------------------------------------------------
+
+                   --- CAEN SpA - Computing Systems Division --- 
+
+  -----------------------------------------------------------------------------
+
+  CAENDigitizer Library Release Notes
+
+  -----------------------------------------------------------------------------
+
+  Rel. 1.0  - August 2010
+ 
+  -----------------------------------------------------------------------------
+ 
+
+  Description
+  -----------
+
+  This document is updated for every official release of the CAENDigitizer Library 
+  and it contains various information specific to this software which can not
+  be found in the User's Manual, available together with the software or on 
+  the CAEN web site: www.caen.it.
+
+
+ System Requirements
+ -------------------
+ 
+  - Linux kernel 2.4/2.6
+  - CAENComm library version 1.01 or above.  
+        
+  What's New in Rel. 1.0
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+
+   - First release              
+
+ 
+  Determining Your Software Release
+  ---------------------------------
+
+  To determine the complete software release of the CAENDigitizer Library
+  installed in your machine, you must write a program and use the
+  CAEN_DGTZ_SWRelease API function.
+                         
+
+  How to get support
+  ------------------
+
+  Our Software Support Group is available for questions, support and any other 
+  software related issue concerning CAEN products; for software support
+  visit the page www.caen.it/computing/support.php.
+
