@@ -30,8 +30,8 @@ INT display_period       = 1000;
 
 /* MIDAS buffer settings */
 INT max_event_size       =  0x1 * 1024 * 1024; /* 1 MB */
-INT max_event_size_frag  =  0x8 * 1024 * 1024; /* EQ_FRAGMENTED: 8 MB */
 INT event_buffer_size    =  0x2 * 1024 * 1024; /* 2 MB */
+INT max_event_size_frag  =  0x8 * 1024 * 1024; /* EQ_FRAGMENTED: 8 MB */
 
 /*-- VME Settings ----------------------------------------------*/
 /* Link: A2818 <--> V2718 <--> VME master bus */
@@ -189,6 +189,9 @@ INT begin_of_run( INT rnum, char *error)
   CVT_V1724_NUM_BLOCKS num_block_written;
   UINT16  num_k_samples = (UINT16)(digi_set.buffer_size);
 
+  /* temp */
+  /* UINT32 reg_val=0, set_msk=0; */
+
   /* Read ODB settings about V1724 and apply them */
 
   /* Clock: PLL settings */
@@ -254,11 +257,24 @@ INT begin_of_run( INT rnum, char *error)
   cm_msg(MINFO, "FE", "Base address: 0x%x", digi_set.base_address);
   cm_msg(MINFO, "FE", "m_type: 0x%x", m_p_v1724->m_type);
 
-  /* Initialize V1724 and start acquisition */
+  /* Start acquisition */
   if( cvt_V1724_start_acquisition(m_p_v1724, digi_set.channel_mask) != _TRUE ) {
     cm_msg(MERROR, "FE", "Failed to start V1724");
     return FE_ERROR;
   }
+  /* reg_val = digi_set.channel_mask; */
+  /* if( cvt_write_reg( &m_p_v1724->m_common_data, CVT_V1724_CH_ENABLE_INDEX, &reg_val) != _TRUE ) { */
+  /*   cm_msg(MERROR, "FE", "V1724 channel enable write failed!"); */
+  /* } */
+  /* set_msk |= CVT_V1724_ACQCTRL_START_MSK; */
+  /* if( cvt_set_bitmask_reg( &m_p_v1724->m_common_data, CVT_V1724_ACQ_CONTROL_INDEX, &set_msk) != _TRUE ) { */
+  /*   cm_msg(MERROR, "FE", "Acquisition write failed!"); */
+  /* } */
+
+  /* DEBUG */
+  /* cm_msg(MINFO, "FE", "Writed channel mask: 0x%x", digi_set.channel_mask); */
+  /* cm_msg(MINFO, "FE", "Writed channel mask value: 0x%x", reg_val); */
+  /* cm_msg(MINFO, "FE", "Writed ACQ control: 0x%x", set_msk); */
 
   return SUCCESS;
 }
@@ -298,19 +314,25 @@ INT poll_event( INT source, INT count, BOOL test)
   /* Check V1724 status, if data avaliable, return OK */
   _BOOL isMEBnotEmpty    = _FALSE;
   _BOOL isMEBfull        = _FALSE;
-  _BOOL isRunning        = _TRUE;
+  _BOOL isRunning        = _FALSE;
   _BOOL isSomeEventReady = _FALSE;
   _BOOL isEventFull      = _FALSE;
   _BOOL isP_S_IN         = _FALSE;
 
   if( cvt_V1724_get_acquisition_status( m_p_v1724, &isMEBnotEmpty, &isMEBfull,
-					&isRunning,   &isSomeEventReady,
-					&isEventFull, &isP_S_IN) == _TRUE ) {
+  					&isRunning,   &isSomeEventReady,
+  					&isEventFull, &isP_S_IN) == _TRUE ) {
     if( !test && (isRunning==_TRUE) && (isMEBfull || isSomeEventReady || isEventFull ) )
-	return 1;
+  	return 1;
+    if( isRunning!=_TRUE ) cm_msg(MINFO, "FE", "V1724 not running!");
+
+  /* UINT32 reg_val=0; */
+
+  /* if( !cvt_read_reg( &m_p_v1724->m_common_data, CVT_V1724_ACQ_STATUS_INDEX, &reg_val) ) { */
+  /*   if( reg_val & 0x1F ) return 1; */
+  } else {
+    cm_msg(MERROR, "FE", "Failed to check V1724 status!");
   }
-  if( isRunning!=_TRUE ) cm_msg(MINFO, "FE", "V1724 not running!");
-  cm_msg(MINFO, "FE", "Test: %d", test);
 
   return 0;
 }
